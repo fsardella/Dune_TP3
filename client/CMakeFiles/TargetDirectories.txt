@@ -1,0 +1,4 @@
+/home/pilar/Escritorio/menu1/CMakeFiles/rebuild_cache.dir
+/home/pilar/Escritorio/menu1/CMakeFiles/edit_cache.dir
+/home/pilar/Escritorio/menu1/CMakeFiles/menu1.dir
+/home/pilar/Escritorio/menu1/CMakeFiles/menu1_autogen.dir
