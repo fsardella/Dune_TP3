@@ -44,83 +44,246 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pilar/Escritorio/menu1
+CMAKE_SOURCE_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pilar/Escritorio/menu1
+CMAKE_BINARY_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/menu1.dir/all
+all: CMakeFiles/qt-plus-sdl.dir/all
+all: CMakeFiles/qt-standalone.dir/all
+all: CMakeFiles/sdl-standalone.dir/all
+all: lib/libSDL2pp/all
 
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: lib/libSDL2pp/preinstall
 
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/menu1.dir/clean
-clean: CMakeFiles/menu1_autogen.dir/clean
+clean: CMakeFiles/qt-plus-sdl.dir/clean
+clean: CMakeFiles/qt-standalone.dir/clean
+clean: CMakeFiles/sdl-standalone.dir/clean
+clean: CMakeFiles/qt-plus-sdl_autogen.dir/clean
+clean: CMakeFiles/qt-standalone_autogen.dir/clean
+clean: CMakeFiles/sdl-standalone_autogen.dir/clean
+clean: lib/libSDL2pp/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/menu1.dir
+# Directory level rules for directory lib/libSDL2pp
 
-# All Build rule for target.
-CMakeFiles/menu1.dir/all: CMakeFiles/menu1_autogen.dir/all
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/depend
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/menu1/CMakeFiles --progress-num=1,2,3,4 "Built target menu1"
-.PHONY : CMakeFiles/menu1.dir/all
+# Recursive "all" directory target.
+lib/libSDL2pp/all: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
 
-# Build rule for subdir invocation for target.
-CMakeFiles/menu1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles 5
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/menu1.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles 0
-.PHONY : CMakeFiles/menu1.dir/rule
+.PHONY : lib/libSDL2pp/all
 
-# Convenience name for target.
-menu1: CMakeFiles/menu1.dir/rule
+# Recursive "preinstall" directory target.
+lib/libSDL2pp/preinstall:
 
-.PHONY : menu1
+.PHONY : lib/libSDL2pp/preinstall
 
-# clean rule for target.
-CMakeFiles/menu1.dir/clean:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/clean
-.PHONY : CMakeFiles/menu1.dir/clean
+# Recursive "clean" directory target.
+lib/libSDL2pp/clean: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/clean
+
+.PHONY : lib/libSDL2pp/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/menu1_autogen.dir
+# Target rules for target CMakeFiles/qt-plus-sdl.dir
 
 # All Build rule for target.
-CMakeFiles/menu1_autogen.dir/all:
-	$(MAKE) -f CMakeFiles/menu1_autogen.dir/build.make CMakeFiles/menu1_autogen.dir/depend
-	$(MAKE) -f CMakeFiles/menu1_autogen.dir/build.make CMakeFiles/menu1_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/menu1/CMakeFiles --progress-num=5 "Built target menu1_autogen"
-.PHONY : CMakeFiles/menu1_autogen.dir/all
+CMakeFiles/qt-plus-sdl.dir/all: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+CMakeFiles/qt-plus-sdl.dir/all: CMakeFiles/qt-plus-sdl_autogen.dir/all
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/depend
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=21,22,23,24,25,26,27,28 "Built target qt-plus-sdl"
+.PHONY : CMakeFiles/qt-plus-sdl.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/menu1_autogen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/menu1_autogen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles 0
-.PHONY : CMakeFiles/menu1_autogen.dir/rule
+CMakeFiles/qt-plus-sdl.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 29
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/qt-plus-sdl.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/qt-plus-sdl.dir/rule
 
 # Convenience name for target.
-menu1_autogen: CMakeFiles/menu1_autogen.dir/rule
+qt-plus-sdl: CMakeFiles/qt-plus-sdl.dir/rule
 
-.PHONY : menu1_autogen
+.PHONY : qt-plus-sdl
 
 # clean rule for target.
-CMakeFiles/menu1_autogen.dir/clean:
-	$(MAKE) -f CMakeFiles/menu1_autogen.dir/build.make CMakeFiles/menu1_autogen.dir/clean
-.PHONY : CMakeFiles/menu1_autogen.dir/clean
+CMakeFiles/qt-plus-sdl.dir/clean:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/clean
+.PHONY : CMakeFiles/qt-plus-sdl.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/qt-standalone.dir
+
+# All Build rule for target.
+CMakeFiles/qt-standalone.dir/all: CMakeFiles/qt-standalone_autogen.dir/all
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/depend
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=30,31,32,33,34 "Built target qt-standalone"
+.PHONY : CMakeFiles/qt-standalone.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/qt-standalone.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/qt-standalone.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/qt-standalone.dir/rule
+
+# Convenience name for target.
+qt-standalone: CMakeFiles/qt-standalone.dir/rule
+
+.PHONY : qt-standalone
+
+# clean rule for target.
+CMakeFiles/qt-standalone.dir/clean:
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/clean
+.PHONY : CMakeFiles/qt-standalone.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sdl-standalone.dir
+
+# All Build rule for target.
+CMakeFiles/sdl-standalone.dir/all: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+CMakeFiles/sdl-standalone.dir/all: CMakeFiles/sdl-standalone_autogen.dir/all
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/depend
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=36,37,38,39,40,41 "Built target sdl-standalone"
+.PHONY : CMakeFiles/sdl-standalone.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sdl-standalone.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 27
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sdl-standalone.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/sdl-standalone.dir/rule
+
+# Convenience name for target.
+sdl-standalone: CMakeFiles/sdl-standalone.dir/rule
+
+.PHONY : sdl-standalone
+
+# clean rule for target.
+CMakeFiles/sdl-standalone.dir/clean:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/clean
+.PHONY : CMakeFiles/sdl-standalone.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/qt-plus-sdl_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/qt-plus-sdl_autogen.dir/all: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+	$(MAKE) -f CMakeFiles/qt-plus-sdl_autogen.dir/build.make CMakeFiles/qt-plus-sdl_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/qt-plus-sdl_autogen.dir/build.make CMakeFiles/qt-plus-sdl_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=29 "Built target qt-plus-sdl_autogen"
+.PHONY : CMakeFiles/qt-plus-sdl_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/qt-plus-sdl_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 21
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/qt-plus-sdl_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/qt-plus-sdl_autogen.dir/rule
+
+# Convenience name for target.
+qt-plus-sdl_autogen: CMakeFiles/qt-plus-sdl_autogen.dir/rule
+
+.PHONY : qt-plus-sdl_autogen
+
+# clean rule for target.
+CMakeFiles/qt-plus-sdl_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl_autogen.dir/build.make CMakeFiles/qt-plus-sdl_autogen.dir/clean
+.PHONY : CMakeFiles/qt-plus-sdl_autogen.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/qt-standalone_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/qt-standalone_autogen.dir/all:
+	$(MAKE) -f CMakeFiles/qt-standalone_autogen.dir/build.make CMakeFiles/qt-standalone_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/qt-standalone_autogen.dir/build.make CMakeFiles/qt-standalone_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=35 "Built target qt-standalone_autogen"
+.PHONY : CMakeFiles/qt-standalone_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/qt-standalone_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/qt-standalone_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/qt-standalone_autogen.dir/rule
+
+# Convenience name for target.
+qt-standalone_autogen: CMakeFiles/qt-standalone_autogen.dir/rule
+
+.PHONY : qt-standalone_autogen
+
+# clean rule for target.
+CMakeFiles/qt-standalone_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/qt-standalone_autogen.dir/build.make CMakeFiles/qt-standalone_autogen.dir/clean
+.PHONY : CMakeFiles/qt-standalone_autogen.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sdl-standalone_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/sdl-standalone_autogen.dir/all: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+	$(MAKE) -f CMakeFiles/sdl-standalone_autogen.dir/build.make CMakeFiles/sdl-standalone_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/sdl-standalone_autogen.dir/build.make CMakeFiles/sdl-standalone_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=42 "Built target sdl-standalone_autogen"
+.PHONY : CMakeFiles/sdl-standalone_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sdl-standalone_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 21
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sdl-standalone_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : CMakeFiles/sdl-standalone_autogen.dir/rule
+
+# Convenience name for target.
+sdl-standalone_autogen: CMakeFiles/sdl-standalone_autogen.dir/rule
+
+.PHONY : sdl-standalone_autogen
+
+# clean rule for target.
+CMakeFiles/sdl-standalone_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/sdl-standalone_autogen.dir/build.make CMakeFiles/sdl-standalone_autogen.dir/clean
+.PHONY : CMakeFiles/sdl-standalone_autogen.dir/clean
+
+#=============================================================================
+# Target rules for target lib/libSDL2pp/CMakeFiles/SDL2pp.dir
+
+# All Build rule for target.
+lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all:
+	$(MAKE) -f lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build.make lib/libSDL2pp/CMakeFiles/SDL2pp.dir/depend
+	$(MAKE) -f lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build.make lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target SDL2pp"
+.PHONY : lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+
+# Build rule for subdir invocation for target.
+lib/libSDL2pp/CMakeFiles/SDL2pp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 20
+	$(MAKE) -f CMakeFiles/Makefile2 lib/libSDL2pp/CMakeFiles/SDL2pp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
+.PHONY : lib/libSDL2pp/CMakeFiles/SDL2pp.dir/rule
+
+# Convenience name for target.
+SDL2pp: lib/libSDL2pp/CMakeFiles/SDL2pp.dir/rule
+
+.PHONY : SDL2pp
+
+# clean rule for target.
+lib/libSDL2pp/CMakeFiles/SDL2pp.dir/clean:
+	$(MAKE) -f lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build.make lib/libSDL2pp/CMakeFiles/SDL2pp.dir/clean
+.PHONY : lib/libSDL2pp/CMakeFiles/SDL2pp.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

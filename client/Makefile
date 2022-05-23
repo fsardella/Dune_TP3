@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pilar/Escritorio/menu1
+CMAKE_SOURCE_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pilar/Escritorio/menu1
+CMAKE_BINARY_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles /home/pilar/Escritorio/menu1/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/menu1/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,30 +111,185 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named menu1
+# Target rules for targets named qt-plus-sdl
 
 # Build rule for target.
-menu1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 menu1
-.PHONY : menu1
+qt-plus-sdl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt-plus-sdl
+.PHONY : qt-plus-sdl
 
 # fast build rule for target.
-menu1/fast:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/build
-.PHONY : menu1/fast
+qt-plus-sdl/fast:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/build
+.PHONY : qt-plus-sdl/fast
 
 #=============================================================================
-# Target rules for targets named menu1_autogen
+# Target rules for targets named qt-standalone
 
 # Build rule for target.
-menu1_autogen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 menu1_autogen
-.PHONY : menu1_autogen
+qt-standalone: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt-standalone
+.PHONY : qt-standalone
 
 # fast build rule for target.
-menu1_autogen/fast:
-	$(MAKE) -f CMakeFiles/menu1_autogen.dir/build.make CMakeFiles/menu1_autogen.dir/build
-.PHONY : menu1_autogen/fast
+qt-standalone/fast:
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/build
+.PHONY : qt-standalone/fast
+
+#=============================================================================
+# Target rules for targets named sdl-standalone
+
+# Build rule for target.
+sdl-standalone: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sdl-standalone
+.PHONY : sdl-standalone
+
+# fast build rule for target.
+sdl-standalone/fast:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/build
+.PHONY : sdl-standalone/fast
+
+#=============================================================================
+# Target rules for targets named qt-plus-sdl_autogen
+
+# Build rule for target.
+qt-plus-sdl_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt-plus-sdl_autogen
+.PHONY : qt-plus-sdl_autogen
+
+# fast build rule for target.
+qt-plus-sdl_autogen/fast:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl_autogen.dir/build.make CMakeFiles/qt-plus-sdl_autogen.dir/build
+.PHONY : qt-plus-sdl_autogen/fast
+
+#=============================================================================
+# Target rules for targets named qt-standalone_autogen
+
+# Build rule for target.
+qt-standalone_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 qt-standalone_autogen
+.PHONY : qt-standalone_autogen
+
+# fast build rule for target.
+qt-standalone_autogen/fast:
+	$(MAKE) -f CMakeFiles/qt-standalone_autogen.dir/build.make CMakeFiles/qt-standalone_autogen.dir/build
+.PHONY : qt-standalone_autogen/fast
+
+#=============================================================================
+# Target rules for targets named sdl-standalone_autogen
+
+# Build rule for target.
+sdl-standalone_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sdl-standalone_autogen
+.PHONY : sdl-standalone_autogen
+
+# fast build rule for target.
+sdl-standalone_autogen/fast:
+	$(MAKE) -f CMakeFiles/sdl-standalone_autogen.dir/build.make CMakeFiles/sdl-standalone_autogen.dir/build
+.PHONY : sdl-standalone_autogen/fast
+
+#=============================================================================
+# Target rules for targets named SDL2pp
+
+# Build rule for target.
+SDL2pp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SDL2pp
+.PHONY : SDL2pp
+
+# fast build rule for target.
+SDL2pp/fast:
+	$(MAKE) -f lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build.make lib/libSDL2pp/CMakeFiles/SDL2pp.dir/build
+.PHONY : SDL2pp/fast
+
+Animation.o: Animation.cpp.o
+
+.PHONY : Animation.o
+
+# target to build an object file
+Animation.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Animation.cpp.o
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Animation.cpp.o
+.PHONY : Animation.cpp.o
+
+Animation.i: Animation.cpp.i
+
+.PHONY : Animation.i
+
+# target to preprocess a source file
+Animation.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Animation.cpp.i
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Animation.cpp.i
+.PHONY : Animation.cpp.i
+
+Animation.s: Animation.cpp.s
+
+.PHONY : Animation.s
+
+# target to generate assembly for a file
+Animation.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Animation.cpp.s
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Animation.cpp.s
+.PHONY : Animation.cpp.s
+
+Gameloop.o: Gameloop.cpp.o
+
+.PHONY : Gameloop.o
+
+# target to build an object file
+Gameloop.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Gameloop.cpp.o
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Gameloop.cpp.o
+.PHONY : Gameloop.cpp.o
+
+Gameloop.i: Gameloop.cpp.i
+
+.PHONY : Gameloop.i
+
+# target to preprocess a source file
+Gameloop.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Gameloop.cpp.i
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Gameloop.cpp.i
+.PHONY : Gameloop.cpp.i
+
+Gameloop.s: Gameloop.cpp.s
+
+.PHONY : Gameloop.s
+
+# target to generate assembly for a file
+Gameloop.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Gameloop.cpp.s
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Gameloop.cpp.s
+.PHONY : Gameloop.cpp.s
+
+Player.o: Player.cpp.o
+
+.PHONY : Player.o
+
+# target to build an object file
+Player.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Player.cpp.o
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Player.cpp.o
+.PHONY : Player.cpp.o
+
+Player.i: Player.cpp.i
+
+.PHONY : Player.i
+
+# target to preprocess a source file
+Player.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Player.cpp.i
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Player.cpp.i
+.PHONY : Player.cpp.i
+
+Player.s: Player.cpp.s
+
+.PHONY : Player.s
+
+# target to generate assembly for a file
+Player.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/Player.cpp.s
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/Player.cpp.s
+.PHONY : Player.cpp.s
 
 main.o: main.cpp.o
 
@@ -142,7 +297,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -151,7 +306,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -160,8 +315,62 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+mainQtSDL.o: mainQtSDL.cpp.o
+
+.PHONY : mainQtSDL.o
+
+# target to build an object file
+mainQtSDL.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainQtSDL.cpp.o
+.PHONY : mainQtSDL.cpp.o
+
+mainQtSDL.i: mainQtSDL.cpp.i
+
+.PHONY : mainQtSDL.i
+
+# target to preprocess a source file
+mainQtSDL.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainQtSDL.cpp.i
+.PHONY : mainQtSDL.cpp.i
+
+mainQtSDL.s: mainQtSDL.cpp.s
+
+.PHONY : mainQtSDL.s
+
+# target to generate assembly for a file
+mainQtSDL.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainQtSDL.cpp.s
+.PHONY : mainQtSDL.cpp.s
+
+mainSDL.o: mainSDL.cpp.o
+
+.PHONY : mainSDL.o
+
+# target to build an object file
+mainSDL.cpp.o:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/mainSDL.cpp.o
+.PHONY : mainSDL.cpp.o
+
+mainSDL.i: mainSDL.cpp.i
+
+.PHONY : mainSDL.i
+
+# target to preprocess a source file
+mainSDL.cpp.i:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/mainSDL.cpp.i
+.PHONY : mainSDL.cpp.i
+
+mainSDL.s: mainSDL.cpp.s
+
+.PHONY : mainSDL.s
+
+# target to generate assembly for a file
+mainSDL.cpp.s:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/mainSDL.cpp.s
+.PHONY : mainSDL.cpp.s
 
 mainwindow.o: mainwindow.cpp.o
 
@@ -169,7 +378,8 @@ mainwindow.o: mainwindow.cpp.o
 
 # target to build an object file
 mainwindow.cpp.o:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/mainwindow.cpp.o
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainwindow.cpp.o
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/mainwindow.cpp.o
 .PHONY : mainwindow.cpp.o
 
 mainwindow.i: mainwindow.cpp.i
@@ -178,7 +388,8 @@ mainwindow.i: mainwindow.cpp.i
 
 # target to preprocess a source file
 mainwindow.cpp.i:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/mainwindow.cpp.i
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainwindow.cpp.i
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/mainwindow.cpp.i
 .PHONY : mainwindow.cpp.i
 
 mainwindow.s: mainwindow.cpp.s
@@ -187,35 +398,90 @@ mainwindow.s: mainwindow.cpp.s
 
 # target to generate assembly for a file
 mainwindow.cpp.s:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/mainwindow.cpp.s
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/mainwindow.cpp.s
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
-menu1_autogen/mocs_compilation.o: menu1_autogen/mocs_compilation.cpp.o
+qt-plus-sdl_autogen/mocs_compilation.o: qt-plus-sdl_autogen/mocs_compilation.cpp.o
 
-.PHONY : menu1_autogen/mocs_compilation.o
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.o
 
 # target to build an object file
-menu1_autogen/mocs_compilation.cpp.o:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/menu1_autogen/mocs_compilation.cpp.o
-.PHONY : menu1_autogen/mocs_compilation.cpp.o
+qt-plus-sdl_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/qt-plus-sdl_autogen/mocs_compilation.cpp.o
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.cpp.o
 
-menu1_autogen/mocs_compilation.i: menu1_autogen/mocs_compilation.cpp.i
+qt-plus-sdl_autogen/mocs_compilation.i: qt-plus-sdl_autogen/mocs_compilation.cpp.i
 
-.PHONY : menu1_autogen/mocs_compilation.i
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-menu1_autogen/mocs_compilation.cpp.i:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/menu1_autogen/mocs_compilation.cpp.i
-.PHONY : menu1_autogen/mocs_compilation.cpp.i
+qt-plus-sdl_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/qt-plus-sdl_autogen/mocs_compilation.cpp.i
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.cpp.i
 
-menu1_autogen/mocs_compilation.s: menu1_autogen/mocs_compilation.cpp.s
+qt-plus-sdl_autogen/mocs_compilation.s: qt-plus-sdl_autogen/mocs_compilation.cpp.s
 
-.PHONY : menu1_autogen/mocs_compilation.s
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-menu1_autogen/mocs_compilation.cpp.s:
-	$(MAKE) -f CMakeFiles/menu1.dir/build.make CMakeFiles/menu1.dir/menu1_autogen/mocs_compilation.cpp.s
-.PHONY : menu1_autogen/mocs_compilation.cpp.s
+qt-plus-sdl_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-plus-sdl.dir/build.make CMakeFiles/qt-plus-sdl.dir/qt-plus-sdl_autogen/mocs_compilation.cpp.s
+.PHONY : qt-plus-sdl_autogen/mocs_compilation.cpp.s
+
+qt-standalone_autogen/mocs_compilation.o: qt-standalone_autogen/mocs_compilation.cpp.o
+
+.PHONY : qt-standalone_autogen/mocs_compilation.o
+
+# target to build an object file
+qt-standalone_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/qt-standalone_autogen/mocs_compilation.cpp.o
+.PHONY : qt-standalone_autogen/mocs_compilation.cpp.o
+
+qt-standalone_autogen/mocs_compilation.i: qt-standalone_autogen/mocs_compilation.cpp.i
+
+.PHONY : qt-standalone_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+qt-standalone_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/qt-standalone_autogen/mocs_compilation.cpp.i
+.PHONY : qt-standalone_autogen/mocs_compilation.cpp.i
+
+qt-standalone_autogen/mocs_compilation.s: qt-standalone_autogen/mocs_compilation.cpp.s
+
+.PHONY : qt-standalone_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+qt-standalone_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/qt-standalone.dir/build.make CMakeFiles/qt-standalone.dir/qt-standalone_autogen/mocs_compilation.cpp.s
+.PHONY : qt-standalone_autogen/mocs_compilation.cpp.s
+
+sdl-standalone_autogen/mocs_compilation.o: sdl-standalone_autogen/mocs_compilation.cpp.o
+
+.PHONY : sdl-standalone_autogen/mocs_compilation.o
+
+# target to build an object file
+sdl-standalone_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/sdl-standalone_autogen/mocs_compilation.cpp.o
+.PHONY : sdl-standalone_autogen/mocs_compilation.cpp.o
+
+sdl-standalone_autogen/mocs_compilation.i: sdl-standalone_autogen/mocs_compilation.cpp.i
+
+.PHONY : sdl-standalone_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+sdl-standalone_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/sdl-standalone_autogen/mocs_compilation.cpp.i
+.PHONY : sdl-standalone_autogen/mocs_compilation.cpp.i
+
+sdl-standalone_autogen/mocs_compilation.s: sdl-standalone_autogen/mocs_compilation.cpp.s
+
+.PHONY : sdl-standalone_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+sdl-standalone_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/sdl-standalone.dir/build.make CMakeFiles/sdl-standalone.dir/sdl-standalone_autogen/mocs_compilation.cpp.s
+.PHONY : sdl-standalone_autogen/mocs_compilation.cpp.s
 
 # Help Target
 help:
@@ -224,18 +490,44 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... qt-plus-sdl"
 	@echo "... edit_cache"
-	@echo "... menu1"
-	@echo "... menu1_autogen"
+	@echo "... qt-standalone"
+	@echo "... sdl-standalone"
+	@echo "... qt-plus-sdl_autogen"
+	@echo "... qt-standalone_autogen"
+	@echo "... sdl-standalone_autogen"
+	@echo "... SDL2pp"
+	@echo "... Animation.o"
+	@echo "... Animation.i"
+	@echo "... Animation.s"
+	@echo "... Gameloop.o"
+	@echo "... Gameloop.i"
+	@echo "... Gameloop.s"
+	@echo "... Player.o"
+	@echo "... Player.i"
+	@echo "... Player.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mainQtSDL.o"
+	@echo "... mainQtSDL.i"
+	@echo "... mainQtSDL.s"
+	@echo "... mainSDL.o"
+	@echo "... mainSDL.i"
+	@echo "... mainSDL.s"
 	@echo "... mainwindow.o"
 	@echo "... mainwindow.i"
 	@echo "... mainwindow.s"
-	@echo "... menu1_autogen/mocs_compilation.o"
-	@echo "... menu1_autogen/mocs_compilation.i"
-	@echo "... menu1_autogen/mocs_compilation.s"
+	@echo "... qt-plus-sdl_autogen/mocs_compilation.o"
+	@echo "... qt-plus-sdl_autogen/mocs_compilation.i"
+	@echo "... qt-plus-sdl_autogen/mocs_compilation.s"
+	@echo "... qt-standalone_autogen/mocs_compilation.o"
+	@echo "... qt-standalone_autogen/mocs_compilation.i"
+	@echo "... qt-standalone_autogen/mocs_compilation.s"
+	@echo "... sdl-standalone_autogen/mocs_compilation.o"
+	@echo "... sdl-standalone_autogen/mocs_compilation.i"
+	@echo "... sdl-standalone_autogen/mocs_compilation.s"
 .PHONY : help
 
 

@@ -1,2 +1,5 @@
 # Hashes of file build rules.
-f43c3fc4191db47eb82abba374d61c50 CMakeFiles/menu1_autogen
+0e7039c3241e86060c500c715d55ff5c CMakeFiles/qt-plus-sdl_autogen
+51d3d1173c764639443dcb947295d353 CMakeFiles/qt-standalone_autogen
+850632dfa4a87ebbc92494408e826ea9 CMakeFiles/sdl-standalone_autogen
+90295770068f698055464b7d815a6664 ui_mainwindow.h

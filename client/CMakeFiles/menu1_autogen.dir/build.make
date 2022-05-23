@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pilar/Escritorio/menu1
+CMAKE_SOURCE_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pilar/Escritorio/menu1
+CMAKE_BINARY_DIR = /home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 # Utility rule file for menu1_autogen.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /home/pilar/Escritorio/menu1
 include CMakeFiles/menu1_autogen.dir/progress.make
 
 CMakeFiles/menu1_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pilar/Escritorio/menu1/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target menu1"
-	/usr/bin/cmake -E cmake_autogen /home/pilar/Escritorio/menu1/CMakeFiles/menu1_autogen.dir/AutogenInfo.json ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target menu1"
+	/usr/bin/cmake -E cmake_autogen /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/menu1_autogen.dir/AutogenInfo.json ""
 
 menu1_autogen: CMakeFiles/menu1_autogen
 menu1_autogen: CMakeFiles/menu1_autogen.dir/build.make
@@ -72,6 +72,6 @@ CMakeFiles/menu1_autogen.dir/clean:
 .PHONY : CMakeFiles/menu1_autogen.dir/clean
 
 CMakeFiles/menu1_autogen.dir/depend:
-	cd /home/pilar/Escritorio/menu1 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pilar/Escritorio/menu1 /home/pilar/Escritorio/menu1 /home/pilar/Escritorio/menu1 /home/pilar/Escritorio/menu1 /home/pilar/Escritorio/menu1/CMakeFiles/menu1_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pilar/Escritorio/tp3_taller/Dune_TP3/client && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pilar/Escritorio/tp3_taller/Dune_TP3/client /home/pilar/Escritorio/tp3_taller/Dune_TP3/client /home/pilar/Escritorio/tp3_taller/Dune_TP3/client /home/pilar/Escritorio/tp3_taller/Dune_TP3/client /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/menu1_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/menu1_autogen.dir/depend
 

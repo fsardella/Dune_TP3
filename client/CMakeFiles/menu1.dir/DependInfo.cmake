@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pilar/Escritorio/menu1/main.cpp" "/home/pilar/Escritorio/menu1/CMakeFiles/menu1.dir/main.cpp.o"
-  "/home/pilar/Escritorio/menu1/mainwindow.cpp" "/home/pilar/Escritorio/menu1/CMakeFiles/menu1.dir/mainwindow.cpp.o"
-  "/home/pilar/Escritorio/menu1/menu1_autogen/mocs_compilation.cpp" "/home/pilar/Escritorio/menu1/CMakeFiles/menu1.dir/menu1_autogen/mocs_compilation.cpp.o"
+  "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/main.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/menu1.dir/main.cpp.o"
+  "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/mainwindow.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/menu1.dir/mainwindow.cpp.o"
+  "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/menu1_autogen/mocs_compilation.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/CMakeFiles/menu1.dir/menu1_autogen/mocs_compilation.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
