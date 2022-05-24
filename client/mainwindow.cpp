@@ -7,11 +7,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPushButton* btn = new QPushButton("Salir", this);
-    btn->setGeometry(10, 10, 120, 30);
+    QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Dune.png");
+    //pixmap = pixmap.scaled(widWidth, widHeight, Qt::KeepAspectRatioByExpanding);
+    bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
 
     QObject::connect(ui->continueButton, &QPushButton::clicked, this, &QMainWindow::close);
-    QObject::connect(btn, &QPushButton::clicked, this, &QMainWindow::close); //quiero que el usuario aprete este boton y 
+    QObject::connect(ui->btn, &QPushButton::clicked, this, &QMainWindow::close); //quiero que el usuario aprete este boton y 
                                                                             //se termine todo el programa, que no se muesten las otras ventanas. 
 }
 
