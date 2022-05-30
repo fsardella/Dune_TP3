@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="cct">
+    <file>d2kharkonnen.png</file>
+  </qresource>
+</RCC>

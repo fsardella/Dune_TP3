@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChooseHouse</class>
+ <widget class="QDialog" name="ChooseHouse">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>727</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(46, 52, 54);</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="3">
+    <widget class="QLabel" name="label">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 36pt &quot;Sarai&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:48pt; color:#d3d7cf;&quot;&gt;CHOOSE YOUR HOUSE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/images/d2kharkonnen.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="label_3">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/images/d2katreides.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_4">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/images/d2kordos.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="harkonnenButton">
+     <property name="maximumSize">
+      <size>
+       <width>500</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 18pt &quot;Sarai&quot;;
+color: rgb(239, 41, 41);
+selection-background-color: rgb(46, 52, 54);
+background-color: rgb(136, 138, 133);</string>
+     </property>
+     <property name="text">
+      <string>Harkonnen</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="atreidesButton">
+     <property name="maximumSize">
+      <size>
+       <width>500</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 18pt &quot;Sarai&quot;;
+color: rgb(52, 101, 164);
+selection-background-color: rgb(46, 52, 54);
+background-color: rgb(136, 138, 133);</string>
+     </property>
+     <property name="text">
+      <string>Atreides</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="ordosButton">
+     <property name="maximumSize">
+      <size>
+       <width>500</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 18pt &quot;Sarai&quot;;
+color: rgb(78, 154, 6);
+selection-background-color: rgb(46, 52, 54);
+background-color: rgb(136, 138, 133);</string>
+     </property>
+     <property name="text">
+      <string>Ordos</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>ordosButton</tabstop>
+  <tabstop>harkonnenButton</tabstop>
+  <tabstop>atreidesButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
