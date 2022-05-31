@@ -16,7 +16,7 @@ public:
     ~CreateGameWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_createGameButton_clicked();
 
 private:
     Ui::CreateGameWindow *ui;

@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Map Election</string>
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="titleLabel">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
@@ -39,7 +39,7 @@
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
-    <widget class="QListView" name="listView">
+    <widget class="QListView" name="mapsListView">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
@@ -52,7 +52,7 @@
     </widget>
    </item>
    <item row="3" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="gameNameLineEdit">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
@@ -72,7 +72,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="gameNameLabel">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
@@ -99,7 +99,7 @@
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="createGameButton">
      <property name="maximumSize">
       <size>
        <width>300</width>

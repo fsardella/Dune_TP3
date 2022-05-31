@@ -24,7 +24,7 @@ MainGame::~MainGame()
 
 void MainGame::on_createGameButton_clicked()
 {
-    this->hide();
+    this->close();
     CreateGameWindow createGameWindow;
     createGameWindow.setModal(true);
     createGameWindow.showMaximized();
@@ -34,7 +34,7 @@ void MainGame::on_createGameButton_clicked()
 
 void MainGame::on_joinGameButton_clicked()
 {
-    this->hide();
+    this->close();
     JoinGameWindow joinGameWindow;
     joinGameWindow.setModal(true);
     joinGameWindow.showMaximized();

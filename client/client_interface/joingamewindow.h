@@ -16,7 +16,8 @@ public:
     ~JoinGameWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_joinGameButton_clicked();
 
 private:
     Ui::JoinGameWindow *ui;

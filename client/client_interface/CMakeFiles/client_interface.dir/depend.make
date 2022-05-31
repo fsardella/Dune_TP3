@@ -112,13 +112,10 @@ CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGridLayout
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
-CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
-CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h
-CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
@@ -128,8 +125,6 @@ CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
-CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenu.h
-CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h
@@ -860,13 +855,10 @@ CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGridLayout
-CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
-CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h
-CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
@@ -874,8 +866,6 @@ CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
-CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenu.h
-CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h
@@ -1002,6 +992,7 @@ CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar
+CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout
@@ -1022,6 +1013,7 @@ CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenu.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
+CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h

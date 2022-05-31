@@ -18,7 +18,7 @@ CreateGameWindow::~CreateGameWindow()
     delete ui;
 }
 
-void CreateGameWindow::on_pushButton_clicked()
+void CreateGameWindow::on_createGameButton_clicked()
 {
     this->close();
 }

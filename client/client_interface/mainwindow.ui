@@ -32,7 +32,6 @@
       <property name="font">
        <font>
         <family>Sarai</family>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -79,7 +78,6 @@
          <font>
           <family>URW Gothic</family>
           <pointsize>11</pointsize>
-          <weight>7</weight>
           <italic>false</italic>
           <bold>false</bold>
          </font>
@@ -97,11 +95,10 @@ background-color: rgb(136, 138, 133);</string>
      </layout>
     </item>
     <item row="0" column="0">
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="titlelabel">
       <property name="font">
        <font>
         <family>Sarai</family>
-        <weight>50</weight>
         <bold>false</bold>
        </font>
       </property>
@@ -116,12 +113,11 @@ background-color: rgb(136, 138, 133);</string>
     <item row="2" column="0">
      <layout class="QVBoxLayout" name="vLayaout_ip">
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="ipLineEdit">
         <property name="font">
          <font>
           <family>Vemana2000</family>
           <pointsize>18</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -138,12 +134,11 @@ background-color: rgb(136, 138, 133);</string>
     <item row="4" column="0">
      <layout class="QVBoxLayout" name="vLayaout_port">
       <item>
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="portLineEdit">
         <property name="font">
          <font>
           <family>Vemana2000</family>
           <pointsize>18</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -162,7 +157,6 @@ background-color: rgb(136, 138, 133);</string>
       <property name="font">
        <font>
         <family>Sarai</family>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -188,5 +182,6 @@ background-color: rgb(136, 138, 133);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <resources/>
  <connections/>
 </ui>

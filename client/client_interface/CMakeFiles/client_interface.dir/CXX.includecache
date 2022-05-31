@@ -19,6 +19,8 @@ choosehouse.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h
 ./ui_choosehouse.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/ui_choosehouse.h
+QMessageBox
+-
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h
 QMainWindow
@@ -1134,6 +1136,10 @@ qmainwindow.h
 qmenubar.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
+qmessagebox.h
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
+
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 qpushbutton.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
@@ -1310,6 +1316,12 @@ QtWidgets/qaction.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtWidgets/qmenu.h
+-
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtWidgets/qdialog.h
 -
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h

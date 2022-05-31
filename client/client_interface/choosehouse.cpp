@@ -17,7 +17,7 @@ ChooseHouse::~ChooseHouse()
 
 void ChooseHouse::show_MainGameWindow()
 {
-    this->hide();
+    this->close();
     MainGame mainGameWindow;
     mainGameWindow.setModal(true);
     mainGameWindow.showMaximized();
