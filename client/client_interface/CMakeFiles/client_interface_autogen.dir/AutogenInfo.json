@@ -47,6 +47,9 @@
 	"MOC_INCLUDES" : 
 	[
 		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/libs",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp",
+		"/usr/include/SDL2",
 		"/usr/include/x86_64-linux-gnu/qt5",
 		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
 		"/usr/include/x86_64-linux-gnu/qt5/QtGui",

@@ -2,3 +2,7 @@
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/edit_cache.dir
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface_autogen.dir
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeFiles/rebuild_cache.dir
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeFiles/edit_cache.dir
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeFiles/SDL2pp.dir
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeFiles/SDL2pp_autogen.dir

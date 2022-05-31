@@ -6,21 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp
-choosehouse.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h
-ui_choosehouse.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/ui_choosehouse.h
-maingame.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h
-ui_maingame.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/ui_maingame.h
-
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h
-QDialog
--
-
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h
 QDialog
 -
 
@@ -1406,24 +1392,6 @@ QtWidgets/QGridLayout
 QtWidgets/QLabel
 -
 QtWidgets/QPushButton
--
-
-client_interface_autogen/include/ui_maingame.h
-QtCore/QVariant
--
-QtWidgets/QApplication
--
-QtWidgets/QDialog
--
-QtWidgets/QGridLayout
--
-QtWidgets/QMenuBar
--
-QtWidgets/QPushButton
--
-QtWidgets/QStatusBar
--
-QtWidgets/QWidget
 -
 
 client_interface_autogen/include/ui_mainwindow.h

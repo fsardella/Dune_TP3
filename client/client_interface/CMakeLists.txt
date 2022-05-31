@@ -34,10 +34,26 @@ set(PROJECT_SOURCES
         joingamewindow.ui
 )
 
+# Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras
+SET(SDL2PP_WITH_IMAGE YES)
+SET(SDL2PP_WITH_TTF YES)
+add_subdirectory(lib/libSDL2pp)
+
+# Agrego la carpeta con los headers autogenerados a los includes
+message("Agregando '${PROJECT_SOURCE_DIR}/libs' como directorio de includes")
+include_directories(${PROJECT_SOURCE_DIR}/libs)
+include_directories(${SDL2PP_INCLUDE_DIRS})
+
+message("Headers generados: ${UIS_HEADERS}")
+# Agrego la carpeta con los headers autogenerados a los includes
+message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
+include_directories(${PROJECT_BINARY_DIR})
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(client_interface
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${UIS_HEADERS}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET client_interface APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -47,17 +63,19 @@ else()
     if(ANDROID)
         add_library(client_interface SHARED
             ${PROJECT_SOURCES}
+            ${UIS_HEADERS}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(client_interface
             ${PROJECT_SOURCES}
+            ${UIS_HEADERS}
         )
     endif()
 endif()
 
-target_link_libraries(client_interface PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(client_interface Qt5::Widgets ${SDL2PP_LIBRARIES})
 
 set_target_properties(client_interface PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

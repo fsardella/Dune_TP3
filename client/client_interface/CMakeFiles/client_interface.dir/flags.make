@@ -6,5 +6,5 @@ CXX_FLAGS =   -fPIC -std=gnu++17
 
 CXX_DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
 
-CXX_INCLUDES = -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/client_interface_autogen/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ 
+CXX_INCLUDES = -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/client_interface_autogen/include -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/libs -I/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp -I/usr/include/SDL2 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ 
 

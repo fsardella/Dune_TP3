@@ -17,3 +17,9 @@ JoinGameWindow::~JoinGameWindow()
 {
     delete ui;
 }
+
+void JoinGameWindow::on_pushButton_clicked()
+{
+    this->close();
+}
+

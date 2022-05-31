@@ -194,6 +194,11 @@ client_interface: CMakeFiles/client_interface.dir/joingamewindow.cpp.o
 client_interface: CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o
 client_interface: CMakeFiles/client_interface.dir/build.make
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
+client_interface: /usr/lib/x86_64-linux-gnu/libSDL2main.a
+client_interface: lib/libSDL2pp/libSDL2pp.a
+client_interface: /usr/lib/x86_64-linux-gnu/libSDL2.so
+client_interface: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
+client_interface: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 client_interface: CMakeFiles/client_interface.dir/link.txt

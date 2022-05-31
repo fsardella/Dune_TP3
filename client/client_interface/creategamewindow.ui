@@ -22,6 +22,14 @@
        <height>500</height>
       </size>
      </property>
+     <property name="font">
+      <font>
+       <family>Sarai</family>
+       <pointsize>36</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">font: 36pt &quot;Sarai&quot;;</string>
      </property>
@@ -70,6 +78,14 @@
        <width>16777215</width>
        <height>100</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sarai</family>
+       <pointsize>30</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>

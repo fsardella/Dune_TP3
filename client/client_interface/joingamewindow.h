@@ -15,6 +15,9 @@ public:
     explicit JoinGameWindow(QWidget *parent = nullptr);
     ~JoinGameWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::JoinGameWindow *ui;
 };
