@@ -3,6 +3,8 @@
  mmc:Q_OBJECT
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.h
  mmc:Q_OBJECT
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindowprueba.cpp
+ uic:ui_mainwindowprueba.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.h
  mmc:Q_OBJECT
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h
@@ -14,6 +16,8 @@
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/main.cpp
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp
  uic:ui_maingame.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindowprueba.h
+ mmc:Q_OBJECT
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp
  uic:ui_choosehouse.h
  uic:ui_maingame.h

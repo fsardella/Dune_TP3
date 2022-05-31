@@ -1,0 +1,24 @@
+{
+	"BUILD_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/client_interface_autogen",
+	"CMAKE_BINARY_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface",
+	"CMAKE_SOURCE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface",
+	"INCLUDE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/client_interface_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/d2katreides.png",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/d2kharkonnen.png",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/d2kordos.png"
+	],
+	"LOCK_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface_autogen.dir/AutoRcc_imagehouse_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "imagehouse" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_imagehouse.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt5/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface_autogen.dir/AutoRcc_imagehouse_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/imagehouse.qrc",
+	"VERBOSITY" : 0
+}

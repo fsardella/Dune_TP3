@@ -2,6 +2,7 @@
 #include "ui_choosehouse.h"
 #include "maingame.h"
 #include "ui_maingame.h"
+#include <qt5/QtWidgets/qwidget.h>
 
 ChooseHouse::ChooseHouse(QWidget *parent) :
     QDialog(parent),
