@@ -5,14 +5,13 @@
 #include "server_astar.h"
 #include "server_terrain_map.h"
 
-
 class Unit {
     AStar moveAlgorithm;
  public:
     Unit(coor_t coor, TerrainMap& terr);
-    virtual int getSpeedForSand();
-    virtual int getSpeedForDune();
-    virtual int getSpeedForMount();
+    virtual int getSpeedForSand() = 0;
+    virtual int getSpeedForDune() = 0;
+    virtual int getSpeedForMount() = 0;
     int getSpeedForCliff();
     coor_t getPosition();
     void processMove(coor_t dest);

@@ -1,4 +1,4 @@
-#include "server_astar.h"
+#include "server_units.h"
 
 #include <queue>
 #include <math.h>
@@ -79,7 +79,8 @@ bool get_min(const dijk_t& a, const dijk_t& b) {
 std::map<coor_t, coor_t> AStar::_execAlgorithm() {
     std::map<coor_t, float> distance;
     std::map<coor_t, coor_t> parent;
-    std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)> prior_q(get_min); // Debe ser float para admitir inf...
+    std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)>
+        prior_q(get_min); // Debe ser float para admitir inf...
     distance[this->actPos] = 0;
     parent[this->actDest] = this->actDest;
     dijk_t act(this->actPos, 0);

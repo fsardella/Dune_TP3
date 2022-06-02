@@ -5,19 +5,19 @@
 #include "server_units.h"
 
 enum sketchElements {
-    SAND = 0,
+    CLIFF = 0,
+    SAND,
     DUNE,
-    ROCK,
     MOUNT,
-    CLIFF,
+    ROCK,
     SPICE,
     BUILDING,
 };
 
 TerrainMap::TerrainMap(sketch_t mapSketch) {
     for (std::vector<int> row : mapSketch) {
+        std::vector<Terrain*> row_res;
         for (int elem : row) {
-            std::vector<Terrain*> row_res;
             // Usar case es mas facil, esto solo se ejecuta una vez en todo el
             // programa, asi que no me preocupa la velocidad
             switch (elem) {
@@ -45,8 +45,8 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
                     row_res.push_back(terr);
                     break;
             }
-            this->terr.push_back(row_res);
         }
+        this->terr.push_back(row_res);
     }
 }
 

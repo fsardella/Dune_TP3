@@ -8,14 +8,14 @@
 #include <map>
 
 
-#include "server_units.h"
-#include "server_terrain_map.h"
-
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Unit;
 class TerrainMap;
+
+//#include "server_units.h"
+//#include "server_terrain_map.h"
 
 class AStar {
     Unit& unit;

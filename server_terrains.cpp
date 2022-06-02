@@ -23,9 +23,7 @@ int Sand::getSpeed(Unit& unit) {
 Sand::~Sand() {}
 
 //debug
-void Terrain::print() {}
-
-void Sand::print() {
+void Terrain::print() {
     std::cout << "░";
 }
 

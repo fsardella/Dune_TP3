@@ -1,6 +1,8 @@
 #ifndef _SERVER_TERRAINS_H
 #define _SERVER_TERRAINS_H
 
+
+
 #include <stdint.h>
 #include "server_units.h"
 
@@ -12,7 +14,7 @@ class Terrain {
     void occupySpace();
     void freeSpace();
     virtual void print();
-    virtual int getSpeed(Unit& unit);
+    virtual int getSpeed(Unit& unit) = 0;
     virtual ~Terrain();
 };
 
@@ -20,7 +22,7 @@ class Sand : public Terrain {
  public:
     Sand();
     int getSpeed(Unit& unit);
-    void print(); // DEBUG
+    //void print(); // DEBUG
     virtual ~Sand();
 };
 

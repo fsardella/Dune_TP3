@@ -2,8 +2,12 @@
 #include <iostream>
 #include <sstream>
 
-#include "server_terrain_map.h"
+
 #include "server_units.h"
+#include "server_terrain_map.h"
+
+#include <vector>
+#include <time.h>  
 
 
 int main() {
@@ -37,9 +41,13 @@ int main() {
             stream_linea >> x >> std::ws >> y;
             dest = coor_t(x, y);
         }
+        clock_t begin = clock();
         unit->processMove(dest);
+        clock_t end = clock();
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
         act = unit->getPosition();
         ter.print(act, dest);
+        std::cout << time_spent << std::endl;
     } 
     delete unit;
     return 0;

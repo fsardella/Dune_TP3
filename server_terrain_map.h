@@ -6,11 +6,14 @@
 
 #include <stdint.h>
 
-#include "server_terrains.h"
-#include "server_units.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 typedef std::vector<std::vector<int>> sketch_t;
+
+class Terrain;
+
+#include "server_terrains.h"
+#include "server_units.h"
 
 class TerrainMap {
     std::vector<std::vector<Terrain*>> terr;
