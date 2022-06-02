@@ -1,5 +1,6 @@
 #include "joingamewindow.h"
 #include "ui_joingamewindow.h"
+#include <QMessageBox>
 
 JoinGameWindow::JoinGameWindow(QWidget *parent) :
     QDialog(parent),
@@ -11,6 +12,15 @@ JoinGameWindow::JoinGameWindow(QWidget *parent) :
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
+
+    std::list <QString> list; //por ahora lo hardcodeo, despues el server me lo va a pasar
+    list.push_back("Tres amigos");
+    list.push_back("Dune version");
+    list.push_back("Dos amigos");
+    for(int i = 0 ; i < 3 ; i++) {
+        this->ui->listWidget->addItem(list.back());
+        list.pop_back();
+    }
 }
 
 JoinGameWindow::~JoinGameWindow()
@@ -20,6 +30,12 @@ JoinGameWindow::~JoinGameWindow()
 
 void JoinGameWindow::on_joinGameButton_clicked()
 {
+    if (!(this->ui->listWidget->currentItem())) {
+        QMessageBox::warning(this, tr("Configuration error"),
+                             tr(" You have to choose a game!"),
+                             QMessageBox::Close);
+        return;
+    }
     this->close();
 }
 

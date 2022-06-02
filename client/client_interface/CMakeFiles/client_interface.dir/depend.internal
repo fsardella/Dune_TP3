@@ -377,7 +377,8 @@ CMakeFiles/client_interface.dir/creategamewindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLayout
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListView
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h
@@ -397,6 +398,8 @@ CMakeFiles/client_interface.dir/creategamewindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
@@ -524,7 +527,8 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGridLayout
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListView
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h
@@ -542,6 +546,8 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h

@@ -38,39 +38,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QListView" name="mapsListView">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>400</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(186, 189, 182);</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QLineEdit" name="gameNameLineEdit">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>900</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Sarai</family>
-       <pointsize>24</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(186, 189, 182);</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="QLabel" name="gameNameLabel">
      <property name="maximumSize">
@@ -95,6 +62,26 @@
      </property>
      <property name="text">
       <string>GAME NAME</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLineEdit" name="gameNameLineEdit">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>900</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sarai</family>
+       <pointsize>24</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(186, 189, 182);</string>
      </property>
     </widget>
    </item>
@@ -129,6 +116,20 @@ background-color: rgb(136, 138, 133);</string>
      </property>
      <property name="text">
       <string>CREATE GAME</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QListWidget" name="listWidget">
+     <property name="font">
+      <font>
+       <family>Sarai</family>
+       <pointsize>22</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(186, 189, 182);</string>
      </property>
     </widget>
    </item>

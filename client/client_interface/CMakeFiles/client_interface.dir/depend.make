@@ -376,7 +376,8 @@ CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linu
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLayout
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit
-CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListView
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h
@@ -396,6 +397,8 @@ CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linu
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
@@ -523,7 +526,8 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGridLayout
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
-CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListView
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h
@@ -541,6 +545,8 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h

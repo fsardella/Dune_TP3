@@ -14,19 +14,6 @@
    <string>Game Election</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QListView" name="gamesListView">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>400</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(186, 189, 182);</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="titleLabel">
      <property name="maximumSize">
@@ -81,6 +68,29 @@ background-color: rgb(136, 138, 133);</string>
      </property>
      <property name="autoDefault">
       <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QListWidget" name="listWidget">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sarai</family>
+       <pointsize>22</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(186, 189, 182);</string>
      </property>
     </widget>
    </item>
