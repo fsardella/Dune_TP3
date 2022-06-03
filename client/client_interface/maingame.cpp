@@ -3,10 +3,11 @@
 #include "creategamewindow.h"
 #include "joingamewindow.h"
 
-MainGame::MainGame(QWidget *parent) :
+MainGame::MainGame(QWidget *parent, Client* client):
     QDialog(parent),
     ui(new Ui::MainGame)
 {
+    newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/DuneMainGameWindow.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
@@ -25,7 +26,7 @@ MainGame::~MainGame()
 void MainGame::on_createGameButton_clicked()
 {
     this->close();
-    CreateGameWindow createGameWindow;
+    CreateGameWindow createGameWindow(this, newClient);
     createGameWindow.setModal(true);
     createGameWindow.showMaximized();
     createGameWindow.exec();
@@ -35,7 +36,7 @@ void MainGame::on_createGameButton_clicked()
 void MainGame::on_joinGameButton_clicked()
 {
     this->close();
-    JoinGameWindow joinGameWindow;
+    JoinGameWindow joinGameWindow(this, newClient);
     joinGameWindow.setModal(true);
     joinGameWindow.showMaximized();
     joinGameWindow.exec();

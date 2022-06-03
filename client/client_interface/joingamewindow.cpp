@@ -2,10 +2,11 @@
 #include "ui_joingamewindow.h"
 #include <QMessageBox>
 
-JoinGameWindow::JoinGameWindow(QWidget *parent) :
+JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     ui(new Ui::JoinGameWindow)
 {
+    newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
@@ -36,6 +37,7 @@ void JoinGameWindow::on_joinGameButton_clicked()
                              QMessageBox::Close);
         return;
     }
+    newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
     this->close();
 }
 

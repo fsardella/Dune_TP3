@@ -15,7 +15,8 @@ int main(int argc, char *argv[])
         // Clase que contiene el loop principal
         QApplication app(argc, argv);
         // Instancio la ventana principal
-        MainWindow window;
+        Client client;
+        MainWindow window(NULL, &client);
         window.showMaximized();
         /*
          * QApplication::exec inicia el event loop y se queda esperando que finalice la aplicación. Cuando el usuario

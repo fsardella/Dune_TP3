@@ -262,8 +262,11 @@ CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o:
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: maingame.h
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: mainwindow.h
 
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: creategamewindow.cpp
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: creategamewindow.h
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
@@ -435,8 +438,11 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: joingamewindow.cpp
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: joingamewindow.h
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
@@ -583,8 +589,11 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: client_interface_autogen/include/ui_joingamewindow.h
 
+CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 CMakeFiles/client_interface.dir/main.cpp.o: main.cpp
 CMakeFiles/client_interface.dir/main.cpp.o: mainwindow.h
+CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 CMakeFiles/client_interface.dir/main.cpp.o: /usr/include/SDL2/SDL.h
 CMakeFiles/client_interface.dir/main.cpp.o: /usr/include/SDL2/SDL_assert.h
 CMakeFiles/client_interface.dir/main.cpp.o: /usr/include/SDL2/SDL_atomic.h
@@ -773,10 +782,13 @@ CMakeFiles/client_interface.dir/main.cpp.o: lib/libSDL2pp/SDL2pp/Wav.hh
 CMakeFiles/client_interface.dir/main.cpp.o: lib/libSDL2pp/SDL2pp/Window.hh
 CMakeFiles/client_interface.dir/main.cpp.o: lib/libSDL2pp/SDL2pp/external/libcpp_optional.hh
 
+CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: creategamewindow.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: joingamewindow.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: maingame.cpp
 CMakeFiles/client_interface.dir/maingame.cpp.o: maingame.h
+CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qarraydata.h

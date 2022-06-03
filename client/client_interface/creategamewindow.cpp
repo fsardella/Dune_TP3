@@ -2,10 +2,11 @@
 #include "ui_creategamewindow.h"
 #include <QMessageBox>
 
-CreateGameWindow::CreateGameWindow(QWidget *parent) :
+CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     ui(new Ui::CreateGameWindow)
 {
+    newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
@@ -41,5 +42,7 @@ void CreateGameWindow::on_createGameButton_clicked()
                              QMessageBox::Close);
         return;
     }
+    newClient->chooseGameName(ui->gameNameLineEdit->text().toStdString());
+    newClient->chooseMapName(this->ui->listWidget->currentItem()->text().toStdString());
     this->close();
 }

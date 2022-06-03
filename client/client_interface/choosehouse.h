@@ -23,6 +23,7 @@ private slots:
     void on_ordosButton_clicked();
 
 private:
+    Client* client;
     Ui::ChooseHouse *ui;
 };
 

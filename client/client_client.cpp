@@ -9,39 +9,58 @@
 
 #include "client_client.h"
 
-#define HOUSE_ATREIDES "Atreides"
-#define HOUSE_HARKONNEN "Harkonnen"
-#define HOUSE_ORDOS "Ordos"
-#define OPERACION_LISTAR "listar"
-#define OPERACION_CREAR "crear"
-#define OPERACION_UNIRSE "unirse"
-#define OPERACION_FIN "fin"
-
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Cliente.
 */
 
-Client::Client(const char* name_host, const char* service_port):
+/*Client::Client(const char* name_host, const char* service_port):
 protocol(name_host, service_port){
+}
+*/
+Client::Client() {
+}
+
+void Client::setProtocol(const char* name_host, const char* service_port) {
+	ProtocolClient protocol(name_host, service_port);
 }
 
 /*
 Pre-Condiciones: -
-Post-Condiciones: Determina el numero de la casa segun su nombre, y devuelve al numero.
+Post-Condiciones: Determina el numero de la casa elegida por el Cliente segun el nombre de la casa.
 */
 
-int Client::get_number_house(std::string& house) {
+void Client::chooseNumberHouse(std::string house) {
 	if ((house.compare(HOUSE_HARKONNEN)) == 0) {
-		return 0;
+		this->houseNumber = 0;
 	} else if ((house.compare(HOUSE_ATREIDES)) == 0) {
-		return 1; 
+		this->houseNumber = 1;
 	} else if ((house.compare(HOUSE_ORDOS)) == 0) {
-		return 2;
+		this->houseNumber = 2;
 	} else {
-		throw std::invalid_argument("Casa no valida");
+		throw std::invalid_argument("House not valid");
 	}
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Determina el nombre del juego elegido por el Cliente.
+*/
+
+
+void Client::chooseGameName(std::string name) {
+	this->game_name = name;
+}
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Determina el nombre del mapa elegido por el Cliente.
+*/
+
+void Client::chooseMapName(std::string name) {
+	this->map_name = name;
+}
+
 
 /*
 Pre-Condiciones: -

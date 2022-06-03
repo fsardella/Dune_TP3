@@ -2,6 +2,7 @@
 #define MAINGAME_H
 
 #include <QDialog>
+#include "../client_client.h"
 
 namespace Ui {
 class MainGame;
@@ -12,7 +13,7 @@ class MainGame : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainGame(QWidget *parent = nullptr);
+    explicit MainGame(QWidget *parent, Client* client);
     ~MainGame();
 
 private slots:
@@ -20,6 +21,7 @@ private slots:
     void on_joinGameButton_clicked();
 
 private:
+    Client* newClient;
     Ui::MainGame *ui;
 };
 
