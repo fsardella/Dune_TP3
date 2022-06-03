@@ -32,6 +32,15 @@ set(PROJECT_SOURCES
         joingamewindow.cpp
         joingamewindow.h
         joingamewindow.ui
+        ../client_client.cpp
+        ../client_client.h
+        ../client_protocol.cpp
+        ../client_protocol.h
+        ../common_socket.cpp
+        ../common_socket.h
+        ../common_resolver.cpp
+        ../common_resolver.h
+
 )
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras

@@ -2,6 +2,7 @@
 #define CHOOSEHOUSE_H
 
 #include <QDialog>
+#include "../client_client.h"
 
 namespace Ui {
 class ChooseHouse;
@@ -12,7 +13,7 @@ class ChooseHouse : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChooseHouse(QWidget *parent = nullptr);
+    explicit ChooseHouse(QWidget *parent, Client* client);
     ~ChooseHouse();
     void show_MainGameWindow();
 

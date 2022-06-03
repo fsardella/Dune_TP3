@@ -3,6 +3,8 @@
 #include "choosehouse.h"
 #include "./ui_choosehouse.h"
 #include <QMessageBox>
+#include "../client_client.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,18 +43,17 @@ void MainWindow::on_continueButton_clicked()
     try {
         //conecto el socket con los datos del IP y PORT. A conectarlo si no estan ok alguno de los dos datos,
         //va a ser catcheado por std exception indicando que hubo un error al conectarse al servidor.
-        //info.socket.connect(ip.c_str(), port.c_str());
+        Client client(ip.c_str(), port.c_str());
+        ChooseHouse chooseHouseWindow(this, &client); //le paso info para que se guarde la info de la casa que elige
+        chooseHouseWindow.setModal(true);
+        this->close();
+        chooseHouseWindow.showMaximized();
+        chooseHouseWindow.exec();
     } catch (const std::exception& e) {
         QMessageBox::warning(this, tr("Configuration error"),
                              tr("Error trying to connect to server."),
                              QMessageBox::Close);
         return;
     }
-
-    ChooseHouse chooseHouseWindow; //le paso info para que se guarde la info de la casa que elige
-    chooseHouseWindow.setModal(true);
-    this->close();
-    chooseHouseWindow.showMaximized();
-    chooseHouseWindow.exec();
 }
 

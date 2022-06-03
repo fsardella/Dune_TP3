@@ -4,7 +4,7 @@
 #include "ui_maingame.h"
 #include <qt5/QtWidgets/qwidget.h>
 
-ChooseHouse::ChooseHouse(QWidget *parent) :
+ChooseHouse::ChooseHouse(QWidget *parent, Client* client) :
     QDialog(parent),
     ui(new Ui::ChooseHouse)
 {
