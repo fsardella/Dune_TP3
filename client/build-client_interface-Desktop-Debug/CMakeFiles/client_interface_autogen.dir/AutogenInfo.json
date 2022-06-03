@@ -8,6 +8,11 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h",
+			"MU",
+			"NBTXC4HL66/moc_client_client.cpp"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h",
 			"MU",
 			"EWIEGA46WW/moc_choosehouse.cpp"
@@ -31,6 +36,21 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h",
+			"MU",
+			"NBTXC4HL66/moc_client_protocol.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.h",
+			"MU",
+			"NBTXC4HL66/moc_common_resolver.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h",
+			"MU",
+			"NBTXC4HL66/moc_common_socket.cpp"
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -89,6 +109,10 @@
 	"SOURCES" : 
 	[
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp",
+			"MU"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp",
 			"MU"
 		],
@@ -110,6 +134,18 @@
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp",
 			"MU"
 		]
 	],

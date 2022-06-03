@@ -270,6 +270,114 @@ creategamewindow.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/creategamewindow.cpp.s
 .PHONY : creategamewindow.cpp.s
 
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.s
+
 joingamewindow.o: joingamewindow.cpp.o
 
 .PHONY : joingamewindow.o
@@ -402,6 +510,18 @@ help:
 	@echo "... creategamewindow.o"
 	@echo "... creategamewindow.i"
 	@echo "... creategamewindow.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.s"
 	@echo "... joingamewindow.o"
 	@echo "... joingamewindow.i"
 	@echo "... joingamewindow.s"
