@@ -4,7 +4,6 @@
 #include "./ui_choosehouse.h"
 #include <QMessageBox>
 #include "../client_client.h"
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

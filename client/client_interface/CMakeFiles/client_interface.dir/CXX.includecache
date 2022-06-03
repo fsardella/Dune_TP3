@@ -155,8 +155,6 @@ QMessageBox
 -
 ../client_client.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
-iostream
--
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h
 QMainWindow

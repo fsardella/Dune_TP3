@@ -2,21 +2,20 @@
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
-#include <stdlib.h>
-#include <stdexcept>
+
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdexcept>
 
 #include "common_socket.h"
 #include "common_resolver.h"
 
-#define ERROR 1
-
 Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(true) {
     Resolver resolver(hostname, servicename, false);
+
     int s;
     int skt = -1;
     while (resolver.has_next()) {
@@ -35,39 +34,31 @@ Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(
             continue;
         }
 
-
         /* Intentamos conectarnos al servidor cuya direccion
          * fue dada por getaddrinfo()
          * */
         s = connect(skt, addr->ai_addr, addr->ai_addrlen);
-        printf("hola!\n");
         if (s == -1) {
             continue;
         }
+
         // Conexion exitosa!
         this->skt = skt;
         this->closed = false;
         return;
     }
 
-    // Este perror() va a imprimir el ultimo error generado.
-    // Es importanto no llamar nada antes ya que cualquier llamada
-    // a la libc puede cambiar el errno y hacernos perder el mensaje
-    // El manejo de errores en C es muy sensible!
-    perror("socket connection failed");
-
     // No hay q olvidarse de cerrar el socket en caso de
     // que lo hayamos abierto
     if (skt != -1)
         ::close(skt);
-
-    throw std::invalid_argument("Cannot connect the socket");
+    throw std::runtime_error("Socket connection failed");
 }
 
-Socket::Socket(const char *servicename) : skt(-1), closed(true) { //constructor para el servicio
+Socket::Socket(const char *servicename) : skt(-1), closed(true) {
     Resolver resolver(nullptr, servicename, true);
 
-    int s = 0;
+    int s;
     int skt = -1;
     while (resolver.has_next()) {
         struct addrinfo *addr = resolver.next();
@@ -134,18 +125,11 @@ Socket::Socket(const char *servicename) : skt(-1), closed(true) { //constructor 
         return;
     }
 
-    // Este perror() va a imprimir el ultimo error generado.
-    // Es importanto no llamar nada antes ya que cualquier llamada
-    // a la libc puede cambiar el errno y hacernos perder el mensaje
-    // El manejo de errores en C es muy sensible!
-    perror("socket setup failed");
-
     // No hay q olvidarse de cerrar el socket en caso de
     // que lo hayamos abierto
     if (skt != -1)
         ::close(skt);
-
-    throw std::invalid_argument("Cannot setup the socket");
+    throw std::runtime_error("socket setup failed");
 }
 
 /*
@@ -161,18 +145,15 @@ Socket::Socket(int skt) : skt(skt), closed(false) {
 
 int Socket::recvsome(void *data, unsigned int sz) {
     int s = recv(this->skt, (char*)data, sz, 0);
-    if (s == 0) {
-        // Puede ser o no un error, dependera del protocolo.
+    if (s <= 0) {
+        // Si s == 0, puede ser o no un error, dependera del protocolo.
         // Alguno protocolo podria decir "se reciben datos hasta
         // que la conexion se cierra" en cuyo caso el cierre del socket
         // no es un error sino algo esperado.
-        throw std::invalid_argument("socket cerrado");
-        return 0;
-    } else if (s < 0) {
-        // 99% casi seguro que es un error real
-        perror("socket recv failed");
-        throw std::logic_error("socket recv error");
-        return s;
+        if (s < 0)
+            // 99% casi seguro que es un error real
+            throw std::runtime_error("socket recv failed");
+        throw ClosedSocketException();
     } else {
         return s;
     }
@@ -180,11 +161,9 @@ int Socket::recvsome(void *data, unsigned int sz) {
 
 int Socket::sendsome(const void *data, unsigned int sz) {
     int s = send(this->skt, (char*)data, sz, MSG_NOSIGNAL);
-    if (s == 0) {
+    if (s <= 0) {
         // Puede o no ser un error (vease el comentario en recvsome())
-        throw std::invalid_argument("socket cerrado");
-        return 0;
-    } else if (s < 0) {
+        
         // Este es un caso especial: cuando enviamos algo pero en el medio
         // se detecta un cierre del socket no se sabe bien cuanto se logro
         // enviar (y fue recibido por el peer) y cuanto se perdio.
@@ -194,14 +173,10 @@ int Socket::sendsome(const void *data, unsigned int sz) {
         // En Linux el sistema operativo envia una signal (SIGPIPE) que
         // mata al proceso. El flag MSG_NOSIGNAL evita eso y nos permite
         // checkear y manejar la condicion mas elegantemente
-        if (errno == EPIPE) {
-            // Puede o no ser un error (vease el comentario en recvsome())
-            return 0;
-        }
-        // 99% casi seguro que es un error
-        perror("socket send failed");
-        throw std::logic_error("socket send error");
-        return s;
+        if (s < 0 && errno != EPIPE)
+            // 99% casi seguro que es un error
+            throw std::runtime_error("socket send failed");
+        throw ClosedSocketException();
     } else {
         return s;
     }
@@ -212,19 +187,8 @@ int Socket::recvall(void *data, unsigned int sz) {
 
     while (received < sz) {
         int s = this->recvsome((char*)data + received, sz - received);
-        if (s <= 0) {
-            // Si el socket fue cerrado (s == 0) o hubo un error (s < 0)
-            // el metodo Socket::recvsome ya deberia haber seteado was_closed
-            // y haber notificado el error.
-            // Nosotros podemos entonces meramente retornar.
-            // (si no llamaramos a Socket::recvsome() y llamaramos a recv()
-            // deberiamos entonces checkear los errores y no solo retornarlos)
-            return s;
-        } else {
-            // Ok, recibimos algo pero no necesariamente todo lo que
-            // esperamos. La condicion del while checkea eso justamente
-            received += s;
-        }
+        // Al estar la excepcion en revsome, no necesita chequeos.
+        received += s;
     }
 
     return sz;
@@ -233,19 +197,11 @@ int Socket::recvall(void *data, unsigned int sz) {
 
 int Socket::sendall(const void *data, unsigned int sz) {
     unsigned int sent = 0;
+
     while (sent < sz) {
         int s = this->sendsome((char*)data + sent, sz - sent);
-        if (s <= 0) {
-            // Si el socket fue cerrado (s == 0) o hubo un error (s < 0)
-            // el metodo Socket::sendall ya deberia haber seteado was_closed
-            // y haber notificado el error.
-            // Nosotros podemos entonces meramente retornar.
-            // (si no llamaramos a Socket::sendsome() y llamaramos a send()
-            // deberiamos entonces checkear los errores y no solo retornarlos)
-            return s;
-        } else {
-            sent += s;
-        }
+        // Al estar la excepcion en sendsome, no necesita chequeos.
+        sent += s;
     }
 
     return sz;
@@ -254,9 +210,11 @@ int Socket::sendall(const void *data, unsigned int sz) {
 Socket Socket::accept() {
     int skt = ::accept(this->skt, nullptr, nullptr);
     if (skt == -1) {
-        throw std::invalid_argument("Socket closed");
+        // perror("socket accept failed");
+        // No tira perror porque es comportamiento esperable
+        // al cerrar el Socket aceptador.
+        throw ClosedSocketException();
     }
-
     /*
      * Creamos un Socket en el scope de Socket::accept() y lo retornamos.
      * Por default C y C++ harian una copia pero copiar un Socket no tiene
@@ -274,7 +232,7 @@ Socket Socket::accept() {
 int Socket::shutdown(int how) {
     if (::shutdown(this->skt, how) == -1) {
         perror("socket shutdown failed");
-        return -1;
+        return -1;  // "No exceptions in destructors"
     }
 
     return 0;
@@ -283,11 +241,6 @@ int Socket::shutdown(int how) {
 int Socket::close() {
     this->closed = true;
     return ::close(this->skt);
-}
-
-void Socket::closeSkt() {
-    ::shutdown(this->skt, SHUT_RDWR);
-    ::close(this->skt);
 }
 
 Socket::~Socket() {

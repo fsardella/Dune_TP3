@@ -1,5 +1,10 @@
-#ifndef SOCKET_H
-#define SOCKET_H
+#ifndef COMMON_SOCKET_H
+#define COMMON_SOCKET_H
+
+#include <exception>
+
+// Excepcion para catchear especificamente!
+class ClosedSocketException: public std::exception {};
 
 /*
  * Socket.
@@ -38,11 +43,8 @@ class Socket {
      * en el buffer (que debe estar pre-allocado). La funcion puede recibir
      * menos bytes sin embargo.
      *
-     * Si el socket detecto que la conexion fue cerrada, la variable
-     * was_closed es puesta a True, de otro modo sera False.
-     *
-     * Retorna 0 si se cerro el socket, menor a 0 si hubo un error
-     * o positivo que indicara cuantos bytes realmente se enviaron/recibieron.
+     * Si el socket detecto que la conexion fue cerrada o un error, tira una 
+     * excepcion.
      *
      * Lease man send y man recv
      * */
@@ -56,11 +58,8 @@ class Socket {
      * Si hay un error o el socket se cerro durante el envio/recibo de los bytes
      * no hay forma certera de saber cuantos bytes realmente se enviaron/recibieron.
      *
-     * En caso de error se retorna un valor negativo, se retorna 0
-     * si el socket se cerro o un valor positivo igual a sz si se envio/recibio
-     * todo lo pedido.
-     *
-     * En caso de que se cierre el socket, was_closed es puesto a True.
+     * Si el socket detecto que la conexion fue cerrada o un error, tira una 
+     * excepcion.
      * */
     int sendall(const void *data, unsigned int sz);
     int recvall(void *data, unsigned int sz);
@@ -82,9 +81,6 @@ class Socket {
      * que debe ser llamado explicitamente.
      * */
     int close();
-
-
-    void closeSkt();
 
     /*
      * Desinicializa el socket. Si aun esta conectado,

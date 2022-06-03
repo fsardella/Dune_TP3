@@ -11,6 +11,9 @@
 #include <netdb.h>
 #include <unistd.h>
 
+#include <new>  // para el std::bad_alloc
+#include <stdexcept>
+
 Resolver::Resolver(const char* hostname, const char* servicename, bool passive) {
     struct addrinfo hints;
     this->result = this->next_ = nullptr;
@@ -45,7 +48,7 @@ Resolver::Resolver(const char* hostname, const char* servicename, bool passive) 
      * */
     if (s != 0) {
         printf("Error in getaddrinfo: %s\n", gai_strerror(s));
-        return;  // TODO lanzar una excepcion
+        throw std::runtime_error("");
     }
 
     this->next_ = this->result;

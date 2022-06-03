@@ -1,5 +1,5 @@
-#ifndef RESOLVER_H
-#define RESOLVER_H
+#ifndef COMMON_RESOLVER_H
+#define COMMON_RESOLVER_H
 
 struct addrinfo;
 
