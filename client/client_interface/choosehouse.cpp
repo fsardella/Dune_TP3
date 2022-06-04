@@ -19,7 +19,7 @@ ChooseHouse::~ChooseHouse()
 void ChooseHouse::show_MainGameWindow()
 {
     this->close();
-    MainGame mainGameWindow(this, this->client);
+    MainGame mainGameWindow(NULL, this->client);
     mainGameWindow.setModal(true);
     mainGameWindow.showMaximized();
     mainGameWindow.exec();
