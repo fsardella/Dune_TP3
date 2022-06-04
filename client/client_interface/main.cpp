@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
             throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
         }
         //std::cout << "el numero de casa es: " << client.houseNumber;
+        //std::cout << "el nombre del juego es" << client.game_name;
+        //std::cout << "el mapa del juego es" << client.map_name;
+
         //The window we'll be rendering to
         SDL_Window* sdl_window = NULL;
 

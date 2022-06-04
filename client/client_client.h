@@ -22,10 +22,12 @@ class Client {
 	std::string game_name_len;
 	ProtocolClient protocol;
 	//int houseNumber;
-	std::string game_name;
-	std::string map_name;
+	//std::string game_name;
+	//std::string map_name;
 	void operation_run(std::string& line);
 	public:
+	std::string game_name;
+	std::string map_name;
 	int houseNumber;
 	void setConnection(const char* name_host, const char* service_port);
 	//Client(const char* name_host, const char* service_port);
