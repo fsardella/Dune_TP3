@@ -18,11 +18,11 @@ Post-Condiciones: Constructor de Cliente.
 protocol(name_host, service_port){
 }
 */
-Client::Client() {
+Client::Client():protocol() {
 }
 
-void Client::setProtocol(const char* name_host, const char* service_port) {
-	ProtocolClient protocol(name_host, service_port);
+void Client::setConnection(const char* name_host, const char* service_port) {
+	this->protocol.setSktConnection(name_host, service_port);
 }
 
 /*

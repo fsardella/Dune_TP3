@@ -12,7 +12,7 @@
 
 #include "common_socket.h"
 #include "common_resolver.h"
-
+/*
 Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(true) {
     Resolver resolver(hostname, servicename, false);
 
@@ -21,22 +21,18 @@ Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(
     while (resolver.has_next()) {
         struct addrinfo *addr = resolver.next();
 
-        /* Cerramos el socket si nos quedo abierto de la iteracion
-         * anterior
-         * */
+        //Cerramos el socket si nos quedo abierto de la iteracion anterior
         if (skt != -1)
             ::close(skt);
 
-        /* Creamos el socket definiendo la familia (deberia ser AF_INET IPv4),
-           el tipo de socket (deberia ser SOCK_STREAM TCP) y el protocolo (0) */
+        Creamos el socket definiendo la familia (deberia ser AF_INET IPv4),
+        //el tipo de socket (deberia ser SOCK_STREAM TCP) y el protocolo (0)
         skt = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
         if (skt == -1) {
             continue;
         }
 
-        /* Intentamos conectarnos al servidor cuya direccion
-         * fue dada por getaddrinfo()
-         * */
+        //Intentamos conectarnos al servidor cuya direccion fue dada por getaddrinfo()
         s = connect(skt, addr->ai_addr, addr->ai_addrlen);
         if (s == -1) {
             continue;
@@ -54,6 +50,7 @@ Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(
         ::close(skt);
     throw std::runtime_error("Socket connection failed");
 }
+*/
 
 Socket::Socket(const char *servicename) : skt(-1), closed(true) {
     Resolver resolver(nullptr, servicename, true);
@@ -130,6 +127,54 @@ Socket::Socket(const char *servicename) : skt(-1), closed(true) {
     if (skt != -1)
         ::close(skt);
     throw std::runtime_error("socket setup failed");
+}
+
+/*
+Constructor del Socket
+*/
+Socket::Socket() : skt(-1), closed(false) {
+}
+
+void Socket::socketConnect(const char *hostname, const char *servicename) {
+    Resolver resolver(hostname, servicename, false);
+
+    int s;
+    int skt = -1;
+    while (resolver.has_next()) {
+        struct addrinfo *addr = resolver.next();
+
+        /* Cerramos el socket si nos quedo abierto de la iteracion
+         * anterior
+         * */
+        if (skt != -1)
+            ::close(skt);
+
+        /* Creamos el socket definiendo la familia (deberia ser AF_INET IPv4),
+           el tipo de socket (deberia ser SOCK_STREAM TCP) y el protocolo (0) */
+        skt = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
+        if (skt == -1) {
+            continue;
+        }
+
+        /* Intentamos conectarnos al servidor cuya direccion
+         * fue dada por getaddrinfo()
+         * */
+        s = connect(skt, addr->ai_addr, addr->ai_addrlen);
+        if (s == -1) {
+            continue;
+        }
+
+        // Conexion exitosa!
+        this->skt = skt;
+        this->closed = false;
+        return;
+    }
+
+    // No hay q olvidarse de cerrar el socket en caso de
+    // que lo hayamos abierto
+    if (skt != -1)
+        ::close(skt);
+    throw std::runtime_error("Socket connection failed");
 }
 
 /*

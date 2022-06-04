@@ -33,8 +33,12 @@ class Socket {
      * Este codigo es un ejemplo de ello.
      *
      * */
-    Socket(const char *hostname, const char *servicename);
+    //Socket(const char *hostname, const char *servicename);
     explicit Socket(const char *servicename);
+
+    Socket();
+
+    void socketConnect(const char *hostname, const char *servicename);
 
     /* Socket::sendsome() lee hasta sz bytes del buffer y los envia. La funcion
      * puede enviar menos bytes sin embargo.

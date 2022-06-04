@@ -26,9 +26,10 @@ class Client {
 	std::string map_name;
 	void operation_run(std::string& line);
 	public:
+	void setConnection(const char* name_host, const char* service_port);
 	//Client(const char* name_host, const char* service_port);
 	Client();
-	void setProtocol(const char* name_host, const char* service_port);
+	//void setProtocol(const char* name_host, const char* service_port);
 	int client_run();
 	void chooseNumberHouse(std::string house);
 	void chooseGameName(std::string name);
