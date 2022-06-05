@@ -9,9 +9,9 @@ class Unit {
     AStar moveAlgorithm;
  public:
     Unit(coor_t coor, TerrainMap& terr);
-    virtual int getSpeedForSand() = 0;
-    virtual int getSpeedForDune() = 0;
     virtual int getSpeedForMount() = 0;
+    int getSpeedForSand();
+    int getSpeedForDune();
     int getSpeedForCliff();
     coor_t getPosition();
     void processMove(coor_t dest);
@@ -21,8 +21,6 @@ class Unit {
 class Infantry : public Unit {
  public:
     Infantry(coor_t coor, TerrainMap& terr);
-    int getSpeedForSand();
-    int getSpeedForDune();
     int getSpeedForMount();
     virtual ~Infantry();
 };
@@ -30,8 +28,6 @@ class Infantry : public Unit {
 class Vehicle : public Unit {
  public:
     Vehicle(coor_t coor, TerrainMap& terr);
-    int getSpeedForSand();
-    int getSpeedForDune();
     int getSpeedForMount();
     virtual ~Vehicle();
 };

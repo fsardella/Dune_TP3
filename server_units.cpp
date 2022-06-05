@@ -29,17 +29,19 @@ int Unit::getSpeedForCliff() {
     return WALL;    
 }
 
+int Unit::getSpeedForSand() {
+    return SAND;
+}
+int Unit::getSpeedForDune() {
+    return DUNE;
+}
+
 Unit::~Unit() {}
 
 
 
 
-int Infantry::getSpeedForSand() {
-    return SAND;
-}
-int Infantry::getSpeedForDune() {
-    return DUNE;
-}
+
 int Infantry::getSpeedForMount() {
     return SAND;
 }
@@ -48,13 +50,6 @@ Infantry::~Infantry() {}
 
 
 
-
-int Vehicle::getSpeedForSand() {
-    return SAND;
-}
-int Vehicle::getSpeedForDune() {
-    return DUNE;
-}
 int Vehicle::getSpeedForMount() {
     return WALL;
 }

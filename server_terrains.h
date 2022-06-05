@@ -4,24 +4,26 @@
 
 
 #include <stdint.h>
+#include <set>
 #include "server_units.h"
 
 class Terrain {
  protected:
-    bool occupied;
+    std::set<coor_t> occupied;
  public:
     Terrain();
-    void occupySpace();
-    void freeSpace();
+    void occupySpace(coor_t coord);
+    void freeSpace(coor_t coord);
+    bool isOccupied(coor_t coord);
     virtual void print();
-    virtual int getSpeed(Unit& unit) = 0;
+    virtual int getSpeed(Unit& unit, coor_t coord) = 0;
     virtual ~Terrain();
 };
 
 class Sand : public Terrain {
  public:
     Sand();
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     //void print(); // DEBUG
     virtual ~Sand();
 };
@@ -31,7 +33,7 @@ class Rock : public Terrain {
  public:
     Rock();
     void build(char building);
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     virtual ~Rock();
 };
 
@@ -39,14 +41,14 @@ class Spice : public Terrain {
     uint16_t quantity;
  public:
     Spice(uint16_t quantity);
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     virtual ~Spice();
 };
 
 class Dune : public Terrain {
  public:
     Dune();
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Dune();
 };
@@ -54,7 +56,7 @@ class Dune : public Terrain {
 class Mount : public Terrain {
  public:
     Mount();
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Mount();
 };
@@ -62,7 +64,7 @@ class Mount : public Terrain {
 class Cliff : public Terrain {
  public:
     Cliff();
-    int getSpeed(Unit& unit);
+    int getSpeed(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Cliff();
 };
