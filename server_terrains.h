@@ -16,6 +16,7 @@ class Terrain {
     void freeSpace(coor_t coord);
     bool isOccupied(coor_t coord);
     virtual void print();
+    void printDebug();
     virtual int getSpeed(Unit& unit, coor_t coord) = 0;
     virtual ~Terrain();
 };

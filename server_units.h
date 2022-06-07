@@ -15,6 +15,7 @@ class Unit {
     int getSpeedForCliff();
     coor_t getPosition();
     void processMove(coor_t dest);
+    void print();
     virtual ~Unit();
 };
 

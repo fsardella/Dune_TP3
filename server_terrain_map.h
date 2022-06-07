@@ -21,6 +21,7 @@ class TerrainMap {
  public:
     TerrainMap(sketch_t mapSketch);
     void print(coor_t org, coor_t dest); // debug
+    void printDebug();
     coor_t getDims();
     void swapContent(coor_t source, coor_t destiny);
     int getSpeed(coor_t coor, Unit& unit);

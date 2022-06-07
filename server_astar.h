@@ -38,6 +38,7 @@ class AStar {
     AStar(Unit& unit, coor_t origin, TerrainMap& terrain);
     void processMove(coor_t dest);
     coor_t getPosition();
+    void print();
 };
 
 

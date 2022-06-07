@@ -56,7 +56,6 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
 void TerrainMap::print(coor_t org, coor_t dest) {
     coor_t dims = this->getDims();
     for (size_t i = 0; i < dims.first / CHUNKSIZE; i++) {
-        std::cout << i;
         for (size_t j = 0; j < dims.second / CHUNKSIZE; j++) {
             Terrain* draw = this->terr[i][j];
             if (org.first / CHUNKSIZE == i && org.second / CHUNKSIZE == j)
@@ -66,8 +65,18 @@ void TerrainMap::print(coor_t org, coor_t dest) {
             else
                 draw->print();
         }
-        std::cout << std::endl;
+        std::cout << i * CHUNKSIZE << std::endl;
     }
+}
+
+void TerrainMap::printDebug() {
+    std::cout << "Occupied coordinates: ";
+    for (std::vector<Terrain*> row : this->terr) {
+        for (Terrain* terry : row) {
+            terry->printDebug();
+        }
+    }
+    std::cout << std::endl;
 }
 
 coor_t TerrainMap::getDims() {

@@ -10,8 +10,8 @@
 
 
 coor_t getChunk(const coor_t& coor) {
-    return coor_t(coor.first - coor.first % CHUNKSIZE, 
-                  coor.second - coor.second % CHUNKSIZE);
+    return coor_t((coor.first / CHUNKSIZE) * CHUNKSIZE, 
+                  (coor.second / CHUNKSIZE) * CHUNKSIZE);
 }
 
 
@@ -39,8 +39,11 @@ void AStar::processMove(coor_t dest) {
         this->actPos = ret;
     } else if (this->movs.empty() && !this->chunks.empty()) { 
         this->execSubAlgorithm();
-        if (!this->movs.empty())
+        if (!this->movs.empty()) {
+            if (dest != this->chunks.front())
+                this->chunks.push_front(dest);
             this->processMove(this->actDest);
+        }
     } else {
         this->movs.clear();
         this->chunks.clear();
@@ -69,8 +72,10 @@ float get_distance(std::map<coor_t, float>& dict, const coor_t& key) {
 std::list<coor_t> AStar::getAdjacents(const coor_t& coor) {
     std::list<coor_t> adjacents;
     coor_t dims = this->terr.getDims();
-    for (int i = -CHUNKSIZE; i <= CHUNKSIZE; i++) {
-        for (int j = -CHUNKSIZE; j <= CHUNKSIZE; j++) {
+    for (int i = -CHUNKSIZE; i <= CHUNKSIZE; i += CHUNKSIZE) {
+        for (int j = -CHUNKSIZE; j <= CHUNKSIZE; j += CHUNKSIZE) {
+            if (i == 0 && j == 0)
+                continue;
             if (coor.first + i < (int)dims.first && coor.first + i >= 0 &&
                 coor.second + j < (int)dims.second
                 && coor.second + j >= 0) {
@@ -91,6 +96,7 @@ bool get_min(const dijk_t& a, const dijk_t& b) {
 
 std::map<coor_t, coor_t> AStar::_execAlgorithm() {
     std::map<coor_t, float> distance;
+    std::map<coor_t, bool> seen;
     std::map<coor_t, coor_t> parent;
     std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)>
         prior_q(get_min); // Debe ser float para admitir inf...
@@ -105,16 +111,17 @@ std::map<coor_t, coor_t> AStar::_execAlgorithm() {
         if (u == destChunk)
             break;
         prior_q.pop();
+        seen[u] = true;
         for (coor_t adj : getAdjacents(u)) {
-            if (distance.find(adj) == distance.end()) {
+            if (seen.find(adj) == seen.end()) {
                 float ter_speed = this->terr.getSpeed(adj, this->unit); 
                 if (ter_speed == WALL) {
                     distance[adj] = INFINITY;
                 } else if (get_distance(distance, adj) >
                            distance[u] + ter_speed + chevychev(adj)) {
-                    distance[adj] = distance[u] + ter_speed + chevychev(adj);
+                    distance[adj] = distance[u] + ter_speed;
                     parent[adj] = u;
-                    act = dijk_t(adj, distance[adj]);
+                    act = dijk_t(adj, distance[adj] + chevychev(adj));
                     prior_q.push(act);
                 }
             }
@@ -148,6 +155,8 @@ std::list<coor_t> AStar::getSubAdjacents(const coor_t& coor) {
     dims = coor_t(dims.first, dims.second);
     for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
+            if (i == 0 && j == 0)
+                continue;
             if (coor.first + i < (int)dims.first && coor.first + i >= 0 &&
                 coor.second + j < (int)dims.second
                 && coor.second + j >= 0) {
@@ -160,8 +169,15 @@ std::list<coor_t> AStar::getSubAdjacents(const coor_t& coor) {
 }
 
 
+float subChevychev(const coor_t& coord, const coor_t& dest) {
+    float dist_x = abs(coord.first - dest.first);
+    float dist_y = abs(coord.second - dest.second);
+    return (dist_x > dist_y)? dist_x : dist_y;
+}
+
 std::map<coor_t, coor_t> AStar::_execSubAlgorithm(const coor_t& dest) {
     std::map<coor_t, float> distance;
+    std::map<coor_t, bool> seen;
     std::map<coor_t, coor_t> parent;
     std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)>
         prior_q(get_min); // Debe ser float para admitir inf...
@@ -174,14 +190,15 @@ std::map<coor_t, coor_t> AStar::_execSubAlgorithm(const coor_t& dest) {
         if (u == dest)
             break;
         prior_q.pop();
+        seen[u] = true;
         for (coor_t adj : getSubAdjacents(u)) {
-            if (distance.find(adj) == distance.end()) {
-                float ter_speed = this->terr.getSpeed(getChunk(adj), this->unit); 
+            if (seen.find(adj) == seen.end()) {
+                float ter_speed = this->terr.getSpeed(adj, this->unit); 
                 if (ter_speed == WALL) {
                     distance[adj] = INFINITY;
                 } else if (get_distance(distance, adj) >
-                           distance[u] + ter_speed + chevychev(adj)) {
-                    distance[adj] = distance[u] + ter_speed + chevychev(adj);
+                           distance[u] + ter_speed + subChevychev(adj, dest)) {
+                    distance[adj] = distance[u] + ter_speed + subChevychev(adj, dest);
                     parent[adj] = u;
                     act = dijk_t(adj, distance[adj]);
                     prior_q.push(act);
@@ -198,8 +215,8 @@ void AStar::execSubAlgorithm() {
     std::map<coor_t, coor_t> parents = this->_execSubAlgorithm(dest);
     coor_t u = dest;
     while (u != this->actPos) {
-        for (float trav_turns = 0;
-             trav_turns < this->terr.getSpeed(getChunk(u), this->unit);
+        for (int trav_turns = 0;
+             trav_turns < this->terr.getSpeed(u, this->unit);
              trav_turns++)
             this->movs.push_back(u);
         u = parents[u];
@@ -208,6 +225,18 @@ void AStar::execSubAlgorithm() {
             return;
         }
     }
+}
+
+
+void AStar::print() {
+    std::cout << "A* Chunks: ";
+    for (coor_t chunk : this->chunks)
+        std::cout << chunk.first << ", " << chunk.second << " -> ";
+    std::cout << std::endl;
+    std::cout << "A* Moves: ";
+    for (coor_t mov : this->movs)
+        std::cout << mov.first << ", " << mov.second << " -> ";
+    std::cout << std::endl;
 }
 
 coor_t AStar::getPosition() {

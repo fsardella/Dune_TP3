@@ -12,6 +12,12 @@ void Terrain::freeSpace(coor_t coord) {
     this->occupied.erase(coord);
 }
 
+void Terrain::printDebug() {
+    for (coor_t tile : this->occupied) {
+        std::cout << tile.first << ", " << tile.second << "; ";
+    }
+}
+
 bool Terrain::isOccupied(coor_t coord) {
     return (this->occupied.find(coord) != this->occupied.end());
 }

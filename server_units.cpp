@@ -36,6 +36,10 @@ int Unit::getSpeedForDune() {
     return DUNE;
 }
 
+void Unit::print() {
+    this->moveAlgorithm.print();
+}
+
 Unit::~Unit() {}
 
 

@@ -26,9 +26,7 @@ int main() {
     coor_t dims = ter.getDims();
     coor_t act(dims.first - 1, 0);
     coor_t dest(0, dims.second - 1);
-    std::cout << "Coso\n";
     ter.print(act, dest);
-    std::cout << "Cosi\n";
     Unit* unit;
     if (linea == "i") {
         unit = new Infantry(act, ter);
@@ -53,6 +51,8 @@ int main() {
         std::cout << "Unit position: " << act.first << ", " << act.second << std::endl;
         std::cout << "Destiny position: " <<  dest.first << ", " << dest.second << std::endl;
         std::cout << "Time spent: " << time_spent << std::endl;
+        unit->print();
+        ter.printDebug();
     } 
     delete unit;
     return 0;
