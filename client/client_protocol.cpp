@@ -18,19 +18,14 @@ Post-Condiciones: Constructor de Protocolo.
 ProtocolClient::ProtocolClient():socket() {
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Setea la conexion entre un cliente y un servidor.
+*/
+
 void ProtocolClient::setSktConnection(const char* name_host, const char* service_port) {
 	this->socket.socketConnect(name_host, service_port);
 }
-
-
-/*
-Pre-Condiciones: -
-Post-Condiciones: Constructor de Protocolo.
-*/
-/*
-ProtocolClient::ProtocolClient(const char* name_host, const char* service_port):
-socket(name_host, service_port) {
-}*/
 
 /*
 Pre-Condiciones: -

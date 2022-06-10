@@ -4,6 +4,11 @@
 #include <string>
 #include <vector>
 #include "client_protocol.h"
+#include <yaml-cpp/yaml.h>
+#include "yaml-cpp/node/node.h"
+#include "yaml-cpp/node/parse.h"
+#include "SdlWindow.h"
+#include "GameView.h"
 
 
 #define HOUSE_ATREIDES "Atreides"
@@ -16,24 +21,17 @@
 
 
 class Client {
-	std::string operation;
-	std::string house;
-	std::string num_players;
-	std::string game_name_len;
+	YAML::Node& clientConfiguration;
+	SdlWindow sdlWindow;
 	ProtocolClient protocol;
-	//int houseNumber;
-	//std::string game_name;
-	//std::string map_name;
-	void operation_run(std::string& line);
-	public:
+	int houseNumber;
 	std::string game_name;
 	std::string map_name;
-	int houseNumber;
+	void operation_run(std::string& line);
+	public:
+	Client(YAML::Node& clientConfig);
 	void setConnection(const char* name_host, const char* service_port);
-	//Client(const char* name_host, const char* service_port);
-	Client();
-	//void setProtocol(const char* name_host, const char* service_port);
-	int client_run();
+	void client_run();
 	void chooseNumberHouse(std::string house);
 	void chooseGameName(std::string name);
 	void chooseMapName(std::string name);

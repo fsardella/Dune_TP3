@@ -5,7 +5,7 @@
 		<Option title="libSDL2pp"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\Qt\;CMake Files\..\..\..\..\..\Qt\Tools\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\qtcreator\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\qtcreator\package-manager\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\lib\;CMake Files\lib\libSDL2pp\;CMake Files\lib\libSDL2pp\cmake\;CMake Files\lib\libSDL2pp\SDL2pp\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\Qt\;CMake Files\..\..\..\..\..\Qt\Tools\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\qtcreator\;CMake Files\..\..\..\..\..\Qt\Tools\QtCreator\share\qtcreator\package-manager\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\;CMake Files\lib\;CMake Files\lib\libSDL2pp\;CMake Files\lib\libSDL2pp\cmake\;CMake Files\lib\libSDL2pp\SDL2pp\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/lib/libSDL2pp"/>
@@ -325,6 +325,18 @@
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/../../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/../../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/../../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/../../../../../../../usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\yaml-cpp\"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\lib\libSDL2pp\"/>

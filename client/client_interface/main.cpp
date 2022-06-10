@@ -4,18 +4,28 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define MASK 255, 255, 255
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#define CLIENT_CONFIG "../client_config.yaml"
 
 int main(int argc, char *argv[])
 {
+    YAML::Node clientConfig;
+
+    try {
+        clientConfig = YAML::LoadFile(CLIENT_CONFIG);
+    } catch(const std::exception& e) {
+        std::cout << e.what();
+        return -1;
+    }
     try {
         // Clase que contiene el loop principal
         QApplication app(argc, argv);
         // Instancio la ventana principal
-        Client client;
+        //Client client(clientConfig);
+        Client client(clientConfig);
         MainWindow window(NULL, &client);
         window.showMaximized();
         /*
@@ -30,47 +40,7 @@ int main(int argc, char *argv[])
         //std::cout << "el numero de casa es: " << client.houseNumber;
         //std::cout << "el nombre del juego es" << client.game_name;
         //std::cout << "el mapa del juego es" << client.map_name;
-
-        //The window we'll be rendering to
-        SDL_Window* sdl_window = NULL;
-
-        //The surface contained by the window
-        SDL_Surface* screenSurface = NULL;
-
-        //Initialize SDL
-        if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-        {
-            printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-        }
-        else
-        {
-            //Create window
-            sdl_window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-            if( sdl_window == NULL )
-            {
-                printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
-            }
-            else
-            {
-                //Get window surface
-                screenSurface = SDL_GetWindowSurface( sdl_window );
-
-                //Fill the surface white
-                SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-
-                //Update the surface
-                SDL_UpdateWindowSurface( sdl_window );
-
-                //Wait two seconds
-                SDL_Delay( 2000 );
-            }
-        }
-
-        //Destroy window
-        SDL_DestroyWindow( sdl_window );
-
-        //Quit SDL subsystems
-        SDL_Quit();
+        client.client_run();
 
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;

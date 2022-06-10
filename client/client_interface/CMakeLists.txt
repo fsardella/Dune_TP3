@@ -10,9 +10,11 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -ggdb -DDEBUG -Wall -fno-inline -pedantic -pedantic-errors -pthread")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(yaml-cpp REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -40,7 +42,26 @@ set(PROJECT_SOURCES
         ../common_socket.h
         ../common_resolver.cpp
         ../common_resolver.h
-
+        ../Area.cpp
+        ../Area.h
+        ../SdlWindow.cpp
+        ../SdlWindow.h
+        ../Camera.cpp
+        ../Camera.h
+        ../Drawer.cpp
+        ../Drawer.h
+        ../GameView.cpp
+        ../GameView.h
+        ../MapView.cpp
+        ../MapView.h
+        ../NonMovable.cpp
+        ../NonMovable.h
+        ../Renderizable.cpp
+        ../Renderizable.h
+        ../SdlTexture.cpp
+        ../SdlTexture.h
+        ../thread.cpp
+        ../thread.h
 )
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras
@@ -83,8 +104,7 @@ else()
         )
     endif()
 endif()
-
-target_link_libraries(client_interface Qt5::Widgets ${SDL2PP_LIBRARIES})
+target_link_libraries(client_interface Qt5::Widgets Qt5::Core ${SDL2PP_LIBRARIES} yaml-cpp)
 
 set_target_properties(client_interface PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

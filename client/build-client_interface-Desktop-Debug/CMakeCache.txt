@@ -309,6 +309,9 @@ libSDL2pp_BINARY_DIR:STATIC=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/bu
 //Value Computed by CMake
 libSDL2pp_SOURCE_DIR:STATIC=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp
 
+//The directory containing a CMake configuration file for yaml-cpp.
+yaml-cpp_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp
+
 
 ########################
 # INTERNAL cache entries
