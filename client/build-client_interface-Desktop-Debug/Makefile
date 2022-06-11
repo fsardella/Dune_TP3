@@ -297,6 +297,33 @@ home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.s
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.s
 
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
+
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o
 
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o
@@ -837,6 +864,9 @@ help:
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.s"

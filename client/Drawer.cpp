@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include "Drawer.h"
 
-Drawer::Drawer(GameView &gameView): gameView(gameView), running(true) {
+Drawer::Drawer(GameView* gameView): gameView(gameView), running(true) {
 }
 
 void Drawer::run() {
@@ -11,13 +11,13 @@ void Drawer::run() {
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
                 running = false;
-                gameView.shutdown();
+                gameView->shutdown();
                 break;
             }
-            if(event.type == SDL_MOUSEBUTTONDOWN) {
-                gameView.buildUnit(event.button.x, event.button.y);
-            }
-            gameView.render(it);
+            // if(event.type == SDL_MOUSEBUTTONDOWN) {
+            //     gameView.buildUnit(event.button.x, event.button.y);
+            // }
+            gameView->render(it);
 
         }
     }

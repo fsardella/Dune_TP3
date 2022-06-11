@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         QApplication app(argc, argv);
         // Instancio la ventana principal
         //Client client(clientConfig);
-        Client client(clientConfig);
+        Client client;
         MainWindow window(NULL, &client);
         window.showMaximized();
         /*

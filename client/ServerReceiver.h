@@ -4,12 +4,17 @@
 #include "GameView.h"
 #include "Drawer.h"
 #include "thread.h"
+#include "client_protocol.h"
 
 class ServerReceiver: public Thread {
-	Drawer drawer;
+	Drawer* drawer;
+	GameView* gameView;
+	ProtocolClient* protocolClient;
 	void run() override;
+	void receiveBackground();
+
 public:
-	ServerReceiver(GameView &gameView);
+	ServerReceiver(ProtocolClient* protocol);
 	virtual ~ServerReceiver();
 };
 

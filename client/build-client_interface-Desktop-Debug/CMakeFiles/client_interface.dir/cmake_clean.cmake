@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/client_interface.dir/creategamewindow.cpp.o"
   "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.o"
+  "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o"
   "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o"
   "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp.o"
   "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o"

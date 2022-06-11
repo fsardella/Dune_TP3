@@ -190,6 +190,12 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h">
 			<Option target="client_interface"/>
 		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp">
 			<Option target="client_interface"/>
 		</Unit>

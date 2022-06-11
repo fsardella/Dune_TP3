@@ -8,11 +8,11 @@
 
 class Drawer : public Thread {
 private:
-    GameView& gameView;
+    GameView* gameView;
     void run() override;
     bool running;
 public:
-    explicit Drawer(GameView& gameView);
+    explicit Drawer(GameView* gameView);
     void handle_events(Unit unit);
     void update(float dt);
     virtual ~Drawer();

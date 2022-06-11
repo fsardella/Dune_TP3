@@ -365,9 +365,22 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp.s
 
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: CMakeFiles/client_interface.dir/flags.make
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp > CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.i
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
+
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o: CMakeFiles/client_interface.dir/flags.make
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o: client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
 	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp
 
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.i: cmake_force
@@ -403,6 +416,7 @@ client_interface_OBJECTS = \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp.o" \
+"CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o" \
 "CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
 
 # External object files for target client_interface
@@ -431,6 +445,7 @@ client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_tall
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp.o
+client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o
 client_interface: CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o
 client_interface: CMakeFiles/client_interface.dir/build.make
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
@@ -443,7 +458,7 @@ client_interface: /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 client_interface: CMakeFiles/client_interface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX executable client_interface"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Linking CXX executable client_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client_interface.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

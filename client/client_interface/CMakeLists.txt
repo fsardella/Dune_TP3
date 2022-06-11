@@ -66,6 +66,8 @@ set(PROJECT_SOURCES
         ../Construction.h
         ../thread.cpp
         ../thread.h
+        ../BackGroundTile.cpp
+        ../BackGroundTile.h
 )
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras

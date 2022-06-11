@@ -15,12 +15,15 @@
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Cliente.
 */
-
+/*
 Client::Client(YAML::Node& configuration):protocol(),clientConfiguration(configuration),sdlWindow(clientConfiguration["width"].as<int>(),
     clientConfiguration["height"].as<int>(),
     clientConfiguration["fullscreen"].as<bool>(), "DUNE 2000") {
 }
+*/
 
+Client::Client():protocol() {
+}
 /*
 Pre-Condiciones: -
 Post-Condiciones: El cliente se conecta a un servidor.
@@ -72,9 +75,8 @@ Post-Condiciones: Se lanza al cliente.
 */
 
 void Client::client_run() {
-	GameView gameView(sdlWindow, clientConfiguration);
-	gameView.buildMap("../Mapa1.yaml"); // de prueba. Esto va a ser generalizado para cualquier nombre de mapa. 
-	ServerReceiver receiver(gameView);
+	std::cout << "hola\n";
+	ServerReceiver receiver(&(this->protocol)); //no anda esto !!!!!!!!!!!!!!
 }
 
 /*

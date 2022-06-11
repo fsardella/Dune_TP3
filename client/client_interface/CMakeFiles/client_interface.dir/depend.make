@@ -3,6 +3,7 @@
 
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/choosehouse.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -229,6 +230,7 @@ CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehou
 
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../Animation.h
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../Area.h
+CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../BackGroundTile.h
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../Camera.h
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../Construction.h
 CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o: ../Drawer.h
@@ -440,6 +442,7 @@ CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o:
 
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/creategamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -688,6 +691,14 @@ CMakeFiles/client_interface.dir/creategamewindow.cpp.o: lib/libSDL2pp/SDL2pp/ext
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
 
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
+
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
@@ -700,6 +711,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -788,6 +800,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
@@ -874,6 +887,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
@@ -981,7 +995,9 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
@@ -992,6 +1008,8 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /usr/include/SDL2/SDL.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.o: /usr/include/SDL2/SDL_assert.h
@@ -1070,6 +1088,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -1163,6 +1182,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -1266,6 +1286,7 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/joingamewindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -1505,6 +1526,7 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.o: lib/libSDL2pp/SDL2pp/exter
 
 CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/main.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -1713,6 +1735,7 @@ CMakeFiles/client_interface.dir/main.cpp.o: lib/libSDL2pp/SDL2pp/external/libcpp
 
 CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/maingame.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
@@ -1934,6 +1957,7 @@ CMakeFiles/client_interface.dir/maingame.cpp.o: lib/libSDL2pp/SDL2pp/external/li
 
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
+CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 CMakeFiles/client_interface.dir/mainwindow.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h

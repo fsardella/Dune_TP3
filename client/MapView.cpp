@@ -3,14 +3,25 @@
 #include "MapView.h"
 #include "Camera.h"
 
+#define TILESAMOUNT 40
+/*
 MapView::MapView(SdlWindow& window,
                  YAML::Node& clientConfig)
 : window(window),
   clientConfig(clientConfig),
   columns(0),
   rows(0) {
+    this->loadTranslator();
 }
 
+*/
+MapView::MapView(SdlWindow& window)
+: window(window),
+  columns(0),
+  rows(0) {
+    this->loadTranslator();
+}
+/*
 void MapView::loadMap(const std::string &mapFile) {
     try {
         map = YAML::LoadFile(mapFile);
@@ -21,7 +32,38 @@ void MapView::loadMap(const std::string &mapFile) {
     rows = map["size_rows"].as<size_t>();
     loadBackground();
 }
+*/
 
+void MapView::loadTranslator() {
+    YAML::Node node = YAML::LoadFile("../tiles.yaml");
+    for (int i = 0; i <= 40; i++) {
+        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
+        tileInfoTranslator[i] = tileInfo;
+    }
+    for (int i = 0; i <= 40; i++) {
+        std::string tileSizeKey(std::to_string(i) + " size");
+        std::vector<int> tileSize = node[tileSizeKey].as< std::vector<int>>();
+        tileSizeTranslator[i] = tileSize;
+    }
+}
+
+void MapView::createMap(int height, int width, std::vector<std::vector<int>> map) {
+    columns = width;
+    rows = height;
+
+    for (size_t i = 0; i < rows; i ++) {
+        std::vector<BackGroundTile*> backgroundRow;
+        for(size_t j = 0; j < columns; j++) {
+            std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
+            std::vector<int> tileSize = tileSizeTranslator[map[i][j]];
+            SdlTexture sdlTexture(tileInfo[1], window);
+            BackGroundTile backgroundTile(sdlTexture, tileSize[0], tileSize[1], j, i);
+            backgroundRow.emplace_back(&backgroundTile);
+        }
+        backgroundTiles.emplace_back(backgroundRow);
+    }
+}
+/*
 void MapView::loadBackground() {
     std::string background = map["background"].as<std::string>();
     std::string backgroundPath;
@@ -42,8 +84,8 @@ void MapView::loadBackground() {
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; j < columns; j++)
             backgroundTiles.emplace_back(backgroundTexture, 32, 32, i, j); //llena el vector con un objeto construyendolo con sus argumentos
-}
-
+}*/
+/*
 void MapView::loadUnit(int x, int y) {
     std::string unit = map["unit"].as<std::string>();
     std::string unitPaths;
@@ -64,15 +106,26 @@ void MapView::loadUnit(int x, int y) {
         for (int j = 0; j < 1; ++j) // ver de poner x e y para que se imprima donde yo quiero
             unitsTiles.emplace_back(unitTexture, 100, 100 , x, y); //llena el vector con un objeto construyendolo con sus argumentos
 }
-
+*/
 MapView::~MapView() {
 }
 
+// void MapView::render(Camera &cam) {
+//     for (NonMovable &tile : backgroundTiles) {
+//         cam.render(tile, 0);
+//     }
+//     for (NonMovable &unit : unitsTiles) {
+//         cam.render(unit, unit.getX(), unit.getY());
+//     }
+// }
+
 void MapView::render(Camera &cam) {
-    for (NonMovable &tile : backgroundTiles) {
-        cam.render(tile, 0);
+    for (std::vector<BackGroundTile*> &row : backgroundTiles) {
+        for (BackGroundTile* &tile : row) {
+            cam.render(*tile, 0);
+        }
     }
-    for (NonMovable &unit : unitsTiles) {
+    /*for (NonMovable &unit : unitsTiles) {
         cam.render(unit, unit.getX(), unit.getY());
-    }
+    }*/
 }

@@ -21,15 +21,15 @@
 
 
 class Client {
-	YAML::Node& clientConfiguration;
-	SdlWindow sdlWindow;
-	ProtocolClient protocol;
+	//YAML::Node& clientConfiguration;
+	//SdlWindow sdlWindow;
 	int houseNumber;
 	std::string game_name;
 	std::string map_name;
 	void operation_run(std::string& line);
 	public:
-	Client(YAML::Node& clientConfig);
+	ProtocolClient protocol; //get protocol despues
+	Client();
 	void setConnection(const char* name_host, const char* service_port);
 	void client_run();
 	void chooseNumberHouse(std::string house);
