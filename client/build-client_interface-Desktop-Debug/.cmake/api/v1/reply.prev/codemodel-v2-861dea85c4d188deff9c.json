@@ -1,0 +1,118 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				},
+				{
+					"build" : "lib/libSDL2pp",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "lib/libSDL2pp",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "client_interface",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "libSDL2pp",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2pp::@c475769d1d6bc348a11b",
+					"jsonFile" : "target-SDL2pp-Debug-f7dd88d9382e21fc94ae.json",
+					"name" : "SDL2pp",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SDL2pp_autogen::@c475769d1d6bc348a11b",
+					"jsonFile" : "target-SDL2pp_autogen-Debug-5dc66d3c6b77d1da4f1e.json",
+					"name" : "SDL2pp_autogen",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "client_interface::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-client_interface-Debug-e3ec685f8dfae2cbc162.json",
+					"name" : "client_interface",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "client_interface_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-client_interface_autogen-Debug-cc63eed2dd89101bcc24.json",
+					"name" : "client_interface_autogen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug",
+		"source" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

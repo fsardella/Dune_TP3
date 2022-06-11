@@ -74,9 +74,7 @@ Post-Condiciones: Se lanza al cliente.
 void Client::client_run() {
 	GameView gameView(sdlWindow, clientConfiguration);
 	gameView.buildMap("../Mapa1.yaml"); // de prueba. Esto va a ser generalizado para cualquier nombre de mapa. 
-    Drawer drawer(gameView);
-    drawer.start();
-    drawer.join();
+	ServerReceiver receiver(gameView);
 }
 
 /*

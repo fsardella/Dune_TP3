@@ -60,6 +60,10 @@ set(PROJECT_SOURCES
         ../Renderizable.h
         ../SdlTexture.cpp
         ../SdlTexture.h
+        ../ServerReceiver.cpp
+        ../ServerReceiver.h
+        ../Construction.cpp
+        ../Construction.h
         ../thread.cpp
         ../thread.h
 )

@@ -1,8 +1,7 @@
 #include <unistd.h>
 #include "Drawer.h"
 
-Drawer::Drawer(GameView &gameView)
-: gameView(gameView), running(true) {
+Drawer::Drawer(GameView &gameView): gameView(gameView), running(true) {
 }
 
 void Drawer::run() {
@@ -22,4 +21,7 @@ void Drawer::run() {
 
         }
     }
+}
+
+Drawer::~Drawer() {
 }

@@ -9,7 +9,7 @@
 #include "yaml-cpp/node/parse.h"
 #include "SdlWindow.h"
 #include "GameView.h"
-
+#include "ServerReceiver.h"
 
 #define HOUSE_ATREIDES "Atreides"
 #define HOUSE_HARKONNEN "Harkonnen"

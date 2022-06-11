@@ -18,6 +18,11 @@
 			"NBTXC4HL66/moc_Camera.cpp"
 		],
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h",
+			"MU",
+			"NBTXC4HL66/moc_Construction.cpp"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h",
 			"MU",
 			"NBTXC4HL66/moc_Drawer.cpp"
@@ -51,6 +56,11 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h",
 			"MU",
 			"NBTXC4HL66/moc_SdlWindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h",
+			"MU",
+			"NBTXC4HL66/moc_ServerReceiver.cpp"
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h",
@@ -158,6 +168,10 @@
 	[
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp", "MU" ],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp",
+			"MU"
+		],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp", "MU" ],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp",
@@ -178,6 +192,10 @@
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp",
 			"MU"
 		],
 		[

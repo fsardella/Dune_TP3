@@ -196,6 +196,12 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h">
 			<Option target="client_interface"/>
 		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp">
 			<Option target="client_interface"/>
 		</Unit>
@@ -236,6 +242,12 @@
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp">

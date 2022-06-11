@@ -22,15 +22,31 @@ SdlTexture.h
 Renderizable.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
 
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp
-yaml-cpp/node/node.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
+atomic
 -
-yaml-cpp/node/parse.h
+thread.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+GameView.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+Unit.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+vector
 -
-MapView.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
+mutex
+-
+SdlWindow.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
+SdlTexture.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
+Renderizable.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
 Camera.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
+MapView.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
 vector
@@ -76,11 +92,27 @@ SDL2/SDL_video.h
 SDL2/SDL_mixer.h
 -
 
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp
+ServerReceiver.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h
+GameView.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+Drawer.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
+thread.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
 SDL2pp/SDL2pp.hh
 -
 Animation.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+thread
+-
 
 /usr/include/SDL2/SDL.h
 SDL_main.h

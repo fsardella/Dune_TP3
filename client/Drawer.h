@@ -1,5 +1,5 @@
-#ifndef DRAWER_H
-#define DRAWER_H
+#ifndef __DRAWER_H__
+#define __DRAWER_H__
 
 #include <atomic>
 #include "thread.h"
@@ -15,6 +15,7 @@ public:
     explicit Drawer(GameView& gameView);
     void handle_events(Unit unit);
     void update(float dt);
+    virtual ~Drawer();
 };
 
 
