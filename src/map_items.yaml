@@ -1,0 +1,69 @@
+sand:
+  - ["small sand", "/home/florencia/taller/repo_grupo/imgs/small_sand.bmp"]
+  - ["medium sand", "/home/florencia/taller/repo_grupo/imgs/medium_sand.bmp"]
+  - ["large sand", "/home/florencia/taller/repo_grupo/imgs/larger_sand.bmp"]
+  - ["extra large sand", "/home/florencia/taller/repo_grupo/imgs/largest_sand.bmp"]
+
+dune:
+  - ["small dune", "/home/florencia/taller/repo_grupo/imgs/small_dune.bmp"]
+  - ["large dune", /home/florencia/taller/repo_grupo/imgs/large_dune.bmp]
+  - ["wide dune", "/home/florencia/taller/repo_grupo/imgs/wider_dune.bmp"]
+
+rock:
+  - ["small rock", "/home/florencia/taller/repo_grupo/imgs/small_rock.bmp"]
+  - ["medium rock", "/home/florencia/taller/repo_grupo/imgs/medium_rock.bmp"]
+  - ["large rock", "/home/florencia/taller/repo_grupo/imgs/large_rock.bmp"]
+  - ["extra large rock", "/home/florencia/taller/repo_grupo/imgs/extra_large_rock.bmp"]
+  - ["rock 1", "/home/florencia/taller/repo_grupo/imgs/rock_1.bmp"]
+  - ["rock 2", "/home/florencia/taller/repo_grupo/imgs/rock_2.bmp"]
+  - ["rock 3", "/home/florencia/taller/repo_grupo/imgs/rock_3.bmp"]
+  - ["rock 4", "/home/florencia/taller/repo_grupo/imgs/rock_4.bmp"]
+  - ["rock 5", "/home/florencia/taller/repo_grupo/imgs/rock_5.bmp"]
+
+spice:
+  - ["small spice", "/home/florencia/taller/repo_grupo/imgs/small_spice.bmp"]
+  - ["medium spice", "/home/florencia/taller/repo_grupo/imgs/medium_spice.bmp"]
+  - ["large spice", "/home/florencia/taller/repo_grupo/imgs/large_spice.bmp"]
+
+mont:
+  - ["mont 1", "/home/florencia/taller/repo_grupo/imgs/mont_1.bmp"]
+  - ["mont 2", "/home/florencia/taller/repo_grupo/imgs/mont_2.bmp"]
+  - ["mont 3", "/home/florencia/taller/repo_grupo/imgs/mont_3.bmp"]
+  - ["mont 4", "/home/florencia/taller/repo_grupo/imgs/mont_4.bmp"]
+  - ["mont 5", "/home/florencia/taller/repo_grupo/imgs/mont_5.bmp"]
+  - ["mont 6", "/home/florencia/taller/repo_grupo/imgs/mont_6.bmp"]
+  - ["mont 7", "/home/florencia/taller/repo_grupo/imgs/mont_7.bmp"]
+  - ["mont 8", "/home/florencia/taller/repo_grupo/imgs/mont_8.bmp"]
+  - ["mont 9", "/home/florencia/taller/repo_grupo/imgs/mont_9.bmp"]
+  - ["mont 10", "/home/florencia/taller/repo_grupo/imgs/mont_10.bmp"]
+  - ["mont 11", "/home/florencia/taller/repo_grupo/imgs/mont_11.bmp"]
+  - ["mont 12", "/home/florencia/taller/repo_grupo/imgs/mont_12.bmp"]
+  - ["mont 13", "/home/florencia/taller/repo_grupo/imgs/mont_13.bmp"]
+  - ["mont 14", "/home/florencia/taller/repo_grupo/imgs/mont_14.bmp"]
+
+cliff:
+  - ["cliff 1", "/home/florencia/taller/repo_grupo/imgs/cliff_1.bmp"]
+  - ["cliff 2", "/home/florencia/taller/repo_grupo/imgs/cliff_2.bmp"]
+  - ["cliff 3", "/home/florencia/taller/repo_grupo/imgs/cliff_3.bmp"]
+  - ["cliff 4", "/home/florencia/taller/repo_grupo/imgs/cliff_4.bmp"]
+  - ["cliff 5", "/home/florencia/taller/repo_grupo/imgs/cliff_5.bmp"]
+  - ["cliff 6", "/home/florencia/taller/repo_grupo/imgs/cliff_6.bmp"]
+  - ["cliff 7", "/home/florencia/taller/repo_grupo/imgs/cliff_7.bmp"]
+  - ["cliff 8", "/home/florencia/taller/repo_grupo/imgs/cliff_8.bmp"]
+  - ["cliff 9", "/home/florencia/taller/repo_grupo/imgs/cliff_9.bmp"]
+  - ["cliff 10", "/home/florencia/taller/repo_grupo/imgs/cliff_10.bmp"]
+  - ["cliff 11", "/home/florencia/taller/repo_grupo/imgs/cliff_11.bmp"]
+  - ["cliff 12", "/home/florencia/taller/repo_grupo/imgs/cliff_12.bmp"]
+  - ["cliff 13", "/home/florencia/taller/repo_grupo/imgs/cliff_13.bmp"]
+  - ["cliff 14", "/home/florencia/taller/repo_grupo/imgs/cliff_14.bmp"]
+  - ["cliff 15", "/home/florencia/taller/repo_grupo/imgs/cliff_15.bmp"]
+  - ["cliff 16", "/home/florencia/taller/repo_grupo/imgs/cliff_16.bmp"]
+  - ["cliff 17", "/home/florencia/taller/repo_grupo/imgs/cliff_17.bmp"]
+  - ["cliff 18", "/home/florencia/taller/repo_grupo/imgs/cliff_18.bmp"]
+  - ["cliff 19", "/home/florencia/taller/repo_grupo/imgs/cliff_19.bmp"]
+  - ["cliff 20", "/home/florencia/taller/repo_grupo/imgs/cliff_20.bmp"]
+  - ["cliff 21", "/home/florencia/taller/repo_grupo/imgs/cliff_21.bmp"]
+  - ["cliff 22", "/home/florencia/taller/repo_grupo/imgs/cliff_22.bmp"]
+
+construction yard:
+  - ["construction yard", "/home/florencia/taller/repo_grupo/imgs/construction_yard.bmp"]
