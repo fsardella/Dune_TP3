@@ -40,9 +40,7 @@ void GameView::buildMap(int height, int width, std::vector<std::vector<int>> map
 
 void GameView::render(size_t iteration) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    printf("aca estoy!\n");
-    map.render(camera); // aca esta el problema
-    printf("aca estoy! 1\n");
+    map.render(camera);
     window.render();
 }
 

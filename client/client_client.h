@@ -21,8 +21,6 @@
 
 
 class Client {
-	//YAML::Node& clientConfiguration;
-	//SdlWindow sdlWindow;
 	int houseNumber;
 	std::string game_name;
 	std::string map_name;

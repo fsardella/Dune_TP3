@@ -19,7 +19,6 @@ MapView::MapView(SdlWindow& window)
 : window(window),
   columns(0),
   rows(0) {
-    printf("hasta aca llego \n");
     this->loadTranslator();
 }
 /*
@@ -35,17 +34,12 @@ void MapView::loadMap(const std::string &mapFile) {
 }
 */
 
-void MapView::loadTranslator() { // ACA HAY PROBLEMAS
+void MapView::loadTranslator() {
     YAML::Node node = YAML::LoadFile("../tiles.yaml");
-    //printf("okkk\n");
     for (int i = 0; i <= 0; i++) {
-        //printf("todavia sigue 0\n");
-        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>(); // ACA ESTA EL PROBLEMA
-        //printf("todavia sigue 1 \n");
+        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
         tileInfoTranslator[i] = tileInfo;
-        //printf("todavia sigue 2 \n");
     }
-   // printf("loop 1 lo supero\n");
     for (int i = 0; i <= 0; i++) {
         std::string tileSizeKey(std::to_string(i) + " size");
         std::vector<int> tileSize = node[tileSizeKey].as< std::vector<int>>();
@@ -56,17 +50,16 @@ void MapView::loadTranslator() { // ACA HAY PROBLEMAS
 void MapView::createMap(int height, int width, std::vector<std::vector<int>> map) {
     columns = width;
     rows = height;
-
     for (size_t i = 0; i < rows; i ++) {
-        std::vector<BackGroundTile*> backgroundRow;
         for(size_t j = 0; j < columns; j++) {
             std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
             std::vector<int> tileSize = tileSizeTranslator[map[i][j]];
-            SdlTexture sdlTexture(tileInfo[1], window);
-            BackGroundTile backgroundTile(sdlTexture, tileSize[0], tileSize[1], j, i);
-            backgroundRow.emplace_back(&backgroundTile);
+            textureTranslator.emplace(std::piecewise_construct,
+                          std::forward_as_tuple(map[i][j]),
+                          std::forward_as_tuple(tileInfo[1], window));
+            auto& backgroundTexture = textureTranslator.at(map[i][j]);
+            backgroundTiles.emplace_back(backgroundTexture, tileSize[0]*4, tileSize[1]*4, j, i);
         }
-        backgroundTiles.emplace_back(backgroundRow);
     }
 }
 /*
@@ -126,11 +119,8 @@ MapView::~MapView() {
 // }
 
 void MapView::render(Camera &cam) {
-    for (std::vector<BackGroundTile*> &row : backgroundTiles) {
-        for (BackGroundTile* &tile : row) {
-            printf("cam render \n");
-            cam.render(*tile, 0); // aca esta el problema 
-        }
+    for (BackGroundTile &tile : backgroundTiles) {
+            cam.render(tile, 0);
     }
     /*for (NonMovable &unit : unitsTiles) {
         cam.render(unit, unit.getX(), unit.getY());

@@ -9,15 +9,14 @@
 
 class MapView {
     SdlWindow& window;
-    std::vector<std::vector<BackGroundTile*>> backgroundTiles;
+    std::vector<BackGroundTile> backgroundTiles;
     std::vector<NonMovable> unitsTiles;
-    //YAML::Node& clientConfig;
-    //YAML::Node map;
     size_t columns;
     size_t rows;
     std::map<int, std::vector<std::string>> tileInfoTranslator;
     std::map<int, std::vector<int>> tileSizeTranslator;
     std::map<std::string, SdlTexture> textureHolder;
+    std::map<int, SdlTexture> textureTranslator;
     public:
     MapView(SdlWindow& window);
     void loadMap(const std::string &mapFile);

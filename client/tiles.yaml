@@ -6,201 +6,281 @@
   - 8
 
 1:
-  - ["small dune", "..backgroundTiles/small_dune.bmp"]
+  - "small dune"
+  - "../backgroundTiles/small_dune.bmp"
 1 size:
-  - [8, 8]
+  - 8
+  - 8
 
 2:
-  - ["small rock", "..backgroundTiles/small_rock.bmp"]
+  - "small rock"
+  - "../backgroundTiles/small_rock.bmp"
 2 size:
-  - [8, 8]
+  - 8
+  - 8
 
 3:
-  - ["small spice", "..backgroundTiles/small_spice.bmp"]
+  - "small spice"
+  - "../backgroundTiles/small_spice.bmp"
 3 size:
-  - [8, 8]
+  - 8
+  - 8
 
 4:
-  - ["mont 1", "..backgroundTiles/mont_1.bmp"]
+  - "mont 1"
+  - "../backgroundTiles/mont_1.bmp"
 4 size:
-  - [8, 8]
+  - 16
+  - 16
 
 5:
-  - ["mont 2", "..backgroundTiles/mont_2.bmp"]
+  - "mont 2"
+  - "../backgroundTiles/mont_2.bmp"
 6 size:
-  - [8, 8]
+  - 16
+  - 16
 
 6:
-  - ["mont 3", "..backgroundTiles/mont_3.bmp"]
+  - "mont 3"
+  - "../backgroundTiles/mont_3.bmp"
 7 size:
-  - [8, 8]
+  - 16
+  - 16
 
 7:
-  - ["mont 4", "..backgroundTiles/mont_4.bmp"]
+  - "mont 4"
+  - "../backgroundTiles/mont_4.bmp"
 7 size:
-  - [8, 8]
+  - 16
+  - 16
 
 8:
-  - ["mont 5", "..backgroundTiles/mont_5.bmp"]
+  - "mont 5"
+  - "../backgroundTiles/mont_5.bmp"
 8 size:
-  - [8, 8]
+  - 16
+  - 16
 
 9:
-  - ["mont 6", "..backgroundTiles/mont_6.bmp"]
+  - "mont 6"
+  - "../backgroundTiles/mont_6.bmp"
 9 size:
-  - [8, 8]
+  - 16
+  - 16
 
 10:
-  - ["mont 7", "..backgroundTiles/mont_7.bmp"]
+  - "mont 7"
+  - "../backgroundTiles/mont_7.bmp"
 10 size:
-  - [8, 8]
+  - 16
+  - 16
 
 11:
-  - ["mont 8", "..backgroundTiles/mont_8.bmp"]
+  - "mont 8"
+  - "../backgroundTiles/mont_8.bmp"
 11 size:
-  - [8, 8]
+  - 16
+  - 16
 
 12:
-  - ["mont 9", "..backgroundTiles/mont_9.bmp"]
+  - "mont 9"
+  - "../backgroundTiles/mont_9.bmp"
 12 size:
-  - [8, 8]
+  - 16
+  - 16
 
 13:
-  - ["mont 10", "..backgroundTiles/mont_10.bmp"]
+  - "mont 10"
+  - "../backgroundTiles/mont_10.bmp"
 13 size:
-  - [8, 8]
+  - 16
+  - 16
 
 14:
-  - ["mont 11", "..backgroundTiles/mont_11.bmp"]
+  - "mont 11"
+  - "../backgroundTiles/mont_11.bmp"
 14 size:
-  - [8, 8]
+  - 16
+  - 24
 
 15:
-  - ["mont 12", "..backgroundTiles/mont_12.bmp"]
+  - "mont 12"
+  - "../backgroundTiles/mont_12.bmp"
 15 size:
-  - [8, 8]
+  - 16
+  - 24
 
 16:
-  - ["mont 13", "..backgroundTiles/mont_13.bmp"]
+  - "mont 13"
+  - "../backgroundTiles/mont_13.bmp"
 16 size:
-  - [8, 8]
+  - 16
+  - 24
 
 17:
-  - ["mont 14", "..backgroundTiles/mont_14.bmp"]
+  - "mont 14"
+  - "../backgroundTiles/mont_14.bmp"
 17 size:
-  - [8, 8]
+  - 16
+  - 24
 
 18:
-  - ["cliff 1", "..backgroundTiles/cliff_1.bmp"]
+  - "cliff 1"
+  - "../backgroundTiles/cliff_1.bmp"
 18 size:
-  - [8, 8]
+  - 16
+  - 16
 
 19:
-  - ["cliff 2", "..backgroundTiles/cliff_2.bmp"]
+  - "cliff 2"
+  - "../backgroundTiles/cliff_2.bmp"
 19 size:
-  - [8, 8]
+  - 16
+  - 16
 
 20:
-  - ["cliff 3", "..backgroundTiles/cliff_3.bmp"]
+  - "cliff 3"
+  - "../backgroundTiles/cliff_3.bmp"
 20 size:
-  - [8, 8]
+  - 16
+  - 16
 
 21:
-  - ["cliff 4", "..backgroundTiles/cliff_4.bmp"]
+  - "cliff 4"
+  - "../backgroundTiles/cliff_4.bmp"
 21 size:
-  - [8, 8]
+  - 16
+  - 16
 
 22:
-  - ["cliff 5", "..backgroundTiles/cliff_5.bmp"]
+  - "cliff 5"
+  - "../backgroundTiles/cliff_5.bmp"
 22 size:
-  - [8, 8]
+  - 16
+  - 16
 
 23:
-  - ["cliff 6", "..backgroundTiles/cliff_6.bmp"]
+  - "cliff 6"
+  - "../backgroundTiles/cliff_6.bmp"
 23 size:
-  - [8, 8]
+  - 16
+  - 16
 
 24:
-  - ["cliff 7", "..backgroundTiles/cliff_7.bmp"]
+  - "cliff 7"
+  - "../backgroundTiles/cliff_7.bmp"
 24 size:
-  - [8, 8]
+  - 16
+  - 16
 
 25:
-  - ["cliff 8", "..backgroundTiles/cliff_8.bmp"]
+  - "cliff 8"
+  - "../backgroundTiles/cliff_8.bmp"
 25 size:
-  - [8, 8]
+  - 16
+  - 16
 
 26:
-  - ["cliff 9", "..backgroundTiles/cliff_9.bmp"]
+  - "cliff 9"
+  - "../backgroundTiles/cliff_9.bmp"
 26 size:
-  - [8, 8]
+  - 16
+  - 16
 
 27:
-  - ["cliff 10", "..backgroundTiles/cliff_10.bmp"]
+  - "cliff 10"
+  - "../backgroundTiles/cliff_10.bmp"
 27 size:
-  - [8, 8]
+  - 16
+  - 16
 
 28:
-  - ["cliff 11", "..backgroundTiles/cliff_11.bmp"]
+  - "cliff 11"
+  - "../backgroundTiles/cliff_11.bmp"
 28 size:
-  - [8, 8]
+  - 16
+  - 16
 
 29:
-  - ["cliff 12", "..backgroundTiles/cliff_12.bmp"]
+  - "cliff 12"
+  - "../backgroundTiles/cliff_12.bmp"
 29 size:
-  - [8, 8]
+  - 16
+  - 16
 
 30:
-  - ["cliff 13", "..backgroundTiles/cliff_13.bmp"]
+  - "cliff 13"
+  - "../backgroundTiles/cliff_13.bmp"
 30 size:
-  - [8, 8]
+  - 16
+  - 16
 
 31:
-  - ["cliff 14", "..backgroundTiles/cliff_14.bmp"]
+  - "cliff 14"
+  - "../backgroundTiles/cliff_14.bmp"
 31 size:
-  - [8, 8]
+  - 16
+  - 16
 
 32:
-  - ["cliff 15", "..backgroundTiles/cliff_15.bmp"]
+  - "cliff 15"
+  - "../backgroundTiles/cliff_15.bmp"
 32 size:
-  - [8, 8]
+  - 16
+  - 16
 
 33:
-  - ["cliff 16", "..backgroundTiles/cliff_16.bmp"]
+  - "cliff 16"
+  - "../backgroundTiles/cliff_16.bmp"
 33 size:
-  - [8, 8]
+  - 16
+  - 16
 
 34:
-  - ["cliff 17", "..backgroundTiles/cliff_17.bmp"]
+  - "cliff 17"
+  - "../backgroundTiles/cliff_17.bmp"
 34 size:
-  - [8, 8]
+  - 16
+  - 24
 
 35:
-  - ["cliff 18", "..backgroundTiles/cliff_18.bmp"]
+  - "cliff 18"
+  - "../backgroundTiles/cliff_18.bmp"
 35 size:
-  - [8, 8]
+  - 16
+  - 24
 
 36:
-  - ["cliff 19", "..backgroundTiles/cliff_19.bmp"]
+  - "cliff 19"
+  - "../backgroundTiles/cliff_19.bmp"
 36 size:
-  - [8, 8]
+  - 16
+  - 16
 
 37:
-  - ["cliff 20", "..backgroundTiles/cliff_20.bmp"]
+  - "cliff 20"
+  - "../backgroundTiles/cliff_20.bmp"
 37 size:
-  - [8, 8]
+  - 16
+  - 16
 
 38:
-  - ["cliff 21", "..backgroundTiles/cliff_21.bmp"]
+  - "cliff 21"
+  - "../backgroundTiles/cliff_21.bmp"
 38 size:
-  - [8, 8]
+  - 24
+  - 16
 
 39:
-  - ["cliff 22", "..backgroundTiles/cliff_22.bmp"]
+  - "cliff 22"
+  - "../backgroundTiles/cliff_22.bmp"
 39 size:
-  - [8, 8]
+  - 24
+  - 16
 
 40:
-  - ["construction yard", "..backgroundTiles/construction_yard.bmp"]
+  - "construction yard"
+  - "../backgroundTiles/construction_yard.bmp"
 40 size:
-  - [8, 8]
+  - 24
+  - 24

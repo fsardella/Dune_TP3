@@ -15,9 +15,7 @@ void Camera::render(Renderizable &renderizable, size_t iteration) {
     // renderizable.render(this) -> double dispatch
     // cada textura se debe renderizar segun su tipo
     // si no usamos double dispatch tenemos todos getters
-    printf("aca 1\n");
-    //renderizable.render(*this, iteration); //aca esta el error porque no llega a render de backgroundTile
-    renderizable.render();
+    renderizable.render(*this, iteration);
 }
 
 void Camera::render(Renderizable &renderizable, int x, int y) {

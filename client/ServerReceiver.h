@@ -18,17 +18,3 @@ class ServerReceiver: public Thread {
 };
 
 #endif /*__SERVERRECEIVER_H__*/
-
-/*
-class Listener: public Thread {
-    Socket socket_original;
-    std::list<Talker *> clientsTalkers;
-    void cleanFinishedHandlers();
-    GameSet *gameSet;
-    public:
-	explicit Listener(const char* service_port, GameSet *gameSet);
-	void run() override;
-	~Listener() override;
-};
-
-*/
