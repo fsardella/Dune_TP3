@@ -11,7 +11,13 @@ BackGroundTile::BackGroundTile(SdlTexture &texture,
     rescaling = 1;
 }
 
+void BackGroundTile::render() {
+    printf("prueba !!! ");
+}
+
 void BackGroundTile::render(Camera &camera, size_t iteration) {
+    //aca deberia llegar 
+    printf("aca 5\n");
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSight(texture, src, posX, posY);
 }

@@ -7,15 +7,14 @@
 #include "Unit.h"
 
 class Drawer : public Thread {
-private:
     GameView* gameView;
-    void run() override;
     bool running;
-public:
+    public:
     explicit Drawer(GameView* gameView);
     void handle_events(Unit unit);
     void update(float dt);
-    virtual ~Drawer();
+    void run() override;
+    ~Drawer() override;
 };
 
 

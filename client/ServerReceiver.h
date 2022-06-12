@@ -10,12 +10,25 @@ class ServerReceiver: public Thread {
 	Drawer* drawer;
 	GameView* gameView;
 	ProtocolClient* protocolClient;
-	void run() override;
+	public:
 	void receiveBackground();
-
-public:
 	ServerReceiver(ProtocolClient* protocol);
-	virtual ~ServerReceiver();
+	void run() override;
+	~ServerReceiver() override;
 };
 
-#endif
+#endif /*__SERVERRECEIVER_H__*/
+
+/*
+class Listener: public Thread {
+    Socket socket_original;
+    std::list<Talker *> clientsTalkers;
+    void cleanFinishedHandlers();
+    GameSet *gameSet;
+    public:
+	explicit Listener(const char* service_port, GameSet *gameSet);
+	void run() override;
+	~Listener() override;
+};
+
+*/

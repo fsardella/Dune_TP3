@@ -76,7 +76,9 @@ Post-Condiciones: Se lanza al cliente.
 
 void Client::client_run() {
 	std::cout << "hola\n";
-	ServerReceiver receiver(&(this->protocol)); //no anda esto !!!!!!!!!!!!!!
+	ServerReceiver receiver(&protocol); //no anda esto !!!!!!!!!!!!!!
+	printf("prueba 10\n");
+	receiver.start();
 }
 
 /*

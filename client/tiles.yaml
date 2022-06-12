@@ -1,7 +1,9 @@
 0:
-  - ["small sand", "..backgroundTiles/small_sand.bmp", 8, 8]
+  - "small sand"
+  - "../backgroundTiles/small_sand.bmp"
 0 size:
-  - [8, 8]
+  - 8
+  - 8
 
 1:
   - ["small dune", "..backgroundTiles/small_dune.bmp"]

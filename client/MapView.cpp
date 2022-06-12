@@ -19,6 +19,7 @@ MapView::MapView(SdlWindow& window)
 : window(window),
   columns(0),
   rows(0) {
+    printf("hasta aca llego \n");
     this->loadTranslator();
 }
 /*
@@ -34,13 +35,18 @@ void MapView::loadMap(const std::string &mapFile) {
 }
 */
 
-void MapView::loadTranslator() {
+void MapView::loadTranslator() { // ACA HAY PROBLEMAS
     YAML::Node node = YAML::LoadFile("../tiles.yaml");
-    for (int i = 0; i <= 40; i++) {
-        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
+    //printf("okkk\n");
+    for (int i = 0; i <= 0; i++) {
+        //printf("todavia sigue 0\n");
+        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>(); // ACA ESTA EL PROBLEMA
+        //printf("todavia sigue 1 \n");
         tileInfoTranslator[i] = tileInfo;
+        //printf("todavia sigue 2 \n");
     }
-    for (int i = 0; i <= 40; i++) {
+   // printf("loop 1 lo supero\n");
+    for (int i = 0; i <= 0; i++) {
         std::string tileSizeKey(std::to_string(i) + " size");
         std::vector<int> tileSize = node[tileSizeKey].as< std::vector<int>>();
         tileSizeTranslator[i] = tileSize;
@@ -122,7 +128,8 @@ MapView::~MapView() {
 void MapView::render(Camera &cam) {
     for (std::vector<BackGroundTile*> &row : backgroundTiles) {
         for (BackGroundTile* &tile : row) {
-            cam.render(*tile, 0);
+            printf("cam render \n");
+            cam.render(*tile, 0); // aca esta el problema 
         }
     }
     /*for (NonMovable &unit : unitsTiles) {
