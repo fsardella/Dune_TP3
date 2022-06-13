@@ -23,5 +23,5 @@ void Drawer::run() {
 }
 
 Drawer::~Drawer() {
-    this->join();
+   // this->join();
 }

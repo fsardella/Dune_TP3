@@ -12,7 +12,7 @@ class ServerReceiver: public Thread {
 	ProtocolClient* protocolClient;
 	public:
 	void receiveBackground();
-	ServerReceiver(ProtocolClient* protocol);
+	ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj);
 	void run() override;
 	~ServerReceiver() override;
 };

@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-ServerReceiver::ServerReceiver(ProtocolClient* protocol): protocolClient(protocol) {
+ServerReceiver::ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj): protocolClient(protocol), gameView(gameViewObj) {
 }
 
 void ServerReceiver::run() {
@@ -12,22 +12,22 @@ void ServerReceiver::run() {
 
 void ServerReceiver::receiveBackground() {
 	//Logica para recibir. Recibir todo de una. Ver como partir los mensajes. 
-	int height = 600;
+	/*int height = 600;
 	int width = 800;
 	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
 	GameView gameViewObj(sdlWindow);
-	gameView = &gameViewObj;
+	gameView = &gameViewObj;*/
 	std::vector<std::vector<int>> map {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 	gameView->buildMap(10, 10, map);
-	Drawer drawerThread(gameView);
+	/*Drawer drawerThread(gameView);
 	drawer = &drawerThread;
-	drawer->start();
+	drawer->start();*/
 }
 
 ServerReceiver::~ServerReceiver() {
-	this->join();
+	//this->join();
 }

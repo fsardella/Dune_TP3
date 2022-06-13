@@ -75,8 +75,20 @@ Post-Condiciones: Se lanza al cliente.
 */
 
 void Client::client_run() {
-	ServerReceiver receiver(&protocol);
+
+	int height = 600;
+	int width = 800;
+	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
+	GameView gameViewObj(sdlWindow);
+
+	ServerReceiver receiver(&protocol, &gameViewObj);
 	receiver.start();
+
+	Drawer drawer(&gameViewObj);
+	drawer.start();
+
+	drawer.join();
+	receiver.join();
 }
 
 /*
