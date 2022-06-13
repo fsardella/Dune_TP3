@@ -8,7 +8,6 @@
 
 class Drawer : public Thread {
     GameView* gameView;
-    bool running;
     public:
     explicit Drawer(GameView* gameView);
     void handle_events(Unit unit);

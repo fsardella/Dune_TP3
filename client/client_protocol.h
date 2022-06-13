@@ -26,6 +26,7 @@ class ProtocolClient {
     int convert_from_uint16_with_endianess(uint16_t number);
     uint16_t convert_to_uint16_with_endianess(int number);
     uint8_t convert_to_uint8(int number);
+    void sendUserName(std::string userName);
     ~ProtocolClient();
 };
 

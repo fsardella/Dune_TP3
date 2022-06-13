@@ -2,12 +2,10 @@
 #define __SERVERRECEIVER_H__
 
 #include "GameView.h"
-#include "Drawer.h"
 #include "thread.h"
 #include "client_protocol.h"
 
 class ServerReceiver: public Thread {
-	Drawer* drawer;
 	GameView* gameView;
 	ProtocolClient* protocolClient;
 	public:

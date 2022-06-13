@@ -33,6 +33,7 @@ class Client {
 	void chooseNumberHouse(std::string house);
 	void chooseGameName(std::string name);
 	void chooseMapName(std::string name);
+	void sendUserName(std::string userName);
 	~Client();
 };
 

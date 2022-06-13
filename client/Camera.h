@@ -5,14 +5,11 @@
 #include "SdlTexture.h"
 #include "Renderizable.h"
 
-// 32 pixeles (tamaño de tile) <-> 1 metro logico (server)
 #define M_TO_P 32
 
 class Camera{
 private:
     SdlWindow& window;
-    // center width and height
-    // depends on screen resolution
     SDL_Point centerPix;
 
     float logicalCenterX;
@@ -29,8 +26,6 @@ private:
 
     void render(Renderizable &renderizable, size_t iteration);
     void render(Renderizable &renderizable, int x, int y);
-    // logical coordinates
-    // only renders if visible to player
     void renderInSight(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);

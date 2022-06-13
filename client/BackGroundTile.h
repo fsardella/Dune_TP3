@@ -3,7 +3,7 @@
 
 #include "Renderizable.h"
 
-class BackGroundTile : public Renderizable{
+class BackGroundTile : public Renderizable {
     int rescaling;
     
     public:

@@ -15,12 +15,12 @@ class MapView {
     size_t rows;
     std::map<int, std::vector<std::string>> tileInfoTranslator;
     std::map<int, std::vector<int>> tileSizeTranslator;
-    std::map<std::string, SdlTexture> textureHolder;
+    std::map<std::string, SdlTexture> unitTranslator;
     std::map<int, SdlTexture> textureTranslator;
     public:
     MapView(SdlWindow& window);
     void loadMap(const std::string &mapFile);
-    void loadUnit(int x, int y);
+    void createUnit(int x, int y, std::string unitType);
     void loadBackground();
     void loadTranslator();
     void createMap(int height, int width, std::vector<std::vector<int>> map);

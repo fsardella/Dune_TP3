@@ -10,20 +10,18 @@
 #include "client_client.h"
 #include "Drawer.h"
 #include "MapView.h"
+#include "UserInputReceiver.h"
+#include "BlockingQueue.h"
+#include "ServerDespatcher.h"
 
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Cliente.
 */
-/*
-Client::Client(YAML::Node& configuration):protocol(),clientConfiguration(configuration),sdlWindow(clientConfiguration["width"].as<int>(),
-    clientConfiguration["height"].as<int>(),
-    clientConfiguration["fullscreen"].as<bool>(), "DUNE 2000") {
-}
-*/
 
 Client::Client():protocol() {
 }
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: El cliente se conecta a un servidor.
@@ -87,8 +85,21 @@ void Client::client_run() {
 	Drawer drawer(&gameViewObj);
 	drawer.start();
 
+	BlockingQueue blockingQueue;
+	UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
+	inputReceiver.start();
+
+	ServerDespatcher serverDespatcher(&protocol, &blockingQueue);
+	serverDespatcher.start();
+
 	drawer.join();
+	inputReceiver.join();
+	serverDespatcher.join();
 	receiver.join();
+}
+
+void Client::sendUserName(std::string userName) {
+	protocol.sendUserName(userName);
 }
 
 /*

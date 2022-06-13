@@ -14,6 +14,12 @@ SdlWindow::SdlWindow(int width, int height, bool fullScreen, std::string title) 
     this->height = height;
 }
 
+void SdlWindow::setSize(int newWidth, int newHeight) {
+	this->width = newWidth;
+	this->height = newHeight;
+	SDL_SetWindowSize(windowPtr, width, height);
+}
+
 void SdlWindow::fill(uint8_t redValue, uint8_t greenValue, uint8_t blueValue, int alphaValue) {
 	SDL_SetRenderDrawColor(rendererPtr, redValue, greenValue, blueValue, alphaValue);
 	SDL_RenderClear(rendererPtr);

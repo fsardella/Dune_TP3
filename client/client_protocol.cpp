@@ -195,3 +195,14 @@ void ProtocolClient::send_msg_unirse(int house, std::string& game_name) {
 		socket.sendall(&game_name.at(i), 1);
 	}
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Envia mensaje al servidor con el nombre del Usuario. 
+*/
+
+void ProtocolClient::sendUserName(std::string userName) {
+	uint16_t nameSize = convert_to_uint16_with_endianess(userName.size());
+	socket.sendall(&nameSize, 2);
+	socket.sendall(&userName[0], userName.size());
+}

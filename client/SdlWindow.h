@@ -36,7 +36,7 @@ class SdlWindow {
                      uint8_t alpha);
 
 	SDL_Point getCenter();
-
+	void setSize(int newWidth, int newHeight);
 	~SdlWindow();
 };
 

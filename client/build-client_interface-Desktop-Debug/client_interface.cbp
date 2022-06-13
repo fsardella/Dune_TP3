@@ -196,10 +196,22 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h">
 			<Option target="client_interface"/>
 		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp">
@@ -250,10 +262,22 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h">
 			<Option target="client_interface"/>
 		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.h">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp">

@@ -18,6 +18,16 @@ SDL2/SDL.h
 Renderizable.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
 
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h
+mutex
+-
+condition_variable
+-
+deque
+-
+ClientInput.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h
+
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
 SdlWindow.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
@@ -25,6 +35,10 @@ SdlTexture.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
 Renderizable.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h
+utility
+-
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
 string
@@ -102,11 +116,23 @@ SDL2/SDL_video.h
 SDL2/SDL_mixer.h
 -
 
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.cpp
+ServerDespatcher.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h
+GameView.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+thread.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+BlockingQueue.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h
+client_protocol.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h
 GameView.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
-Drawer.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
 thread.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
 client_protocol.h
@@ -117,6 +143,14 @@ SDL2pp/SDL2pp.hh
 -
 Animation.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.h
+GameView.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+thread.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+BlockingQueue.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp
 iostream
@@ -141,6 +175,12 @@ Drawer.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h
 MapView.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
+UserInputReceiver.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.h
+BlockingQueue.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h
+ServerDespatcher.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 string
