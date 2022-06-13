@@ -215,9 +215,9 @@ void AStar::execSubAlgorithm() {
     std::map<coor_t, coor_t> parents = this->_execSubAlgorithm(dest);
     coor_t u = dest;
     while (u != this->actPos) {
-        for (int trav_turns = 0;
-             trav_turns < this->terr.getSpeed(u, this->unit);
-             trav_turns++)
+        //for (int trav_turns = 0;
+             //trav_turns < this->terr.getSpeed(u, this->unit);
+             //trav_turns++)
             this->movs.push_back(u);
         u = parents[u];
         if (u == dest) {

@@ -26,6 +26,12 @@ class TerrainMap {
     void swapContent(coor_t source, coor_t destiny);
     int getSpeed(coor_t coor, Unit& unit);
     ~TerrainMap();
+    
+    TerrainMap(const TerrainMap&) = delete;
+    TerrainMap& operator=(const TerrainMap&) = delete;
+
+    TerrainMap(TerrainMap&&);
+    TerrainMap& operator=(TerrainMap&&);
 };
 
 #endif

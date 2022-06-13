@@ -105,3 +105,12 @@ TerrainMap::~TerrainMap() {
     }
 }
 
+TerrainMap::TerrainMap(TerrainMap&& other) : terr(std::move(other.terr)) {}
+
+TerrainMap& TerrainMap::operator=(TerrainMap&& other) {
+    if (this == &other)
+        return *this;
+    this->terr = std::move(other.terr);
+    return *this;
+}
+
