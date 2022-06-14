@@ -1,13 +1,12 @@
-#include "BlockingQueue.h" 
+#include "BlockingQueue.h"
 #include <utility>
 
-BlockingQueue::BlockingQueue() {
-}
+BlockingQueue::BlockingQueue() {}
 
-void BlockingQueue::push(ClientInput const& value) {
+void BlockingQueue::push(ClientInput value) {
     {
         std::unique_lock<std::mutex> lock(this->mutex);
-        queue.push_front(value);
+        queue.push_back(std::move(value));
     }
     this->emptyCondition.notify_one();
 }
@@ -15,7 +14,7 @@ void BlockingQueue::push(ClientInput const& value) {
 ClientInput BlockingQueue::pop() {
     std::unique_lock<std::mutex> lock(this->mutex);
     this->emptyCondition.wait(lock, [=]{ return !this->queue.empty(); });
-    ClientInput value(std::move(this->queue.front()));
-    this->queue.pop_back();
+    ClientInput value = std::move(this->queue.front());
+    this->queue.pop_front();
     return value;
 }

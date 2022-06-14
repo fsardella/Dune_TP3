@@ -5,7 +5,8 @@ protocolClient(protocol), blockingQueue(blockingQueue) {
 }
 
 void ServerDespatcher::run() {
-    //ClientInput clientInput(std::move(blockingQueue->pop()));
+    //esto lo comente porque generaba el loop y la ventana no se cerraba nunca. Posiblemente sea porque no tiene nada para popear
+    //ClientInput clientInput(std::move(blockingQueue->pop())); 
 }
 
 ServerDespatcher::~ServerDespatcher() {

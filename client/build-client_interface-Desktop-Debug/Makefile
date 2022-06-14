@@ -513,33 +513,6 @@ home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s
 
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.o
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.o
-
-# target to build an object file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.o:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.o
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.o
-
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.i
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.i
-
-# target to preprocess a source file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.i:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.i
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.i
-
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.s
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.s
-
-# target to generate assembly for a file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.s:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.s
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp.s
-
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp.o
 
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.o
@@ -674,6 +647,33 @@ home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.s: home/pilar/Es
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.s
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s
 
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.cpp.o
 
@@ -996,9 +996,6 @@ help:
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.s"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.o"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.i"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.s"
@@ -1014,6 +1011,9 @@ help:
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.s"

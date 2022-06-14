@@ -50,7 +50,7 @@ void MainWindow::on_continueButton_clicked()
     try {
         //conecto el socket con los datos del IP y PORT. A conectarlo si no estan ok alguno de los dos datos,
         //va a ser catcheado por std exception indicando que hubo un error al conectarse al servidor.
-       //newClient->setConnection(ip.c_str(), port.c_str()); por ahora lo comento para que no me de error al no tener el server
+        //newClient->setConnection(ip.c_str(), port.c_str()); por ahora lo comento para que no me de error al no tener el server
         //newClient->sendUserName(name);
         ChooseHouse chooseHouseWindow(NULL, newClient); //le paso al cliente para que se guarde la info de la casa que elige
         chooseHouseWindow.setModal(true);

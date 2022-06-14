@@ -2,7 +2,7 @@
 #define MAPVIEW_H
 
 #include <vector>
-#include "NonMovable.h"
+#include "Unit.h"
 #include "BackGroundTile.h"
 #include "yaml-cpp/yaml.h"
 #include "Unit.h"
@@ -10,7 +10,7 @@
 class MapView {
     SdlWindow& window;
     std::vector<BackGroundTile> backgroundTiles;
-    std::vector<NonMovable> unitsTiles;
+    std::vector<Unit> unitsTiles;
     size_t columns;
     size_t rows;
     std::map<int, std::vector<std::string>> tileInfoTranslator;
@@ -20,7 +20,7 @@ class MapView {
     public:
     MapView(SdlWindow& window);
     void loadMap(const std::string &mapFile);
-    void createUnit(int x, int y, std::string unitType);
+    void createUnit(int x, int y, std::string unitType, int unitId);
     void loadBackground();
     void loadTranslator();
     void createMap(int height, int width, std::vector<std::vector<int>> map);

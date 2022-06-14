@@ -1,38 +1,39 @@
+#include <iostream>
 #include "Unit.h"
+#include "Camera.h"
 
-Unit::Unit(SDL2pp::Texture &texture): an(texture), facingLeft(false), moving(false), x(300), y(300) {}
-
-Unit::~Unit() {}
-
-/**
- * Notar que el manejo de eventos y la actualización de modelo ocurren en momentos distintos.
- * Esto les va a resultar muy util. 
- */
-void Unit::update(float dt) {
-    if (moving) {
-        an.update(dt);
-        if (facingLeft)
-            x -= 3;
-        else
-            x += 3;
-    }
+Unit::Unit(SdlTexture &texture,
+           int sizeW,
+           int sizeH,
+           float posX,
+           float posY, int unitId)
+: Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId), propiety(true) {
+    rescaling = 1;
 }
 
-void Unit::render(SDL2pp::Renderer &renderer) {
-    SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    an.render(renderer, SDL2pp::Rect(x, y, 200, 200), flip);
+void Unit::render(Camera &camera, size_t iteration) {
+    Area src(0, 0, sizeW, sizeH);
+    camera.renderInSight(texture, src, posX, posY);
 }
 
-void Unit::moveRigth() {
-    moving = true;
-    facingLeft = false;
+void Unit::render(Camera &camera, int posX, int posY) {
+    Area src(0, 0, sizeW, sizeH);
+    camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
-void Unit::moveLeft() {
-    moving = true;
-    facingLeft = true;
+float Unit::getX() {
+    return posX;
 }
 
-void Unit::stopMoving() {
-    moving = false;
+float Unit::getY() {
+    return posY;
+}
+
+Unit::Unit(Unit &&other)
+: Renderizable(std::move(other)),
+  rescaling(other.rescaling) {
+}
+
+
+Unit::~Unit() {
 }

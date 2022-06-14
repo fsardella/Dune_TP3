@@ -10,7 +10,7 @@ void ServerReceiver::run() {
 	this->receiveBackground();
 	//while(gameView->isRunning()) {
 		//protocolClient->recvStatus();
-		gameView->buildUnit(8, 8, "trike");
+		gameView->buildUnit(8, 8, "trike", 1);
 	//}
 }
 

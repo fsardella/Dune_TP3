@@ -15,6 +15,8 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     this->setPalette(palette);
 
     std::list <QString> list; //por ahora lo hardcodeo, despues el server me lo va a pasar
+    newClient->sendListGamesOperation();
+    newClient->recvListOfGames();
     list.push_back("Tres amigos");
     list.push_back("Dune version");
     list.push_back("Dos amigos");
@@ -38,6 +40,7 @@ void JoinGameWindow::on_joinGameButton_clicked()
         return;
     }
     newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
+    newClient->sendJoinGameOperation();
     this->close();
 }
 

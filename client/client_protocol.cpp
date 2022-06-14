@@ -206,3 +206,49 @@ void ProtocolClient::sendUserName(std::string userName) {
 	socket.sendall(&nameSize, 2);
 	socket.sendall(&userName[0], userName.size());
 }
+
+void ProtocolClient::sendOperation(int operationNumber) {
+	uint8_t operationNumberConvert = convert_to_uint8(operationNumber);
+	socket.sendall(&operationNumberConvert, 1);
+}
+
+void ProtocolClient::sendCreateGameOperation(int operationNumber, std::string gameName, std::string mapName, int houseNumber) {
+	this->sendOperation(operationNumber);
+	//Aca tambien se le pasaria toda la informacion necesaria para crear el Game.
+	uint8_t houseNumberConvert = convert_to_uint8(houseNumber);
+	socket.sendall(&gameName[0], gameName.size());
+	socket.sendall(&mapName[0], mapName.size());
+	socket.sendall(&houseNumberConvert, 1);
+}
+
+void ProtocolClient::sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber) {
+	this->sendOperation(operationNumber);
+	//Aca tambien se le pasaria toda la informacion necesaria para joinearse a un Game.
+	uint8_t houseNumberConvert = convert_to_uint8(houseNumber);
+	socket.sendall(&gameName[0], gameName.size());
+	socket.sendall(&houseNumberConvert, 1);
+}
+
+void ProtocolClient::sendListGamesOperation(int operationNumber) {
+	this->sendOperation(operationNumber);
+}
+
+void ProtocolClient::sendListMapsOperation(int operationNumber) {
+	this->sendOperation(operationNumber);
+}
+
+void ProtocolClient::recvListOfMaps() {
+	//No tengo idea como se va a hacer para poder recibir un Map con toda su info. Ver
+	/*uint16_t map = 0;
+	socket.recvall(&map,2);
+	int map_convert = convert_from_uint16_with_endianess(map);
+	return map_convert;*/
+}
+
+void ProtocolClient::recvListOfGames() {
+	//No tengo idea como se va a hacer para poder recibir un Game con toda su info. Ver
+	/*uint16_t game = 0;
+	socket.recvall(&game,2);
+	int game_convert = convert_from_uint16_with_endianess(game_convert);
+	return game_convert;*/
+}

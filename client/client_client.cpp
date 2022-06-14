@@ -55,7 +55,7 @@ Post-Condiciones: Determina el nombre del juego elegido por el Cliente.
 
 
 void Client::chooseGameName(std::string name) {
-	this->game_name = name;
+	this->gameName = name;
 }
 
 /*
@@ -64,7 +64,7 @@ Post-Condiciones: Determina el nombre del mapa elegido por el Cliente.
 */
 
 void Client::chooseMapName(std::string name) {
-	this->map_name = name;
+	this->mapName = name;
 }
 
 /*
@@ -101,6 +101,33 @@ void Client::client_run() {
 void Client::sendUserName(std::string userName) {
 	protocol.sendUserName(userName);
 }
+
+// Comento todos los metodos porque no va a estar conectado a ningun socket todavia. 
+
+void Client::sendCreateGameOperation() {
+	//protocol.sendCreateGameOperation(CREATE_GAME, gameName, mapName, houseNumber);
+}
+
+void Client::sendJoinGameOperation() {
+	//protocol.sendJoinGameOperation(JOIN_GAME, gameName, houseNumber);
+}
+
+void Client::sendListGamesOperation() {
+	//protocol.sendListGamesOperation(LIST_GAMES);
+}
+
+void Client::sendListMapsOperation() {
+	//protocol.sendListMapsOperation(LIST_MAPS);
+}
+
+void Client::recvListOfMaps() { //como se va a llenar esto? en QT tengo una lista de Mapas/Juegos para almacenarlos.
+	//protocol.recvListOfMaps();
+}
+
+void Client::recvListOfGames() {
+	//protocol.recvListOfGames();
+}
+
 
 /*
 Pre-Condiciones: -

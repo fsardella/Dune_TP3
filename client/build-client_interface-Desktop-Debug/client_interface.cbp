@@ -238,12 +238,6 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h">
 			<Option target="client_interface"/>
 		</Unit>
-		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp">
-			<Option target="client_interface"/>
-		</Unit>
-		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.h">
-			<Option target="client_interface"/>
-		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp">
 			<Option target="client_interface"/>
 		</Unit>
@@ -272,6 +266,12 @@
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h">
 			<Option target="client_interface"/>
 		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.cpp">

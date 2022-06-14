@@ -14,6 +14,8 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
     std::list <QString> list; //por ahora lo hardcodeo, despues el server me lo va a pasar
+    newClient->sendListMapsOperation();
+    newClient->recvListOfMaps();
     list.push_back("Mapa 1");
     list.push_back("Mapa 2");
     list.push_back("Mapa 3");
@@ -44,5 +46,6 @@ void CreateGameWindow::on_createGameButton_clicked()
     }
     newClient->chooseGameName(ui->gameNameLineEdit->text().toStdString());
     newClient->chooseMapName(this->ui->listWidget->currentItem()->text().toStdString());
+    newClient->sendCreateGameOperation();
     this->close();
 }

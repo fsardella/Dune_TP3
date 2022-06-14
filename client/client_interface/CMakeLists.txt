@@ -56,8 +56,6 @@ set(PROJECT_SOURCES
         ../GameView.h
         ../MapView.cpp
         ../MapView.h
-        ../NonMovable.cpp
-        ../NonMovable.h
         ../Renderizable.cpp
         ../Renderizable.h
         ../SdlTexture.cpp
@@ -76,6 +74,8 @@ set(PROJECT_SOURCES
         ../ServerDespatcher.h
         ../ClientInput.cpp
         ../ClientInput.h
+        ../Unit.cpp
+        ../Unit.h
 )
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras

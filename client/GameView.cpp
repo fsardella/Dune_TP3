@@ -14,9 +14,9 @@ void GameView::buildMap(int height, int width, std::vector<std::vector<int>> map
 	map.createMap(height, width, mapMatrix);
 }
 
-void GameView::buildUnit(int x, int y, std::string unitType) {
+void GameView::buildUnit(int x, int y, std::string unitType, int unitId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.createUnit(x, y, unitType);
+    map.createUnit(x, y, unitType, unitId);
 }
 
 void GameView::render() {
@@ -31,12 +31,10 @@ void GameView::setSize(int newWidth, int newHeight) {
 }
 
 bool GameView::isRunning() {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
 	return running;
 }
 
 void GameView::shutdown() {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
 	running = false;
     SDL_Event quit;
     quit.type = SDL_QUIT;

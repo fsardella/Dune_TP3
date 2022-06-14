@@ -13,9 +13,9 @@ void UserInputReceiver::run() {
                 gameView->shutdown();
                 break;
             }
-            if(event.type == SDL_MOUSEBUTTONDOWN) {
-            	ClientInput clientInput(event.button.x, event.button.y);
-            	blockingQueue->push(clientInput);
+            else if(event.type == SDL_MOUSEBUTTONDOWN) {
+                ClientInput clientInput(event.button.x, event.button.y);
+                blockingQueue->push(std::move(clientInput));
             }
         }
     }

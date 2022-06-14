@@ -1,25 +1,42 @@
 #ifndef __UNIT_H__
 #define __UNIT_H__
 
-#include <SDL2pp/SDL2pp.hh>
-#include "Animation.h"
+#include "Renderizable.h"
 
-class Unit {
-public:
-    Unit(SDL2pp::Texture &texture);
-    ~Unit();
-    void update(float dt);
-    void render(SDL2pp::Renderer &renderer);
-    void moveRigth();
-    void moveLeft();
-    void stopMoving();
+class Unit : public Renderizable{
+    int rescaling;
+    int id;
+    bool propiety;
+    public:
+    Unit(SdlTexture& texture,
+         int sizeW,
+         int sizeH,
+         float posX,
+         float posY);
 
-private:
-    Animation an;
-    bool facingLeft;
-    bool moving;
-    int x;
-    int y;
+    Unit(SdlTexture& texture,
+               int sizeW,
+               int sizeH,
+               float posX,
+               float posY,
+               int rescaling);
+
+    void render(Camera &camera, size_t iteration) override;
+    void render(Camera &camera, int posX, int posY) override;
+
+    Unit(const Unit& other) = delete;
+    Unit& operator=(const Unit& other) = delete;
+
+    Unit(Unit&& other) ;
+    Unit& operator=(Unit&& other) ;
+
+    float getX();
+
+    float getY();
+
+    ~Unit() override;
+
 };
 
-#endif // __UNIT_H__
+
+#endif /*__UNIT_H__*/

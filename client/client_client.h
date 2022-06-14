@@ -19,11 +19,16 @@
 #define OPERACION_UNIRSE "unirse"
 #define OPERACION_FIN "fin"
 
+#define CREATE_GAME 5
+#define JOIN_GAME 6
+#define LIST_GAMES 7
+#define LIST_MAPS 8
+
 
 class Client {
 	int houseNumber;
-	std::string game_name;
-	std::string map_name;
+	std::string gameName;
+	std::string mapName;
 	void operation_run(std::string& line);
 	public:
 	ProtocolClient protocol; //get protocol despues
@@ -34,6 +39,12 @@ class Client {
 	void chooseGameName(std::string name);
 	void chooseMapName(std::string name);
 	void sendUserName(std::string userName);
+	void sendCreateGameOperation();
+	void sendJoinGameOperation();
+	void sendListGamesOperation();
+	void sendListMapsOperation();
+	void recvListOfMaps();
+    void recvListOfGames();
 	~Client();
 };
 

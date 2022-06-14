@@ -53,11 +53,6 @@
 			"NBTXC4HL66/moc_MapView.cpp"
 		],
 		[
-			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.h",
-			"MU",
-			"NBTXC4HL66/moc_NonMovable.cpp"
-		],
-		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h",
 			"MU",
 			"NBTXC4HL66/moc_Renderizable.cpp"
@@ -81,6 +76,11 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h",
 			"MU",
 			"NBTXC4HL66/moc_ServerReceiver.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h",
+			"MU",
+			"NBTXC4HL66/moc_Unit.cpp"
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.h",
@@ -216,10 +216,6 @@
 		],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp", "MU" ],
 		[
-			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/NonMovable.cpp",
-			"MU"
-		],
-		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp",
 			"MU"
 		],
@@ -239,6 +235,7 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp",
 			"MU"
 		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp", "MU" ],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.cpp",
 			"MU"

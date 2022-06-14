@@ -13,7 +13,7 @@ class BlockingQueue {
  
  public:
     BlockingQueue();
-    void push(ClientInput const& value);
+    void push(ClientInput value);
     ClientInput pop();
     ~BlockingQueue() = default;
 };

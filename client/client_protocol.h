@@ -27,6 +27,13 @@ class ProtocolClient {
     uint16_t convert_to_uint16_with_endianess(int number);
     uint8_t convert_to_uint8(int number);
     void sendUserName(std::string userName);
+    void sendCreateGameOperation(int operationNumber, std::string gameName, std::string mapName, int houseNumber);
+    void sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber);
+    void sendListGamesOperation(int operationNumber);
+    void sendListMapsOperation(int operationNumber);
+    void recvListOfMaps();
+    void recvListOfGames();
+    void sendOperation(int operationNumber);
     ~ProtocolClient();
 };
 

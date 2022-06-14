@@ -12,11 +12,11 @@ public:
 	int getPosX();
 	int getPosY();
 
-    //ClientInput(const ClientInput&) = delete;
-    //ClientInput& operator=(const ClientInput&) = delete;
+    ClientInput(const ClientInput&) = delete;
+    ClientInput& operator=(const ClientInput&) = delete;
 
-    //ClientInput(ClientInput&&);
-    //ClientInput& operator=(ClientInput&&);
+    ClientInput(ClientInput&&);
+    ClientInput& operator=(ClientInput&&);
 
 };
 

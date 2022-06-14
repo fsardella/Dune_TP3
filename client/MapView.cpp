@@ -41,13 +41,13 @@ void MapView::createMap(int height, int width, std::vector<std::vector<int>> map
     }
 }
 
-void MapView::createUnit(int x, int y, std::string unitType) {
+void MapView::createUnit(int x, int y, std::string unitType, int unitId) {
     std::string path("../trike.bmp");
     unitTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple(unitType),
                           std::forward_as_tuple(path, window, false));
     auto& unitTexture = unitTranslator.at(unitType);
-    unitsTiles.emplace_back(unitTexture, 100, 100 , x, y);
+    unitsTiles.emplace_back(unitTexture, 100, 100 , x, y, unitId);
 }
 
 MapView::~MapView() {
@@ -57,7 +57,7 @@ void MapView::render(Camera &cam) {
     for (BackGroundTile &tile : backgroundTiles) {
             cam.render(tile, 0);
     }
-    for (NonMovable &unit : unitsTiles) {
+    for (Unit &unit : unitsTiles) {
         cam.render(unit, unit.getX(), unit.getY());
     }
 }
