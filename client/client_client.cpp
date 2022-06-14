@@ -128,6 +128,9 @@ void Client::recvListOfGames(std::list <std::string>* list) {
 	//protocol.recvListOfGames(list);
 }
 
+void Client::recvStartGame() {
+	protocol.recvStartGame();
+}
 
 /*
 Pre-Condiciones: -

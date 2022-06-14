@@ -8,6 +8,10 @@
 #include "Construction.h"
 #include <QDialog>
 
+#define BUILD_UNIT 5
+#define BUILD_CONSTRUCTION 6
+#define MOVE_UNIT 7
+
 class ProtocolClient {
     Socket socket;
     public:
@@ -35,6 +39,10 @@ class ProtocolClient {
     void recvListOfMaps(std::list <std::string>* list);
     void recvListOfGames(std::list <std::string>* list);
     void sendOperation(int operationNumber);
+    void sendUnitConstructionPetition(int x, int y, int type);
+    void recvMap(int* width, int* height, std::vector<std::vector<int>>& map);
+    void recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units);
+    void recvStartGame();
     ~ProtocolClient();
 };
 

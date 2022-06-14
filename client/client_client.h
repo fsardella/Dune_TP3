@@ -20,10 +20,10 @@
 #define OPERACION_UNIRSE "unirse"
 #define OPERACION_FIN "fin"
 
-#define CREATE_GAME 5
-#define JOIN_GAME 6
-#define LIST_GAMES 7
-#define LIST_MAPS 8
+#define JOIN_GAME 1
+#define LIST_GAMES 2
+#define CREATE_GAME 3
+#define LIST_MAPS 4
 
 
 class Client {
@@ -46,6 +46,7 @@ class Client {
 	void sendListMapsOperation();
 	void recvListOfMaps(std::list <std::string>* list);
     void recvListOfGames(std::list <std::string>* list);
+	void recvStartGame();
 	~Client();
 };
 

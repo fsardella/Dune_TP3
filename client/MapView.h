@@ -21,6 +21,7 @@ class MapView {
     MapView(SdlWindow& window);
     void loadMap(const std::string &mapFile);
     void createUnit(int x, int y, std::string unitType, int unitId);
+    // void createUnit(int x, int y, int unitType, int unitId, int house, bool property);
     void loadBackground();
     void loadTranslator();
     void createMap(int height, int width, std::vector<std::vector<int>> map);

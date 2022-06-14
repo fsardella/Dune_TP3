@@ -4,11 +4,11 @@
 
 CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
-    ui(new Ui::CreateGameWindow)
+    ui(new Ui::CreateGameWindow),
+    newClient(client)
 {
-    newClient = client;
     ui->setupUi(this);
-    QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/DuneCreateGame.png");
+    QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -33,6 +33,15 @@ CreateGameWindow::~CreateGameWindow()
     delete ui;
 }
 
+void CreateGameWindow::showWaitingWindow()
+{
+    this->close();
+    WaitingWindow waitingWindow(NULL, this->newClient);
+    waitingWindow.setModal(true);
+    waitingWindow.showMaximized();
+    waitingWindow.exec();
+}
+
 void CreateGameWindow::on_createGameButton_clicked()
 {
     if (!(ui->listWidget->currentItem())) {
@@ -50,5 +59,6 @@ void CreateGameWindow::on_createGameButton_clicked()
     newClient->chooseGameName(ui->gameNameLineEdit->text().toStdString());
     newClient->chooseMapName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendCreateGameOperation();
-    this->close();
+    // this->close();
+    this->showWaitingWindow();
 }

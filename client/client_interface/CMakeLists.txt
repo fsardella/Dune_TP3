@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
         joingamewindow.cpp
         joingamewindow.h
         joingamewindow.ui
+        waitingWindow.cpp
+        waitingWindow.h
+        waitingWindow.ui
         ../BlockingQueue.cpp
         ../BlockingQueue.h
         ../client_client.cpp

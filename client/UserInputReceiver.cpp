@@ -14,7 +14,7 @@ void UserInputReceiver::run() {
                 break;
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
-                ClientInput clientInput(event.button.x, event.button.y);
+                ClientInput clientInput(event.button.x, event.button.y); // tambien tendría la unidad del otro menu
                 blockingQueue->push(std::move(clientInput));
             }
         }

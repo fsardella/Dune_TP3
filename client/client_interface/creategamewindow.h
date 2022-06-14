@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../client_client.h"
+#include "waitingWindow.h"
 
 namespace Ui {
 class CreateGameWindow;
@@ -18,6 +19,7 @@ public:
 
 private slots:
     void on_createGameButton_clicked();
+    void showWaitingWindow();
 
 private:
     Client* newClient;

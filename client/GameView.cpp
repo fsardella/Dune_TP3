@@ -20,6 +20,19 @@ void GameView::buildUnit(int x, int y, std::string unitType, int unitId) {
     map.createUnit(x, y, unitType, unitId);
 }
 
+// void GameView::buildUnit(int x, int y, int unitType, int unitId, int house, bool property) {
+//     std::lock_guard<std::mutex> lock(gameViewMutex);
+//     map.createUnit(x, y, unitType, unitId, house, property);
+// }
+
+// void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) {
+//     // std::lock_guard<std::mutex> lock(gameViewMutex);
+//     for (const auto& [key, value] : units) {
+//         // ver como hacer lo de los ids
+//         buildUnit(std::get<0>(value), std::get<1>(value), 1, key, std::get<2>(value), std::get<3>(value));
+//     }
+// }
+
 void GameView::render() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.render(camera);

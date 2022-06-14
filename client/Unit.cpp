@@ -7,9 +7,18 @@ Unit::Unit(SdlTexture &texture,
            int sizeH,
            float posX,
            float posY, int unitId)
-: Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId), propiety(true) {
+: Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId) {
     rescaling = 1;
 }
+
+// Unit::Unit(SdlTexture &texture,
+//            int sizeW,
+//            int sizeH,
+//            float posX,
+//            float posY, int unitId, bool property, int house)
+// : Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId), propiety(true), house(house) {
+//     rescaling = 1;
+// }
 
 void Unit::render(Camera &camera, size_t iteration) {
     Area src(0, 0, sizeW, sizeH);

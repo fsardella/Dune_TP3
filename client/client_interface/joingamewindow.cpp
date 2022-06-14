@@ -4,11 +4,12 @@
 
 JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
-    ui(new Ui::JoinGameWindow)
+    ui(new Ui::JoinGameWindow),
+    newClient(client)
 {
-    newClient = client;
+    // newClient = client;
     ui->setupUi(this);
-    QPixmap bkgnd("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/images/DuneCreateGame.png");
+    QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -33,6 +34,15 @@ JoinGameWindow::~JoinGameWindow()
     delete ui;
 }
 
+void JoinGameWindow::showWaitingWindow()
+{
+    this->close();
+    WaitingWindow waitingWindow(NULL, this->newClient);
+    waitingWindow.setModal(true);
+    waitingWindow.showMaximized();
+    waitingWindow.exec();
+}
+
 void JoinGameWindow::on_joinGameButton_clicked()
 {
     if (!(this->ui->listWidget->currentItem())) {
@@ -43,6 +53,7 @@ void JoinGameWindow::on_joinGameButton_clicked()
     }
     newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendJoinGameOperation();
-    this->close();
+    // this->close();
+    this->showWaitingWindow();
 }
 

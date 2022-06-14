@@ -216,7 +216,11 @@ void ProtocolClient::sendCreateGameOperation(int operationNumber, std::string ga
 	this->sendOperation(operationNumber);
 	//Aca tambien se le pasaria toda la informacion necesaria para crear el Game.
 	uint8_t houseNumberConvert = convert_to_uint8(houseNumber);
+	uint16_t nameSize = convert_to_uint16_with_endianess(gameName.size());
+	uint16_t mapNameSize = convert_to_uint16_with_endianess(mapName.size());
+	socket.sendall(&nameSize, 2);
 	socket.sendall(&gameName[0], gameName.size());
+	socket.sendall(&mapNameSize, 2);
 	socket.sendall(&mapName[0], mapName.size());
 	socket.sendall(&houseNumberConvert, 1);
 }
@@ -225,6 +229,8 @@ void ProtocolClient::sendJoinGameOperation(int operationNumber, std::string game
 	this->sendOperation(operationNumber);
 	//Aca tambien se le pasaria toda la informacion necesaria para joinearse a un Game.
 	uint8_t houseNumberConvert = convert_to_uint8(houseNumber);
+	uint16_t gameNameSize = convert_to_uint16_with_endianess(gameName.size());
+	socket.sendall(&gameNameSize, 2);
 	socket.sendall(&gameName[0], gameName.size());
 	socket.sendall(&houseNumberConvert, 1);
 }
@@ -263,4 +269,59 @@ void ProtocolClient::recvListOfGames(std::list <std::string>* list) {
 		socket.recvall(&gameName[0], nameSize);
 		list->push_back(gameName); //lleno todos los nombres de juegos existentes en una lista para luego mostrar las opciones en QT
 	}
+}
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: 
+*/
+
+void ProtocolClient::sendUnitConstructionPetition(int x, int y, int type) {
+	//serializacion
+	this->sendOperation(BUILD_UNIT);
+	uint16_t posX = convert_to_uint16_with_endianess(x);
+	uint16_t posY = convert_to_uint16_with_endianess(y);
+	uint8_t unitType = convert_to_uint8(type);
+	socket.sendall(&posX, 2);
+	socket.sendall(&posY, 2);
+	socket.sendall(&unitType, 1);
+}
+
+void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<int>>& map) {
+	int rows = recieve_msg_count(); // mejorar nombre de metodo
+	int cols = recieve_msg_count(); // mejorar nombre de metodo
+	for (int i = 0; i < rows; i ++) {
+		std::vector<int> row;
+		for (int j = 0; j < cols; j ++) {
+			int tile = recieve_msg_count();
+			row.push_back(tile);
+		}
+		map.push_back(row);
+	}
+	*height = rows;
+	*width = cols;
+}
+
+void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units) {
+	int totalAmount = recieve_msg_count(); // cambiar nombres a todos los metodos
+	int clientAmount = recieve_msg_count();
+	int clientHouse = recieve_msg_result();
+	for (int i = 0; i < clientAmount; i ++) {
+		int x = recieve_msg_count();
+		int y = recieve_msg_count();
+		int type = recieve_msg_result();
+		units[type] = std::make_tuple(x, y, clientHouse, true);
+	}
+	int othersAmount = recieve_msg_count();
+	for (int i = 0; i < clientAmount; i ++) {
+		int otherHouse = recieve_msg_result();
+		int otherX = recieve_msg_count();
+		int otherY = recieve_msg_count();
+		int otherType = recieve_msg_result();
+		units[otherType] = std::make_tuple(otherX, otherY, otherHouse, false);
+	}
+}
+
+void ProtocolClient::recvStartGame() {
+	recieve_msg_result();
 }

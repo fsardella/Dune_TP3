@@ -6,20 +6,31 @@
 class Unit : public Renderizable{
     int rescaling;
     int id;
-    bool propiety;
+    // int house;
+    // bool propiety;
     public:
-    Unit(SdlTexture& texture,
-         int sizeW,
-         int sizeH,
-         float posX,
-         float posY);
+    Unit(SdlTexture &texture,
+           int sizeW,
+           int sizeH,
+           float posX,
+           float posY,
+           int unitId);
 
-    Unit(SdlTexture& texture,
-               int sizeW,
-               int sizeH,
-               float posX,
-               float posY,
-               int rescaling);
+    // Unit(SdlTexture &texture,
+    //        int sizeW,
+    //        int sizeH,
+    //        float posX,
+    //        float posY,
+    //        int unitId,
+    //        bool property,
+    //        int house);
+
+    // Unit(SdlTexture& texture,
+    //            int sizeW,
+    //            int sizeH,
+    //            float posX,
+    //            float posY,
+    //            int rescaling);
 
     void render(Camera &camera, size_t iteration) override;
     void render(Camera &camera, int posX, int posY) override;
