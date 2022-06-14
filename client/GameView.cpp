@@ -4,6 +4,7 @@
 #include <iostream>
 
 GameView::GameView(SdlWindow& window): window(window), camera(window), map(window), running(true) {
+    //aca es donde inicializo y empiezo a dibujar la window , como en el caso de build map pero con un build menu 
 }
 
 GameView::~GameView() {
