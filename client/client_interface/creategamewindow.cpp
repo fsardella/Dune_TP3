@@ -13,14 +13,17 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
-    std::list <QString> list; //por ahora lo hardcodeo, despues el server me lo va a pasar
+
+    std::list <std::string> list;
     newClient->sendListMapsOperation();
-    newClient->recvListOfMaps();
-    list.push_back("Mapa 1");
+    newClient->recvListOfMaps(&list);
+    list.push_back("Mapa 1"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
     list.push_back("Mapa 2");
     list.push_back("Mapa 3");
-    for(int i = 0 ; i < 3 ; i++) {
-        this->ui->listWidget->addItem(list.back());
+    int size = list.size();
+    for(int i = 0 ; i < size ; i++) {
+        QString str = QString::fromStdString(list.back());
+        this->ui->listWidget->addItem(str);
         list.pop_back();
     }
 }

@@ -14,14 +14,16 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
 
-    std::list <QString> list; //por ahora lo hardcodeo, despues el server me lo va a pasar
+    std::list <std::string> list;
     newClient->sendListGamesOperation();
-    newClient->recvListOfGames();
-    list.push_back("Tres amigos");
+    newClient->recvListOfGames(&list);
+    list.push_back("Tres amigos"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
     list.push_back("Dune version");
     list.push_back("Dos amigos");
-    for(int i = 0 ; i < 3 ; i++) {
-        this->ui->listWidget->addItem(list.back());
+    int size = list.size();
+    for(int i = 0 ; i < size ; i++) {
+        QString str = QString::fromStdString(list.back());
+        this->ui->listWidget->addItem(str);
         list.pop_back();
     }
 }

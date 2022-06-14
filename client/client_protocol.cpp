@@ -237,18 +237,30 @@ void ProtocolClient::sendListMapsOperation(int operationNumber) {
 	this->sendOperation(operationNumber);
 }
 
-void ProtocolClient::recvListOfMaps() {
-	//No tengo idea como se va a hacer para poder recibir un Map con toda su info. Ver
-	/*uint16_t map = 0;
-	socket.recvall(&map,2);
-	int map_convert = convert_from_uint16_with_endianess(map);
-	return map_convert;*/
+void ProtocolClient::recvListOfMaps(std::list <std::string>* list) {
+	uint16_t numberOfMapsConvert = 0;
+	socket.recvall(&numberOfMapsConvert, 2);
+	int numberOfMaps = convert_from_uint16_with_endianess(numberOfMapsConvert);
+	for(int i = 0; i < numberOfMaps; i++) {
+		uint16_t nameSizeConvert = 0;
+		socket.recvall(&nameSizeConvert, 2);
+		int nameSize = convert_from_uint16_with_endianess(nameSizeConvert);
+		std::string mapName = "";
+		socket.recvall(&mapName[0], nameSize);
+		list->push_back(mapName); //lleno todos los nombres de mapas existentes en una lista para luego mostrar las opciones en QT
+	}
 }
 
-void ProtocolClient::recvListOfGames() {
-	//No tengo idea como se va a hacer para poder recibir un Game con toda su info. Ver
-	/*uint16_t game = 0;
-	socket.recvall(&game,2);
-	int game_convert = convert_from_uint16_with_endianess(game_convert);
-	return game_convert;*/
+void ProtocolClient::recvListOfGames(std::list <std::string>* list) {
+	uint16_t numberOfGamesConvert = 0;
+	socket.recvall(&numberOfGamesConvert, 2);
+	int numberOfGames = convert_from_uint16_with_endianess(numberOfGamesConvert);
+	for(int i = 0; i < numberOfGames; i++) {
+		uint16_t nameSizeConvert = 0;
+		socket.recvall(&nameSizeConvert, 2);
+		int nameSize = convert_from_uint16_with_endianess(nameSizeConvert);
+		std::string gameName = "";
+		socket.recvall(&gameName[0], nameSize);
+		list->push_back(gameName); //lleno todos los nombres de juegos existentes en una lista para luego mostrar las opciones en QT
+	}
 }

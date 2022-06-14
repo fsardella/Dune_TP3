@@ -120,12 +120,12 @@ void Client::sendListMapsOperation() {
 	//protocol.sendListMapsOperation(LIST_MAPS);
 }
 
-void Client::recvListOfMaps() { //como se va a llenar esto? en QT tengo una lista de Mapas/Juegos para almacenarlos.
-	//protocol.recvListOfMaps();
+void Client::recvListOfMaps(std::list <std::string>* list) {
+	//protocol.recvListOfMaps(list);
 }
 
-void Client::recvListOfGames() {
-	//protocol.recvListOfGames();
+void Client::recvListOfGames(std::list <std::string>* list) {
+	//protocol.recvListOfGames(list);
 }
 
 

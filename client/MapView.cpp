@@ -55,7 +55,7 @@ MapView::~MapView() {
 
 void MapView::render(Camera &cam) {
     for (BackGroundTile &tile : backgroundTiles) {
-            cam.render(tile, 0);
+        cam.render(tile, 0);
     }
     for (Unit &unit : unitsTiles) {
         cam.render(unit, unit.getX(), unit.getY());

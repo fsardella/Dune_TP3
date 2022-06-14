@@ -6,6 +6,7 @@
 
 #include "common_socket.h"
 #include "Construction.h"
+#include <QDialog>
 
 class ProtocolClient {
     Socket socket;
@@ -31,8 +32,8 @@ class ProtocolClient {
     void sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber);
     void sendListGamesOperation(int operationNumber);
     void sendListMapsOperation(int operationNumber);
-    void recvListOfMaps();
-    void recvListOfGames();
+    void recvListOfMaps(std::list <std::string>* list);
+    void recvListOfGames(std::list <std::string>* list);
     void sendOperation(int operationNumber);
     ~ProtocolClient();
 };

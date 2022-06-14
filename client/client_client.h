@@ -10,6 +10,7 @@
 #include "SdlWindow.h"
 #include "GameView.h"
 #include "ServerReceiver.h"
+#include <QDialog>
 
 #define HOUSE_ATREIDES "Atreides"
 #define HOUSE_HARKONNEN "Harkonnen"
@@ -43,8 +44,8 @@ class Client {
 	void sendJoinGameOperation();
 	void sendListGamesOperation();
 	void sendListMapsOperation();
-	void recvListOfMaps();
-    void recvListOfGames();
+	void recvListOfMaps(std::list <std::string>* list);
+    void recvListOfGames(std::list <std::string>* list);
 	~Client();
 };
 
