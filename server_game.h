@@ -16,12 +16,13 @@ class Game {
 
  public:
 	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath);
+    Game(); // Not intended for use
 	void add_participant(const int& ID_house, const std::string& playerName);
-	std::string get_name();
-	int get_num_bytes();
-	int get_participants();
-	int get_required();
-	bool game_complete();
+	std::string get_name() const;
+	int get_num_bytes() const;
+	int get_participants() const;
+	int get_required() const;
+	bool game_complete() const;
 	~Game();
     
     Game(const Game&) = delete;

@@ -9,7 +9,7 @@ class GameData {
 	std::string game_name;
 
  public:
-    GameData(Game& game);
+    GameData(const Game& game);
     std::string get_name();
 	int get_num_bytes();
 	int get_participants();

@@ -123,8 +123,11 @@ por parte del Servidor.
 
 int Client::client_run() {
 	std::string line;
+    std::cout << "Ingrese nombre de jugador: ";
+    std::getline(std::cin, line);
+    protocol.sendMsgNombre(line);
 	while (std::cin) {
-		std::getline(std::cin,line);
+		std::getline(std::cin, line);
 		if (line == OPERACION_FIN)
 			return 0;
 		if (!line.empty()) {

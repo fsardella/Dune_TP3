@@ -1,26 +1,24 @@
-# Makefile de ejemplo para programa cliente-servidor en C/C++. Genera los ejecutables 'client' y 'server' basados en archivos con el patrón 'client*.(c|cpp)' y 'server*.(c|cpp)' respectivamente. En ambos ejecutables, incluye elementos encontrados en 'common*.(c|cpp)'.
-# Creado: 27/04/2007 - Leandro Lucarella
-# Modificado: 01/09/2016 - Pablo Roca
+# Makefile de ejemplo para C/C++
+# Creado: 15/04/2004 - Leandro Lucarella
+# Modificado: Pablo Roca, Martin Di Paola
 # Copyleft 2004 - Leandro Lucarella, Bajo licencia GPL [http://www.gnu.org/]
 
 # CONFIGURACION
 ################
 
-# Extensión de los archivos a compilar (c para C, cpp o cc o cxx para C++).
+# ExtensiÃ³n de los archivos a compilar (c para C, cpp o cc o cxx para C++).
 extension = cpp
 
-# Archivos con el código fuente que componen el ejecutable. Si no se especifica,
-# toma todos los archivos con la extensión mencionada. Para especificar hay que
-# descomentar la línea (quitarle el '#' del principio).
+# Archivos con el cÃ³digo fuente que componen el ejecutable. Si no se especifica,
+# toma todos los archivos con la extensiÃ³n mencionada. Para especificar hay que
+# descomentar la lÃ­nea (quitarle el '#' del principio).
 # NOTA: No poner cabeceras (.h).
-#fuentes_client = entrada.cpp
-#fuentes_server = entrada.cpp
-#fuentes_common = entrada.cpp
+#fuentes = entrada.cpp
 
-# Si usa funciones de math.h, descomentar (quitar el '#' a) la siguiente línea.
+# Si usa funciones de math.h, descomentar (quitar el '#' a) la siguiente lÃ­nea.
 math = si
 
-# Si usa threads, descomentar (quitar el '#' a) la siguiente línea.
+# Si usa threads, descomentar (quitar el '#' a) la siguiente lÃ­nea.
 threads = si
 
 # Descomentar si se quiere ver como se invoca al compilador
@@ -46,7 +44,7 @@ CFLAGS += -ggdb -DDEBUG -fno-inline
 CSTD = c17
 
 # Estandar de C++ a usar
-CXXSTD = c++11
+CXXSTD = c++17
 
 # Estandar POSIX que extiende C/C++. En teoria los grandes
 # sistemas operativos incluyendo Windows son POSIX compliant
@@ -55,7 +53,7 @@ CFLAGS += -D _POSIX_C_SOURCE=200809L
 # Si se quiere compilar estaticamente, descomentar la siguiente linea
 #static = si
 
-# Si se quiere simular pérdidas, definir la variable wrapsocks por linea
+# Si se quiere simular pÃ©rdidas, definir la variable wrapsocks por linea
 # de comandos: 'wrapsocks=si make'  o descomentar la siguiente linea
 #wrapsocks = si
 
@@ -78,16 +76,16 @@ ifdef static
 LDFLAGS += -static
 endif
 
-# Agrega simulación de pérdidas de bytes en las funciones de sockets
+# Agrega simulaciÃ³n de pÃ©rdidas de bytes en las funciones de sockets
 ifdef wrapsocks
 CFLAGS += -Dwrapsocks=1
 LDFLAGS += -Wl,--wrap=send -Wl,--wrap=recv
 endif
 
-# Se reutilizan los flags de C para C++ también
+# Se reutilizan los flags de C para C++ tambiÃ©n
 CXXFLAGS += $(CFLAGS)
 
-# Se usa enlazador de C++ si es código no C.
+# Se usa enlazador de C++ si es cÃ³digo no C.
 ifeq ($(extension), c)
 CFLAGS += -std=$(CSTD)
 LD = $(CC)
@@ -101,9 +99,9 @@ COMPILERFLAGS = $(CXXFLAGS)
 endif
 
 # Si no especifica archivos, tomo todos.
-fuentes_client ?= $(wildcard client*.$(extension)) $(wildcard */client*.$(extension))
-fuentes_server ?= $(wildcard server*.$(extension)) $(wildcard */server*.$(extension))
-fuentes_common ?= $(wildcard common*.$(extension)) $(wildcard */common*.$(extension))
+fuentes_client ?= $(wildcard ./client_src/*.$(extension)) $(wildcard ./client_*.$(extension))
+fuentes_server ?= $(wildcard ./server_src/*.$(extension)) $(wildcard ./server_*.$(extension))
+fuentes_common ?= $(wildcard ./common_src/*.$(extension)) $(wildcard ./common_*.$(extension))
 directorios = $(shell find . -type d -regex '.*\w+')
 
 occ := $(CC)
@@ -126,13 +124,12 @@ COMPILERFLAGS-TSAN = $(COMPILERFLAGS) -fsanitize=thread
 # REGLAS
 #########
 
-.PHONY: all clean
-
 all: client server
 
 o_common_files = $(patsubst %.$(extension),%.o,$(fuentes_common))
 o_client_files = $(patsubst %.$(extension),%.o,$(fuentes_client))
 o_server_files = $(patsubst %.$(extension),%.o,$(fuentes_server))
+o-tsan_files = $(patsubst %.$(extension),%.o-tsan,$(fuentes_server) $(fuentes_common))
 
 client: $(o_common_files) $(o_client_files)
 	@if [ -z "$(o_client_files)" ]; \
@@ -141,7 +138,7 @@ client: $(o_common_files) $(o_client_files)
 		if [ -n "$(directorios)" ]; then echo "Directorios encontrados: $(directorios)"; fi; \
 		false; \
 	fi >&2
-	$(LD) $(o_common_files) $(o_client_files) -o client $(LDFLAGS)
+	$(LD) $(o_common_files) $(o_client_files) -o $@ $(LDFLAGS)
 
 server: $(o_common_files) $(o_server_files)
 	@if [ -z "$(o_server_files)" ]; \
@@ -150,8 +147,26 @@ server: $(o_common_files) $(o_server_files)
 		if [ -n "$(directorios)" ]; then echo "Directorios encontrados: $(directorios)"; fi; \
 		false; \
 	fi >&2
-	$(LD) $(o_common_files) $(o_server_files) -o server $(LDFLAGS)
+	$(LD) $(o_common_files) $(o_server_files) -o $@ $(LDFLAGS)
 
-clean:
-	$(RM) -f $(o_common_files) $(o_client_files) $(o_server_files) client server
+%.o-tsan: %.$(extension)
+	$(COMPILER) $(COMPILERFLAGS-TSAN) -o $@ -c $<
 
+
+server-tsan: $(o-tsan_files)
+	@if [ -z "$(o-tsan_files)" ]; \
+	then \
+		echo "No hay archivos de entrada en el directorio actual. Recuerde que la extensiÃ³n debe ser '.$(extension)' y que no se aceptan directorios anidados."; \
+		if [ -n "$(directorios)" ]; then echo "Directorios encontrados: $(directorios)"; fi; \
+		false; \
+	fi >&2
+	$(LD) $(o-tsan_files) -o $@ $(LDFLAGS-TSAN)
+
+clean: clean-obj
+	$(RM) -f $(o_common_files) $(o_client_files) $(o_server_files) $(target-tsan) client server server-tsan
+
+clean-obj:
+	$(RM) -f $(o_files) $(o-tsan_files)
+
+zip: clean
+	zip -r entrega.zip ./common_src ./server_src ./client_src

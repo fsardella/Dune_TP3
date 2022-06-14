@@ -4,7 +4,7 @@
 #include "common_socket.h"
 #include "server_game.h"
 #include "server_gameSet.h"
-#include "server_thread.h"
+#include "common_thread.h"
 #include "server_talker.h"
 #include <list>
 

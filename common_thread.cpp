@@ -1,5 +1,6 @@
-#include "server_thread.h"
+#include "common_thread.h"
 #include <utility>
+#include <sstream>
 
 /*
 Pre-Condiciones: -
@@ -16,6 +17,7 @@ void Thread::start() {
 void Thread::join() {
     this->thread.join();
 }
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Destructor de Thread.

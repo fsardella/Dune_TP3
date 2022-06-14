@@ -131,11 +131,9 @@ por parte del Cliente.
 */
 
 std::string ProtocolServer::recieve_msg_game_name(int bytes) {
-	std::vector<char> vector(bytes);
-	for(int i = 0 ; i < bytes ; i++) {
-		socket.recvall(&vector[i], 1);
-	}
-	std::string game_name(vector.begin(),vector.end());
+	std::string game_name;
+    game_name.resize(bytes);
+    socket.recvall(&game_name[0], bytes);
 	return game_name;
 }
 

@@ -1,6 +1,6 @@
 #include "server_gamedata.h"
 
-GameData::GameData(Game& game) : players(game.get_participants()),
+GameData::GameData(const Game& game) : players(game.get_participants()),
                                        required(game.get_required()),
                                        game_name(game.get_name()) {}
 

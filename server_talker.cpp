@@ -22,6 +22,8 @@ Post-Condiciones: Constructor del hablador de Clientes.
 
 Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)) {
 	this->gameSet = game_set;
+    int bytes = this->protocol.recieve_msg_bytes();
+    this->playerName = this->protocol.recieve_msg_game_name(bytes);
 }
 
 /*
@@ -40,8 +42,7 @@ Post-Condiciones: Crea una Game.
 
 int Talker::create_game(int house, int required, const std::string& game_name,
                         const std::string& mapPath) {
-    std::string playerName = "DEBUG_P_NAME";
-	int result = gameSet->add_game(house,required,game_name, playerName, mapPath);
+	int result = gameSet->add_game(house,required,game_name, this->playerName, mapPath);
 	return result;
 }
 
@@ -74,9 +75,12 @@ En caso de que se pueda unir al jugador, devuelve 0. Caso contrario devuelve 1.
 */
 
 int Talker::join_game(int house, std::string& game_name) {
-    std::string playerName = "DEBUG_P_NAME";
-	int result = gameSet->game_join(house, game_name, playerName);
+	int result = gameSet->game_join(house, game_name, this->playerName);
 	return result;
+}
+
+std::string Talker::getPlayerName() {
+    return this->playerName;
 }
 
 /*
@@ -126,4 +130,5 @@ Post-Condiciones: Destructor del hablador de Clientes.
 
 Talker::~Talker() {
 	this->join();
+    std::cout << this->playerName << " disconnected..." << std::endl; // DEBUG
 }

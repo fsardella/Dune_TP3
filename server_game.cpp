@@ -1,6 +1,9 @@
 #include "server_game.h"
 #include <cstring>
 
+
+Game::Game(): required(0) {}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de una Game.
@@ -23,7 +26,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve true si el juego esta completo o false si no.
 */
 
-bool Game::game_complete() {
+bool Game::game_complete() const{
 	return (this->required <= this->participants.size());
 }
 
@@ -32,7 +35,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve el nombre de la Game actual.
 */
 
-std::string Game::get_name() {
+std::string Game::get_name() const{
 	return this->game_name;
 }
 
@@ -49,7 +52,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve el numero de bytes del nombre de una Game.
 */
 
-int Game::get_num_bytes(){
+int Game::get_num_bytes() const{
 	return this->game_name.length();
 }
 
@@ -58,7 +61,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve los participantes actuales de una Game.
 */
 
-int Game::get_participants(){
+int Game::get_participants() const{
 	return this->participants.size();
 }
 
@@ -67,7 +70,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve los participantes requeridos de una Game.
 */
 
-int Game::get_required(){
+int Game::get_required() const{
 	return this->required;
 }
 

@@ -9,6 +9,7 @@ class Thread {
 	Thread();
 	void start();
 	void join();
+    int get_id();
 	virtual void run() = 0;
 	virtual ~Thread();
 };

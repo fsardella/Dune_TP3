@@ -145,6 +145,13 @@ void ProtocolClient::send_msg_crear(int house, int num_players,
 	}
 }
 
+void ProtocolClient::sendMsgNombre(const std::string& playerName) {
+    int num_bytes = playerName.length();
+	uint16_t num_bytes_convert = convert_to_uint16_with_endianess(num_bytes);
+	socket.sendall(&num_bytes_convert, 2);
+    socket.sendall(&playerName[0], num_bytes);
+}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Recibe mensaje del servidor sobre si se pudo o no realizar una accion.
