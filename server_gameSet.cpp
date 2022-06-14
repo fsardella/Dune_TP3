@@ -1,16 +1,39 @@
 #include "server_gameSet.h"
-#include <cstring>
-#include <iostream>
-#include <functional>
-#include <algorithm>
+//#include <cstring>
+//#include <iostream>
+//#include <functional>
+//#include <algorithm>
+
+typedef std::lock_guard<std::mutex> lock_t;
 
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor del Conjunto De Games.
 */
 
-GameSet::GameSet() {
+GameSet::GameSet() {}
+
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Chequea si la Game existe (devuelve true) o si no existe (devuelve false).
+*/
+
+bool GameSet::game_exists(const std::string& game_name) {
+	return (this->games.find(game_name) != this->games.end());
 }
+
+/*
+Pre-Condiciones: Existe un juego game_name.
+Post-Condiciones: Chequea si la Game esta llena (devuelve true) o si no (devuelve false).
+*/
+
+bool GameSet::game_complete(const std::string& game_name) {
+	//Game& game = get_game(game_name);
+    return (this->games[game_name].game_complete());
+}
+
+
 
 /*
 Pre-Condiciones: -
@@ -20,13 +43,13 @@ Post-Condiciones: Agrega una Game al conjunto de Games y suma un participante
 
 int GameSet::add_game(int house, int required, const std::string& game_name,
                       const std::string& playerName, const std::string& mapPath) {
-	const std::lock_guard<std::mutex> lock(m);
-	if(game_exists(game_name)) {
+	lock_t lock(this->m);
+	if (this->game_exists(game_name)) {
 		return ERROR;
 	} else {
-		Game game(required, game_name, mapPath);
-		game.add_participant(house, playerName);
-		games.push_back(std::move(game));
+		Game newGame(required, game_name, mapPath);
+		newGame.add_participant(house, playerName);
+		this->games[game_name] = std::move(newGame);
 		return SUCCESS;
 	}
 }
@@ -37,11 +60,11 @@ Post-Condiciones: Agrega a un vector de strings todos los nombres de las Games a
 */
 
 
-void GameSet::get_games_names(std::vector<std::string> *games_names) {
-	for (size_t i = 0 ; i < games.size() ; i++) {
-		games_names->push_back(games[i].get_name());
-	}
-}
+//void GameSet::get_games_names(std::vector<std::string> *games_names) {
+	//for (auto const& gameTuple : this->games) {
+        
+    //}
+//}
 
 /*
 Pre-Condiciones: -
@@ -49,38 +72,14 @@ Post-Condiciones: Agrega a una lista auxiliar las Games actuales con toda su inf
 */
 
 void GameSet::list_games(std::vector<std::string> *games_names, std::list<GameData> *games_aux) {
-	const std::lock_guard<std::mutex> lock(m);
-	get_games_names(games_names);
-	std::sort(games_names->begin(), games_names->end());
-	for(size_t i = 0 ; i < games_names->size() ; i++) {
-		Game& game = get_game(games_names->at(i));
-		games_aux->push_back(GameData(game));
+    lock_t lock(this->m);
+	//get_games_names(games_names);
+    for (std::map<std::string, Game>::iterator it = this->games.begin();
+         it != this->games.end();
+         ++it) {
+        games_names->push_back(it->first);
+		games_aux->push_back(GameData(it->second));
 	}
-}
-
-/*
-Pre-Condiciones: -
-Post-Condiciones: Chequea si la Game existe (devuelve true) o si no existe (devuelve false).
-*/
-
-bool GameSet::game_exists(const std::string& game_name) {
-	for (size_t i = 0 ; i < games.size() ; i++) {
-		if((games[i].get_name()).compare(game_name) == 0) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/*
-Pre-Condiciones: -
-Post-Condiciones: Chequea si la Game esta llena (devuelve true) o si no (devuelve false).
-*/
-
-bool GameSet::game_complete(const std::string& game_name) {
-	Game& game = get_game(game_name);
-	bool result = game.game_complete();
-	return result;
 }
 
 /*
@@ -89,15 +88,10 @@ Post-Condiciones: Une a un participante a la Game.
 */
 
 int GameSet::game_join(int house, const std::string& game_name, const std::string& playerName) {
-	const std::lock_guard<std::mutex> lock(m);
-	if ((game_exists(game_name)) && !(game_complete(game_name))) {
-		for (size_t i = 0 ; i < games.size() ; i++) {
-			if ((games[i].get_name()).compare(game_name) == 0) {
-				games[i].add_participant(house, playerName);
-				break;
-			}
-		}
-		if (game_complete(game_name)) {
+	lock_t lock(this->m);
+	if (this->game_exists(game_name) && !this->game_complete(game_name)) {
+        this->games[game_name].add_participant(house, playerName);
+		if (this->game_complete(game_name)) {
 			std::cout << "Comenzando Game " << game_name << "..." << std::endl;
 		}
 		return SUCCESS;
@@ -110,14 +104,14 @@ Pre-Condiciones: -
 Post-Condiciones: Obtiene una Game especifica del vector de Games.
 */
 
-Game& GameSet::get_game(const std::string& game_name) {
-	for (size_t i = 0 ; i < games.size() ; i++) {
-		if ((games[i].get_name()).compare(game_name) == 0) {
-			return games[i];
-		}
-	}
-	throw(std::invalid_argument("error al obtener la Game"));
-}
+//Game& GameSet::get_game(const std::string& game_name) {
+	//for (size_t i = 0 ; i < games.size() ; i++) {
+		//if ((games[i].get_name()).compare(game_name) == 0) {
+			//return games[i];
+		//}
+	//}
+	//throw(std::invalid_argument("error al obtener la Game"));
+//}
 
 /*
 Pre-Condiciones: -
@@ -126,3 +120,14 @@ Post-Condiciones: Destructor del Conjunto De Games.
 
 GameSet::~GameSet() {
 }
+
+GameSet::GameSet(GameSet&& other) :
+                           games(std::move(other.games)) {}
+
+GameSet& GameSet::operator=(GameSet&& other) {
+    if (this == &other)
+        return *this;
+    this->games = std::move(other.games);
+    return *this;
+}
+
