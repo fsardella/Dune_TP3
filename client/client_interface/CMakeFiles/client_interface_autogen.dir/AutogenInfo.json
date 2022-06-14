@@ -118,6 +118,11 @@
 			"EWIEGA46WW/moc_mainwindow.cpp"
 		],
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h",
+			"MU",
+			"EWIEGA46WW/moc_waitingWindow.cpp"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h",
 			"MU",
 			"NBTXC4HL66/moc_client_protocol.cpp"
@@ -266,6 +271,10 @@
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp",
 			"MU"
 		],
 		[

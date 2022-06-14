@@ -33,6 +33,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/main.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface.dir/main.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface.dir/maingame.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface.dir/mainwindow.cpp.o"
+  "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface.dir/waitingWindow.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

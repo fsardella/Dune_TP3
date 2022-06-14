@@ -945,6 +945,33 @@ mainwindow.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
+waitingWindow.o: waitingWindow.cpp.o
+
+.PHONY : waitingWindow.o
+
+# target to build an object file
+waitingWindow.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.o
+.PHONY : waitingWindow.cpp.o
+
+waitingWindow.i: waitingWindow.cpp.i
+
+.PHONY : waitingWindow.i
+
+# target to preprocess a source file
+waitingWindow.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.i
+.PHONY : waitingWindow.cpp.i
+
+waitingWindow.s: waitingWindow.cpp.s
+
+.PHONY : waitingWindow.s
+
+# target to generate assembly for a file
+waitingWindow.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.s
+.PHONY : waitingWindow.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1044,6 +1071,9 @@ help:
 	@echo "... mainwindow.o"
 	@echo "... mainwindow.i"
 	@echo "... mainwindow.s"
+	@echo "... waitingWindow.o"
+	@echo "... waitingWindow.i"
+	@echo "... waitingWindow.s"
 .PHONY : help
 
 

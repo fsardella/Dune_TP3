@@ -466,6 +466,15 @@
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.ui">
 			<Option target="client_interface"/>
 		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.ui">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp">
 			<Option target="client_interface"/>
 		</Unit>

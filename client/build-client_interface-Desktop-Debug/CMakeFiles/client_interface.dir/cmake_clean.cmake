@@ -31,6 +31,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/client_interface.dir/main.cpp.o"
   "CMakeFiles/client_interface.dir/maingame.cpp.o"
   "CMakeFiles/client_interface.dir/mainwindow.cpp.o"
+  "CMakeFiles/client_interface.dir/waitingWindow.cpp.o"
   "client_interface"
   "client_interface.pdb"
   "client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp"
