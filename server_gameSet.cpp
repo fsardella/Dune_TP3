@@ -11,7 +11,7 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor del Conjunto De Games.
 */
 
-GameSet::GameSet() {}
+GameSet::GameSet(BlockingQueue<Game>& readyGames): readyGames(readyGames) {}
 
 
 /*
@@ -92,7 +92,9 @@ int GameSet::game_join(int house, const std::string& game_name, const std::strin
 	if (this->game_exists(game_name) && !this->game_complete(game_name)) {
         this->games[game_name].add_participant(house, playerName);
 		if (this->game_complete(game_name)) {
-			std::cout << "Comenzando Game " << game_name << "..." << std::endl;
+            readyGames.push(std::move(this->games[game_name]));
+            this->games.erase(game_name);
+			//std::cout << "Comenzando Game " << game_name << "..." << std::endl;
 		}
 		return SUCCESS;
 	}
@@ -122,12 +124,14 @@ GameSet::~GameSet() {
 }
 
 GameSet::GameSet(GameSet&& other) :
-                           games(std::move(other.games)) {}
+                           games(std::move(other.games)),
+                           readyGames(other.readyGames) {}
 
 GameSet& GameSet::operator=(GameSet&& other) {
     if (this == &other)
         return *this;
     this->games = std::move(other.games);
+    this->readyGames = std::move(other.readyGames);
     return *this;
 }
 

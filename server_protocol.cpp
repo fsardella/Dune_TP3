@@ -180,3 +180,13 @@ void ProtocolServer::send_msg_list(GameData game) {
 		socket.sendall(&game.get_name().at(i), 1);
 	}
 }
+
+void ProtocolServer::send_map_row(std::vector<int>& row) {
+    int size = row.size();
+    std::vector<uint8_t> newRow;
+    for (int elem: row)
+        newRow.push_back((u_int8_t) elem);
+    this->socket.sendall(&newRow[0], size);
+}
+
+

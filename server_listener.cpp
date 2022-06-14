@@ -11,7 +11,10 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor del escuchador de Clientes.
 */
 
-Listener::Listener(const char* service_port, GameSet *gameSet): socket_original(service_port) {
+Listener::Listener(const char* service_port, GameSet *gameSet,
+                   talkerMap_t& clientTalkers): socket_original(service_port),
+                                               clientTalkers(clientTalkers),
+                                               listening(true) {
 	this->gameSet = gameSet;
 }
 
@@ -28,11 +31,12 @@ void Listener::run() {
 		try {
 			Socket accept = this->socket_original.accept();
 			Talker *client_talker = new Talker(std::move(accept), gameSet);
-			clientsTalkers.push_back(client_talker);
+			clientTalkers[client_talker->getPlayerName()] = client_talker;
 			client_talker->start();
 			cleanFinishedHandlers();
 		}
 		catch (ClosedSocketException const&) {
+            std::cout << "Stopped accepting players" << std::endl;
 			break;
 		}
 	}
@@ -45,15 +49,20 @@ para que no se vayan acumulando.
 */
 
 void Listener::cleanFinishedHandlers() {
-    std::list<Talker *>::iterator it = clientsTalkers.begin();
-    while (it != clientsTalkers.end()) {
-        if ((*it)->finishedThread()) {
-            delete *it;
-            it = clientsTalkers.erase(it);
+    talkerMap_t::iterator it = clientTalkers.begin();
+    while (it != clientTalkers.end()) {
+        if ((it->second)->finishedThread()) {
+            delete it->second;
+            it = clientTalkers.erase(it);
         } else {
             ++it;
         }
     }
+}
+
+void Listener::stopListening() {
+    this->socket_original.closeSkt();
+    this->listening = false;
 }
 
 /*
@@ -62,9 +71,10 @@ Post-Condiciones: Destructor del escuchador de Clientes.
 */
 
 Listener::~Listener() {
-	for (Talker* c:clientsTalkers) {
-		delete c;
+	if (this->listening)
+        this->socket_original.closeSkt();
+    for (auto& c:clientTalkers) {
+		delete c.second;
 	}
-	this->socket_original.closeSkt();
 	this->join();
 }

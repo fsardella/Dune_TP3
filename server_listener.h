@@ -8,13 +8,18 @@
 #include "server_talker.h"
 #include <list>
 
+typedef std::map<std::string, Talker*> talkerMap_t;
+
 class Listener: public Thread {
     Socket socket_original;
-    std::list<Talker *> clientsTalkers;
+    talkerMap_t& clientTalkers;
+    bool listening;
     void cleanFinishedHandlers();
     GameSet *gameSet;
-    public:
-	explicit Listener(const char* service_port, GameSet *gameSet);
+ public:
+	explicit Listener(const char* service_port, GameSet *gameSet,
+                      talkerMap_t& clientTalkers);
+    void stopListening(); 
 	void run() override;
 	~Listener() override;
 };

@@ -2,8 +2,10 @@
 #define __SERVER_PLAYER_H
 
 #include <stdint.h>
-#include <list>
+#include <map>
+#include <string>
 #include "server_units.h"
+#include "server_terrain_map.h"
 
 class Player {
     std::string playerName;
@@ -12,6 +14,11 @@ class Player {
     //  TODO BUILDINGS
  public:
     Player(const int& house, const std::string& playerName);
+    Player();
+    void addUnit(int x, int y, TerrainMap& terr);
+    int getHouse();
+    std::list<coor_t> getUnits(); // TODO devolver lista de UnitData
+    
     ~Player();
     
     Player(const Player&) = delete;

@@ -16,6 +16,8 @@ enum sketchElements {
 
 #define CHUNKSIZE 4
 
+TerrainMap::TerrainMap() {}
+
 TerrainMap::TerrainMap(sketch_t mapSketch) {
     for (std::vector<int> row : mapSketch) {
         std::vector<Terrain*> row_res;

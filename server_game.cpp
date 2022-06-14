@@ -18,7 +18,7 @@ Post-Condiciones: Agrega un participante a la Game actual.
 */
 
 void Game::add_participant(const int& ID_house, const std::string& playerName) {
-	this->participants.push_back(std::move(Player(ID_house, playerName)));
+	this->participants[playerName] = std::move(Player(ID_house, playerName));
 }
 
 /*
@@ -72,6 +72,34 @@ Post-Condiciones: Devuelve los participantes requeridos de una Game.
 
 int Game::get_required() const{
 	return this->required;
+}
+
+
+
+bool Game::isPlaying(std::string playerName) {
+    return (this->participants.find(playerName) != this->participants.end());
+}
+
+
+void Game::addUnit(std::string playerName, int x, int y, TerrainMap& terr) {
+    if (!this->isPlaying(playerName))
+        return;
+    this->participants[playerName].addUnit(x, y, terr);
+}
+
+
+std::map<std::string, std::list<coor_t>> Game::getUnits() {
+    std::map<std::string, std::list<coor_t>> result; 
+    for (std::map<std::string, Player>::iterator it = this->participants.begin();
+         it != this->participants.end();
+         ++it) {
+        result[it->first] = it->second.getUnits();
+	}
+    return result;
+}
+
+int Game::getHouse(std::string playerName) {
+    return (this->participants[playerName].getHouse());
 }
 
 Game::Game(Game&& other) : required(other.required),

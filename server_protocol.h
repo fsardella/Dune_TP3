@@ -4,6 +4,8 @@
 #include "common_socket.h"
 #include <string>
 
+typedef std::vector<std::vector<int>> sketch_t;
+
 class ProtocolServer {
 	Socket socket; //Socket aceptado
 	public:
@@ -20,6 +22,8 @@ class ProtocolServer {
 	void send_msg_result(int response);
 	void send_msg_list(GameData game);
 	void send_msg_num_list(int size);
+    
+    void send_map_row(std::vector<int>& row); 
 	~ProtocolServer();
 };
 

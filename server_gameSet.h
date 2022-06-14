@@ -10,6 +10,7 @@
 #include <string>
 #include <mutex>
 #include <utility>
+#include "common_blockingqueue.h"
 
 #define SUCCESS 0
 #define ERROR 1
@@ -17,12 +18,13 @@
 class GameSet {
 	std::map<std::string, Game> games;
 	std::mutex m;
+    BlockingQueue<Game>& readyGames;
 
     bool game_exists(const std::string& game_name);
 	bool game_complete(const std::string& game_name);
     //Game& get_game(const std::string& game_name);
  public:
-	GameSet();
+	GameSet(BlockingQueue<Game>& readyGames);
 	int add_game(int house, int required, const std::string& game_name,
                  const std::string& playerName, const std::string& mapPath);
 	int game_join(int house, const std::string& game_name,

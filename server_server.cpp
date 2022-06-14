@@ -12,7 +12,12 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor de Servidor.
 */
 
-Server::Server(const char* service_port): gameSet(), listener(service_port, &gameSet) {
+Server::Server(const char* service_port): gameSet(this->playableGames),
+                                          talkers(),
+                                          listener(service_port, &gameSet,
+                                                   this->talkers),
+                                          inputGuy(this->listener,
+                                                   this->playableGames) {
 	this->listener.start();
 }
 
@@ -23,10 +28,15 @@ entrada estándar. Si se recibe una "q" el Servidor finalizará.
 */
 
 void Server::server_run() {
-	std::string input;
-	while (input != "q") {
-		std::cin >> input;
-	}
+    this->inputGuy.start();
+    try {
+        while(true) {
+            Game newGame = std::move(this->playableGames.pop());
+            std::cout << "Comenzando Game " << newGame.get_name() << "..." << std::endl;
+        }
+    } catch (const ClosedQueueException&) {
+        return;
+    }
 }
 
 /*

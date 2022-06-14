@@ -3,17 +3,21 @@
 
 #include <vector>
 #include <list>
+#include <map>
 #include <iostream>
 #include <string>
 #include "server_player.h"
 #include "server_terrain_map.h"
 
+typedef std::pair<uint16_t, uint16_t> coor_t;
+
 class Game {
 	unsigned int required;
 	std::string game_name;
-	std::list<Player> participants;
+	std::map<std::string, Player> participants;
     std::string yamlMapPath;
-
+    
+    bool isPlaying(std::string playerName);
  public:
 	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath);
     Game(); // Not intended for use
@@ -23,6 +27,10 @@ class Game {
 	int get_participants() const;
 	int get_required() const;
 	bool game_complete() const;
+    
+    int getHouse(std::string playerName);
+    void addUnit(std::string playerName, int x, int y, TerrainMap& terr);
+    std::map<std::string, std::list<coor_t>> getUnits();
 	~Game();
     
     Game(const Game&) = delete;

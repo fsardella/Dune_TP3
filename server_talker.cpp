@@ -15,15 +15,21 @@
 #include "server_gamedata.h"
 #include "server_gameSet.h"
 
+#include "server_command.h"
+
+typedef std::vector<std::vector<int>> sketch_t;
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor del hablador de Clientes.
 */
 
-Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)) {
+Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)),
+                                                    commandQueue(nullptr) {
 	this->gameSet = game_set;
     int bytes = this->protocol.recieve_msg_bytes();
     this->playerName = this->protocol.recieve_msg_game_name(bytes);
+    std::cout << this->playerName << " connected..." << std::endl;  // DEBUG
 }
 
 /*
@@ -83,6 +89,50 @@ std::string Talker::getPlayerName() {
     return this->playerName;
 }
 
+#define START_PLAYING 5
+
+void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap) {
+    this->commandQueue = std::move(newGameQueue);
+    this->startedPlaying = true;
+    this->protocol.send_msg_result(START_PLAYING);
+    this->protocol.send_msg_num_list(gameMap.size());
+    this->protocol.send_msg_num_list(gameMap[0].size());
+    for (std::vector<int> row : gameMap) {
+        this->protocol.send_map_row(row);
+    }
+}
+
+void Talker::sendUnits(std::map<std::string, std::list<coor_t>> units,
+                       std::map<std::string, int> houses) {
+    int totalQuantity = 0;
+    for (const auto& u: units) {
+        totalQuantity += u.second.size();   
+    }
+    this->protocol.send_msg_num_list(totalQuantity);
+    for (const auto& u: units) {
+        if (u.first == this->playerName) {
+            this->protocol.send_msg_num_list(u.second.size());
+            this->protocol.send_msg_result(houses[u.first]); 
+            for (coor_t coordinate : u.second) {
+                this->protocol.send_msg_num_list(coordinate.second);
+                this->protocol.send_msg_num_list(coordinate.first);
+                this->protocol.send_msg_result(1);
+            }
+        }
+    }
+    for (const auto& u: units) {
+        if (u.first == this->playerName)
+            continue;
+        this->protocol.send_msg_num_list(u.second.size());
+        this->protocol.send_msg_result(houses[u.first]); 
+        for (coor_t coordinate : u.second) {
+            this->protocol.send_msg_num_list(coordinate.second);
+            this->protocol.send_msg_num_list(coordinate.first);
+            this->protocol.send_msg_result(1);
+        }  
+    }
+}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: El hablador de clientes realiza diferentes acciones segun lo que determine
@@ -94,7 +144,24 @@ void Talker::run() {
 	while (finishedThread() == false) {
 		try {
             int operation = protocol.recieve_msg_operation();
-		    int house, bytes, result;
+            if (this->startedPlaying) {
+                Command comm;
+                comm.playerName = this->playerName;
+                //int unitType = 0; // TODO que haga algo...
+                switch (operation) {
+                    case NEW_UNIT:
+                        int unitType = 0;
+                        comm.x = protocol.recieve_msg_bytes();
+                        comm.y = protocol.recieve_msg_bytes();
+                        unitType = protocol.recieve_msg_house();
+                        if (unitType == 0) // ASQUEROSIDAD PARA QUE ME DEJE EN PAZ
+                            unitType = 0;
+                        break;
+                }
+                this->commandQueue->push(comm);
+                continue;
+            }
+            int house, bytes, result;
             std::string game_name;
             switch(operation) {
 			    case UNIRSE:

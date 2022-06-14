@@ -19,6 +19,7 @@ class TerrainMap {
     std::vector<std::vector<Terrain*>> terr;
 
  public:
+    TerrainMap();
     TerrainMap(sketch_t mapSketch);
     void print(coor_t org, coor_t dest); // debug
     void printDebug();
