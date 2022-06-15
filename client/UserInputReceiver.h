@@ -4,12 +4,13 @@
 #include "GameView.h"
 #include "thread.h"
 #include "BlockingQueue.h"
+#include "ClientInput.h"
 
 class UserInputReceiver: public Thread {
 	GameView* gameView;
-	BlockingQueue* blockingQueue;
+	BlockingQueue<ClientInput>* blockingQueue;
 	public:
-	UserInputReceiver(GameView* gameViewObj, BlockingQueue* blockingQueue);
+	UserInputReceiver(GameView* gameViewObj, BlockingQueue<ClientInput>* blockingQueue);
 	void run() override;
 	~UserInputReceiver() override;
 };

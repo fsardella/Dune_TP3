@@ -37,7 +37,6 @@ set(PROJECT_SOURCES
         waitingWindow.cpp
         waitingWindow.h
         waitingWindow.ui
-        ../BlockingQueue.cpp
         ../BlockingQueue.h
         ../client_client.cpp
         ../client_client.h

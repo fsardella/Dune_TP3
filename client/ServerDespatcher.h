@@ -5,12 +5,13 @@
 #include "thread.h"
 #include "BlockingQueue.h"
 #include "client_protocol.h"
+#include "ClientInput.h"
 
 class ServerDespatcher: public Thread {
-	BlockingQueue* blockingQueue;
+	BlockingQueue<ClientInput>* blockingQueue;
 	ProtocolClient* protocolClient;
 	public:
-	ServerDespatcher(ProtocolClient* protocol, BlockingQueue* blockingQueue);
+	ServerDespatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue);
 	void run() override;
 	~ServerDespatcher() override;
 };

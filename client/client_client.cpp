@@ -8,6 +8,7 @@
 #include <cstring>
 
 #include "client_client.h"
+#include "ClientInput.h"
 #include "Drawer.h"
 #include "MapView.h"
 #include "UserInputReceiver.h"
@@ -85,7 +86,7 @@ void Client::client_run() {
 	Drawer drawer(&gameViewObj);
 	drawer.start();
 
-	BlockingQueue blockingQueue;
+	BlockingQueue<ClientInput> blockingQueue;
 	UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
 	inputReceiver.start();
 
