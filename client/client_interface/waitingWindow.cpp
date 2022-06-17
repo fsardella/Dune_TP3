@@ -3,14 +3,14 @@
 
 WaitingWindow::WaitingWindow(QWidget *parent, Client* client) :
     QDialog(parent),
-    ui(new Ui::WaitingWindow),
-    newClient(client)
+    newClient(client),
+    ui(new Ui::WaitingWindow)
 {
     ui->setupUi(this);
     QPixmap bkgnd("../client_interface/images/waitingScreen.jpg");
-    bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
+    bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
     QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
+    palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 
     wait();

@@ -26,12 +26,16 @@ class GameView {
 
     void render();
     void buildMap(int height, int width, std::vector<std::vector<int>> map);
-    void buildUnit(int x, int y, std::string unitType, int unitId);
+    void buildUnit(int x, int y, int unitType, int unitId);
     // void buildUnit(int x, int y, int unitType, int unitId, int house, bool property);
     // void buildUnits(std::map<int, std::tuple<int, int, int, bool>> units);
     void setSize(int newWidth, int newHeight);
     void shutdown();
     bool isRunning();
+    void moveUpwards();
+    void moveDownwards();
+    void moveLeft();
+    void moveRight();
     ~GameView();
 
 };

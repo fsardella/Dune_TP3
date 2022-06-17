@@ -13,7 +13,7 @@ class BackGroundTile : public Renderizable {
          int posX,
          int posY);
 
-    void render(Camera &camera, size_t iteration) override;
+    void render(Camera &camera) override;
     void render(Camera &camera, int posX, int posY) override;
 
     BackGroundTile(const BackGroundTile& other) = delete;

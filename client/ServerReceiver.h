@@ -6,8 +6,8 @@
 #include "client_protocol.h"
 
 class ServerReceiver: public Thread {
-	GameView* gameView;
 	ProtocolClient* protocolClient;
+	GameView* gameView;
 	public:
 	void receiveBackground();
 	ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj);

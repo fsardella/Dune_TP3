@@ -6,7 +6,8 @@
 
 ChooseHouse::ChooseHouse(QWidget *parent, Client* client) :
     QDialog(parent),
-    ui(new Ui::ChooseHouse), client(client)
+    client(client),
+    ui(new Ui::ChooseHouse)
 {
     ui->setupUi(this);
 }

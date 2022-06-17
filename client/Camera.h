@@ -5,15 +5,18 @@
 #include "SdlTexture.h"
 #include "Renderizable.h"
 
-#define M_TO_P 32
+#define TILE_PIX_SIZE 32
 
 class Camera{
 private:
     SdlWindow& window;
     SDL_Point centerPix;
 
-    float logicalCenterX;
-    float logicalCenterY;
+    float offsetX;
+    float offsetY;
+
+    int mapWidth;
+    int mapHeight;
 
     int width;
     int height;
@@ -24,7 +27,13 @@ private:
     public:
     explicit Camera(SdlWindow& window);
 
-    void render(Renderizable &renderizable, size_t iteration);
+    void setMapSize(int width, int height);
+    void moveUpwards();
+    void moveDownwards();
+    void moveLeft();
+    void moveRight();
+
+    void render(Renderizable &renderizable);
     void render(Renderizable &renderizable, int x, int y);
     void renderInSight(SdlTexture& texture, Area& src,
                        float posX,

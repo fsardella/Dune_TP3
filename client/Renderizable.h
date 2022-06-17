@@ -23,7 +23,7 @@ class Renderizable {
 
     Renderizable(Renderizable&& other);
 
-    virtual void render(Camera &camera, size_t iteration) = 0;
+    virtual void render(Camera &camera) = 0;
     virtual void render(Camera &camera, int posX, int posY) = 0;
 
     virtual ~Renderizable();

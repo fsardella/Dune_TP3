@@ -12,10 +12,11 @@ GameView::~GameView() {
 
 void GameView::buildMap(int height, int width, std::vector<std::vector<int>> mapMatrix) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
+    camera.setMapSize(width, height);
 	map.createMap(height, width, mapMatrix);
 }
 
-void GameView::buildUnit(int x, int y, std::string unitType, int unitId) {
+void GameView::buildUnit(int x, int y, int unitType, int unitId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.createUnit(x, y, unitType, unitId);
 }
@@ -53,4 +54,20 @@ void GameView::shutdown() {
     SDL_Event quit;
     quit.type = SDL_QUIT;
     SDL_PushEvent(&quit);
+}
+
+void GameView::moveUpwards() {
+    camera.moveUpwards();
+}
+
+void GameView::moveDownwards() {
+    camera.moveDownwards();
+}
+
+void GameView::moveLeft() {
+    camera.moveLeft();
+}
+
+void GameView::moveRight() {
+    camera.moveRight();
 }

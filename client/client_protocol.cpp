@@ -29,19 +29,6 @@ void ProtocolClient::setSktConnection(const char* name_host, const char* service
 
 /*
 Pre-Condiciones: -
-Post-Condiciones: 
-*/
-
-void ProtocolClient::sendConstructionPetition(Construction construction) {
-	//serializacion
-	int type = construction.getType();
-	uint8_t posX = convert_to_uint8(construction.getPosX());
-	uint8_t posY = convert_to_uint8(construction.getPosY());
-	uint8_t constructionType = convert_to_uint8(type);
-}
-
-/*
-Pre-Condiciones: -
 Post-Condiciones: (Serializacion) Pasa de un int a un uint16_t, pasandolo a BE. 
 */
 

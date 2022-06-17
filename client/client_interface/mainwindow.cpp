@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent, Client* client)
     QPixmap bkgnd("../Dune.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
+    palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 }
 

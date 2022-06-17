@@ -6,6 +6,7 @@
 SdlWindow::SdlWindow(int width, int height, bool fullScreen, std::string title) {
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(width, height, SDL_RENDERER_ACCELERATED, &this->windowPtr, &this->rendererPtr);
+	SDL_SetWindowPosition(this->windowPtr, 70, 0);
 	SDL_SetWindowTitle(this->windowPtr, title.c_str());
 	if (fullScreen) {
 		SDL_SetWindowFullscreen(this->windowPtr, SDL_WINDOW_FULLSCREEN);
@@ -52,7 +53,9 @@ int SdlWindow::handleRender(SDL_Texture *txt, const SDL_Rect &src, const SDL_Rec
 }
 
 int SdlWindow::handleRender(SDL_Texture *txt, const SDL_Rect &src, const SDL_Rect &dst, uint8_t alpha) {
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     SDL_SetTextureAlphaMod(txt, alpha);
+	// return SDL_RenderCopy(rendererPtr, txt, NULL, &dst);
     return SDL_RenderCopyEx(rendererPtr, txt, &src, &dst, 0, nullptr, SDL_FLIP_NONE);
 }
 

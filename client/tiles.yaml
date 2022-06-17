@@ -1,3 +1,5 @@
+amount: 40
+
 0:
   - "small sand"
   - "../backgroundTiles/small_sand.bmp"
@@ -36,14 +38,14 @@
 5:
   - "mont 2"
   - "../backgroundTiles/mont_2.bmp"
-6 size:
+5 size:
   - 16
   - 16
 
 6:
   - "mont 3"
   - "../backgroundTiles/mont_3.bmp"
-7 size:
+6 size:
   - 16
   - 16
 

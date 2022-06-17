@@ -11,7 +11,7 @@ BackGroundTile::BackGroundTile(SdlTexture &texture,
     rescaling = 1;
 }
 
-void BackGroundTile::render(Camera &camera, size_t iteration) {
+void BackGroundTile::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSight(texture, src, posX, posY);
 }

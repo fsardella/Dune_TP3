@@ -75,8 +75,8 @@ Post-Condiciones: Se lanza al cliente.
 
 void Client::client_run() {
 
-	int height = 600;
-	int width = 800;
+	int height = 700;
+	int width = 1300;
 	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
 	GameView gameViewObj(sdlWindow);
 

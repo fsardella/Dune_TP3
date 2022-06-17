@@ -25,14 +25,7 @@ class Unit : public Renderizable{
     //        bool property,
     //        int house);
 
-    // Unit(SdlTexture& texture,
-    //            int sizeW,
-    //            int sizeH,
-    //            float posX,
-    //            float posY,
-    //            int rescaling);
-
-    void render(Camera &camera, size_t iteration) override;
+    void render(Camera &camera) override;
     void render(Camera &camera, int posX, int posY) override;
 
     Unit(const Unit& other) = delete;

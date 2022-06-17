@@ -17,8 +17,8 @@ class SdlTexture {
 
     public:
 	SdlTexture(const std::string& filename, SdlWindow& window);
-    SdlTexture(const std::string& filename,
-               SdlWindow& window,bool color);
+    SdlTexture(const std::string &filename, SdlWindow &window,
+                            bool color);
 
     SdlTexture(const SdlTexture& other) = delete;
     SdlTexture& operator=(const SdlTexture& other) = delete;

@@ -17,7 +17,6 @@ class ProtocolClient {
     public:
     ProtocolClient();
     void setSktConnection(const char* name_host, const char* service_port);
-    void sendConstructionPetition(Construction construction);
     void send_msg_listar();
     int recieve_msg_count();
     void recieve_msg_listar(uint8_t* current_convert, uint8_t* required_convert,

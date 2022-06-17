@@ -8,8 +8,9 @@
 #include "ClientInput.h"
 
 class ServerDespatcher: public Thread {
-	BlockingQueue<ClientInput>* blockingQueue;
 	ProtocolClient* protocolClient;
+	BlockingQueue<ClientInput>* blockingQueue;
+
 	public:
 	ServerDespatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue);
 	void run() override;

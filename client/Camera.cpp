@@ -4,19 +4,24 @@
 
 Camera::Camera(SdlWindow& window)
 : window(window),
-  logicalCenterX(0),
-  logicalCenterY(0) {
+  offsetX(0),
+  offsetY(0) {
     centerPix = window.getCenter();
-    width = 2*centerPix.x;
-    height = 2*centerPix.y;
+    width = int((centerPix.x) * 1.5 / TILE_PIX_SIZE);
+    height = int(2*centerPix.y / TILE_PIX_SIZE);
 }
 
-void Camera::render(Renderizable &renderizable, size_t iteration) {
-    renderizable.render(*this, iteration);
+void Camera::render(Renderizable &renderizable) {
+    renderizable.render(*this);
 }
 
 void Camera::render(Renderizable &renderizable, int x, int y) {
     renderizable.render(*this, x, y);
+}
+
+void Camera::setMapSize(int width, int height) {
+    this->mapWidth = width;
+    this->mapHeight = height;
 }
 
 void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float posY) {
@@ -24,8 +29,8 @@ void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float pos
         return;
     }
     auto rect = src.buildRectangle();
-    int newX = posX * M_TO_P;
-    int newY = posY * M_TO_P;
+    int newX = (posX - offsetX) * TILE_PIX_SIZE;
+    int newY = (posY - offsetY) * TILE_PIX_SIZE;
     Area dst(newX, newY, rect.w, rect.h);
     texture.render(src,dst);
 }
@@ -42,17 +47,43 @@ void Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, fl
 }
 
 bool Camera::isVisibleInX(float x) {
-    auto pixelX = abs(logicalCenterX - x) / M_TO_P;
-    return (pixelX >= 0 && pixelX <= width);
+    return (x >= offsetX && x <= width + offsetX);
 }
 
 bool Camera::isVisibleInY(float y) {
-    auto pixelY = abs(logicalCenterY - y) / M_TO_P;
-    return (pixelY >= 0 && pixelY <= height);
+    return (y >= offsetY && y <= height + offsetY);
 }
 
 bool Camera::isVisible(float x, float y) {
     return isVisibleInX(x) && isVisibleInY(y);
+}
+
+void Camera::moveUpwards() {
+    if (offsetY - 1 < 0) {
+        return;
+    }
+    offsetY -= 1;
+}
+
+void Camera::moveDownwards() {
+    if (offsetY + 1 > mapWidth - offsetY) {
+        return;
+    }
+    offsetY += 1;
+}
+
+void Camera::moveLeft() {
+    if (offsetX - 1 < 0) {
+        return;
+    }
+    offsetX -= 1;
+}
+
+void Camera::moveRight() {
+    if (offsetX + 1 > mapWidth - offsetX) {
+        return;
+    }
+    offsetX += 1;
 }
 
 Camera::~Camera() {

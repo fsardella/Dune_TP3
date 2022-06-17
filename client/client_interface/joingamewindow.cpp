@@ -4,15 +4,15 @@
 
 JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
-    ui(new Ui::JoinGameWindow),
-    newClient(client)
+    newClient(client),
+    ui(new Ui::JoinGameWindow)
 {
     // newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
-    bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
+    bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
+    palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 
     std::list <std::string> list;

@@ -31,8 +31,8 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool colo
 
     this->texture = window.createTexture(tmp);
 
-    width = tmp->w;
-    height = tmp->h;
+	width = tmp->w;
+	height = tmp->h;
 
     SDL_FreeSurface(tmp);
 

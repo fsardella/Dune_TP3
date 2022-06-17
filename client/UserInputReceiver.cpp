@@ -18,6 +18,14 @@ void UserInputReceiver::run() {
                 ClientInput clientInput(event.button.x, event.button.y); // tambien tendría la unidad del otro menu
                 blockingQueue->push(std::move(clientInput));
             }
+            else if(event.type == SDL_KEYDOWN) {
+                switch(event.key.keysym.sym) {
+                    case SDLK_UP: gameView->moveUpwards(); break;
+                    case SDLK_DOWN: gameView->moveDownwards(); break;
+                    case SDLK_LEFT: gameView->moveLeft(); break;
+                    case SDLK_RIGHT: gameView->moveRight(); break;
+                }
+            }
         }
     }
 }
