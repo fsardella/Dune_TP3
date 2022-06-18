@@ -21,13 +21,11 @@ Unit::Unit(SdlTexture &texture,
 // }
 
 void Unit::render(Camera &camera) {
-    Area src(0, 0, sizeW, sizeH);
-    camera.renderInSight(texture, src, posX, posY);
 }
 
 void Unit::render(Camera &camera, int posX, int posY) {
     Area src(0, 0, sizeW, sizeH);
-    camera.renderInSight(texture, src, posX, posY);
+    camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
 float Unit::getX() {

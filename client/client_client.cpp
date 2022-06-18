@@ -78,7 +78,7 @@ void Client::client_run() {
 	int height = 700;
 	int width = 1300;
 	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
-	GameView gameViewObj(sdlWindow);
+	GameView gameViewObj(sdlWindow, houseNumber);
 
 	ServerReceiver receiver(&protocol, &gameViewObj);
 	receiver.start();

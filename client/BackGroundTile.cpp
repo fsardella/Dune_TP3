@@ -1,4 +1,3 @@
-#include <iostream>
 #include "BackGroundTile.h"
 #include "Camera.h"
 
@@ -17,8 +16,6 @@ void BackGroundTile::render(Camera &camera) {
 }
 
 void BackGroundTile::render(Camera &camera, int posX, int posY) {
-    Area src(0, 0, sizeW, sizeH);
-    camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
 int BackGroundTile::getX() {
@@ -33,7 +30,6 @@ BackGroundTile::BackGroundTile(BackGroundTile &&other)
 : Renderizable(std::move(other)),
   rescaling(other.rescaling) {
 }
-
 
 BackGroundTile::~BackGroundTile() {
 }

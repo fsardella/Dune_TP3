@@ -16,7 +16,7 @@ class GameView {
     std::mutex gameViewMutex;
     bool running;
     public:
-    GameView(SdlWindow& window);
+    GameView(SdlWindow& window, int houseNumberClient);
 
     GameView(const GameView& other) = delete;
     GameView& operator=(const GameView& other) = delete;

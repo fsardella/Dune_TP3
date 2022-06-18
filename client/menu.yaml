@@ -1,69 +1,85 @@
-amount: 16
+amount: 20
 
 0:
-  - "construction yard"
-  - "../menuImgs/centro_de_construccion.bmp"
-
-1:
-  - "harvester"
-  - "../menuImgs/cosechadora.bmp"
-
-2:
-  - "atreides barrack"
-  - "../menuImgs/cuartel_atreides.bmp"
-
-3:
   - "harkonnen barrack"
   - "../menuImgs/cuartel_harkonnen.bmp"
 
-4:
+1:
+  - "atreides barrack"
+  - "../menuImgs/cuartel_atreides.bmp"
+
+2:
   - "ordos barrack"
   - "../menuImgs/cuartel_ordos.bmp"
 
-5:
+3:
+  - "construction yard"
+  - "../menuImgs/centro_de_construccion.bmp"
+
+4:
   - "light factory"
   - "../menuImgs/fabrica_ligera.bmp"
 
-6:
+5:
   - "heavy factory"
   - "../menuImgs/fabrica_pesada.bmp"
 
-7:
-  - "light infantry"
-  - "../menuImgs/infanteria_ligera.bmp"
-
-8:
-  - "heavy infantry"
-  - "../menuImgs/infanteria_pesada.bmp"
-
-9:
+6:
   - "palace"
   - "../menuImgs/palacio.bmp"
+
+7:
+  - "refinery"
+  - "../menuImgs/refineria.bmp"
+
+8:
+  - "silo"
+  - "../menuImgs/silo.bmp"
+
+9:
+  - "wind trap"
+  - "../menuImgs/trampa.bmp"
 
 10:
   - "raider"
   - "../menuImgs/raider.bmp"
 
 11:
-  - "refinery"
-  - "../menuImgs/refineria.bmp"
+  - "harvester"
+  - "../menuImgs/cosechadora.bmp"
 
 12:
-  - "sardaukar"
-  - "../menuImgs/sardaukar.bmp"
-
-13:
-  - "silo"
-  - "../menuImgs/silo.bmp"
-
-14:
   - "tank"
   - "../menuImgs/tanque.bmp"
 
+13:
+  - "trike"
+  - "../menuImgs/trike.bmp"
+
+14:
+  - "deviator"
+  - "../menuImgs/desviador.bmp"
+
 15:
-  - "wind trap"
-  - "../menuImgs/trampa.bmp"
+  - "devastator"
+  - "../menuImgs/devastador.bmp"
 
 16:
-  - "trike"
-  - "../backgroundTiles/trike.bmp"
+  - "sonik tank"
+  - "../menuImgs/tanque_sonico.bmp"
+
+17:
+  - "light infantry"
+  - "../menuImgs/infanteria_ligera.bmp"
+
+18:
+  - "heavy infantry"
+  - "../menuImgs/infanteria_pesada.bmp"
+
+19:
+  - "sardaukar"
+  - "../menuImgs/sardaukar.bmp"
+
+20:
+  -  "fremen"
+  - "../menuImgs/fremen.bmp"

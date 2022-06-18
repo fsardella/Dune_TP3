@@ -5,12 +5,14 @@
 
 #include <iostream>
 
-MapView::MapView(SdlWindow& window)
+MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
+  houseNumberClient(houseNumberClient),
   columns(0),
   rows(0) {
     this->loadTileTranslator();
     this->loadMenuTranslator();
+    this->createMenu();
 }
 
 void MapView::loadTileTranslator() {
@@ -19,10 +21,6 @@ void MapView::loadTileTranslator() {
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
         tileInfoTranslator[i] = tileInfo;
-
-        std::string tileSizeKey(std::to_string(i) + " size");
-        std::vector<int> tileSize = node[tileSizeKey].as< std::vector<int>>();
-        tileSizeTranslator[i] = tileSize;
 
         tileTextureTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple(i),
@@ -42,15 +40,37 @@ void MapView::loadMenuTranslator() {
     }
 }
 
+void MapView::createMenu() {
+    // esto aca queda feo
+    auto constYard = menuTextureTranslator.find(3);
+    menuImages.emplace_back(constYard->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, 1, 0);
+
+    for (size_t i = 0; i <= 18; i += 3) {
+        for (size_t j = 0; j < 3; j++) {
+            if (i == 0 && j == 0) {
+                // REEMPLAZAR
+                // auto barrack = menuTextureTranslator.find(houseNumberClient);
+                auto image = menuTextureTranslator.find(i);
+                menuImages.emplace_back(image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, i);
+                continue;
+            }
+            if (i == 18 && j > 0) continue;
+            size_t row = i / 3;
+            if (i == 0) row = i;
+            auto image = menuTextureTranslator.find(i + 2 + j);
+            menuImages.emplace_back(image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row);
+        }
+    }
+}
+
 void MapView::createMap(int height, int width, std::vector<std::vector<int>> map) {
     columns = width;
     rows = height;
     for (size_t i = 0; i < rows; i ++) {
-        for(size_t j = 0; j < columns; j++) {
+        for (size_t j = 0; j < columns; j++) {
             std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
-            std::vector<int> tileSize = tileSizeTranslator[map[i][j]];
             auto& backgroundTexture = tileTextureTranslator.at(map[i][j]);
-            backgroundTiles.emplace_back(backgroundTexture, tileSize[0]*4, tileSize[1]*4, j, i);
+            backgroundTiles.emplace_back(backgroundTexture, TILE_PIX_SIZE, TILE_PIX_SIZE, j, i);
         }
     }
 }
@@ -70,13 +90,16 @@ void MapView::createUnit(int x, int y, int unitType, int unitId) {
                           std::forward_as_tuple(unitType),
                           std::forward_as_tuple(path, window, true));
     auto& unitTexture = unitTextureTranslator.at(unitType);
-    unitsTiles.emplace_back(unitTexture, 32, 32, x, y, unitId);
+    unitsTiles.emplace_back(unitTexture, 64, 64, x, y, unitId);
 }
 
 MapView::~MapView() {
 }
 
 void MapView::render(Camera &cam) {
+    for (MenuImage &image : menuImages) {
+        cam.render(image);
+    }
     for (BackGroundTile &tile : backgroundTiles) {
         cam.render(tile);
     }

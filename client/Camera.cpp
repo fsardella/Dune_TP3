@@ -1,6 +1,12 @@
 #include "Camera.h"
-#include <iostream>
 #include "Renderizable.h"
+
+#include <iostream>
+
+#define MENU_OFFSET_X 995
+#define MENU_OFFSET_Y 100
+#define SPACING_X 0
+#define SPACING_Y 10
 
 Camera::Camera(SdlWindow& window)
 : window(window),
@@ -36,12 +42,20 @@ void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float pos
 }
 
 void Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, float posY) {
-    if (!isVisible(posX, posY)) {
+    auto rect = src.buildRectangle();
+    if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return;
     }
+    int newX = (posX - offsetX) * TILE_PIX_SIZE;
+    int newY = (posY - offsetY) * TILE_PIX_SIZE;
+    Area dst(newX, newY, rect.w, rect.h);
+    texture.render(src,dst);
+}
+
+void Camera::renderInSightForMenu(SdlTexture& texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
-    int newX = posX;
-    int newY = posY;
+    int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
+    int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
     texture.render(src,dst);
 }
@@ -56,6 +70,11 @@ bool Camera::isVisibleInY(float y) {
 
 bool Camera::isVisible(float x, float y) {
     return isVisibleInX(x) && isVisibleInY(y);
+}
+
+bool Camera::isUnitVisible(float x, float y, float txtWidth, float txtHeight) {
+    if (isVisible(x, y)) return true;
+    return (x + (txtWidth / TILE_PIX_SIZE) > offsetX && y + (txtHeight /TILE_PIX_SIZE) > offsetY);
 }
 
 void Camera::moveUpwards() {

@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
-GameView::GameView(SdlWindow& window): window(window), camera(window), map(window), running(true) {
-    //aca es donde inicializo y empiezo a dibujar la window , como en el caso de build map pero con un build menu 
+GameView::GameView(SdlWindow& window, int houseNumberClient): window(window), camera(window), map(window, houseNumberClient), running(true) {
+    window.fill(192, 150, 100, 255);
 }
 
 GameView::~GameView() {

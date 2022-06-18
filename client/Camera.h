@@ -23,6 +23,7 @@ private:
 
     bool isVisibleInX(float x);
     bool isVisibleInY(float y);
+    bool isUnitVisible(float x, float y, float txtWidth, float txtHeight);
     
     public:
     explicit Camera(SdlWindow& window);
@@ -39,6 +40,9 @@ private:
                        float posX,
                        float posY);
     void renderInSightForUnit(SdlTexture& texture, Area& src,
+                       float posX,
+                       float posY);
+    void renderInSightForMenu(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);
     bool isVisible(float x, float y);
