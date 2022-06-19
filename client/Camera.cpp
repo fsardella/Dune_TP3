@@ -3,10 +3,13 @@
 
 #include <iostream>
 
-#define MENU_OFFSET_X 995
+#define WINDOW_WIDTH 1300
+#define WINDOW_HEIGHT 700
+#define MENU_OFFSET_X 991
 #define MENU_OFFSET_Y 100
-#define SPACING_X 0
+#define SPACING_X 4
 #define SPACING_Y 10
+#define SUCCESS 0
 
 Camera::Camera(SdlWindow& window)
 : window(window),
@@ -21,8 +24,8 @@ void Camera::render(Renderizable &renderizable) {
     renderizable.render(*this);
 }
 
-void Camera::render(Renderizable &renderizable, int x, int y) {
-    renderizable.render(*this, x, y);
+int Camera::render(Renderizable &renderizable, int x, int y) {
+    return renderizable.render(*this, x, y);
 }
 
 void Camera::setMapSize(int width, int height) {
@@ -41,15 +44,37 @@ void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float pos
     texture.render(src,dst);
 }
 
-void Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, float posY) {
+int Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
-        return;
+        return SUCCESS;
     }
+    int returnValue = SUCCESS;
     int newX = (posX - offsetX) * TILE_PIX_SIZE;
     int newY = (posY - offsetY) * TILE_PIX_SIZE;
-    Area dst(newX, newY, rect.w, rect.h);
+    int remainderX = (posX + (rect.w / TILE_PIX_SIZE)) - (width + offsetX + 1);
+    int remainderY = (posY + (rect.h / TILE_PIX_SIZE)) - (height + offsetY + 1);
+    int txtWidth = rect.w;
+    int txtHeight = rect.h;
+    if (remainderX > 0) {
+        returnValue = 1;
+    }
+    if (remainderY > 0) {
+        returnValue = 1;
+    }
+    Area dst(newX, newY, txtWidth, txtHeight);
     texture.render(src,dst);
+    return returnValue;
+}
+
+void Camera::renderMenuRect() {
+    SDL_Rect r;
+    r.x = MENU_OFFSET_X;
+    r.y = 0;
+    r.w = WINDOW_WIDTH - MENU_OFFSET_X;
+    r.h = WINDOW_HEIGHT;
+
+    window.renderRect(r);
 }
 
 void Camera::renderInSightForMenu(SdlTexture& texture, Area& src, float posX, float posY) {
@@ -74,7 +99,11 @@ bool Camera::isVisible(float x, float y) {
 
 bool Camera::isUnitVisible(float x, float y, float txtWidth, float txtHeight) {
     if (isVisible(x, y)) return true;
-    return (x + (txtWidth / TILE_PIX_SIZE) > offsetX && y + (txtHeight /TILE_PIX_SIZE) > offsetY);
+    bool condLeft = (x + (txtWidth / TILE_PIX_SIZE) > offsetX);
+    bool condRight = (x / TILE_PIX_SIZE < offsetX);
+    bool condUp = (txtHeight / TILE_PIX_SIZE) > offsetY;
+    bool condDown = (y / TILE_PIX_SIZE < offsetY);
+    return ((condLeft || condRight) && (condUp || condDown));
 }
 
 void Camera::moveUpwards() {

@@ -15,7 +15,8 @@ void MenuImage::render(Camera &camera) {
     camera.renderInSightForMenu(texture, src, posX, posY);
 }
 
-void MenuImage::render(Camera &camera, int posX, int posY) {
+int MenuImage::render(Camera &camera, int posX, int posY) {
+    return 0;
 }
 
 int MenuImage::getX() {

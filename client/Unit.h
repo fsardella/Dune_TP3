@@ -26,7 +26,7 @@ class Unit : public Renderizable{
     //        int house);
 
     void render(Camera &camera) override;
-    void render(Camera &camera, int posX, int posY) override;
+    int render(Camera &camera, int posX, int posY) override;
 
     Unit(const Unit& other) = delete;
     Unit& operator=(const Unit& other) = delete;

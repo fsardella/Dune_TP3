@@ -15,7 +15,8 @@ void BackGroundTile::render(Camera &camera) {
     camera.renderInSight(texture, src, posX, posY);
 }
 
-void BackGroundTile::render(Camera &camera, int posX, int posY) {
+int BackGroundTile::render(Camera &camera, int posX, int posY) {
+    return 0;
 }
 
 int BackGroundTile::getX() {

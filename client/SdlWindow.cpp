@@ -37,6 +37,10 @@ void SdlWindow::render() {
 	SDL_RenderPresent(rendererPtr);
 }
 
+void SdlWindow::renderRect(SDL_Rect& r) {
+	SDL_RenderFillRect(rendererPtr, &r);
+}
+
 int SdlWindow::handleRender(SDL_Texture* txt, const SDL_Rect& src, const SDL_Rect& dst) {
 	return SDL_RenderCopy(rendererPtr, txt, &src, &dst);
 }

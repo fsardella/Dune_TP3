@@ -21,6 +21,7 @@ class SdlWindow {
 
 	void fill(uint8_t redValue, uint8_t greenValue, uint8_t blueValue, int alphaValue);
 	void render();
+	void renderRect(SDL_Rect& r);
 
 	SDL_Texture* createTexture(SDL_Surface* aSurface);
 	int handleRender(SDL_Texture* txt, const SDL_Rect& src, const SDL_Rect& dst);

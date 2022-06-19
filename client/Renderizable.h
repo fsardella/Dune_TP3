@@ -24,7 +24,7 @@ class Renderizable {
     Renderizable(Renderizable&& other);
 
     virtual void render(Camera &camera) = 0;
-    virtual void render(Camera &camera, int posX, int posY) = 0;
+    virtual int render(Camera &camera, int posX, int posY) = 0;
 
     virtual ~Renderizable();
 };

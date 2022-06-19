@@ -14,7 +14,7 @@ class MenuImage : public Renderizable {
            float posY);
 
     void render(Camera &camera) override;
-    void render(Camera &camera, int posX, int posY) override;
+    int render(Camera &camera, int posX, int posY) override;
 
     MenuImage(const MenuImage& other) = delete;
     MenuImage& operator=(const MenuImage& other) = delete;

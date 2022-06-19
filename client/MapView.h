@@ -38,6 +38,7 @@ class MapView {
     // void createUnit(int x, int y, int unitType, int unitId, int house, bool property);
     void createMap(int height, int width, std::vector<std::vector<int>> map);
 
+    void renderMenu(Camera &cam);
     void render(Camera& cam);
 
     MapView(const MapView& other) = delete;

@@ -12,7 +12,7 @@ void ServerReceiver::run() {
 		// std::map<int, std::tuple<int, int, int, bool>> units;
 		// protocolClient->recvUnits(units);
 		// gameView->buildUnits(units);
-		gameView->buildUnit(0, 0, 1, 1);
+		gameView->buildUnit(32, 32, 1, 1);
 	//}
 }
 

@@ -96,14 +96,22 @@ void MapView::createUnit(int x, int y, int unitType, int unitId) {
 MapView::~MapView() {
 }
 
-void MapView::render(Camera &cam) {
+void MapView::renderMenu(Camera &cam) {
+    cam.renderMenuRect();
     for (MenuImage &image : menuImages) {
         cam.render(image);
     }
+}
+
+void MapView::render(Camera &cam) {
+    renderMenu(cam);
     for (BackGroundTile &tile : backgroundTiles) {
         cam.render(tile);
     }
     for (Unit &unit : unitsTiles) {
-        cam.render(unit, unit.getX(), unit.getY());
+        int surpasses = cam.render(unit, unit.getX(), unit.getY());
+        if (surpasses) {
+            renderMenu(cam);
+        }
     }
 }

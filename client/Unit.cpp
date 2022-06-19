@@ -23,9 +23,9 @@ Unit::Unit(SdlTexture &texture,
 void Unit::render(Camera &camera) {
 }
 
-void Unit::render(Camera &camera, int posX, int posY) {
+int Unit::render(Camera &camera, int posX, int posY) {
     Area src(0, 0, sizeW, sizeH);
-    camera.renderInSightForUnit(texture, src, posX, posY);
+    return camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
 float Unit::getX() {

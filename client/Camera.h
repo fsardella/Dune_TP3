@@ -35,16 +35,17 @@ private:
     void moveRight();
 
     void render(Renderizable &renderizable);
-    void render(Renderizable &renderizable, int x, int y);
+    int render(Renderizable &renderizable, int x, int y);
     void renderInSight(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);
-    void renderInSightForUnit(SdlTexture& texture, Area& src,
+    int renderInSightForUnit(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);
     void renderInSightForMenu(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);
+    void renderMenuRect();
     bool isVisible(float x, float y);
     ~Camera();
 };

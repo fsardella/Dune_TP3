@@ -4,7 +4,6 @@
 #include <iostream>
 
 GameView::GameView(SdlWindow& window, int houseNumberClient): window(window), camera(window), map(window, houseNumberClient), running(true) {
-    window.fill(192, 150, 100, 255);
 }
 
 GameView::~GameView() {
