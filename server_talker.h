@@ -28,6 +28,7 @@ class Talker: public Thread {
     int create_game(int house, int required, const std::string& game_name,
                     const std::string& mapPath);
     void list_games();
+    void list_maps();
     int join_game(int house, std::string& game_name);
  public:
     bool finishedThread();

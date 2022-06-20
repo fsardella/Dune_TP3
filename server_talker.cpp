@@ -16,6 +16,8 @@
 #include "server_gameSet.h"
 
 #include "server_command.h"
+#include <exception>
+#include <stdexcept>
 
 typedef std::vector<std::vector<int>> sketch_t;
 
@@ -27,10 +29,14 @@ Post-Condiciones: Constructor del hablador de Clientes.
 Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)),
                                                     commandQueue(nullptr),
                                                     sender(nullptr) {
-	this->gameSet = game_set;
-    int bytes = this->protocol.recieve_msg_bytes();
-    this->playerName = this->protocol.recieve_msg_game_name(bytes);
-    std::cout << this->playerName << " connected..." << std::endl;  // DEBUG
+	try {
+        this->gameSet = game_set;
+        int bytes = this->protocol.recieve_msg_bytes();
+        this->playerName = this->protocol.recieve_msg_game_name(bytes);
+        std::cout << this->playerName << " connected..." << std::endl;  // DEBUG
+    } catch (ClosedSocketException const&) {
+        throw std::runtime_error("Socket disconnected before creation");
+    }
 }
 
 /*
@@ -73,6 +79,15 @@ void Talker::list_games() {
 	catch(std::invalid_argument const&){
 		std::cerr << "Error al obtener la Game." << std::endl;
 	}
+}
+
+void Talker::list_maps() {
+    std::vector<std::string> map_names;
+    map_names.push_back("DEBUG_YAML_PATH");
+    int size = (int)map_names.size();
+	protocol.send_msg_num_list(size);
+	for (const std::string& s : map_names)
+        protocol.sendString(s);
 }
 
 /*
@@ -138,22 +153,27 @@ void Talker::run() {
             std::string game_name;
             switch(operation) {
 			    case UNIRSE:
-				    house = protocol.recieve_msg_house();
 				    bytes = protocol.recieve_msg_bytes();
 				    game_name = protocol.recieve_msg_game_name(bytes);
-				    result = join_game(house, game_name);
+                    house = protocol.recieve_msg_house();
+                    result = join_game(house, game_name);
 				    protocol.send_msg_result(result);
 				    break;
 			    case LISTAR:
 				    list_games();
 				    break;
 			    case CREAR:
-				    house = protocol.recieve_msg_house();
-				    int required = protocol.recieve_msg_required();
-				    bytes = protocol.recieve_msg_bytes();
+                    bytes = protocol.recieve_msg_bytes();
 				    std::string game_name = protocol.recieve_msg_game_name(bytes);
-                    std::string yamlPath = "DEBUG_YAML_PATH";
-				    result = create_game(house,required,game_name, yamlPath);
+				    this->list_maps();
+				    bytes = protocol.recieve_msg_bytes();
+				    std::string yamlPath = protocol.recieve_msg_game_name(bytes);
+                    std::cout << "El mapa recibido es " << yamlPath << std::endl;
+                    yamlPath = "DEBUG_YAML_PATH"; // DEBUG
+                    house = protocol.recieve_msg_house();
+				    //int required = readYaml(required);
+                    int required = 2;
+                    result = create_game(house,required,game_name, yamlPath);
 				    protocol.send_msg_result(result);
 			        break;
             }

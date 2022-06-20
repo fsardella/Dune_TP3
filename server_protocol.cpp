@@ -199,3 +199,9 @@ Command ProtocolServer::recvCommand(int size) {
     this->socket.recvall(newCommand.getPointer(), size);   
     return newCommand; 
 }
+
+void ProtocolServer::sendString(const std::string& data) {
+    uint16_t size = data.size();
+    this->socket.sendall(&size, 2);
+    this->socket.sendall(&data[0], size);
+}

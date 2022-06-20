@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <stdexcept>
+	
 
 #include "server_listener.h"
 #include "server_talker.h"
@@ -34,11 +36,14 @@ void Listener::run() {
 			clientTalkers[client_talker->getPlayerName()] = client_talker;
 			client_talker->start();
 			cleanFinishedHandlers();
-		}
-		catch (ClosedSocketException const&) {
+		} catch (ClosedSocketException const&) {
             std::cout << "Stopped accepting players" << std::endl;
 			break;
-		}
+		} catch (std::runtime_error const& e) {
+            if (std::string(e.what()) == "Socket disconnected before creation")
+                continue;
+            throw;
+        }
 	}
 }
 

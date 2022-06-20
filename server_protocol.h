@@ -25,7 +25,8 @@ class ProtocolServer {
 	void send_msg_result(int response);
 	void send_msg_list(GameData game);
 	void send_msg_num_list(int size);
-    
+
+    void sendString(const std::string& data);
     void sendCommand(Command command);
     Command recvCommand(int size); // Idea: size en mensajes para que sea automatico
     void send_map_row(std::vector<int>& row); 
