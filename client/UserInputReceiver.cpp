@@ -1,8 +1,57 @@
 #include "UserInputReceiver.h"
 #include <utility>
 
+#include <iostream>
+
+#define MENU_OFFSET_X 991
+#define MENU_IMAGE_OFFSET_X 993
+#define MENU_IMAGE_OFFSET_Y 110
+#define SPACING_X 2
+#define SPACING_Y 10
+#define IMAGE_PIX_WIDTH 100
+#define IMAGE_PIX_HEIGHT 75
+#define END_ROWS 695
+#define END_COLS 1300
+#define LAST_ROW 6
+#define ERROR -1
+
+
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj, BlockingQueue<ClientInput>* blockingQueue): gameView(gameViewObj),
 blockingQueue(blockingQueue) {
+}
+
+int UserInputReceiver::findRow(int y) {
+    for (int i = MENU_IMAGE_OFFSET_Y; i < END_ROWS; i += (SPACING_Y + IMAGE_PIX_HEIGHT)) {
+        if (i < y && y < (i + IMAGE_PIX_HEIGHT)) {
+            if (i == MENU_IMAGE_OFFSET_Y) return 0;
+            return (i - MENU_IMAGE_OFFSET_Y) / (SPACING_Y + IMAGE_PIX_HEIGHT);
+        }
+    }
+    return ERROR;
+}
+
+int UserInputReceiver::findCol(int x) {
+    for (int i = MENU_IMAGE_OFFSET_X; i < END_COLS; i += (SPACING_X + IMAGE_PIX_WIDTH)) {
+        if (i < x && x < (i + IMAGE_PIX_WIDTH)) {
+            if (i == MENU_IMAGE_OFFSET_X) return 0;
+            return (i - MENU_IMAGE_OFFSET_X) / (SPACING_X + IMAGE_PIX_WIDTH);
+        }
+    }
+    return ERROR;
+}
+
+void UserInputReceiver::handlePosition(int x, int y) {
+    if (0 < x && x < MENU_OFFSET_X) {
+        // ClientInput clientInput(x, y); // tambien tendría la unidad del otro menu
+        // blockingQueue->push(std::move(clientInput));
+        return;
+    }
+    int col = findCol(x);
+    if (col == ERROR) return;
+    int row = findRow(y);
+    if (row == ERROR || (row == LAST_ROW && col > 0)) return;
+
+    currentMenuImage = row * 3 + col;
 }
 
 void UserInputReceiver::run() {
@@ -15,8 +64,7 @@ void UserInputReceiver::run() {
                 break;
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
-                ClientInput clientInput(event.button.x, event.button.y); // tambien tendría la unidad del otro menu
-                blockingQueue->push(std::move(clientInput));
+                handlePosition(event.button.x, event.button.y);
             }
             else if(event.type == SDL_KEYDOWN) {
                 switch(event.key.keysym.sym) {

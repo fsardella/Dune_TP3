@@ -7,7 +7,7 @@
 #define WINDOW_HEIGHT 700
 #define MENU_OFFSET_X 991
 #define MENU_OFFSET_Y 100
-#define SPACING_X 4
+#define SPACING_X 2
 #define SPACING_Y 10
 #define SUCCESS 0
 
