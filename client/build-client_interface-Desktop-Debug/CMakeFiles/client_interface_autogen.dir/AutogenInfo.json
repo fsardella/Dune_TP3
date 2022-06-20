@@ -8,6 +8,11 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h",
+			"MU",
+			"NBTXC4HL66/moc_Animation.cpp"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h",
 			"MU",
 			"NBTXC4HL66/moc_Area.cpp"
@@ -208,6 +213,10 @@
 	"SETTINGS_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/CMakeFiles/client_interface_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp",
+			"MU"
+		],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp", "MU" ],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp",

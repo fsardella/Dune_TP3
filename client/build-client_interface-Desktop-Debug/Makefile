@@ -270,6 +270,33 @@ creategamewindow.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/creategamewindow.cpp.s
 .PHONY : creategamewindow.cpp.s
 
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp.s
+
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp.o
 
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.o
@@ -1023,6 +1050,9 @@ help:
 	@echo "... creategamewindow.o"
 	@echo "... creategamewindow.i"
 	@echo "... creategamewindow.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.s"

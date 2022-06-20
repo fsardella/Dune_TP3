@@ -82,6 +82,8 @@ set(PROJECT_SOURCES
         ../MenuImage.h
         ../MenuText.cpp
         ../MenuText.h
+        ../Animation.cpp
+        ../Animation.h
 )
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras

@@ -1,0 +1,15 @@
+amount: 1
+
+0_animationAmount: 4
+
+0_0:
+
+  - "../backgroundTiles/trike1.bmp"
+  - "../backgroundTiles/trike2.bmp"
+
+1_animationAmount: 4
+
+1_0:
+
+  - "../backgroundTiles/trike1.bmp"
+  - "../backgroundTiles/trike2.bmp"

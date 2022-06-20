@@ -14,7 +14,7 @@ void ServerReceiver::run() {
 		// gameView->buildUnits(units);
 		// int money = protocolClient->recvMoney();
 		// int energy = protocolClient->recvEnergy();
-		gameView->buildUnit(32, 32, 1, 1);
+		gameView->buildUnit(32, 32, 1, 1, 1, true, 0);
 		gameView->setEnergy(0); //iria energy
 		gameView->setMoney(0); //iria money
 	//}

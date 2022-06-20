@@ -184,6 +184,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp">
+			<Option target="client_interface"/>
+		</Unit>
+		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h">
+			<Option target="client_interface"/>
+		</Unit>
 		<Unit filename="/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp">
 			<Option target="client_interface"/>
 		</Unit>

@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
+SdlTexture.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
+map
+-
+
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
 SDL2/SDL.h
 -
@@ -97,4 +103,6 @@ SDL2/SDL_mixer.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
 Renderizable.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
+Animation.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 

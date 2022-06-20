@@ -21,7 +21,7 @@ class MapView {
     int houseNumberClient;
     size_t columns;
     size_t rows;
-    
+
     std::vector<BackGroundTile> backgroundTiles;
     std::vector<Unit> unitsTiles;
     std::vector<MenuImage> menuImages;
@@ -34,15 +34,18 @@ class MapView {
     std::map<int, SdlTexture> menuTextureTranslator;
     std::map<std::string, SdlTexture> menuTextsTranslator;
 
+    std::map<int, std::map<int, SdlTexture>> animationsRepository; 
+
     TTF_Font *font;
 
     public:
     MapView(SdlWindow& window, int houseNumberClient);
     void loadTileTranslator();
     void loadMenuTranslator();
+    void loadSpritesTranslator();
     void createMenu();
-    void createUnit(int x, int y, int unitType, int unitId);
-    // void createUnit(int x, int y, int unitType, int unitId, int house, bool property);
+    //void createUnit(int x, int y, int unitType, int unitId);
+    void createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId);
     void createMap(int height, int width, std::vector<std::vector<int>> map);
 
     void renderMenu(Camera &cam);

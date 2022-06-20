@@ -14,16 +14,16 @@ void GameView::buildMap(int height, int width, std::vector<std::vector<int>> map
     camera.setMapSize(width, height);
 	map.createMap(height, width, mapMatrix);
 }
-
+/*
 void GameView::buildUnit(int x, int y, int unitType, int unitId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.createUnit(x, y, unitType, unitId);
 }
-
-// void GameView::buildUnit(int x, int y, int unitType, int unitId, int house, bool property) {
-//     std::lock_guard<std::mutex> lock(gameViewMutex);
-//     map.createUnit(x, y, unitType, unitId, house, property);
-// }
+*/
+void GameView::buildUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.createUnit(x, y, unitType, unitId, house, property, animationId);
+}
 
 // void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) {
 //     // std::lock_guard<std::mutex> lock(gameViewMutex);

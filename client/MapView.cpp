@@ -13,12 +13,34 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
     this->loadFontTitles();
     this->loadTileTranslator();
     this->loadMenuTranslator();
+    this->loadSpritesTranslator();
     this->createMenu();
 }
 
 void MapView::loadFontTitles() {
     TTF_Init();
     font = TTF_OpenFont("/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1", 22);
+}
+
+void MapView::loadSpritesTranslator() {
+    YAML::Node node = YAML::LoadFile("../sprites.yaml");
+    int amount = node["amount"].as<int>();
+    for (int i = 0; i <= amount; i++) {
+        std::map<int, SdlTexture> animations;
+        std::string animationAmountText(std::to_string(i) + "_animationAmount");
+        int animationAmount = node[animationAmountText].as<int>();
+        for(int j = 0; j < animationAmount; j++) {
+            //std::map<int, SdlTexture> animations;
+            std::string animationIndex(std::to_string(i) + "_" + std::to_string(j));
+            std::vector<std::string> spritesInfo = node[animationIndex].as<std::vector<std::string>>();
+            for(std::string &path: spritesInfo) {
+                animations.emplace(std::piecewise_construct,
+                                    std::forward_as_tuple(j),
+                                    std::forward_as_tuple(path, window));
+            }
+        }
+        animationsRepository.insert({i, std::move(animations)});
+    }
 }
 
 void MapView::loadTileTranslator() {
@@ -81,15 +103,11 @@ void MapView::createMap(int height, int width, std::vector<std::vector<int>> map
     }
 }
 
-// void MapView::createUnit(int x, int y, int unitType, int unitId, int house, bool property) {
-//     std::string path("../trike.bmp");
-//     unitTranslator.emplace(std::piecewise_construct,
-//                           std::forward_as_tuple(unitType),
-//                           std::forward_as_tuple(path, window, false));
-//     auto& unitTexture = unitTranslator.at(unitType);
-//     unitsTiles.emplace_back(unitTexture, 100, 100 , x, y, unitId, property, house);
-// }
-
+void MapView::createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
+    Animation animation(animationsRepository.at(unitId));
+    unitsTiles.emplace_back(std::move(animation), 100, 100 , x, y, unitId, property, house);
+}
+/*
 void MapView::createUnit(int x, int y, int unitType, int unitId) {
     std::string path("../small_trike.bmp");
     unitTextureTranslator.emplace(std::piecewise_construct,
@@ -98,7 +116,7 @@ void MapView::createUnit(int x, int y, int unitType, int unitId) {
     auto& unitTexture = unitTextureTranslator.at(unitType);
     unitsTiles.emplace_back(unitTexture, 64, 64, x, y, unitId);
 }
-
+*/
 void MapView::setMoney(int actualMoney) {
     std::string text("Money: $" + std::to_string(actualMoney));
     menuTextsTranslator.emplace(std::piecewise_construct,
