@@ -25,7 +25,8 @@ Post-Condiciones: Constructor del hablador de Clientes.
 */
 
 Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)),
-                                                    commandQueue(nullptr) {
+                                                    commandQueue(nullptr),
+                                                    sender(nullptr) {
 	this->gameSet = game_set;
     int bytes = this->protocol.recieve_msg_bytes();
     this->playerName = this->protocol.recieve_msg_game_name(bytes);
@@ -91,15 +92,16 @@ std::string Talker::getPlayerName() {
 
 #define START_PLAYING 5
 
-void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap) {
-    this->commandQueue = std::move(newGameQueue);
-    this->startedPlaying = true;
+void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
+                          BlockingQueue<Command>& sendingQueue) {
     this->protocol.send_msg_result(START_PLAYING);
     this->protocol.send_msg_num_list(gameMap.size());
     this->protocol.send_msg_num_list(gameMap[0].size());
     for (std::vector<int> row : gameMap) {
         this->protocol.send_map_row(row);
     }
+    this->commandQueue = newGameQueue;
+    this->sender = new Sender(sendingQueue, this->protocol);
 }
 
 void Talker::sendUnits(std::map<std::string, std::list<coor_t>> units,
@@ -141,26 +143,27 @@ Games existentes y/o crear una Game.
 */
 
 void Talker::run() {
-	while (finishedThread() == false) {
+	while (this->finishedThread() == false) {
 		try {
             int operation = protocol.recieve_msg_operation();
-            if (this->startedPlaying) {
+            
+            // GAME
+            if (this->sender != nullptr) {
                 Command comm;
-                comm.playerName = this->playerName;
+                comm.setType(operation);
                 //int unitType = 0; // TODO que haga algo...
                 switch (operation) {
                     case NEW_UNIT:
-                        int unitType = 0;
-                        comm.x = protocol.recieve_msg_bytes();
-                        comm.y = protocol.recieve_msg_bytes();
-                        unitType = protocol.recieve_msg_house();
-                        if (unitType == 0) // ASQUEROSIDAD PARA QUE ME DEJE EN PAZ
-                            unitType = 0;
+                        comm.reserve(5);
+                        comm = protocol.recvCommand(5)
+                        comm.changeSender(this->playerName);
                         break;
                 }
                 this->commandQueue->push(comm);
                 continue;
             }
+            
+            // LOBBY
             int house, bytes, result;
             std::string game_name;
             switch(operation) {
@@ -185,6 +188,10 @@ void Talker::run() {
 			        break;
             }
         } catch (ClosedSocketException const&) {
+            Command comm;
+            comm.setType(DISCONNECT);
+            comm.changeSender(this->playerName);
+            this->commandQueue->push(comm);
             this->finish = true;
         }
     }
@@ -196,6 +203,8 @@ Post-Condiciones: Destructor del hablador de Clientes.
 */
 
 Talker::~Talker() {
-	this->join();
+    if (this->sender != nullptr)
+	    delete this->sender;
+    this->join();
     std::cout << this->playerName << " disconnected..." << std::endl; // DEBUG
 }

@@ -2,6 +2,7 @@
 #define __PROTOCOLSERVER_H__
 
 #include "common_socket.h"
+#include "server_command.h"
 #include <string>
 
 typedef std::vector<std::vector<int>> sketch_t;
@@ -23,6 +24,8 @@ class ProtocolServer {
 	void send_msg_list(GameData game);
 	void send_msg_num_list(int size);
     
+    void sendCommand(Command command);
+    Command recvCommand(int size); // Idea: size en mensajes para que sea automatico
     void send_map_row(std::vector<int>& row); 
 	~ProtocolServer();
 };

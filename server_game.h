@@ -31,6 +31,7 @@ class Game {
     int getHouse(std::string playerName);
     void addUnit(std::string playerName, int x, int y, TerrainMap& terr);
     std::map<std::string, std::list<coor_t>> getUnits();
+    std::list<std::string> getPlayerNames();
 	~Game();
     
     Game(const Game&) = delete;

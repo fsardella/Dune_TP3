@@ -9,11 +9,12 @@
 #include <map>
 
 typedef std::map<std::string, Talker*> talkerMap_t;
+typedef std::map<std::string, BlockingQueue<Command>> queueMap_t;
 
 class GameHandler: public Thread {
     ActiveGame game;
     BlockingQueue<Command> commandQueue;
-    talkerMap_t& talkerThreads;
+    queueMap_t playersQueue;
  public:
     GameHandler(Game newGame, talkerMap_t& talkerThreads);
     void run() override;

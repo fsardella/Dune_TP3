@@ -98,6 +98,14 @@ std::map<std::string, std::list<coor_t>> Game::getUnits() {
     return result;
 }
 
+std::list<std::string> getPlayerNames() {
+    std::list<std::string> result;
+    for (auto const& p : this->participants) {
+        result.push_back(p.first);
+    }
+    return result;
+}
+
 int Game::getHouse(std::string playerName) {
     return (this->participants[playerName].getHouse());
 }
