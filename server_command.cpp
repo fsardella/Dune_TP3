@@ -4,21 +4,21 @@
 #include <stdexcept>	
 #include <arpa/inet.h>
 
-Command::Command(): actTop(0), name("HOST"), type(255) {}
+Command::Command(): actTop(0), sender("HOST"), type(255) {}
 
 
-void Command::add8BytesMessage(uint8_t message) {
+void Command::add8BytesMessage(const uint8_t message) {
     this->command.push_back(message);
 }
 
-void Command::add16BytesMessage(uint16_t message) {
+void Command::add16BytesMessage(const uint16_t message) {
     uint16_t newMessage = htons(message);
     uint8_t* auxPoint = (uint8_t*)&newMessage;
     this->add8BytesMessage(auxPoint[0]);
     this->add8BytesMessage(auxPoint[1]);
 }
 
-void Command::setType(uint8_t newType) {
+void Command::setType(const uint8_t newType) {
     this->type = newType;
 }
 
@@ -26,11 +26,11 @@ uint8_t Command::getType() {
     return this->type;
 }
 
-void Command::reserve(size_t newSize) {
+void Command::reserve(const size_t newSize) {
     this->command.reserve(newSize);
 }
 
-void Command::changeSender(std::string newName) {
+void Command::changeSender(const std::string newName) {
     this->sender = newName;
 }
 

@@ -196,5 +196,6 @@ void ProtocolServer::sendCommand(Command command) {
 Command ProtocolServer::recvCommand(int size) {
     Command newCommand;
     newCommand.reserve(size + 1);
-    this->socket.recvall(newCommand.getPointer(), size);    
+    this->socket.recvall(newCommand.getPointer(), size);   
+    return newCommand; 
 }

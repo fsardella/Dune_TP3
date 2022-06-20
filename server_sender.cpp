@@ -15,9 +15,8 @@ void Sender::run() {
         }
     } catch (ClosedQueueException const&) {
         return;
+    }
 }
-
-
 
 
 Sender::~Sender() {

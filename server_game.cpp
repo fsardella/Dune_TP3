@@ -88,8 +88,8 @@ void Game::addUnit(std::string playerName, int x, int y, TerrainMap& terr) {
 }
 
 
-std::map<std::string, std::list<coor_t>> Game::getUnits() {
-    std::map<std::string, std::list<coor_t>> result; 
+std::map<std::string, std::list<UnitData>> Game::getUnits() {
+    std::map<std::string, std::list<UnitData>> result; 
     for (std::map<std::string, Player>::iterator it = this->participants.begin();
          it != this->participants.end();
          ++it) {
@@ -98,7 +98,7 @@ std::map<std::string, std::list<coor_t>> Game::getUnits() {
     return result;
 }
 
-std::list<std::string> getPlayerNames() {
+std::list<std::string> Game::getPlayerNames() {
     std::list<std::string> result;
     for (auto const& p : this->participants) {
         result.push_back(p.first);

@@ -99,6 +99,10 @@ int TerrainMap::getSpeed(coor_t coor, Unit& unit) {
     return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeed(unit, coor);
 }
 
+bool TerrainMap::isOccupied(coor_t coord) {
+    return this->terr[coord.first / CHUNKSIZE][coord.second / CHUNKSIZE]->isOccupied(coord);
+}
+
 TerrainMap::~TerrainMap() {
     for (std::vector<Terrain*> row : this->terr) {
         for (Terrain* elem : row) {

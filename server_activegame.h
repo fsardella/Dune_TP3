@@ -17,7 +17,7 @@ class ActiveGame {
     Game game;
     TerrainMap gameMap;
     std::mutex m;
-    alive = true;
+    bool alive = true;
     
     int getHouse(std::string playerName);
  public:
@@ -26,9 +26,8 @@ class ActiveGame {
     std::list<std::string> getPlayerNames();
     void endGame();
     bool isAlive();
-    void addUnit(std::string playerName, int x, int y); // TODO agregar mas unidades
-    std::map<std::string, std::list<coor_t>>
-        getUnits(std::map<std::string, int>& houses); // TODO devolver UnitData
+    bool addUnit(std::string playerName, int x, int y); // TODO agregar mas tipos de unidades
+    std::map<std::string, std::list<UnitData>> getUnits();
     ~ActiveGame();
 };
 

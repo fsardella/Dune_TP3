@@ -6,6 +6,7 @@
 #include <string>
 #include "server_units.h"
 #include "server_terrain_map.h"
+#include "server_unitdata.h"
 
 class Player {
     std::string playerName;
@@ -17,7 +18,7 @@ class Player {
     Player();
     void addUnit(int x, int y, TerrainMap& terr);
     int getHouse();
-    std::list<coor_t> getUnits(); // TODO devolver lista de UnitData
+    std::list<UnitData> getUnits(); // TODO devolver lista de UnitData
     
     ~Player();
     

@@ -4,6 +4,8 @@
 #include "common_socket.h"
 #include "server_command.h"
 #include <string>
+#include "server_gamedata.h"
+
 
 typedef std::vector<std::vector<int>> sketch_t;
 

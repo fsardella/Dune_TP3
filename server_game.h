@@ -8,6 +8,7 @@
 #include <string>
 #include "server_player.h"
 #include "server_terrain_map.h"
+#include "server_unitdata.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
@@ -30,7 +31,7 @@ class Game {
     
     int getHouse(std::string playerName);
     void addUnit(std::string playerName, int x, int y, TerrainMap& terr);
-    std::map<std::string, std::list<coor_t>> getUnits();
+    std::map<std::string, std::list<UnitData>> getUnits();
     std::list<std::string> getPlayerNames();
 	~Game();
     

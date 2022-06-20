@@ -14,6 +14,9 @@ int main(int argc, char const *argv[]) {
 	try {
 		Server server(argv[1]);
 		server.server_run();
+    } catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+		return 1;
 	} catch(std::invalid_argument const&){
 		std::cerr << "Datos invalidos. Servidor error." << std::endl;
 		return 1;

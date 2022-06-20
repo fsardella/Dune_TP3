@@ -13,10 +13,11 @@ void Player::addUnit(int x, int y, TerrainMap& terr) {
     units.push_back(unit);
 }
 
-std::list<coor_t> Player::getUnits() {
-    std::list<coor_t> result;
+std::list<UnitData> Player::getUnits() {
+    std::list<UnitData> result;
     for (Unit* unit: this->units) {
-        result.push_back(unit->getPosition());
+        UnitData unitData(unit->getPosition(), (uint8_t)this->house);
+        result.push_back(unitData);
     }
     return result;
 }

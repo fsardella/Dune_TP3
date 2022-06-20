@@ -29,7 +29,7 @@ sketch_t ActiveGame::getMapSketch() {
         for (int j = 0; j <= 40; j++) {
             row.push_back(0);
         }
-        ones.push_back(row);
+        sands.push_back(row);
     }
     return sands;
 }
@@ -42,25 +42,22 @@ bool ActiveGame::isAlive() {
     return this->alive;
 }
 
-void ActiveGame::addUnit(std::string playerName, int x, int y) {
+bool ActiveGame::addUnit(std::string playerName, int x, int y) {
     lock_t lock(this->m);
-    //this->game.addUnit(std::string playerName, int x, int y, TerrainMap& terr);
+    if (this->gameMap.isOccupied(coor_t(y, x)))
+        return false;
     this->game.addUnit(playerName, x, y, this->gameMap);
+    return true;
 }
 
 
 std::list<std::string> ActiveGame::getPlayerNames() {
-    this->game.getPlayerNames();
+    return this->game.getPlayerNames();
 }
 
-std::map<std::string, std::list<coor_t>>
-    ActiveGame::getUnits(std::map<std::string, int>& houses) {
+std::map<std::string, std::list<UnitData>> ActiveGame::getUnits() {
     lock_t lock(this->m);
-    std::map<std::string, std::list<coor_t>> ret = this->game.getUnits();
-    for (const auto& u: ret) {
-        houses[u.first] = this->getHouse(u.first);
-    }
-    return ret;
+    return this->game.getUnits();
 }
 
 ActiveGame::~ActiveGame() {}

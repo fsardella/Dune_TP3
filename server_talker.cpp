@@ -92,7 +92,7 @@ std::string Talker::getPlayerName() {
 
 #define START_PLAYING 5
 
-void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
+void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap,
                           BlockingQueue<Command>& sendingQueue) {
     this->protocol.send_msg_result(START_PLAYING);
     this->protocol.send_msg_num_list(gameMap.size());
@@ -104,36 +104,6 @@ void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
     this->sender = new Sender(sendingQueue, this->protocol);
 }
 
-void Talker::sendUnits(std::map<std::string, std::list<coor_t>> units,
-                       std::map<std::string, int> houses) {
-    int totalQuantity = 0;
-    for (const auto& u: units) {
-        totalQuantity += u.second.size();   
-    }
-    this->protocol.send_msg_num_list(totalQuantity);
-    for (const auto& u: units) {
-        if (u.first == this->playerName) {
-            this->protocol.send_msg_num_list(u.second.size());
-            this->protocol.send_msg_result(houses[u.first]); 
-            for (coor_t coordinate : u.second) {
-                this->protocol.send_msg_num_list(coordinate.second);
-                this->protocol.send_msg_num_list(coordinate.first);
-                this->protocol.send_msg_result(1);
-            }
-        }
-    }
-    for (const auto& u: units) {
-        if (u.first == this->playerName)
-            continue;
-        this->protocol.send_msg_num_list(u.second.size());
-        this->protocol.send_msg_result(houses[u.first]); 
-        for (coor_t coordinate : u.second) {
-            this->protocol.send_msg_num_list(coordinate.second);
-            this->protocol.send_msg_num_list(coordinate.first);
-            this->protocol.send_msg_result(1);
-        }  
-    }
-}
 
 /*
 Pre-Condiciones: -
@@ -155,7 +125,7 @@ void Talker::run() {
                 switch (operation) {
                     case NEW_UNIT:
                         comm.reserve(5);
-                        comm = protocol.recvCommand(5)
+                        comm = protocol.recvCommand(5);
                         comm.changeSender(this->playerName);
                         break;
                 }

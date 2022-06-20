@@ -34,9 +34,6 @@ class Talker: public Thread {
     std::string getPlayerName();
     void startPlaying(BlockingQueue<Command>* newGameQueue,
                       sketch_t gameMap, BlockingQueue<Command>& sendingQueue);
-    void sendUnits(std::map<std::string, std::list<coor_t>> units,
-                       std::map<std::string, int> houses);
-                       
 	explicit Talker(Socket&& socket, GameSet* game_set);
 	void run() override;
 	~Talker() override;

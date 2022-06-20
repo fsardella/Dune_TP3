@@ -6,6 +6,8 @@
 #include "server_activegame.h"
 #include "server_command.h"
 #include "common_blockingqueue.h"
+#include "server_talker.h"
+#include "server_broadcaster.h"
 #include <map>
 
 typedef std::map<std::string, Talker*> talkerMap_t;
@@ -15,9 +17,18 @@ class GameHandler: public Thread {
     ActiveGame game;
     BlockingQueue<Command> commandQueue;
     queueMap_t playersQueue;
+    bool ended = false;
+    
+    void processCommand(Command comm);
+    void disconnect(Command comm);
+    void addNewUnit(Command comm);
+    void notifyError(Command comm);
+    void notifySuccess(Command comm);
+    
  public:
     GameHandler(Game newGame, talkerMap_t& talkerThreads);
     void run() override;
+    bool endedRun();
 	~GameHandler() override;
 };
 

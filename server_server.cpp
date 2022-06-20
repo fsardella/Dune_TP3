@@ -14,6 +14,7 @@ Post-Condiciones: Constructor de Servidor.
 
 Server::Server(const char* service_port): gameSet(this->playableGames),
                                           talkers(),
+                                          activeGames(),
                                           listener(service_port, &gameSet,
                                                    this->talkers),
                                           inputGuy(this->listener,
@@ -27,12 +28,28 @@ Post-Condiciones: Hilo principal (en el main). Se queda esperando que se reciba 
 entrada estándar. Si se recibe una "q" el Servidor finalizará.
 */
 
+void Server::cleanGames() {
+    std::list<GameHandler*>::iterator iter = this->activeGames.begin();
+    while (iter != this->activeGames.end()) {
+        if ((*iter)->endedRun()) {
+            delete *iter;
+            iter = this->activeGames.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
+}
+
 void Server::server_run() {
     this->inputGuy.start();
     try {
         while(true) {
             Game newGame = std::move(this->playableGames.pop());
+            GameHandler* newGameThread = new GameHandler(std::move(newGame), this->talkers);
+            this->activeGames.push_back(newGameThread);
+            //DEBUG
             std::cout << "Comenzando Game " << newGame.get_name() << "..." << std::endl;
+            this->cleanGames();
         }
     } catch (const ClosedQueueException&) {
         return;
@@ -45,4 +62,6 @@ Post-Condiciones: Destructor del Servidor.
 */
 
 Server::~Server() {
+    for (GameHandler* th : this->activeGames)
+        delete th;
 }
