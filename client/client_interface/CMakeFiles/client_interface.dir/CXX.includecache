@@ -31,6 +31,8 @@ MapView.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
 Camera.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h
+iostream
+-
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h
 vector
@@ -39,10 +41,26 @@ Unit.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
 BackGroundTile.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h
-yaml-cpp/yaml.h
-/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/yaml-cpp/yaml.h
 Unit.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
+MenuImage.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h
+yaml-cpp/yaml.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/yaml-cpp/yaml.h
+MenuText.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h
+SDL2/SDL.h
+-
+SDL2/SDL_ttf.h
+-
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h
+Renderizable.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
+
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h
+Renderizable.h
+/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
 SdlTexture.h
@@ -56,6 +74,8 @@ SDL2/SDL.h
 SDL2/SDL_render.h
 -
 SDL2/SDL_image.h
+-
+SDL2/SDL_ttf.h
 -
 SdlWindow.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h

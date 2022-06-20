@@ -1,5 +1,8 @@
 #include "SdlTexture.h"
 #include "Area.h"
+#include <stdlib.h>
+#include <string>
+#include <iostream>
 
 
 SdlTexture::SdlTexture(const std::string& filename, SdlWindow& window)
@@ -38,12 +41,30 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool colo
 
 }
 
+SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
+: window(window),
+  texture(nullptr) {
+    TTF_Init();
+    if (font == NULL) return;
+
+    SDL_Color textColor = {0, 0, 0, 0};
+
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+
+    this->texture = window.createTexture(surface);
+
+    width = surface->w;
+    height = surface->h;
+
+    SDL_FreeSurface(surface);
+
+}
+
 int SdlTexture::render(const Area& src, const Area& dest) const{
 	const SDL_Rect srcRect = src.buildRectangle();
 	const SDL_Rect destRect = dest.buildRectangle();
 	return window.handleRender(texture, srcRect, destRect);
 } 
-
 
 SdlTexture::~SdlTexture() {
     if (this->texture != nullptr) {

@@ -26,25 +26,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 122,
+				"line" : 121,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 128,
+				"line" : 127,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 94,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
 				"line" : 95,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 96,
 				"parent" : 0
 			}
 		]
@@ -145,7 +145,6 @@
 				12,
 				15,
 				18,
-				20,
 				22,
 				24,
 				26,
@@ -260,7 +259,6 @@
 				12,
 				15,
 				18,
-				20,
 				22,
 				24,
 				26,
@@ -330,7 +328,8 @@
 				8,
 				11,
 				14,
-				17
+				17,
+				20
 			]
 		},
 		{
@@ -444,8 +443,18 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp",
+			"path" : "waitingWindow.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "waitingWindow.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "waitingWindow.ui",
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -675,34 +684,23 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp",
+			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h",
+			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Explosion.cpp",
+			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Explosion.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/PositionVector.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/PositionVector.h",
+			"path" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h",
 			"sourceGroupIndex" : 1
 		},
 		{

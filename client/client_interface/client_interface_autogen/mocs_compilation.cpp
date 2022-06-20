@@ -4,3 +4,4 @@
 #include "EWIEGA46WW/moc_joingamewindow.cpp"
 #include "EWIEGA46WW/moc_maingame.cpp"
 #include "EWIEGA46WW/moc_mainwindow.cpp"
+#include "EWIEGA46WW/moc_waitingWindow.cpp"

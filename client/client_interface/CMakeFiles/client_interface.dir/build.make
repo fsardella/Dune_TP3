@@ -157,18 +157,18 @@ CMakeFiles/client_interface.dir/joingamewindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/joingamewindow.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.cpp -o CMakeFiles/client_interface.dir/joingamewindow.cpp.s
 
-CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o: CMakeFiles/client_interface.dir/flags.make
-CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp
+CMakeFiles/client_interface.dir/waitingWindow.cpp.o: CMakeFiles/client_interface.dir/flags.make
+CMakeFiles/client_interface.dir/waitingWindow.cpp.o: waitingWindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/client_interface.dir/waitingWindow.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/waitingWindow.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp
 
-CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp > CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i
+CMakeFiles/client_interface.dir/waitingWindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client_interface.dir/waitingWindow.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp > CMakeFiles/client_interface.dir/waitingWindow.cpp.i
 
-CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s
+CMakeFiles/client_interface.dir/waitingWindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/waitingWindow.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp -o CMakeFiles/client_interface.dir/waitingWindow.cpp.s
 
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: CMakeFiles/client_interface.dir/flags.make
 CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp
@@ -430,9 +430,35 @@ CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.s
 
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o: CMakeFiles/client_interface.dir/flags.make
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp > CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o: CMakeFiles/client_interface.dir/flags.make
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp > CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i
+
+CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp -o CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s
+
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o: CMakeFiles/client_interface.dir/flags.make
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o: client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o -c /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp
 
 CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.i: cmake_force
@@ -452,7 +478,7 @@ client_interface_OBJECTS = \
 "CMakeFiles/client_interface.dir/maingame.cpp.o" \
 "CMakeFiles/client_interface.dir/creategamewindow.cpp.o" \
 "CMakeFiles/client_interface.dir/joingamewindow.cpp.o" \
-"CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o" \
+"CMakeFiles/client_interface.dir/waitingWindow.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o" \
@@ -473,6 +499,8 @@ client_interface_OBJECTS = \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.cpp.o" \
 "CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o" \
+"CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o" \
+"CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o" \
 "CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
 
 # External object files for target client_interface
@@ -485,7 +513,7 @@ client_interface: CMakeFiles/client_interface.dir/choosehouse.cpp.o
 client_interface: CMakeFiles/client_interface.dir/maingame.cpp.o
 client_interface: CMakeFiles/client_interface.dir/creategamewindow.cpp.o
 client_interface: CMakeFiles/client_interface.dir/joingamewindow.cpp.o
-client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o
+client_interface: CMakeFiles/client_interface.dir/waitingWindow.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp.o
@@ -506,6 +534,8 @@ client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_tall
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.cpp.o
 client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp.o
+client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o
+client_interface: CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o
 client_interface: CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o
 client_interface: CMakeFiles/client_interface.dir/build.make
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
@@ -518,7 +548,7 @@ client_interface: /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8
 client_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 client_interface: CMakeFiles/client_interface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Linking CXX executable client_interface"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable client_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client_interface.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

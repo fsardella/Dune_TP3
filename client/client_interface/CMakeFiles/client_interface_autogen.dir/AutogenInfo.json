@@ -53,6 +53,16 @@
 			"NBTXC4HL66/moc_MapView.cpp"
 		],
 		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h",
+			"MU",
+			"NBTXC4HL66/moc_MenuImage.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h",
+			"MU",
+			"NBTXC4HL66/moc_MenuText.cpp"
+		],
+		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h",
 			"MU",
 			"NBTXC4HL66/moc_Renderizable.cpp"
@@ -116,6 +126,11 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h",
+			"MU",
+			"EWIEGA46WW/moc_waitingWindow.cpp"
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h",
@@ -196,10 +211,6 @@
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp",
 			"MU"
 		],
-		[
-			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp",
-			"MU"
-		],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp", "MU" ],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.cpp",
@@ -215,6 +226,14 @@
 			"MU"
 		],
 		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp",
+			"MU"
+		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp",
 			"MU"
@@ -266,6 +285,10 @@
 		],
 		[
 			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp",
 			"MU"
 		],
 		[

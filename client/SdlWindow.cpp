@@ -63,6 +63,14 @@ int SdlWindow::handleRender(SDL_Texture *txt, const SDL_Rect &src, const SDL_Rec
     SDL_SetTextureAlphaMod(txt, alpha);
     return SDL_RenderCopyEx(rendererPtr, txt, &src, &dst, 0, nullptr, SDL_FLIP_NONE);
 }
+/*
+int SdlWindow::handleRender(SDL_Texture *texture,  const SDL_Rect &src, const SDL_Rect &dst) {
+    SDL_SetRenderDrawColor(rendererPtr, 0, 0, 0, 0);
+    SDL_RenderClear(rendererPtr);
+   
+    SDL_RenderCopy(rendererPtr, texture, &src, &dst);
+    SDL_RenderPresent(rendererPtr);
+}*/
 
 SdlWindow::~SdlWindow() {
 	if (this->rendererPtr) {

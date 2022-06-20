@@ -324,33 +324,6 @@ home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp.s
 
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.o
-
-# target to build an object file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.o
-
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.i
-
-# target to preprocess a source file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.i
-
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s
-
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.s
-
-# target to generate assembly for a file
-home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s:
-	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s
-.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.cpp.s
-
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp.o
 
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o
@@ -512,6 +485,60 @@ home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.s: home/pilar/Escritori
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s
 .PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp.s
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.o
+
+# target to build an object file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.o
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.i: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.i
+
+# target to preprocess a source file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.i
+
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.s: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s
+
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.s
+
+# target to generate assembly for a file
+home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s
+.PHONY : home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp.s
 
 home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.o: home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp.o
 
@@ -945,6 +972,33 @@ mainwindow.cpp.s:
 	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
+waitingWindow.o: waitingWindow.cpp.o
+
+.PHONY : waitingWindow.o
+
+# target to build an object file
+waitingWindow.cpp.o:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.o
+.PHONY : waitingWindow.cpp.o
+
+waitingWindow.i: waitingWindow.cpp.i
+
+.PHONY : waitingWindow.i
+
+# target to preprocess a source file
+waitingWindow.cpp.i:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.i
+.PHONY : waitingWindow.cpp.i
+
+waitingWindow.s: waitingWindow.cpp.s
+
+.PHONY : waitingWindow.s
+
+# target to generate assembly for a file
+waitingWindow.cpp.s:
+	$(MAKE) -f CMakeFiles/client_interface.dir/build.make CMakeFiles/client_interface.dir/waitingWindow.cpp.s
+.PHONY : waitingWindow.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -975,9 +1029,6 @@ help:
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.s"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.o"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.i"
-	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.s"
@@ -996,6 +1047,12 @@ help:
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.s"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.o"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.i"
+	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.s"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.o"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.i"
 	@echo "... home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.s"
@@ -1044,6 +1101,9 @@ help:
 	@echo "... mainwindow.o"
 	@echo "... mainwindow.i"
 	@echo "... mainwindow.s"
+	@echo "... waitingWindow.o"
+	@echo "... waitingWindow.i"
+	@echo "... waitingWindow.s"
 .PHONY : help
 
 

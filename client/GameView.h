@@ -36,6 +36,10 @@ class GameView {
     void moveDownwards();
     void moveLeft();
     void moveRight();
+
+    void setMoney(int actualMoney);
+    void setEnergy(int actualEnergy);
+
     ~GameView();
 
 };

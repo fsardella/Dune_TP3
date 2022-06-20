@@ -70,3 +70,11 @@ void GameView::moveLeft() {
 void GameView::moveRight() {
     camera.moveRight();
 }
+
+void GameView::setMoney(int actualMoney) {
+    map.setMoney(actualMoney);
+}
+
+void GameView::setEnergy(int actualEnergy) {
+    map.setEnergy(actualEnergy);
+}

@@ -45,6 +45,7 @@ private:
     void renderInSightForMenu(SdlTexture& texture, Area& src,
                        float posX,
                        float posY);
+    void renderInSightForMenuTitles(SdlTexture& texture, Area& src, float posX, float posY);
     void renderMenuRect();
     bool isVisible(float x, float y);
     ~Camera();

@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include "SdlWindow.h"
 #include "Area.h"
 
@@ -16,6 +17,7 @@ class SdlTexture {
 	int height;
 
     public:
+    SdlTexture(SdlWindow &window, TTF_Font* font, std::string text);
 	SdlTexture(const std::string& filename, SdlWindow& window);
     SdlTexture(const std::string &filename, SdlWindow &window,
                             bool color);

@@ -7,6 +7,9 @@
 #include "Unit.h"
 #include "MenuImage.h"
 #include "yaml-cpp/yaml.h"
+#include "MenuText.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #define TILE_PIX_SIZE 32
 #define IMAGE_PIX_WIDTH 100
@@ -18,16 +21,20 @@ class MapView {
     int houseNumberClient;
     size_t columns;
     size_t rows;
-
+    
     std::vector<BackGroundTile> backgroundTiles;
     std::vector<Unit> unitsTiles;
     std::vector<MenuImage> menuImages;
+    std::map<std::string, MenuText> menuTexts;
 
     std::map<int, std::vector<std::string>> tileInfoTranslator;
 
     std::map<int, SdlTexture> unitTextureTranslator;
     std::map<int, SdlTexture> tileTextureTranslator;
     std::map<int, SdlTexture> menuTextureTranslator;
+    std::map<std::string, SdlTexture> menuTextsTranslator;
+
+    TTF_Font *font;
 
     public:
     MapView(SdlWindow& window, int houseNumberClient);
@@ -40,6 +47,10 @@ class MapView {
 
     void renderMenu(Camera &cam);
     void render(Camera& cam);
+    void loadFontTitles();
+
+    void setMoney(int actualMoney);
+    void setEnergy(int actualEnergy);
 
     MapView(const MapView& other) = delete;
     MapView& operator=(const MapView& other) = delete;

@@ -12,7 +12,11 @@ void ServerReceiver::run() {
 		// std::map<int, std::tuple<int, int, int, bool>> units;
 		// protocolClient->recvUnits(units);
 		// gameView->buildUnits(units);
+		// int money = protocolClient->recvMoney();
+		// int energy = protocolClient->recvEnergy();
 		gameView->buildUnit(32, 32, 1, 1);
+		gameView->setEnergy(0); //iria energy
+		gameView->setMoney(0); //iria money
 	//}
 }
 

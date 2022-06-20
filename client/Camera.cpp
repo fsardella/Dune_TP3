@@ -85,6 +85,14 @@ void Camera::renderInSightForMenu(SdlTexture& texture, Area& src, float posX, fl
     texture.render(src,dst);
 }
 
+void Camera::renderInSightForMenuTitles(SdlTexture& texture, Area& src, float posX, float posY) {
+    auto rect = src.buildRectangle();
+    int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
+    int newY = (posY + 1) * SPACING_Y + posY * rect.h;
+    Area dst(newX, newY, rect.w, rect.h);
+    texture.render(src,dst);
+}
+
 bool Camera::isVisibleInX(float x) {
     return (x >= offsetX && x <= width + offsetX);
 }

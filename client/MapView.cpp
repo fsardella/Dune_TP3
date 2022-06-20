@@ -10,9 +10,15 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
   houseNumberClient(houseNumberClient),
   columns(0),
   rows(0) {
+    this->loadFontTitles();
     this->loadTileTranslator();
     this->loadMenuTranslator();
     this->createMenu();
+}
+
+void MapView::loadFontTitles() {
+    TTF_Init();
+    font = TTF_OpenFont("/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1", 22);
 }
 
 void MapView::loadTileTranslator() {
@@ -93,11 +99,34 @@ void MapView::createUnit(int x, int y, int unitType, int unitId) {
     unitsTiles.emplace_back(unitTexture, 64, 64, x, y, unitId);
 }
 
-MapView::~MapView() {
+void MapView::setMoney(int actualMoney) {
+    std::string text("Money: $" + std::to_string(actualMoney));
+    menuTextsTranslator.emplace(std::piecewise_construct,
+                          std::forward_as_tuple("money"),
+                          std::forward_as_tuple(window, font, text));
+    menuTexts.emplace(std::piecewise_construct,
+                          std::forward_as_tuple("money"),
+                          std::forward_as_tuple(menuTextsTranslator.at("money"), 200, 32, 0, 0));
+}
+
+void MapView::setEnergy(int actualEnergy) {
+    std::string text("Energy: " + std::to_string(actualEnergy) + "%");
+    menuTextsTranslator.emplace(std::piecewise_construct,
+                          std::forward_as_tuple("energy"),
+                          std::forward_as_tuple(window, font, text));
+    menuTexts.emplace(std::piecewise_construct,
+                          std::forward_as_tuple("energy"),
+                          std::forward_as_tuple(menuTextsTranslator.at("energy"), 200, 32, 0, 1));
 }
 
 void MapView::renderMenu(Camera &cam) {
     cam.renderMenuRect();
+
+    if(menuTextsTranslator.size() == 2) {
+        cam.render(menuTexts.at("money"));
+        cam.render(menuTexts.at("energy"));
+    }
+
     for (MenuImage &image : menuImages) {
         cam.render(image);
     }
@@ -114,4 +143,8 @@ void MapView::render(Camera &cam) {
             renderMenu(cam);
         }
     }
+}
+
+
+MapView::~MapView() {
 }
