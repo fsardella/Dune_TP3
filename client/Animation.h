@@ -3,16 +3,17 @@
 
 #include "SdlTexture.h"
 #include <map>
+#include <tuple>
 
 #define FRAME_DURATION 10000
 
 class Animation {
-    std::map<int, SdlTexture>& animationsRepository; //cada animacion tiene su ID
+    std::map<std::tuple<int, int>, SdlTexture>& animationsRepository; //cada animacion tiene su ID
     int currentAnimation;
     int currentTime;
     int animationTime;
     public:
-    explicit Animation(std::map<int, SdlTexture> &newAnimationsRepository);
+    explicit Animation(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository);
     SdlTexture& getTexture();
     void update(int delta);
 

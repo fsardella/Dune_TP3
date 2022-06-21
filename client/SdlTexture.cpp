@@ -38,7 +38,6 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool colo
 	height = tmp->h;
 
     SDL_FreeSurface(tmp);
-
 }
 
 SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
@@ -57,12 +56,12 @@ SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
     height = surface->h;
 
     SDL_FreeSurface(surface);
-
 }
 
 int SdlTexture::render(const Area& src, const Area& dest) const{
 	const SDL_Rect srcRect = src.buildRectangle();
 	const SDL_Rect destRect = dest.buildRectangle();
+    std::cout << "entro a render de texture y ahora entraria a render de window\n";
 	return window.handleRender(texture, srcRect, destRect);
 }
 
@@ -71,3 +70,10 @@ SdlTexture::~SdlTexture() {
         SDL_DestroyTexture(this->texture);
     }
 }
+
+SdlTexture::SdlTexture(SdlTexture&& other) :
+    window(other.window),
+	texture(other.texture),
+    width(other.width),
+	height(other.height) 
+{}

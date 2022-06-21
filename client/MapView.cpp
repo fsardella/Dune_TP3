@@ -26,7 +26,7 @@ void MapView::loadSpritesTranslator() {
     YAML::Node node = YAML::LoadFile("../sprites.yaml");
     int amount = node["amount"].as<int>();
     for (int i = 0; i < amount; i++) {
-        std::map<int, SdlTexture> animations;
+        std::map<std::tuple<int, int>, SdlTexture> animations;
         std::string animationAmountText(std::to_string(i) + "_animationAmount");
         int animationAmount = node[animationAmountText].as<int>();
         std::cout << "debe ser 2 es: " << animationAmount << "\n";
@@ -37,7 +37,7 @@ void MapView::loadSpritesTranslator() {
             for (size_t k = 0; k < spritesInfo.size(); k ++ ) {
                 std::string path = spritesInfo[k];
                 animations.emplace(std::piecewise_construct,
-                                    std::forward_as_tuple(k),
+                                    std::forward_as_tuple(std::make_tuple(j, k)),
                                     std::forward_as_tuple(path, window, false));
             }
             // for(std::string &path: spritesInfo) {
@@ -52,6 +52,31 @@ void MapView::loadSpritesTranslator() {
         std::cout << "accedi\n";
     }
 }
+
+// void MapView::loadSpritesTranslator() {
+//     YAML::Node node = YAML::LoadFile("../sprites.yaml");
+//     int amount = node["amount"].as<int>();
+//     for (int i = 0; i < amount; i++) {
+//         std::map<int, std::vector<SdlTexture>> animations;
+//         std::string animationAmountText(std::to_string(i) + "_animationAmount");
+//         int animationAmount = node[animationAmountText].as<int>();
+//         std::cout << "debe ser 2 es: " << animationAmount << "\n";
+//         for (int j = 0; j < animationAmount; j++) {
+//             std::string animationIndex(std::to_string(i) + "_" + std::to_string(j));
+//             std::vector<std::string> spritesInfo = node[animationIndex].as<std::vector<std::string>>();
+//             std::cout << "tendría que ser 5 y es: " << spritesInfo.size() << std::endl;
+//             std::vector<SdlTexture> animationTextures;
+//             for(std::string &path: spritesInfo) {
+//                 animationTextures.emplace_back(path, window, false);
+//             }
+//             animations.insert({j, std::move(animationTextures)});
+//         }
+//         animationsRepository.insert({i, std::move(animations)});
+//         std::cout << "inserto clave " << i << std::endl;
+//         animationsRepository.at(0);
+//         std::cout << "accedi\n";
+//     }
+// }
 
 void MapView::loadTileTranslator() {
     YAML::Node node = YAML::LoadFile("../tiles.yaml");
@@ -113,13 +138,11 @@ void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>>
     }
 }
 
-void MapView::createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
+void MapView::createUnit(int x, int y, int unitType, int house, bool property, int animationId) {
     Animation animation(animationsRepository.at(animationId));
     int posX = int(x / 32);
     int posY = int(y / 32);
-    std::cout << "la posicion pixel es " << x << " " << y << std::endl;
-    std::cout << "la posicion actual es " << posX << " " << posY << std::endl;
-    unitsTiles.emplace_back(std::move(animation), 100, 100, posX, posY, unitId, property, house);
+    unitsTiles.emplace_back(std::move(animation), 100, 100, posX, posY, property, house);
 }
 /*
 void MapView::createUnit(int x, int y, int unitType, int unitId) {

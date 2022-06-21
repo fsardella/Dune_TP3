@@ -41,7 +41,7 @@ class ProtocolClient {
     void sendOperation(int operationNumber);
     void sendUnitConstructionPetition(int x, int y, int type);
     void recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map);
-    void recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units);
+    void recvUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>>& units);
     int recvStartGame();
     int recvOperationResult();
     ~ProtocolClient();

@@ -22,12 +22,12 @@ void GameView::buildUnit(int x, int y, int unitType, int unitId) {
     map.createUnit(x, y, unitType, unitId);
 }
 */
-void GameView::buildUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
+void GameView::buildUnit(int x, int y, int unitType, int house, bool property, int animationId) {
     // std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.createUnit(x, y, unitType, unitId, house, property, animationId);
+    map.createUnit(x, y, unitType, house, property, animationId);
 }
 
-void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) {
+void GameView::buildUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>> units) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     for (const auto& [key, value] : units) {
         // ver como hacer lo de los ids
@@ -38,7 +38,7 @@ void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) 
         // std::cout << "house " << std::get<2>(value) << std::endl; 
         // std::cout << "bool " << std::get<3>(value) << std::endl; 
         // std::cout << "anim id " << 0 << std::endl;
-        buildUnit(std::get<0>(value), std::get<1>(value), key, 1, std::get<2>(value), std::get<3>(value), 0);
+        buildUnit(std::get<0>(key), std::get<1>(key), std::get<0>(value), std::get<1>(value), std::get<2>(value), 0);
     }
 }
 
@@ -65,29 +65,36 @@ void GameView::shutdown() {
 }
 
 void GameView::moveUpwards() {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.moveUpwards();
 }
 
 void GameView::moveDownwards() {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.moveDownwards();
 }
 
 void GameView::moveLeft() {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.moveLeft();
 }
 
 void GameView::moveRight() {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.moveRight();
 }
 
 void GameView::setMoney(int actualMoney) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.setMoney(actualMoney);
 }
 
 void GameView::setEnergy(int actualEnergy) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.setEnergy(actualEnergy);
 }
 
 void GameView::update(int delta) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.update(delta);
 }

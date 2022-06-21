@@ -12,7 +12,8 @@ void ServerReceiver::run() {
 		gameView->setEnergy(0); //iria energy
 		gameView->setMoney(0); //iria money
 		while(gameView->isRunning()) {
-			std::map<int, std::tuple<int, int, int, bool>> units;
+			// std::map<int, std::tuple<int, int, int, bool>> units;
+			std::map<std::tuple<int, int>, std::tuple<int, int, bool>> units;
 			protocolClient->recvUnits(units);
 			gameView->buildUnits(units);
 			// int money = protocolClient->recvMoney();

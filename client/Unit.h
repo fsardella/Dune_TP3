@@ -6,7 +6,6 @@
 
 class Unit : public Renderizable{
     Animation animation;
-    int id;
     bool propiety;
     int house;
     int rescaling;
@@ -24,7 +23,6 @@ class Unit : public Renderizable{
             int sizeH,
             float posX,
             float posY,
-            int unitId,
             bool property,
             int house);
 

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Animation::Animation(std::map<int, SdlTexture> &newAnimationsRepository): 
+Animation::Animation(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository): 
     animationsRepository(newAnimationsRepository),
     currentAnimation(0),
     currentTime(0)
@@ -15,8 +15,8 @@ Animation::~Animation() {
 }
 
 SdlTexture& Animation::getTexture() {
-    std::cout << currentTime << std::endl;
-    return animationsRepository.at(currentAnimation);
+    // std::cout << currentTime << std::endl;
+    return animationsRepository.at(std::make_tuple(0, currentAnimation));
 }
 
 void Animation::update(int delta) {

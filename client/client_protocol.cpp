@@ -314,7 +314,7 @@ void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<ui
 	*width = cols;
 }
 
-void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units) {
+void ProtocolClient::recvUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>>& units) {
 	int totalAmount = recieve_msg_count(); // cambiar nombres a todos los metodos
 
 	int clientAmount = recieve_msg_count();
@@ -324,7 +324,7 @@ void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, bool>>& u
 		int x = recieve_msg_count() * 4;
 		int y = recieve_msg_count() * 4;
 		int type = recieve_msg_result();
-		units[type] = std::make_tuple(x, y, clientHouse, true);
+		units[std::make_tuple(x, y)] = std::make_tuple(type, clientHouse, true);
 	}
 
 	int othersAmount = 0;
@@ -335,7 +335,7 @@ void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, bool>>& u
 			int otherX = recieve_msg_count() * 4;
 			int otherY = recieve_msg_count() * 4;
 			int otherType = recieve_msg_result();
-			units[otherType] = std::make_tuple(otherX, otherY, otherHouse, false);
+			units[std::make_tuple(otherX, otherY)] =  std::make_tuple(otherType, otherHouse, false);
 		}
 	}
 }

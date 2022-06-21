@@ -10,6 +10,7 @@
 #include "MenuText.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <tuple>
 
 #define TILE_PIX_SIZE 32
 #define IMAGE_PIX_WIDTH 100
@@ -37,7 +38,7 @@ class MapView {
     std::map<int, SdlTexture> menuTextureTranslator;
     std::map<std::string, SdlTexture> menuTextsTranslator;
 
-    std::map<int, std::map<int, SdlTexture>> animationsRepository; 
+    std::map<int, std::map<std::tuple<int, int>, SdlTexture>> animationsRepository; 
 
     TTF_Font *font;
 
@@ -48,7 +49,7 @@ class MapView {
     void loadSpritesTranslator();
     void createMenu();
     //void createUnit(int x, int y, int unitType, int unitId);
-    void createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId);
+    void createUnit(int x, int y, int unitType, int house, bool property, int animationId);
     void createMap(int height, int width, std::vector<std::vector<uint8_t>> map);
 
     void renderMenu(Camera &cam);

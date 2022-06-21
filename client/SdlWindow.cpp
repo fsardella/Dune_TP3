@@ -1,6 +1,8 @@
 #include <SDL2/SDL_ttf.h>
 #include "SdlWindow.h"
 
+#include <iostream>
+
 #define MENUOFFSET 50
 #define SPACINGX 20
 #define SPACINGY 20
@@ -42,6 +44,13 @@ void SdlWindow::renderRect(SDL_Rect& r) {
 }
 
 int SdlWindow::handleRender(SDL_Texture* txt, const SDL_Rect& src, const SDL_Rect& dst) {
+	std::cout << "entro a render de window\n";
+	// std::cout << "con pos " << src.x << " " << src.y << std::endl;
+	// std::cout << "con pos dest " << dst.x << " " << dst.y << std::endl;
+	// std::cout << "con tam " << src.h << " " << src.w << std::endl;
+	// std::cout << "con dest " << dst.h << " " << dst.w << std::endl;
+	if (txt == nullptr) std::cout << "era null\n";
+	if (txt == NULL) std::cout << "era null\n";
 	return SDL_RenderCopy(rendererPtr, txt, &src, &dst);
 }
 
