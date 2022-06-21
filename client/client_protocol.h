@@ -31,17 +31,19 @@ class ProtocolClient {
     uint16_t convert_to_uint16_with_endianess(int number);
     uint8_t convert_to_uint8(int number);
     void sendUserName(std::string userName);
-    void sendCreateGameOperation(int operationNumber, std::string gameName, std::string mapName, int houseNumber);
+    void sendCreateGameOperation(int operationNumber);
+    void sendCreateGameInfo(std::string gameName, std::string mapName, int houseNumber);
     void sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber);
     void sendListGamesOperation(int operationNumber);
     void sendListMapsOperation(int operationNumber);
-    void recvListOfMaps(std::list <std::string>* list);
-    void recvListOfGames(std::list <std::string>* list);
+    void recvListOfMaps(std::list<std::string>& list);
+    void recvListOfGames(std::list <std::string>& list);
     void sendOperation(int operationNumber);
     void sendUnitConstructionPetition(int x, int y, int type);
-    void recvMap(int* width, int* height, std::vector<std::vector<int>>& map);
+    void recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map);
     void recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units);
-    void recvStartGame();
+    int recvStartGame();
+    int recvOperationResult();
     ~ProtocolClient();
 };
 

@@ -7,7 +7,7 @@ class MenuImage : public Renderizable {
     int rescaling;
 
     public:
-    MenuImage(SdlTexture &texture,
+    MenuImage(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,

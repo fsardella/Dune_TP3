@@ -10,6 +10,7 @@ class Unit : public Renderizable{
     bool propiety;
     int house;
     int rescaling;
+
     public:
     /*Unit(SdlTexture &texture,
            int sizeW,
@@ -39,6 +40,8 @@ class Unit : public Renderizable{
     float getX();
 
     float getY();
+
+    void update(int delta);
 
     ~Unit() override;
 

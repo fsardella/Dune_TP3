@@ -1,6 +1,6 @@
 #include "Renderizable.h"
 
-Renderizable::Renderizable(SdlTexture& texture,
+Renderizable::Renderizable(SdlTexture* texture,
                            int sizeW,
                            int sizeH,
                            float posX,
@@ -12,13 +12,17 @@ Renderizable::Renderizable(SdlTexture& texture,
   posY(posY) {
 }
 
-Renderizable::~Renderizable() {
-}
-
 Renderizable::Renderizable(Renderizable &&other)
 : texture(other.texture),
   sizeW(other.sizeW),
   sizeH(other.sizeH),
   posX(other.posX),
   posY(other.posY) {
+}
+
+void Renderizable::setTexture(SdlTexture* texture) {
+    this->texture = texture;
+}
+
+Renderizable::~Renderizable() {
 }

@@ -1,7 +1,7 @@
 #include "MenuImage.h"
 #include "Camera.h"
 
-MenuImage::MenuImage(SdlTexture &texture,
+MenuImage::MenuImage(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,

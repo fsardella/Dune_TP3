@@ -1,15 +1,17 @@
 amount: 1
 
-0_animationAmount: 4
+0_animationAmount: 2
 
 0_0:
+  - "../animations/s.bmp"
+  - "../animations/sw1.bmp"
+  - "../animations/sw2.bmp"
+  - "../animations/sw3.bmp"
+  - "../animations/sw4.bmp"
 
-  - "../backgroundTiles/trike1.bmp"
-  - "../backgroundTiles/trike2.bmp"
-
-1_animationAmount: 4
-
-1_0:
-
-  - "../backgroundTiles/trike1.bmp"
-  - "../backgroundTiles/trike2.bmp"
+0_1:
+  - "../animations/w.bmp"
+  - "../animations/wn1.bmp"
+  - "../animations/wn2.bmp"
+  - "../animations/wn3.bmp"
+  - "../animations/wn4.bmp"

@@ -33,7 +33,7 @@ void Camera::setMapSize(int width, int height) {
     this->mapHeight = height;
 }
 
-void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float posY) {
+void Camera::renderInSight(SdlTexture* texture, Area& src, float posX, float posY) {
     if (!isVisible(posX, posY)) {
         return;
     }
@@ -41,10 +41,10 @@ void Camera::renderInSight(SdlTexture& texture, Area& src, float posX, float pos
     int newX = (posX - offsetX) * TILE_PIX_SIZE;
     int newY = (posY - offsetY) * TILE_PIX_SIZE;
     Area dst(newX, newY, rect.w, rect.h);
-    texture.render(src,dst);
+    texture->render(src, dst);
 }
 
-int Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, float posY) {
+int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return SUCCESS;
@@ -63,7 +63,7 @@ int Camera::renderInSightForUnit(SdlTexture& texture, Area& src, float posX, flo
         returnValue = 1;
     }
     Area dst(newX, newY, txtWidth, txtHeight);
-    texture.render(src,dst);
+    texture->render(src, dst);
     return returnValue;
 }
 
@@ -77,20 +77,20 @@ void Camera::renderMenuRect() {
     window.renderRect(r);
 }
 
-void Camera::renderInSightForMenu(SdlTexture& texture, Area& src, float posX, float posY) {
+void Camera::renderInSightForMenu(SdlTexture* texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    texture.render(src,dst);
+    texture->render(src,dst);
 }
 
-void Camera::renderInSightForMenuTitles(SdlTexture& texture, Area& src, float posX, float posY) {
+void Camera::renderInSightForMenuTitles(SdlTexture* texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    texture.render(src,dst);
+    texture->render(src,dst);
 }
 
 bool Camera::isVisibleInX(float x) {

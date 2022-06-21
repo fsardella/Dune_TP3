@@ -16,7 +16,7 @@ Unit::Unit(Animation animation,
             int sizeH,
             float posX,
             float posY, int unitId, bool property, int house)
-: Renderizable(animation.getTexture(), sizeW, sizeH, posX, posY), animation(std::move(animation)), id(unitId), propiety(true), house(house) {
+: Renderizable(&animation.getTexture(), sizeW, sizeH, posX, posY), animation(std::move(animation)), id(unitId), propiety(true), house(house) {
     rescaling = 1;
 }
 
@@ -34,6 +34,11 @@ float Unit::getX() {
 
 float Unit::getY() {
     return posY;
+}
+
+void Unit::update(int delta) {
+    animation.update(delta);
+    setTexture(&animation.getTexture());
 }
 
 Unit::Unit(Unit &&other)

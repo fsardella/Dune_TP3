@@ -7,7 +7,7 @@ class BackGroundTile : public Renderizable {
     int rescaling;
     
     public:
-    BackGroundTile(SdlTexture& texture,
+    BackGroundTile(SdlTexture* texture,
          int sizeW,
          int sizeH,
          int posX,

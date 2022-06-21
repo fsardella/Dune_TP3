@@ -22,6 +22,9 @@ class MapView {
     size_t columns;
     size_t rows;
 
+    // int actualMoney;
+    // int actualEnergy;
+
     std::vector<BackGroundTile> backgroundTiles;
     std::vector<Unit> unitsTiles;
     std::vector<MenuImage> menuImages;
@@ -46,7 +49,7 @@ class MapView {
     void createMenu();
     //void createUnit(int x, int y, int unitType, int unitId);
     void createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId);
-    void createMap(int height, int width, std::vector<std::vector<int>> map);
+    void createMap(int height, int width, std::vector<std::vector<uint8_t>> map);
 
     void renderMenu(Camera &cam);
     void render(Camera& cam);
@@ -54,6 +57,8 @@ class MapView {
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
+
+    void update(int delta);
 
     MapView(const MapView& other) = delete;
     MapView& operator=(const MapView& other) = delete;

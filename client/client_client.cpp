@@ -74,9 +74,9 @@ Post-Condiciones: Se lanza al cliente.
 */
 
 void Client::client_run() {
-
 	int height = 700;
 	int width = 1300;
+
 	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
 	sdlWindow.fill(192, 150, 100, 255);
 	GameView gameViewObj(sdlWindow, houseNumber);
@@ -107,31 +107,39 @@ void Client::sendUserName(std::string userName) {
 // Comento todos los metodos porque no va a estar conectado a ningun socket todavia. 
 
 void Client::sendCreateGameOperation() {
-	//protocol.sendCreateGameOperation(CREATE_GAME, gameName, mapName, houseNumber);
+	protocol.sendCreateGameOperation(CREATE_GAME);
+}
+
+void Client::sendCreateGameInfo() {
+	protocol.sendCreateGameInfo(gameName, mapName, houseNumber);
 }
 
 void Client::sendJoinGameOperation() {
-	//protocol.sendJoinGameOperation(JOIN_GAME, gameName, houseNumber);
+	protocol.sendJoinGameOperation(JOIN_GAME, gameName, houseNumber);
 }
 
 void Client::sendListGamesOperation() {
-	//protocol.sendListGamesOperation(LIST_GAMES);
+	protocol.sendListGamesOperation(LIST_GAMES);
 }
 
 void Client::sendListMapsOperation() {
 	//protocol.sendListMapsOperation(LIST_MAPS);
 }
 
-void Client::recvListOfMaps(std::list <std::string>* list) {
-	//protocol.recvListOfMaps(list);
+void Client::recvListOfMaps(std::list<std::string>& list) {
+	protocol.recvListOfMaps(list);
 }
 
-void Client::recvListOfGames(std::list <std::string>* list) {
-	//protocol.recvListOfGames(list);
+void Client::recvListOfGames(std::list<std::string>& list) {
+	protocol.recvListOfGames(list);
 }
 
-void Client::recvStartGame() {
-	protocol.recvStartGame();
+int Client::recvStartGame() {
+	return protocol.recvStartGame();
+}
+
+int Client::recvOperationResult() {
+	return protocol.recvOperationResult();
 }
 
 /*

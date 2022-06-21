@@ -42,9 +42,15 @@ int UserInputReceiver::findCol(int x) {
 
 void UserInputReceiver::handlePosition(int x, int y) {
     if (0 < x && x < MENU_OFFSET_X) {
-        // ClientInput clientInput(x, y); // tambien tendría la unidad del otro menu
-        // blockingQueue->push(std::move(clientInput));
-        return;
+        try {
+            ClientInput clientInput(x, y);
+            // std::cout << "antes de bloquin dncks\n";
+            blockingQueue->push(std::move(clientInput));
+            // std::cout << "deberia poner " << x << " " << y << std::endl;
+            return;
+        } catch(const ClosedQueueException& e) {
+            std::cout << "la cola se cerro inesperadamente 2\n";
+        }
     }
     int col = findCol(x);
     if (col == ERROR) return;
@@ -64,6 +70,7 @@ void UserInputReceiver::run() {
                 break;
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
+                // std::cout << "toqur\n";
                 handlePosition(event.button.x, event.button.y);
             }
             else if(event.type == SDL_KEYDOWN) {

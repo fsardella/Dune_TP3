@@ -7,7 +7,7 @@ class MenuText : public Renderizable {
     int rescaling;
 
     public:
-    MenuText(SdlTexture &texture,
+    MenuText(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,

@@ -6,17 +6,19 @@ class Camera;
 
 class Renderizable {
     protected:
-    SdlTexture& texture;
+    SdlTexture* texture;
     int sizeW;
     int sizeH;
     float posX;
     float posY;
     public:
-    explicit Renderizable(SdlTexture& texture,
+    explicit Renderizable(SdlTexture* texture,
                           int sizeW,
                           int sizeH,
                           float posX,
                           float posY);
+
+    void setTexture(SdlTexture* texture);
 
     Renderizable(const Renderizable& other) = delete;
     Renderizable& operator=(const Renderizable& other) = delete;

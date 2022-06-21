@@ -64,7 +64,7 @@ int SdlTexture::render(const Area& src, const Area& dest) const{
 	const SDL_Rect srcRect = src.buildRectangle();
 	const SDL_Rect destRect = dest.buildRectangle();
 	return window.handleRender(texture, srcRect, destRect);
-} 
+}
 
 SdlTexture::~SdlTexture() {
     if (this->texture != nullptr) {

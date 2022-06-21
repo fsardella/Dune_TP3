@@ -6,12 +6,18 @@ protocolClient(protocol), blockingQueue(blockingQueue) {
 }
 
 void ServerDespatcher::run() {
-    try {
-        ClientInput clientInput(std::move(blockingQueue->pop())); 
-        std::cout << clientInput.getPosX() << " " << clientInput.getPosY();
-        // protocolClient->sendUnitConstructionPetition(clientInput.getX(), clientInput.getY(), 1);
-    } catch (ClosedQueueException& e) {
-        return;
+    while(true) {
+        try {
+            std::cout << "quiero desencolar\n";
+            ClientInput clientInput(std::move(blockingQueue->pop())); 
+            std::cout <<  "aca " << clientInput.getPosX() << " " << clientInput.getPosY() << std::endl;
+            protocolClient->sendUnitConstructionPetition(clientInput.getPosX() / 4, clientInput.getPosY() / 4, 1);
+        } catch (const ClosedQueueException& e) {
+            std::cout << "la cola se cerro inesperadamente 1\n";
+            return;
+        } catch(const ClosedSocketException& e) {
+		    std::cout << "el socket se cerro inesperadamente 1\n";
+	    }
     }
 }
 

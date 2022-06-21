@@ -1,7 +1,7 @@
 #include "BackGroundTile.h"
 #include "Camera.h"
 
-BackGroundTile::BackGroundTile(SdlTexture &texture,
+BackGroundTile::BackGroundTile(SdlTexture* texture,
            int sizeW,
            int sizeH,
            int posX,

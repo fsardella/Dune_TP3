@@ -10,6 +10,8 @@
 #include "client_client.h"
 #include "client_protocol.h"
 
+#include <iostream>
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Protocolo.
@@ -199,8 +201,11 @@ void ProtocolClient::sendOperation(int operationNumber) {
 	socket.sendall(&operationNumberConvert, 1);
 }
 
-void ProtocolClient::sendCreateGameOperation(int operationNumber, std::string gameName, std::string mapName, int houseNumber) {
+void ProtocolClient::sendCreateGameOperation(int operationNumber) {
 	this->sendOperation(operationNumber);
+}
+
+void ProtocolClient::sendCreateGameInfo(std::string gameName, std::string mapName, int houseNumber) {
 	//Aca tambien se le pasaria toda la informacion necesaria para crear el Game.
 	uint8_t houseNumberConvert = convert_to_uint8(houseNumber);
 	uint16_t nameSize = convert_to_uint16_with_endianess(gameName.size());
@@ -230,31 +235,44 @@ void ProtocolClient::sendListMapsOperation(int operationNumber) {
 	this->sendOperation(operationNumber);
 }
 
-void ProtocolClient::recvListOfMaps(std::list <std::string>* list) {
+void ProtocolClient::recvListOfMaps(std::list<std::string>& list) {
 	uint16_t numberOfMapsConvert = 0;
 	socket.recvall(&numberOfMapsConvert, 2);
 	int numberOfMaps = convert_from_uint16_with_endianess(numberOfMapsConvert);
+	std::cout << "cant de mapas " << numberOfMaps << std::endl;
 	for(int i = 0; i < numberOfMaps; i++) {
 		uint16_t nameSizeConvert = 0;
 		socket.recvall(&nameSizeConvert, 2);
 		int nameSize = convert_from_uint16_with_endianess(nameSizeConvert);
-		std::string mapName = "";
+		std::cout << nameSize << std::endl;
+		std::string mapName;
+		mapName.resize(nameSize);
 		socket.recvall(&mapName[0], nameSize);
-		list->push_back(mapName); //lleno todos los nombres de mapas existentes en una lista para luego mostrar las opciones en QT
+		std::cout << mapName << std::endl;
+		list.push_back(mapName);
 	}
 }
 
-void ProtocolClient::recvListOfGames(std::list <std::string>* list) {
+void ProtocolClient::recvListOfGames(std::list <std::string>& list) {
 	uint16_t numberOfGamesConvert = 0;
 	socket.recvall(&numberOfGamesConvert, 2);
 	int numberOfGames = convert_from_uint16_with_endianess(numberOfGamesConvert);
+	std::cout << "nomber of games " << numberOfGames << std::endl;
 	for(int i = 0; i < numberOfGames; i++) {
+		int numberPlayersInt = recieve_msg_result();
+		std::cout << "players " << numberPlayersInt << std::endl;
+
+		int numberRequiredInt = recieve_msg_result();
+		std::cout << "players " << numberRequiredInt << std::endl;
+
 		uint16_t nameSizeConvert = 0;
 		socket.recvall(&nameSizeConvert, 2);
 		int nameSize = convert_from_uint16_with_endianess(nameSizeConvert);
-		std::string gameName = "";
+		std::string gameName;
+		gameName.resize(nameSize);
 		socket.recvall(&gameName[0], nameSize);
-		list->push_back(gameName); //lleno todos los nombres de juegos existentes en una lista para luego mostrar las opciones en QT
+
+		list.push_back(gameName);
 	}
 }
 
@@ -274,16 +292,23 @@ void ProtocolClient::sendUnitConstructionPetition(int x, int y, int type) {
 	socket.sendall(&unitType, 1);
 }
 
-void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<int>>& map) {
+void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map) {
 	int rows = recieve_msg_count(); // mejorar nombre de metodo
 	int cols = recieve_msg_count(); // mejorar nombre de metodo
+	std::cout << "rows " <<  rows << std::endl;
+	std::cout << "cols " <<  cols << std::endl;
 	for (int i = 0; i < rows; i ++) {
-		std::vector<int> row;
-		for (int j = 0; j < cols; j ++) {
-			int tile = recieve_msg_count();
-			row.push_back(tile);
-		}
-		map.push_back(row);
+		std::vector<uint8_t> row;
+		row.resize(cols);
+		socket.recvall(&row[0], cols);
+
+		// for (int j = 0; j < cols; j ++) {
+		// 	int tile = recieve_msg_count();
+		// 	// std::cout << "tile " << tile << std::endl;
+		// 	row.push_back(tile);
+		// }
+
+		map.push_back(std::move(row));
 	}
 	*height = rows;
 	*width = cols;
@@ -291,24 +316,34 @@ void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<in
 
 void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, bool>>& units) {
 	int totalAmount = recieve_msg_count(); // cambiar nombres a todos los metodos
+
 	int clientAmount = recieve_msg_count();
 	int clientHouse = recieve_msg_result();
+
 	for (int i = 0; i < clientAmount; i ++) {
-		int x = recieve_msg_count();
-		int y = recieve_msg_count();
+		int x = recieve_msg_count() * 4;
+		int y = recieve_msg_count() * 4;
 		int type = recieve_msg_result();
 		units[type] = std::make_tuple(x, y, clientHouse, true);
 	}
-	int othersAmount = recieve_msg_count();
-	for (int i = 0; i < clientAmount; i ++) {
+
+	int othersAmount = 0;
+	for (int i = clientAmount; i < totalAmount; i += othersAmount) {
+		othersAmount = recieve_msg_count();
 		int otherHouse = recieve_msg_result();
-		int otherX = recieve_msg_count();
-		int otherY = recieve_msg_count();
-		int otherType = recieve_msg_result();
-		units[otherType] = std::make_tuple(otherX, otherY, otherHouse, false);
+		for (int j = 0; j < othersAmount; j ++) {
+			int otherX = recieve_msg_count() * 4;
+			int otherY = recieve_msg_count() * 4;
+			int otherType = recieve_msg_result();
+			units[otherType] = std::make_tuple(otherX, otherY, otherHouse, false);
+		}
 	}
 }
 
-void ProtocolClient::recvStartGame() {
-	recieve_msg_result();
+int ProtocolClient::recvStartGame() {
+	return recieve_msg_result();
+}
+
+int ProtocolClient::recvOperationResult() {
+	return 	recieve_msg_result();
 }

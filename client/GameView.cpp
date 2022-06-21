@@ -9,10 +9,12 @@ GameView::GameView(SdlWindow& window, int houseNumberClient): window(window), ca
 GameView::~GameView() {
 }
 
-void GameView::buildMap(int height, int width, std::vector<std::vector<int>> mapMatrix) {
+void GameView::buildMap(int height, int width, std::vector<std::vector<uint8_t>> mapMatrix) {
+    std::cout << height << std::endl;
+    std::cout << width << std::endl;
     std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.setMapSize(width, height);
-	map.createMap(height, width, mapMatrix);
+	map.createMap(height, width, std::move(mapMatrix));
 }
 /*
 void GameView::buildUnit(int x, int y, int unitType, int unitId) {
@@ -21,17 +23,24 @@ void GameView::buildUnit(int x, int y, int unitType, int unitId) {
 }
 */
 void GameView::buildUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
+    // std::lock_guard<std::mutex> lock(gameViewMutex);
     map.createUnit(x, y, unitType, unitId, house, property, animationId);
 }
 
-// void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) {
-//     // std::lock_guard<std::mutex> lock(gameViewMutex);
-//     for (const auto& [key, value] : units) {
-//         // ver como hacer lo de los ids
-//         buildUnit(std::get<0>(value), std::get<1>(value), 1, key, std::get<2>(value), std::get<3>(value));
-//     }
-// }
+void GameView::buildUnits(std::map<int, std::tuple<int, int, int, bool>> units) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    for (const auto& [key, value] : units) {
+        // ver como hacer lo de los ids
+        // std::cout << "x " << std::get<0>(value) << std::endl; 
+        // std::cout << "y " << std::get<1>(value) << std::endl;
+        // std::cout << "type " << key << std::endl; 
+        // std::cout << "id " << 1 << std::endl; 
+        // std::cout << "house " << std::get<2>(value) << std::endl; 
+        // std::cout << "bool " << std::get<3>(value) << std::endl; 
+        // std::cout << "anim id " << 0 << std::endl;
+        buildUnit(std::get<0>(value), std::get<1>(value), key, 1, std::get<2>(value), std::get<3>(value), 0);
+    }
+}
 
 void GameView::render() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
@@ -77,4 +86,8 @@ void GameView::setMoney(int actualMoney) {
 
 void GameView::setEnergy(int actualEnergy) {
     map.setEnergy(actualEnergy);
+}
+
+void GameView::update(int delta) {
+    map.update(delta);
 }

@@ -15,8 +15,6 @@ class WaitingWindow : public QDialog
 public:
     explicit WaitingWindow(QWidget *parent, Client* client);
     ~WaitingWindow();
-
-private slots:
     void wait();
 
 private:

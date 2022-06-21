@@ -2,12 +2,13 @@
 #include "ui_joingamewindow.h"
 #include <QMessageBox>
 
+#include <iostream>
+
 JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     newClient(client),
     ui(new Ui::JoinGameWindow)
 {
-    // newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
@@ -15,12 +16,12 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 
-    std::list <std::string> list;
+    std::list <std::string>list;
     newClient->sendListGamesOperation();
-    newClient->recvListOfGames(&list);
-    list.push_back("Tres amigos"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
-    list.push_back("Dune version");
-    list.push_back("Dos amigos");
+    newClient->recvListOfGames(list);
+    // list.push_back("Tres amigos"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
+    // list.push_back("Dune version");
+    // list.push_back("Dos amigos");
     int size = list.size();
     for(int i = 0 ; i < size ; i++) {
         QString str = QString::fromStdString(list.back());
@@ -41,6 +42,7 @@ void JoinGameWindow::showWaitingWindow()
     waitingWindow.setModal(true);
     waitingWindow.showMaximized();
     waitingWindow.exec();
+    waitingWindow.wait();
 }
 
 void JoinGameWindow::on_joinGameButton_clicked()
@@ -53,6 +55,8 @@ void JoinGameWindow::on_joinGameButton_clicked()
     }
     newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendJoinGameOperation();
+    int result = newClient->recvOperationResult();
+    std::cout << "result join " << result << std::endl;
     // this->close();
     this->showWaitingWindow();
 }

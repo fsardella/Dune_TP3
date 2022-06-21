@@ -23,7 +23,7 @@
 #define JOIN_GAME 1
 #define LIST_GAMES 2
 #define CREATE_GAME 3
-#define LIST_MAPS 4
+// #define LIST_MAPS 4
 
 
 class Client {
@@ -41,12 +41,14 @@ class Client {
 	void chooseMapName(std::string name);
 	void sendUserName(std::string userName);
 	void sendCreateGameOperation();
+	void sendCreateGameInfo();
 	void sendJoinGameOperation();
 	void sendListGamesOperation();
 	void sendListMapsOperation();
-	void recvListOfMaps(std::list <std::string>* list);
-    void recvListOfGames(std::list <std::string>* list);
-	void recvStartGame();
+	void recvListOfMaps(std::list <std::string>& list);
+    void recvListOfGames(std::list <std::string>& list);
+	int recvStartGame();
+	int recvOperationResult();
 	~Client();
 };
 

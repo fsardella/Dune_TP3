@@ -3,6 +3,8 @@
 #include "creategamewindow.h"
 #include "joingamewindow.h"
 
+#include <iostream>
+
 MainGame::MainGame(QWidget *parent, Client* client):
     QDialog(parent),
     ui(new Ui::MainGame)
@@ -21,11 +23,10 @@ MainGame::~MainGame()
     delete ui;
 }
 
-
-
 void MainGame::on_createGameButton_clicked()
 {
     this->close();
+    std::cout << "llegue\n";
     CreateGameWindow createGameWindow(NULL, newClient);
     createGameWindow.setModal(true);
     createGameWindow.showMaximized();

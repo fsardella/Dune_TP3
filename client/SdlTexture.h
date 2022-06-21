@@ -25,8 +25,8 @@ class SdlTexture {
     SdlTexture(const SdlTexture& other) = delete;
     SdlTexture& operator=(const SdlTexture& other) = delete;
 
-    SdlTexture(SdlTexture&& other) ;
-    SdlTexture& operator=(SdlTexture&& other) ;
+    SdlTexture(SdlTexture&& other);
+    SdlTexture& operator=(SdlTexture&& other);
 
     int render(const Area& src, const Area& dest) const;
 

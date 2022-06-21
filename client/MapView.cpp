@@ -25,21 +25,31 @@ void MapView::loadFontTitles() {
 void MapView::loadSpritesTranslator() {
     YAML::Node node = YAML::LoadFile("../sprites.yaml");
     int amount = node["amount"].as<int>();
-    for (int i = 0; i <= amount; i++) {
+    for (int i = 0; i < amount; i++) {
         std::map<int, SdlTexture> animations;
         std::string animationAmountText(std::to_string(i) + "_animationAmount");
         int animationAmount = node[animationAmountText].as<int>();
+        std::cout << "debe ser 2 es: " << animationAmount << "\n";
         for(int j = 0; j < animationAmount; j++) {
-            //std::map<int, SdlTexture> animations;
             std::string animationIndex(std::to_string(i) + "_" + std::to_string(j));
             std::vector<std::string> spritesInfo = node[animationIndex].as<std::vector<std::string>>();
-            for(std::string &path: spritesInfo) {
+            std::cout << "tendría que ser 5 y es: " << spritesInfo.size() << std::endl;
+            for (size_t k = 0; k < spritesInfo.size(); k ++ ) {
+                std::string path = spritesInfo[k];
                 animations.emplace(std::piecewise_construct,
-                                    std::forward_as_tuple(j),
-                                    std::forward_as_tuple(path, window));
+                                    std::forward_as_tuple(k),
+                                    std::forward_as_tuple(path, window, false));
             }
+            // for(std::string &path: spritesInfo) {
+            //     animations.emplace(std::piecewise_construct,
+            //                         std::forward_as_tuple(j),
+            //                         std::forward_as_tuple(path, window, false));
+            // }
         }
         animationsRepository.insert({i, std::move(animations)});
+        std::cout << "inserto clave " << i << std::endl;
+        animationsRepository.at(0);
+        std::cout << "accedi\n";
     }
 }
 
@@ -71,7 +81,7 @@ void MapView::loadMenuTranslator() {
 void MapView::createMenu() {
     // esto aca queda feo
     auto constYard = menuTextureTranslator.find(3);
-    menuImages.emplace_back(constYard->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, 1, 0);
+    menuImages.emplace_back(&constYard->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, 1, 0);
 
     for (size_t i = 0; i <= 18; i += 3) {
         for (size_t j = 0; j < 3; j++) {
@@ -79,33 +89,37 @@ void MapView::createMenu() {
                 // REEMPLAZAR
                 // auto barrack = menuTextureTranslator.find(houseNumberClient);
                 auto image = menuTextureTranslator.find(i);
-                menuImages.emplace_back(image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, i);
+                menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, i);
                 continue;
             }
             if (i == 18 && j > 0) continue;
             size_t row = i / 3;
             if (i == 0) row = i;
             auto image = menuTextureTranslator.find(i + 2 + j);
-            menuImages.emplace_back(image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row);
+            menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row);
         }
     }
 }
 
-void MapView::createMap(int height, int width, std::vector<std::vector<int>> map) {
+void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>> map) {
     columns = width;
     rows = height;
     for (size_t i = 0; i < rows; i ++) {
         for (size_t j = 0; j < columns; j++) {
             std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
             auto& backgroundTexture = tileTextureTranslator.at(map[i][j]);
-            backgroundTiles.emplace_back(backgroundTexture, TILE_PIX_SIZE, TILE_PIX_SIZE, j, i);
+            backgroundTiles.emplace_back(&backgroundTexture, TILE_PIX_SIZE, TILE_PIX_SIZE, j, i);
         }
     }
 }
 
 void MapView::createUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId) {
-    Animation animation(animationsRepository.at(unitId));
-    unitsTiles.emplace_back(std::move(animation), 100, 100 , x, y, unitId, property, house);
+    Animation animation(animationsRepository.at(animationId));
+    int posX = int(x / 32);
+    int posY = int(y / 32);
+    std::cout << "la posicion pixel es " << x << " " << y << std::endl;
+    std::cout << "la posicion actual es " << posX << " " << posY << std::endl;
+    unitsTiles.emplace_back(std::move(animation), 100, 100, posX, posY, unitId, property, house);
 }
 /*
 void MapView::createUnit(int x, int y, int unitType, int unitId) {
@@ -124,7 +138,7 @@ void MapView::setMoney(int actualMoney) {
                           std::forward_as_tuple(window, font, text));
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("money"),
-                          std::forward_as_tuple(menuTextsTranslator.at("money"), 200, 32, 0, 0));
+                          std::forward_as_tuple(&menuTextsTranslator.at("money"), 200, 32, 0, 0));
 }
 
 void MapView::setEnergy(int actualEnergy) {
@@ -134,7 +148,7 @@ void MapView::setEnergy(int actualEnergy) {
                           std::forward_as_tuple(window, font, text));
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("energy"),
-                          std::forward_as_tuple(menuTextsTranslator.at("energy"), 200, 32, 0, 1));
+                          std::forward_as_tuple(&menuTextsTranslator.at("energy"), 200, 32, 0, 1));
 }
 
 void MapView::renderMenu(Camera &cam) {
@@ -163,6 +177,11 @@ void MapView::render(Camera &cam) {
     }
 }
 
+void MapView::update(int delta) {
+    for (Unit &unit : unitsTiles) {
+        unit.update(delta);
+    }
+}
 
 MapView::~MapView() {
 }

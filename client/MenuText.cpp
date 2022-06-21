@@ -1,7 +1,7 @@
 #include "MenuText.h"
 #include "Camera.h"
 
-MenuText::MenuText(SdlTexture &texture,
+MenuText::MenuText(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,

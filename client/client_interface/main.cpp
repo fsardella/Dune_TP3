@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
         //std::cout << "el numero de casa es: " << client.houseNumber;
         //std::cout << "el nombre del juego es" << client.game_name;
         //std::cout << "el mapa del juego es" << client.map_name;
+        std::cout << "voy a runnear sdl\n";
         client.client_run();
 
     } catch (const std::exception &e) {

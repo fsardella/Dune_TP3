@@ -25,10 +25,10 @@ class GameView {
     GameView& operator=(GameView&& other) = delete;
 
     void render();
-    void buildMap(int height, int width, std::vector<std::vector<int>> map);
+    void buildMap(int height, int width, std::vector<std::vector<uint8_t>> map);
     //void buildUnit(int x, int y, int unitType, int unitId);
     void buildUnit(int x, int y, int unitType, int unitId, int house, bool property, int animationId);
-    // void buildUnits(std::map<int, std::tuple<int, int, int, bool>> units);
+    void buildUnits(std::map<int, std::tuple<int, int, int, bool>> units);
     void setSize(int newWidth, int newHeight);
     void shutdown();
     bool isRunning();
@@ -39,6 +39,8 @@ class GameView {
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
+
+    void update(int delta);
 
     ~GameView();
 
