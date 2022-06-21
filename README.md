@@ -28,18 +28,14 @@
 Se debe ejecutar primero el Server y luego el Client. 
 
 # Dependencias
- - clang
- - make
- - build-essential
- - qt5-default
- - libqt5multimedia5-plugins
- - qtmultimedia5-dev
- - libyaml-cpp-dev
- - libsdl2-dev
- - libsdl2-image-dev
- - libsdl2-gfx-dev
- - libsdl2-mixer-dev
- - libsdl2-ttf-dev
+  - make
+  - build-essential
+  - qt5-default
+  - yaml-cpp https://github.com/jbeder/yaml-cpp
+  - libsdl2-dev
+  - libsdl2-image-dev
+  - libsdl2-gfx-dev
+  - libsdl2-ttf-dev
 
 # Alcance de la Entrega
 
