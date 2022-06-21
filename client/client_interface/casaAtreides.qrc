@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="cct">
+    <file>d2katreides.png</file>
+  </qresource>
+</RCC>

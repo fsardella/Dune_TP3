@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+69de7816ba5cf7d70bce29563fb34655 CMakeFiles/client_interface_autogen
+b1002df06fcdf72cde7a4c38b70883b9 client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp
+727fc07c57013e3d613fcc212d4aa9f4 lib/libSDL2pp/CMakeFiles/SDL2pp_autogen

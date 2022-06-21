@@ -1,0 +1,9 @@
+width: 800
+height: 600
+fullscreen: false
+
+background:
+ - ["sand", "../larger_sand.bmp"]
+
+unit:
+- ["trike", "../trike.bmp"]

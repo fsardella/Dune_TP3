@@ -1,0 +1,17 @@
+amount: 1
+
+0_animationAmount: 2
+
+0_0:
+  - "../client/animations/s.bmp"
+  - "../client/animations/sw1.bmp"
+  - "../client/animations/sw2.bmp"
+  - "../client/animations/sw3.bmp"
+  - "../client/animations/sw4.bmp"
+
+0_1:
+  - "../client/animations/w.bmp"
+  - "../client/animations/wn1.bmp"
+  - "../client/animations/wn2.bmp"
+  - "../client/animations/wn3.bmp"
+  - "../client/animations/wn4.bmp"

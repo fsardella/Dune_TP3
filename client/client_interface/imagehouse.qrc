@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/d2kordos.png</file>
+        <file>images/d2kharkonnen.png</file>
+        <file>images/d2katreides.png</file>
+    </qresource>
+</RCC>
