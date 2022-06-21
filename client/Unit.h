@@ -1,14 +1,20 @@
 #ifndef __UNIT_H__
 #define __UNIT_H__
 
-#include "Renderizable.h"
 #include "Animation.h"
+#include "Camera.h"
 
-class Unit : public Renderizable{
-    Animation animation;
+class Unit {
+    std::vector<Animation> animations;
+    std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
+    int sizeW;
+    int sizeH;
+    float posX;
+    float posY;
     bool propiety;
     int house;
-    int rescaling;
+    int animationId;
+    SdlTexture* texture;
 
     public:
     /*Unit(SdlTexture &texture,
@@ -18,16 +24,16 @@ class Unit : public Renderizable{
            float posY,
            int unitId);*/
 
-    Unit(Animation animation,
+    Unit(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
             int sizeW,
             int sizeH,
             float posX,
             float posY,
             bool property,
-            int house);
+            int house,
+            int animationId);
 
-    void render(Camera &camera) override;
-    int render(Camera &camera, int posX, int posY) override;
+    int render(Camera &camera, int posX, int posY);
 
     Unit(const Unit& other) = delete;
     Unit& operator=(const Unit& other) = delete;
@@ -35,14 +41,15 @@ class Unit : public Renderizable{
     Unit(Unit&& other);
     Unit& operator=(Unit&& other);
 
+    void getTexture();
+
     float getX();
 
     float getY();
 
     void update(int delta);
 
-    ~Unit() override;
-
+    ~Unit();
 };
 
 

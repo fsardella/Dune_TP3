@@ -44,13 +44,6 @@ void SdlWindow::renderRect(SDL_Rect& r) {
 }
 
 int SdlWindow::handleRender(SDL_Texture* txt, const SDL_Rect& src, const SDL_Rect& dst) {
-	std::cout << "entro a render de window\n";
-	// std::cout << "con pos " << src.x << " " << src.y << std::endl;
-	// std::cout << "con pos dest " << dst.x << " " << dst.y << std::endl;
-	// std::cout << "con tam " << src.h << " " << src.w << std::endl;
-	// std::cout << "con dest " << dst.h << " " << dst.w << std::endl;
-	if (txt == nullptr) std::cout << "era null\n";
-	if (txt == NULL) std::cout << "era null\n";
 	return SDL_RenderCopy(rendererPtr, txt, &src, &dst);
 }
 
@@ -72,14 +65,6 @@ int SdlWindow::handleRender(SDL_Texture *txt, const SDL_Rect &src, const SDL_Rec
     SDL_SetTextureAlphaMod(txt, alpha);
     return SDL_RenderCopyEx(rendererPtr, txt, &src, &dst, 0, nullptr, SDL_FLIP_NONE);
 }
-/*
-int SdlWindow::handleRender(SDL_Texture *texture,  const SDL_Rect &src, const SDL_Rect &dst) {
-    SDL_SetRenderDrawColor(rendererPtr, 0, 0, 0, 0);
-    SDL_RenderClear(rendererPtr);
-   
-    SDL_RenderCopy(rendererPtr, texture, &src, &dst);
-    SDL_RenderPresent(rendererPtr);
-}*/
 
 SdlWindow::~SdlWindow() {
 	if (this->rendererPtr) {

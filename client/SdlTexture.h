@@ -10,16 +10,16 @@
 #include "Area.h"
 
 class SdlTexture {
-	SdlWindow& window;
+	SdlWindow* window;
 	SDL_Texture* texture;
 
 	int width;
 	int height;
 
     public:
-    SdlTexture(SdlWindow &window, TTF_Font* font, std::string text);
-	SdlTexture(const std::string& filename, SdlWindow& window);
-    SdlTexture(const std::string &filename, SdlWindow &window,
+    SdlTexture(SdlWindow* window, TTF_Font* font, std::string text);
+	SdlTexture(const std::string& filename, SdlWindow* window);
+    SdlTexture(const std::string& filename, SdlWindow* window,
                             bool color);
 
     SdlTexture(const SdlTexture& other) = delete;

@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "Renderizable.h"
 
 #include <iostream>
 
@@ -45,7 +44,6 @@ void Camera::renderInSight(SdlTexture* texture, Area& src, float posX, float pos
 }
 
 int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, float posY) {
-    std::cout << "entra a renderInsightForUnit\n";
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return SUCCESS;
@@ -64,7 +62,6 @@ int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, flo
         returnValue = 1;
     }
     Area dst(newX, newY, txtWidth, txtHeight);
-    std::cout << "entra a render de texture\n";
     texture->render(src, dst);
     return returnValue;
 }

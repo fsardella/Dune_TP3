@@ -43,7 +43,6 @@ void BlockingQueue<T>::push(T element) {
         throw ClosedQueueException();
     queueLock_t lock(m);
     blockedQueue.push(std::move(element));
-    std::cout << "pushie\n";
     notEmpty.notify_all();
 }
 
@@ -54,7 +53,6 @@ T BlockingQueue<T>::pop() {
     queueLock_t lock(m);
     // T value;
     notEmpty.wait(lock, [this]{return !blockedQueue.empty() || closed;});
-    std::cout << "termine de esperar porque no estoy vacia\n";
     if (this->closed)
         throw ClosedQueueException();
     T value = std::move(blockedQueue.front());
@@ -64,7 +62,6 @@ T BlockingQueue<T>::pop() {
 
 template <class T>
 void BlockingQueue<T>::close() {
-    std::cout << "ME CERRARON\n";
     this->closed = true;
     notEmpty.notify_all();
 }

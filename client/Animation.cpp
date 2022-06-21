@@ -2,25 +2,25 @@
 
 #include <iostream>
 
-Animation::Animation(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository): 
-    animationsRepository(newAnimationsRepository),
+Animation::Animation(std::vector<SdlTexture*> frames): 
+    frames(frames),
     currentAnimation(0),
     currentTime(0)
 {
-    int animationSize = animationsRepository.size();
+    int animationSize = frames.size();
     animationTime = animationSize * FRAME_DURATION;
 }
 
 Animation::~Animation() {
 }
 
-SdlTexture& Animation::getTexture() {
-    // std::cout << currentTime << std::endl;
-    return animationsRepository.at(std::make_tuple(0, currentAnimation));
+SdlTexture* Animation::getTexture() {
+    if (currentAnimation < 0) currentAnimation = 0;
+    return frames.at(currentAnimation);
 }
 
 void Animation::update(int delta) {
-    animationTime = animationsRepository.size() * FRAME_DURATION;
+    animationTime = frames.size() * FRAME_DURATION;
 
     currentTime += delta;
     currentTime %= animationTime;
@@ -28,6 +28,6 @@ void Animation::update(int delta) {
 }
 
 Animation::Animation(Animation &&other)
-: animationsRepository(other.animationsRepository),
+: frames(std::move(other.frames)),
 currentAnimation(other.currentAnimation) {
 }

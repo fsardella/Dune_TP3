@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Unit.h"
-#include "Camera.h"
 /*
 Unit::Unit(SdlTexture &texture,
         int sizeW,
@@ -11,16 +10,33 @@ Unit::Unit(SdlTexture &texture,
     rescaling = 1;
 }*/
 
-Unit::Unit(Animation animation, 
+#define FRAMES_AMOUNT 5
+
+Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository, 
             int sizeW,
             int sizeH,
             float posX,
-            float posY, bool property, int house)
-: Renderizable(&animation.getTexture(), sizeW, sizeH, posX, posY), animation(std::move(animation)), propiety(true), house(house) {
-    rescaling = 1;
-}
-
-void Unit::render(Camera &camera) {
+            float posY,
+            bool property,
+            int house,
+            int animationId)
+: animationsRepository(newAnimationsRepository), 
+  sizeW(sizeW),
+  sizeH(sizeH),
+  posX(posX),
+  posY(posY),
+  propiety(true),
+  house(house),
+  animationId(animationId) 
+{
+    for (size_t i = 0; i < newAnimationsRepository.size() / 5; i ++) {
+        std::vector<SdlTexture*> textures;
+        for (int j = 0; j < FRAMES_AMOUNT; j ++) {
+            textures.push_back(&(animationsRepository.at(std::make_tuple(i, j))));
+        }
+        animations.emplace_back(textures);
+    }
+    getTexture();
 }
 
 int Unit::render(Camera &camera, int posX, int posY) {
@@ -36,16 +52,26 @@ float Unit::getY() {
     return posY;
 }
 
+void Unit::getTexture() {
+    texture = animations.at(animationId).getTexture();
+}
+
 void Unit::update(int delta) {
-    animation.update(delta);
-    setTexture(&animation.getTexture());
+    animations.at(animationId).update(delta);
+    getTexture();
 }
 
 Unit::Unit(Unit &&other)
-: Renderizable(std::move(other)),
-  animation(std::move(other.animation)),
+: animations(std::move(other.animations)),
+  animationsRepository(other.animationsRepository),
+  sizeW(other.sizeW),
+  sizeH(other.sizeH),
+  posX(other.posX),
+  posY(other.posY),
   propiety(other.propiety),
-  rescaling(other.rescaling) {
+  house(other.house),
+  animationId(other.animationId),
+  texture(other.texture) {
 }
 
 Unit::~Unit() {

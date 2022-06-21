@@ -8,9 +8,7 @@ protocolClient(protocol), blockingQueue(blockingQueue) {
 void ServerDespatcher::run() {
     while(true) {
         try {
-            std::cout << "quiero desencolar\n";
-            ClientInput clientInput(std::move(blockingQueue->pop())); 
-            std::cout <<  "aca " << clientInput.getPosX() << " " << clientInput.getPosY() << std::endl;
+            ClientInput clientInput(std::move(blockingQueue->pop()));
             protocolClient->sendUnitConstructionPetition(clientInput.getPosX() / 4, clientInput.getPosY() / 4, 1);
         } catch (const ClosedQueueException& e) {
             std::cout << "la cola se cerro inesperadamente 1\n";

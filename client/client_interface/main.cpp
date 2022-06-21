@@ -37,10 +37,6 @@ int main(int argc, char *argv[])
         if (app.exec()) {
             throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
         }
-        //std::cout << "el numero de casa es: " << client.houseNumber;
-        //std::cout << "el nombre del juego es" << client.game_name;
-        //std::cout << "el mapa del juego es" << client.map_name;
-        std::cout << "voy a runnear sdl\n";
         client.client_run();
 
     } catch (const std::exception &e) {

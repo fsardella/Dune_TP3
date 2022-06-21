@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-SdlTexture::SdlTexture(const std::string& filename, SdlWindow& window)
+SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 : window(window),
   texture(nullptr) {
 	SDL_Surface* tmp = IMG_Load(filename.c_str());
@@ -13,7 +13,7 @@ SdlTexture::SdlTexture(const std::string& filename, SdlWindow& window)
 		return;
 	}
 
-	this->texture = window.createTexture(tmp);
+	this->texture = window->createTexture(tmp);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
 	width = tmp->w;
@@ -22,7 +22,7 @@ SdlTexture::SdlTexture(const std::string& filename, SdlWindow& window)
 	SDL_FreeSurface(tmp);
 }
 
-SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool color)
+SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, bool color)
 : window(window),
   texture(nullptr) {
     SDL_Surface* tmp = IMG_Load(filename.c_str());
@@ -32,7 +32,7 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool colo
 
     SDL_SetColorKey(tmp, SDL_TRUE, SDL_MapRGB(tmp->format, 0, 0, 0));
 
-    this->texture = window.createTexture(tmp);
+    this->texture = window->createTexture(tmp);
 
 	width = tmp->w;
 	height = tmp->h;
@@ -40,7 +40,7 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow &window, bool colo
     SDL_FreeSurface(tmp);
 }
 
-SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
+SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
 : window(window),
   texture(nullptr) {
     TTF_Init();
@@ -50,7 +50,7 @@ SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), textColor);
 
-    this->texture = window.createTexture(surface);
+    this->texture = window->createTexture(surface);
 
     width = surface->w;
     height = surface->h;
@@ -61,8 +61,7 @@ SdlTexture::SdlTexture(SdlWindow &window, TTF_Font* font, std::string text)
 int SdlTexture::render(const Area& src, const Area& dest) const{
 	const SDL_Rect srcRect = src.buildRectangle();
 	const SDL_Rect destRect = dest.buildRectangle();
-    std::cout << "entro a render de texture y ahora entraria a render de window\n";
-	return window.handleRender(texture, srcRect, destRect);
+	return window->handleRender(texture, srcRect, destRect);
 }
 
 SdlTexture::~SdlTexture() {

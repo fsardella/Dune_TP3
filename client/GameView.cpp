@@ -10,8 +10,6 @@ GameView::~GameView() {
 }
 
 void GameView::buildMap(int height, int width, std::vector<std::vector<uint8_t>> mapMatrix) {
-    std::cout << height << std::endl;
-    std::cout << width << std::endl;
     std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.setMapSize(width, height);
 	map.createMap(height, width, std::move(mapMatrix));
@@ -23,21 +21,12 @@ void GameView::buildUnit(int x, int y, int unitType, int unitId) {
 }
 */
 void GameView::buildUnit(int x, int y, int unitType, int house, bool property, int animationId) {
-    // std::lock_guard<std::mutex> lock(gameViewMutex);
     map.createUnit(x, y, unitType, house, property, animationId);
 }
 
 void GameView::buildUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>> units) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     for (const auto& [key, value] : units) {
-        // ver como hacer lo de los ids
-        // std::cout << "x " << std::get<0>(value) << std::endl; 
-        // std::cout << "y " << std::get<1>(value) << std::endl;
-        // std::cout << "type " << key << std::endl; 
-        // std::cout << "id " << 1 << std::endl; 
-        // std::cout << "house " << std::get<2>(value) << std::endl; 
-        // std::cout << "bool " << std::get<3>(value) << std::endl; 
-        // std::cout << "anim id " << 0 << std::endl;
         buildUnit(std::get<0>(key), std::get<1>(key), std::get<0>(value), std::get<1>(value), std::get<2>(value), 0);
     }
 }

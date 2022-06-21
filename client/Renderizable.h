@@ -1,5 +1,6 @@
 #ifndef RENDERIZABLE_H
 #define RENDERIZABLE_H
+
 #include "SdlTexture.h"
 
 class Camera;

@@ -239,16 +239,13 @@ void ProtocolClient::recvListOfMaps(std::list<std::string>& list) {
 	uint16_t numberOfMapsConvert = 0;
 	socket.recvall(&numberOfMapsConvert, 2);
 	int numberOfMaps = convert_from_uint16_with_endianess(numberOfMapsConvert);
-	std::cout << "cant de mapas " << numberOfMaps << std::endl;
 	for(int i = 0; i < numberOfMaps; i++) {
 		uint16_t nameSizeConvert = 0;
 		socket.recvall(&nameSizeConvert, 2);
 		int nameSize = convert_from_uint16_with_endianess(nameSizeConvert);
-		std::cout << nameSize << std::endl;
 		std::string mapName;
 		mapName.resize(nameSize);
 		socket.recvall(&mapName[0], nameSize);
-		std::cout << mapName << std::endl;
 		list.push_back(mapName);
 	}
 }
@@ -295,19 +292,10 @@ void ProtocolClient::sendUnitConstructionPetition(int x, int y, int type) {
 void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map) {
 	int rows = recieve_msg_count(); // mejorar nombre de metodo
 	int cols = recieve_msg_count(); // mejorar nombre de metodo
-	std::cout << "rows " <<  rows << std::endl;
-	std::cout << "cols " <<  cols << std::endl;
 	for (int i = 0; i < rows; i ++) {
 		std::vector<uint8_t> row;
 		row.resize(cols);
 		socket.recvall(&row[0], cols);
-
-		// for (int j = 0; j < cols; j ++) {
-		// 	int tile = recieve_msg_count();
-		// 	// std::cout << "tile " << tile << std::endl;
-		// 	row.push_back(tile);
-		// }
-
 		map.push_back(std::move(row));
 	}
 	*height = rows;

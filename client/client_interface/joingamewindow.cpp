@@ -19,9 +19,6 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     std::list <std::string>list;
     newClient->sendListGamesOperation();
     newClient->recvListOfGames(list);
-    // list.push_back("Tres amigos"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
-    // list.push_back("Dune version");
-    // list.push_back("Dos amigos");
     int size = list.size();
     for(int i = 0 ; i < size ; i++) {
         QString str = QString::fromStdString(list.back());
@@ -56,8 +53,6 @@ void JoinGameWindow::on_joinGameButton_clicked()
     newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendJoinGameOperation();
     int result = newClient->recvOperationResult();
-    std::cout << "result join " << result << std::endl;
-    // this->close();
     this->showWaitingWindow();
 }
 

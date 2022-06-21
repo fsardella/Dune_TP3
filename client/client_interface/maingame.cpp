@@ -26,7 +26,6 @@ MainGame::~MainGame()
 void MainGame::on_createGameButton_clicked()
 {
     this->close();
-    std::cout << "llegue\n";
     CreateGameWindow createGameWindow(NULL, newClient);
     createGameWindow.setModal(true);
     createGameWindow.showMaximized();

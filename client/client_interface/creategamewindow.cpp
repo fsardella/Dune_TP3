@@ -19,14 +19,8 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     std::list<std::string> list;
     // newClient->sendListMapsOperation();
     newClient->sendCreateGameOperation();
-    std::cout << "antes de recibir lista\n";
     newClient->recvListOfMaps(list);
-    std::cout << "desp de recibir lista\n";
-    // list.push_back("Mapa 1"); //esto ya no iria si cargo anteriormente la lista con lo que manda el server.
-    // list.push_back("Mapa 2");
-    // list.push_back("Mapa 3");
     int size = list.size();
-    std::cout << size << std::endl;
     for(int i = 0; i < size; i++) {
         QString str = QString::fromStdString(list.back());
         this->ui->listWidget->addItem(str);
@@ -42,13 +36,10 @@ CreateGameWindow::~CreateGameWindow()
 void CreateGameWindow::showWaitingWindow()
 {
     this->close();
-    std::cout << "abro ventana de waiting\n";
     WaitingWindow waitingWindow(NULL, this->newClient);
-    std::cout << "se creo ventana\n";
     waitingWindow.setModal(true);
     waitingWindow.showMaximized();
     waitingWindow.exec();
-    std::cout << "voy a entrar al wait\n";
     waitingWindow.wait();
 }
 
@@ -70,7 +61,5 @@ void CreateGameWindow::on_createGameButton_clicked()
     newClient->chooseMapName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendCreateGameInfo();
     int result = newClient->recvOperationResult();
-    std::cout << "result a create " << result << std::endl;
-    // this->close();
     this->showWaitingWindow();
 }
