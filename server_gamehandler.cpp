@@ -45,10 +45,8 @@ bool GameHandler::endedRun() {
 void GameHandler::addNewUnit(Command comm) {
     int x = (int) comm.pop16BytesMessage();
     int y = (int) comm.pop16BytesMessage();
-    std::cout << x << " " << y << "\n";
     // TODO TRADUCIR EL TYPE
     bool result = this->game.addUnit(comm.getSender(), x, y);
-    std::cout << "result: " << result << "\n";
     if (!result)
         this->notifyError(comm);
     else

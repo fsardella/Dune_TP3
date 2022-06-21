@@ -14,10 +14,7 @@ queueToKill(queueToKill) {}
 Command Broadcaster::getUnits(std::string recvName) {
     Command comm;
     std::map<std::string, std::list<UnitData>> units = this->game.getUnits();
-    int totalQuantity = 0;
-    for (const auto& u: units) {
-        totalQuantity += u.second.size();   
-    }
+    int totalQuantity = units.size();
     comm.add16BytesMessage((uint16_t)totalQuantity);
 
 
