@@ -27,7 +27,7 @@ uint8_t Command::getType() {
 }
 
 void Command::reserve(const size_t newSize) {
-    this->command.reserve(newSize);
+    this->command.resize(newSize);
 }
 
 void Command::changeSender(const std::string newName) {

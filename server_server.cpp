@@ -45,10 +45,10 @@ void Server::server_run() {
     try {
         while(true) {
             Game newGame = std::move(this->playableGames.pop());
-            GameHandler* newGameThread = new GameHandler(std::move(newGame), this->talkers);
-            this->activeGames.push_back(newGameThread);
-            //DEBUG
             std::cout << "Comenzando Game " << newGame.get_name() << "..." << std::endl;
+            GameHandler* newGameThread = new GameHandler(std::move(newGame), this->talkers);
+            newGameThread->start();
+            this->activeGames.push_back(newGameThread);
             this->cleanGames();
         }
     } catch (const ClosedQueueException&) {

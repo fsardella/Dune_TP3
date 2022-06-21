@@ -117,6 +117,7 @@ void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
     }
     this->commandQueue = newGameQueue;
     this->sender = new Sender(sendingQueue, this->protocol);
+    this->sender->start();
 }
 
 
@@ -131,20 +132,25 @@ void Talker::run() {
 	while (this->finishedThread() == false) {
 		try {
             int operation = protocol.recieve_msg_operation();
-            
+            std::cout << "recibi la operacion: " << unsigned(operation) << std::endl;
             // GAME
             if (this->sender != nullptr) {
                 Command comm;
-                comm.setType(operation);
                 //int unitType = 0; // TODO que haga algo...
                 switch (operation) {
                     case NEW_UNIT:
                         comm.reserve(5);
                         comm = protocol.recvCommand(5);
+                        comm.setType(operation);
+                        for (int i = 0; i < 5; i ++) {
+                            std::cout << unsigned(comm.getPointer()[i]) << " ";
+                        }
+                        std::cout << "\n";
                         comm.changeSender(this->playerName);
+                        std::cout << "ultima operacion: " << unsigned(comm.getType()) << std::endl;
+                        this->commandQueue->push(comm);
                         break;
                 }
-                this->commandQueue->push(comm);
                 continue;
             }
             
@@ -163,21 +169,28 @@ void Talker::run() {
 				    list_games();
 				    break;
 			    case CREAR:
+                    this->list_maps();
+                    std::cout << "entre\n";
                     bytes = protocol.recieve_msg_bytes();
+                    std::cout << "recibido " << bytes << std::endl;
 				    std::string game_name = protocol.recieve_msg_game_name(bytes);
-				    this->list_maps();
+                    std::cout << "recibido " << game_name << std::endl;
 				    bytes = protocol.recieve_msg_bytes();
 				    std::string yamlPath = protocol.recieve_msg_game_name(bytes);
                     std::cout << "El mapa recibido es " << yamlPath << std::endl;
                     yamlPath = "DEBUG_YAML_PATH"; // DEBUG
                     house = protocol.recieve_msg_house();
 				    //int required = readYaml(required);
-                    int required = 2;
+                    int required = 1;
                     result = create_game(house,required,game_name, yamlPath);
 				    protocol.send_msg_result(result);
 			        break;
             }
         } catch (ClosedSocketException const&) {
+            if (this->sender == nullptr) {
+                this->finish = true;
+                return;   
+            }
             Command comm;
             comm.setType(DISCONNECT);
             comm.changeSender(this->playerName);

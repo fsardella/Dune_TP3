@@ -201,7 +201,8 @@ Command ProtocolServer::recvCommand(int size) {
 }
 
 void ProtocolServer::sendString(const std::string& data) {
-    uint16_t size = data.size();
-    this->socket.sendall(&size, 2);
+	int size = data.size();
+	uint16_t newSize = convert_to_uint16_with_endianess(size);
+    this->socket.sendall(&newSize, 2);
     this->socket.sendall(&data[0], size);
 }

@@ -5,7 +5,7 @@
 #include <utility>
 #include <stdint.h>
 
-#define DISCONNECT 3
+#define DISCONNECT 4
 #define NEW_UNIT 5
 
 GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
@@ -21,11 +21,14 @@ GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
 
 void GameHandler::processCommand(Command comm) {
     uint8_t commandType = comm.getType();
+    std::cout << "processing comand: " << unsigned(commandType) << std::endl;
     switch (commandType) { // Posible diccionario!
         case DISCONNECT:
+            std::cout << "Recibi request de disconnect de " << comm.getSender() << std::endl;
             this->disconnect(comm);
             break;
         case NEW_UNIT:
+            std::cout << "Recibi request de creacion de " << comm.getSender() << std::endl;
             this->addNewUnit(comm);
             break;
     }
@@ -42,8 +45,10 @@ bool GameHandler::endedRun() {
 void GameHandler::addNewUnit(Command comm) {
     int x = (int) comm.pop16BytesMessage();
     int y = (int) comm.pop16BytesMessage();
+    std::cout << x << " " << y << "\n";
     // TODO TRADUCIR EL TYPE
     bool result = this->game.addUnit(comm.getSender(), x, y);
+    std::cout << "result: " << result << "\n";
     if (!result)
         this->notifyError(comm);
     else
@@ -68,12 +73,15 @@ void GameHandler::notifySuccess(Command comm) {
 
 void GameHandler::run() {
     Command comm;
-    Broadcaster broad(this->game, this->playersQueue);
+    Broadcaster broad(this->game, this->playersQueue, this->commandQueue);
     broad.start();
     // TimeSorcerer.start()
-    while (this->game.isAlive()) {
-        comm = commandQueue.pop();
-        this->processCommand(comm);
+    try {
+        while (this->game.isAlive()) {
+            comm = commandQueue.pop();
+            this->processCommand(comm);
+        }
+    } catch(const ClosedQueueException& e) {
     }
     this->ended = true;
 }

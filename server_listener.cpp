@@ -74,7 +74,6 @@ void Listener::stopListening() {
 Pre-Condiciones: -
 Post-Condiciones: Destructor del escuchador de Clientes.
 */
-
 Listener::~Listener() {
 	if (this->listening)
         this->socket_original.closeSkt();

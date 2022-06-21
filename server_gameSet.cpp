@@ -50,6 +50,11 @@ int GameSet::add_game(int house, int required, const std::string& game_name,
 		Game newGame(required, game_name, mapPath);
 		newGame.add_participant(house, playerName);
 		this->games[game_name] = std::move(newGame);
+		if (this->game_complete(game_name)) {
+            readyGames.push(std::move(this->games[game_name]));
+            this->games.erase(game_name);
+			//std::cout << "Comenzando Game " << game_name << "..." << std::endl;
+		}
 		return SUCCESS;
 	}
 }
