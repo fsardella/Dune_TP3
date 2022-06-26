@@ -1,0 +1,323 @@
+{
+	"BUILD_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/client_interface_autogen",
+	"CMAKE_BINARY_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3",
+	"HEADERS" : 
+	[
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h",
+			"MU",
+			"7EM65HM6UG/moc_Animation.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h",
+			"MU",
+			"7EM65HM6UG/moc_Area.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.h",
+			"MU",
+			"7EM65HM6UG/moc_BackGroundTile.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BlockingQueue.h",
+			"MU",
+			"7EM65HM6UG/moc_BlockingQueue.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.h",
+			"MU",
+			"7EM65HM6UG/moc_Camera.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h",
+			"MU",
+			"7EM65HM6UG/moc_ClientInput.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h",
+			"MU",
+			"7EM65HM6UG/moc_Construction.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.h",
+			"MU",
+			"7EM65HM6UG/moc_Drawer.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h",
+			"MU",
+			"7EM65HM6UG/moc_GameView.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.h",
+			"MU",
+			"7EM65HM6UG/moc_MapView.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h",
+			"MU",
+			"7EM65HM6UG/moc_MenuImage.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h",
+			"MU",
+			"7EM65HM6UG/moc_MenuText.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h",
+			"MU",
+			"7EM65HM6UG/moc_Renderizable.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h",
+			"MU",
+			"7EM65HM6UG/moc_SdlTexture.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h",
+			"MU",
+			"7EM65HM6UG/moc_SdlWindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h",
+			"MU",
+			"7EM65HM6UG/moc_ServerDespatcher.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.h",
+			"MU",
+			"7EM65HM6UG/moc_ServerReceiver.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h",
+			"MU",
+			"7EM65HM6UG/moc_Unit.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.h",
+			"MU",
+			"7EM65HM6UG/moc_UserInputReceiver.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h",
+			"MU",
+			"7EM65HM6UG/moc_client_client.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h",
+			"MU",
+			"K7CYFOAWVM/moc_choosehouse.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.h",
+			"MU",
+			"K7CYFOAWVM/moc_creategamewindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.h",
+			"MU",
+			"K7CYFOAWVM/moc_joingamewindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h",
+			"MU",
+			"K7CYFOAWVM/moc_maingame.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h",
+			"MU",
+			"K7CYFOAWVM/moc_mainwindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h",
+			"MU",
+			"K7CYFOAWVM/moc_waitingWindow.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h",
+			"MU",
+			"7EM65HM6UG/moc_client_protocol.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.h",
+			"MU",
+			"7EM65HM6UG/moc_common_resolver.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h",
+			"MU",
+			"7EM65HM6UG/moc_common_socket.cpp"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h",
+			"MU",
+			"7EM65HM6UG/moc_thread.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/client_interface_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/client_interface_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/build",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp",
+		"/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/client/client_interface/lib/libSDL2pp",
+		"/usr/include/SDL2",
+		"/usr/include/x86_64-linux-gnu/qt5",
+		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
+		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include/c++/9",
+		"/usr/include/x86_64-linux-gnu/c++/9",
+		"/usr/include/c++/9/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/9/include",
+		"/usr/local/include",
+		"/usr/include/x86_64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/client_interface_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 2,
+	"PARSE_CACHE_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/CMakeFiles/client_interface_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"SETTINGS_FILE" : "/home/pilar/Escritorio/tp3_taller/Dune_TP3/build/CMakeFiles/client_interface_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/BackGroundTile.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Camera.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Drawer.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MapView.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerReceiver.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.cpp", "MU" ],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/UserInputReceiver.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/main.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_resolver.cpp",
+			"MU"
+		],
+		[
+			"/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.cpp",
+			"MU"
+		],
+		[ "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.cpp", "MU" ]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

@@ -97,7 +97,7 @@ void Client::client_run() {
 	drawer.join();
 	inputReceiver.join();
 	serverDespatcher.join();
-	receiver.join();
+	receiver.join();	
 }
 
 void Client::sendUserName(std::string userName) {

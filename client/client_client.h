@@ -27,6 +27,7 @@
 
 
 class Client {
+	bool readyToRun;
 	int houseNumber;
 	std::string gameName;
 	std::string mapName;
@@ -34,6 +35,7 @@ class Client {
 	public:
 	ProtocolClient protocol; //get protocol despues
 	Client();
+	void setReadyToRun();
 	void setConnection(const char* name_host, const char* service_port);
 	void client_run();
 	void chooseNumberHouse(std::string house);
