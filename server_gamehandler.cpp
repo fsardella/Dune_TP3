@@ -5,7 +5,7 @@
 #include <utility>
 #include <stdint.h>
 
-#define DISCONNECT 3
+#define DISCONNECT 4
 #define NEW_UNIT 5
 
 GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
@@ -23,9 +23,11 @@ void GameHandler::processCommand(Command comm) {
     uint8_t commandType = comm.getType();
     switch (commandType) { // Posible diccionario!
         case DISCONNECT:
+            std::cout << "Recibi request de disconnect de " << comm.getSender() << std::endl;
             this->disconnect(comm);
             break;
         case NEW_UNIT:
+            std::cout << "Recibi request de creacion de " << comm.getSender() << std::endl;
             this->addNewUnit(comm);
             break;
     }
@@ -68,12 +70,16 @@ void GameHandler::notifySuccess(Command comm) {
 
 void GameHandler::run() {
     Command comm;
-    Broadcaster broad(this->game, this->playersQueue);
+    Broadcaster broad(this->game, this->playersQueue, this->commandQueue);
     broad.start();
-    // TimeSorcerer.start()
-    while (this->game.isAlive()) {
-        comm = commandQueue.pop();
-        this->processCommand(comm);
+    TimeWizard wizard(this->game);
+    wizard.start();
+    try {
+        while (this->game.isAlive()) {
+            comm = commandQueue.pop();
+            this->processCommand(comm);
+        }
+    } catch(const ClosedQueueException& e) {
     }
     this->ended = true;
 }

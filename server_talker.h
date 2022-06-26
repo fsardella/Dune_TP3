@@ -8,13 +8,13 @@
 #include <string>
 
 #include "common_blockingqueue.h"
-#include "server_command.h"
+#include "common_command.h"
 #include "server_sender.h"
 
 #define CREAR 3
 #define UNIRSE 1
 #define LISTAR 2
-#define DISCONNECT 3
+#define DISCONNECT 4
 #define NEW_UNIT 5
 
 class Talker: public Thread {

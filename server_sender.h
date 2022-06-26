@@ -4,7 +4,7 @@
 
 #include "common_thread.h"
 #include "common_blockingqueue.h"
-#include "server_command.h"
+#include "common_command.h"
 #include "server_protocol.h"
 
 class Sender : public Thread {

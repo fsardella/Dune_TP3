@@ -4,17 +4,17 @@
 #include <cstdlib>
 #include <iostream>
 
-Broadcaster::Broadcaster(ActiveGame& game, queueMap_t& queues): game(game),
-                                                  queues(queues) {}
+Broadcaster::Broadcaster(ActiveGame& game, queueMap_t& queues,
+                         BlockingQueue<Command>& queueToKill)
+: game(game),
+queues(queues),
+queueToKill(queueToKill) {}
 
 
 Command Broadcaster::getUnits(std::string recvName) {
     Command comm;
     std::map<std::string, std::list<UnitData>> units = this->game.getUnits();
-    int totalQuantity = 0;
-    for (const auto& u: units) {
-        totalQuantity += u.second.size();   
-    }
+    int totalQuantity = units.size();
     comm.add16BytesMessage((uint16_t)totalQuantity);
 
 
@@ -25,7 +25,7 @@ Command Broadcaster::getUnits(std::string recvName) {
             for (UnitData data : u.second) {
                 comm.add16BytesMessage((uint16_t)data.getPos().second);
                 comm.add16BytesMessage((uint16_t)data.getPos().first);
-                comm.add8BytesMessage(1); // Unit Type
+                comm.add8BytesMessage(0); // Unit Type
             }
         }
     }
@@ -39,7 +39,7 @@ Command Broadcaster::getUnits(std::string recvName) {
         for (UnitData data : u.second) {
             comm.add16BytesMessage((uint16_t)data.getPos().second);
             comm.add16BytesMessage((uint16_t)data.getPos().first);
-            comm.add8BytesMessage(1); // Unit Type
+            comm.add8BytesMessage(0); // Unit Type
         }
     }
 
@@ -82,6 +82,7 @@ void Broadcaster::run() {
         usleep(DELTA - (after - before));
     } while (countPlayers > 0);
     this->game.endGame();
+    this->queueToKill.close();
 }
 
 

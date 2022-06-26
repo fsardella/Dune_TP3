@@ -15,7 +15,7 @@
 #include "server_gamedata.h"
 #include "server_gameSet.h"
 
-#include "server_command.h"
+#include "common_command.h"
 #include <exception>
 #include <stdexcept>
 
@@ -117,6 +117,7 @@ void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
     }
     this->commandQueue = newGameQueue;
     this->sender = new Sender(sendingQueue, this->protocol);
+    this->sender->start();
 }
 
 
@@ -131,25 +132,39 @@ void Talker::run() {
 	while (this->finishedThread() == false) {
 		try {
             int operation = protocol.recieve_msg_operation();
-            
+            int bytes;
             // GAME
             if (this->sender != nullptr) {
                 Command comm;
-                comm.setType(operation);
                 //int unitType = 0; // TODO que haga algo...
                 switch (operation) {
+                    case UNIRSE: // Estan para evitar race conditions
+                        bytes = protocol.recieve_msg_bytes();
+				        protocol.recieve_msg_game_name(bytes);
+                        protocol.recieve_msg_house();
+				        break; // IGNORE COMMAND!
+			        case CREAR: // Estan para evitar race conditions
+                        bytes = protocol.recieve_msg_bytes();
+				        protocol.recieve_msg_game_name(bytes);
+				        bytes = protocol.recieve_msg_bytes();
+				        protocol.recieve_msg_game_name(bytes);
+                        protocol.recieve_msg_house();
+			            break; // IGNORE COMMAND!
+
+
                     case NEW_UNIT:
                         comm.reserve(5);
                         comm = protocol.recvCommand(5);
+                        comm.setType(operation);
                         comm.changeSender(this->playerName);
+                        this->commandQueue->push(comm);
                         break;
                 }
-                this->commandQueue->push(comm);
                 continue;
             }
             
             // LOBBY
-            int house, bytes, result;
+            int house, result;
             std::string game_name;
             switch(operation) {
 			    case UNIRSE:
@@ -163,12 +178,11 @@ void Talker::run() {
 				    list_games();
 				    break;
 			    case CREAR:
+                    this->list_maps();
                     bytes = protocol.recieve_msg_bytes();
 				    std::string game_name = protocol.recieve_msg_game_name(bytes);
-				    this->list_maps();
 				    bytes = protocol.recieve_msg_bytes();
 				    std::string yamlPath = protocol.recieve_msg_game_name(bytes);
-                    std::cout << "El mapa recibido es " << yamlPath << std::endl;
                     yamlPath = "DEBUG_YAML_PATH"; // DEBUG
                     house = protocol.recieve_msg_house();
 				    //int required = readYaml(required);
@@ -178,6 +192,10 @@ void Talker::run() {
 			        break;
             }
         } catch (ClosedSocketException const&) {
+            if (this->sender == nullptr) {
+                this->finish = true;
+                return;   
+            }
             Command comm;
             comm.setType(DISCONNECT);
             comm.changeSender(this->playerName);

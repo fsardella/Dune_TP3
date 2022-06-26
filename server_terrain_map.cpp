@@ -14,7 +14,7 @@ enum sketchElements {
     BUILDING,
 };
 
-#define CHUNKSIZE 4
+#define CHUNKSIZE 8
 
 TerrainMap::TerrainMap() {}
 

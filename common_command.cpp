@@ -1,4 +1,4 @@
-#include "server_command.h"
+#include "common_command.h"
 
 #include <exception>
 #include <stdexcept>	
@@ -18,6 +18,12 @@ void Command::add16BytesMessage(const uint16_t message) {
     this->add8BytesMessage(auxPoint[1]);
 }
 
+void Command::addString(const std::string& sent) {
+    for (size_t i = 0; i < sent.size(); i++)
+        this->add8BytesMessage((uint8_t)sent[i]);
+}
+
+
 void Command::setType(const uint8_t newType) {
     this->type = newType;
 }
@@ -27,7 +33,7 @@ uint8_t Command::getType() {
 }
 
 void Command::reserve(const size_t newSize) {
-    this->command.reserve(newSize);
+    this->command.resize(newSize);
 }
 
 void Command::changeSender(const std::string newName) {
@@ -71,6 +77,15 @@ uint16_t Command::pop16BytesMessage(){
     bytes[1] = this->pop8BytesMessage();
     uint16_t* auxPoint = (uint16_t*)&bytes[0];
     return ntohs(*auxPoint);
+}
+
+std::string Command::popString(const size_t lenght) {
+    std::string ret;
+    ret.resize(lenght);
+    for (size_t i = 0; i < lenght; i++) {
+        ret[i] = (char)this->pop8BytesMessage();
+    } 
+    return ret;
 }
 
 Command::~Command() {}
