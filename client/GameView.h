@@ -37,6 +37,12 @@ class GameView {
     void moveLeft();
     void moveRight();
 
+<<<<<<< HEAD
+=======
+    int getXOffset();
+    int getYOffset();
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
 

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #define MASK 255, 255, 255
 
+<<<<<<< HEAD
 #define CLIENT_CONFIG "../client_config.yaml"
 
 int main(int argc, char *argv[])
@@ -20,11 +21,18 @@ int main(int argc, char *argv[])
         std::cout << e.what();
         return -1;
     }
+=======
+int main(int argc, char *argv[])
+{
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     try {
         // Clase que contiene el loop principal
         QApplication app(argc, argv);
         // Instancio la ventana principal
+<<<<<<< HEAD
         //Client client(clientConfig);
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
         Client client;
         MainWindow window(NULL, &client);
         window.showMaximized();

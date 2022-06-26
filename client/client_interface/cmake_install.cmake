@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface
+=======
+# Install script for directory: /home/florencia/taller/repo_grupo/client/client_interface
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,9 +41,20 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+<<<<<<< HEAD
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/cmake_install.cmake")
+=======
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/florencia/taller/repo_grupo/client/client_interface/lib/libSDL2pp/cmake_install.cmake")
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 endif()
 
@@ -51,5 +66,9 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
+<<<<<<< HEAD
 file(WRITE "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/${CMAKE_INSTALL_MANIFEST}"
+=======
+file(WRITE "/home/florencia/taller/repo_grupo/client/client_interface/${CMAKE_INSTALL_MANIFEST}"
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

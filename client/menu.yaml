@@ -2,6 +2,7 @@ amount: 20
 
 0:
   - "harkonnen barrack"
+<<<<<<< HEAD
   - "../menuImgs/cuartel_harkonnen.bmp"
 
 1:
@@ -83,3 +84,86 @@ amount: 20
 20:
   -  "fremen"
   - "../menuImgs/fremen.bmp"
+=======
+  - "../client/menuImgs/cuartel_harkonnen.bmp"
+
+1:
+  - "atreides barrack"
+  - "../client/menuImgs/cuartel_atreides.bmp"
+
+2:
+  - "ordos barrack"
+  - "../client/menuImgs/cuartel_ordos.bmp"
+
+3:
+  - "construction yard"
+  - "../client/menuImgs/centro_de_construccion.bmp"
+
+4:
+  - "light factory"
+  - "../client/menuImgs/fabrica_ligera.bmp"
+
+5:
+  - "heavy factory"
+  - "../client/menuImgs/fabrica_pesada.bmp"
+
+6:
+  - "palace"
+  - "../client/menuImgs/palacio.bmp"
+
+7:
+  - "refinery"
+  - "../client/menuImgs/refineria.bmp"
+
+8:
+  - "silo"
+  - "../client/menuImgs/silo.bmp"
+
+9:
+  - "wind trap"
+  - "../client/menuImgs/trampa.bmp"
+
+10:
+  - "raider"
+  - "../client/menuImgs/raider.bmp"
+
+11:
+  - "harvester"
+  - "../client/menuImgs/cosechadora.bmp"
+
+12:
+  - "tank"
+  - "../client/menuImgs/tanque.bmp"
+
+13:
+  - "trike"
+  - "../client/menuImgs/trike.bmp"
+
+14:
+  - "deviator"
+  - "../client/menuImgs/desviador.bmp"
+
+15:
+  - "devastator"
+  - "../client/menuImgs/devastador.bmp"
+
+16:
+  - "sonik tank"
+  - "../client/menuImgs/tanque_sonico.bmp"
+
+17:
+  - "light infantry"
+  - "../client/menuImgs/infanteria_ligera.bmp"
+
+18:
+  - "heavy infantry"
+  - "../client/menuImgs/infanteria_pesada.bmp"
+
+19:
+  - "sardaukar"
+  - "../client/menuImgs/sardaukar.bmp"
+
+20:
+  -  "fremen"
+  - "../client/menuImgs/fremen.bmp"
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd

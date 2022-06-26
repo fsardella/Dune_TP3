@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+<<<<<<< HEAD
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/choosehouse.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/client_interface_autogen/mocs_compilation.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o"
@@ -36,6 +37,40 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/maingame.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/mainwindow.cpp.o"
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp" "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/CMakeFiles/client_interface.dir/waitingWindow.cpp.o"
+=======
+  "/home/florencia/taller/repo_grupo/client/client_interface/choosehouse.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/choosehouse.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/client_interface_autogen/EWIEGA46WW/qrc_imagehouse.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/client_interface_autogen/mocs_compilation.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/client_interface_autogen/mocs_compilation.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/creategamewindow.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/creategamewindow.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Animation.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Animation.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Area.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Area.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/BackGroundTile.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/BackGroundTile.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Camera.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Camera.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/ClientInput.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/ClientInput.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Construction.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Construction.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Drawer.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Drawer.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/GameView.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/GameView.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/MapView.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/MapView.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/MenuImage.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/MenuImage.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/MenuText.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/MenuText.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Renderizable.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Renderizable.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/SdlTexture.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/SdlTexture.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/SdlWindow.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/SdlWindow.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/ServerDespatcher.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/ServerDespatcher.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/ServerReceiver.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/ServerReceiver.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/Unit.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/Unit.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/UserInputReceiver.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/UserInputReceiver.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_client.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/client_client.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_protocol.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/client_protocol.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/common_resolver.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/common_resolver.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/common_socket.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/common_socket.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/thread.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/home/florencia/taller/repo_grupo/client/thread.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/joingamewindow.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/joingamewindow.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/main.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/main.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/maingame.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/maingame.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/mainwindow.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/mainwindow.cpp.o"
+  "/home/florencia/taller/repo_grupo/client/client_interface/waitingWindow.cpp" "/home/florencia/taller/repo_grupo/client/client_interface/CMakeFiles/client_interface.dir/waitingWindow.cpp.o"
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -63,7 +98,11 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+<<<<<<< HEAD
   "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/CMakeFiles/SDL2pp.dir/DependInfo.cmake"
+=======
+  "/home/florencia/taller/repo_grupo/client/client_interface/lib/libSDL2pp/CMakeFiles/SDL2pp.dir/DependInfo.cmake"
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
   )
 
 # Fortran module output directory.

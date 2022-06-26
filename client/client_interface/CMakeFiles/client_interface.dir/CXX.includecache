@@ -6,14 +6,21 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Animation.h
 SdlTexture.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
+=======
+/home/florencia/taller/repo_grupo/client/Animation.h
+SdlTexture.h
+/home/florencia/taller/repo_grupo/client/SdlTexture.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 map
 -
 vector
 -
 
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
 SDL2/SDL.h
 -
@@ -63,11 +70,35 @@ Unit.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Unit.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
+=======
+/home/florencia/taller/repo_grupo/client/Area.h
+SDL2/SDL.h
+-
+
+/home/florencia/taller/repo_grupo/client/BackGroundTile.h
+Renderizable.h
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+
+/home/florencia/taller/repo_grupo/client/Camera.h
+SdlWindow.h
+/home/florencia/taller/repo_grupo/client/SdlWindow.h
+SdlTexture.h
+/home/florencia/taller/repo_grupo/client/SdlTexture.h
+Renderizable.h
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+
+/home/florencia/taller/repo_grupo/client/Construction.h
+string
+-
+
+/home/florencia/taller/repo_grupo/client/GameView.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 vector
 -
 mutex
 -
 SdlWindow.h
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
 SdlTexture.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
@@ -93,6 +124,33 @@ yaml-cpp/yaml.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/yaml-cpp/yaml.h
 MenuText.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuText.h
+=======
+/home/florencia/taller/repo_grupo/client/SdlWindow.h
+SdlTexture.h
+/home/florencia/taller/repo_grupo/client/SdlTexture.h
+Renderizable.h
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+Camera.h
+/home/florencia/taller/repo_grupo/client/Camera.h
+MapView.h
+/home/florencia/taller/repo_grupo/client/MapView.h
+
+/home/florencia/taller/repo_grupo/client/MapView.h
+vector
+-
+Unit.h
+/home/florencia/taller/repo_grupo/client/Unit.h
+BackGroundTile.h
+/home/florencia/taller/repo_grupo/client/BackGroundTile.h
+Unit.h
+/home/florencia/taller/repo_grupo/client/Unit.h
+MenuImage.h
+/home/florencia/taller/repo_grupo/client/MenuImage.h
+yaml-cpp/yaml.h
+/home/florencia/taller/repo_grupo/client/yaml-cpp/yaml.h
+MenuText.h
+/home/florencia/taller/repo_grupo/client/MenuText.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 SDL2/SDL.h
 -
 SDL2/SDL_ttf.h
@@ -100,6 +158,7 @@ SDL2/SDL_ttf.h
 tuple
 -
 
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/MenuImage.h
 Renderizable.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Renderizable.h
@@ -113,6 +172,21 @@ SdlTexture.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlTexture.h
+=======
+/home/florencia/taller/repo_grupo/client/MenuImage.h
+Renderizable.h
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+
+/home/florencia/taller/repo_grupo/client/MenuText.h
+Renderizable.h
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+
+/home/florencia/taller/repo_grupo/client/Renderizable.h
+SdlTexture.h
+/home/florencia/taller/repo_grupo/client/SdlTexture.h
+
+/home/florencia/taller/repo_grupo/client/SdlTexture.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 string
 -
 SDL2/SDL.h
@@ -124,11 +198,19 @@ SDL2/SDL_image.h
 SDL2/SDL_ttf.h
 -
 SdlWindow.h
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
 Area.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Area.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/SdlWindow.h
+=======
+/home/florencia/taller/repo_grupo/client/SdlWindow.h
+Area.h
+/home/florencia/taller/repo_grupo/client/Area.h
+
+/home/florencia/taller/repo_grupo/client/SdlWindow.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 string
 -
 SDL2/SDL.h
@@ -140,6 +222,7 @@ SDL2/SDL_video.h
 SDL2/SDL_mixer.h
 -
 
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ServerDespatcher.h
 GameView.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/GameView.h
@@ -177,6 +260,45 @@ ClientInput.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.cpp
+=======
+/home/florencia/taller/repo_grupo/client/ServerReceiver.h
+GameView.h
+/home/florencia/taller/repo_grupo/client/GameView.h
+thread.h
+/home/florencia/taller/repo_grupo/client/thread.h
+client_protocol.h
+/home/florencia/taller/repo_grupo/client/client_protocol.h
+
+/home/florencia/taller/repo_grupo/client/Unit.h
+Animation.h
+/home/florencia/taller/repo_grupo/client/Animation.h
+Camera.h
+/home/florencia/taller/repo_grupo/client/Camera.h
+
+/home/florencia/taller/repo_grupo/client/client_client.h
+string
+-
+vector
+-
+client_protocol.h
+/home/florencia/taller/repo_grupo/client/client_protocol.h
+yaml-cpp/yaml.h
+-
+yaml-cpp/node/node.h
+/home/florencia/taller/repo_grupo/client/yaml-cpp/node/node.h
+yaml-cpp/node/parse.h
+/home/florencia/taller/repo_grupo/client/yaml-cpp/node/parse.h
+SdlWindow.h
+/home/florencia/taller/repo_grupo/client/SdlWindow.h
+GameView.h
+/home/florencia/taller/repo_grupo/client/GameView.h
+ServerReceiver.h
+/home/florencia/taller/repo_grupo/client/ServerReceiver.h
+QDialog
+-
+
+/home/florencia/taller/repo_grupo/client/client_protocol.cpp
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 iostream
 -
 iomanip
@@ -194,6 +316,7 @@ fstream
 cstring
 -
 client_client.h
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_client.h
 ClientInput.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/ClientInput.h
@@ -231,11 +354,21 @@ QDialog
 -
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_protocol.h
+=======
+/home/florencia/taller/repo_grupo/client/client_client.h
+client_protocol.h
+/home/florencia/taller/repo_grupo/client/client_protocol.h
+iostream
+-
+
+/home/florencia/taller/repo_grupo/client/client_protocol.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 string
 -
 vector
 -
 common_socket.h
+<<<<<<< HEAD
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/common_socket.h
 Construction.h
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/Construction.h
@@ -247,6 +380,19 @@ exception
 -
 
 /home/pilar/Escritorio/tp3_taller/Dune_TP3/client/thread.h
+=======
+/home/florencia/taller/repo_grupo/client/common_socket.h
+Construction.h
+/home/florencia/taller/repo_grupo/client/Construction.h
+QDialog
+-
+
+/home/florencia/taller/repo_grupo/client/common_socket.h
+exception
+-
+
+/home/florencia/taller/repo_grupo/client/thread.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 thread
 -
 
@@ -334,6 +480,15 @@ utility
 QtCore/qglobal.h
 -
 
+<<<<<<< HEAD
+=======
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qcontainertools_impl.h
+QtCore/qglobal.h
+-
+iterator
+-
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h
 QtCore/qatomic.h
 -
@@ -465,6 +620,11 @@ QtCore/qatomic.h
 -
 QtCore/qmutex.h
 -
+<<<<<<< HEAD
+=======
+mutex
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h
 QtCore/qchar.h
@@ -477,10 +637,19 @@ QtCore/qrefcount.h
 -
 QtCore/qhashfunctions.h
 -
+<<<<<<< HEAD
 initializer_list
 -
 algorithm
 -
+=======
+QtCore/qcontainertools_impl.h
+-
+algorithm
+-
+initializer_list
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qhashfunctions.h
 QtCore/qstring.h
@@ -489,6 +658,11 @@ QtCore/qpair.h
 -
 numeric
 -
+<<<<<<< HEAD
+=======
+functional
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qiodevice.h
 QtCore/qglobal.h
@@ -521,14 +695,27 @@ QtCore/qarraydata.h
 -
 QtCore/qhashfunctions.h
 -
+<<<<<<< HEAD
 iterator
 -
 list
+=======
+QtCore/qvector.h
+-
+QtCore/qcontainertools_impl.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 -
 algorithm
 -
 initializer_list
 -
+<<<<<<< HEAD
+=======
+iterator
+-
+list
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 stdlib.h
 -
 new
@@ -567,14 +754,24 @@ QtCore/qpair.h
 -
 QtCore/qdebug.h
 -
+<<<<<<< HEAD
 map
 -
 new
 -
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 functional
 -
 initializer_list
 -
+<<<<<<< HEAD
+=======
+map
+-
+new
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qmargins.h
 QtCore/qnamespace.h
@@ -691,6 +888,11 @@ stdlib.h
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h
 QtCore/qhash.h
 -
+<<<<<<< HEAD
+=======
+QtCore/qcontainertools_impl.h
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 initializer_list
 -
 iterator
@@ -715,6 +917,11 @@ QtCore/qshareddata.h
 -
 QtCore/qsharedpointer_impl.h
 -
+<<<<<<< HEAD
+=======
+memory
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h
 new
@@ -727,10 +934,20 @@ QtCore/qhash.h
 -
 QtCore/qhashfunctions.h
 -
+<<<<<<< HEAD
+=======
+memory
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h
 QtCore/qnamespace.h
 -
+<<<<<<< HEAD
+=======
+QtCore/qmargins.h
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h
 QtCore/qchar.h
@@ -773,6 +990,11 @@ QtCore/qlist.h
 -
 QtCore/qalgorithms.h
 -
+<<<<<<< HEAD
+=======
+QtCore/qcontainertools_impl.h
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 QtCore/qregexp.h
 -
 QtCore/qstring.h
@@ -787,6 +1009,11 @@ QtCore/qarraydata.h
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringmatcher.h
 QtCore/qstring.h
 -
+<<<<<<< HEAD
+=======
+QtCore/qstringview.h
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringview.h
 QtCore/qchar.h
@@ -859,6 +1086,11 @@ QtCore/qurl.h
 -
 QtCore/qstringlist.h
 -
+<<<<<<< HEAD
+=======
+initializer_list
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h
 QtCore/qatomic.h
@@ -891,11 +1123,17 @@ QtCore/qglobal.h
 -
 QtCore/qalgorithms.h
 -
+<<<<<<< HEAD
 new
 -
 string.h
 -
 stdlib.h
+=======
+QtCore/qcontainertools_impl.h
+-
+QtCore/qhashfunctions.h
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 -
 algorithm
 -
@@ -903,30 +1141,54 @@ initializer_list
 -
 iterator
 -
+<<<<<<< HEAD
+=======
+new
+-
+string.h
+-
+stdlib.h
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qvector.h
 QtCore/qalgorithms.h
 -
 QtCore/qiterator.h
 -
+<<<<<<< HEAD
 QtCore/qlist.h
 -
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 QtCore/qrefcount.h
 -
 QtCore/qarraydata.h
 -
 QtCore/qhashfunctions.h
 -
+<<<<<<< HEAD
 iterator
 -
+=======
+QtCore/qcontainertools_impl.h
+-
+iterator
+-
+initializer_list
+-
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 vector
 -
 stdlib.h
 -
 string.h
 -
+<<<<<<< HEAD
 initializer_list
 -
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 algorithm
 -
 QtCore/qpoint.h
@@ -1092,6 +1354,7 @@ QtGui/qwindowdefs.h
 QtCore/qrect.h
 -
 
+<<<<<<< HEAD
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
 QtGui/qtguiglobal.h
 -
@@ -1108,6 +1371,8 @@ QtCore/qvector.h
 QtCore/qscopedpointer.h
 -
 
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h
 QtGui/qtguiglobal.h
 -
@@ -1193,8 +1458,11 @@ QtGui/qtguiglobal.h
 -
 QtGui/qmatrix.h
 -
+<<<<<<< HEAD
 QtGui/qpainterpath.h
 -
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 QtGui/qpolygon.h
 -
 QtGui/qregion.h

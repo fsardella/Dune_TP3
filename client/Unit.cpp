@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Unit.h"
+<<<<<<< HEAD
 /*
 Unit::Unit(SdlTexture &texture,
         int sizeW,
@@ -9,6 +10,8 @@ Unit::Unit(SdlTexture &texture,
 : Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId) {
     rescaling = 1;
 }*/
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 #define FRAMES_AMOUNT 5
 

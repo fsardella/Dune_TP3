@@ -10,7 +10,11 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     ui(new Ui::CreateGameWindow)
 {
     ui->setupUi(this);
+<<<<<<< HEAD
     QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
+=======
+    QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);

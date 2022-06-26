@@ -41,6 +41,7 @@ int UserInputReceiver::findCol(int x) {
 }
 
 void UserInputReceiver::handlePosition(int x, int y) {
+<<<<<<< HEAD
     if (0 < x && x < MENU_OFFSET_X) {
         try {
             ClientInput clientInput(x, y);
@@ -48,6 +49,17 @@ void UserInputReceiver::handlePosition(int x, int y) {
             return;
         } catch(const ClosedQueueException& e) {
             std::cout << "la cola se cerro inesperadamente 2\n";
+=======
+    int posX = x + gameView->getXOffset() * 32;
+    int posY = y + gameView->getYOffset() * 32;
+    if (0 < posX && posX < MENU_OFFSET_X) {
+        try {
+            ClientInput clientInput(posX, posY);
+            blockingQueue->push(std::move(clientInput));
+            return;
+        } catch(const ClosedQueueException& e) {
+            return;
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
         }
     }
     int col = findCol(x);
@@ -83,4 +95,8 @@ void UserInputReceiver::run() {
 }
 
 UserInputReceiver::~UserInputReceiver() {
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd

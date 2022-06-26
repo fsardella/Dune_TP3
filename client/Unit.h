@@ -17,6 +17,7 @@ class Unit {
     SdlTexture* texture;
 
     public:
+<<<<<<< HEAD
     /*Unit(SdlTexture &texture,
            int sizeW,
            int sizeH,
@@ -24,6 +25,8 @@ class Unit {
            float posY,
            int unitId);*/
 
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     Unit(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
             int sizeW,
             int sizeH,

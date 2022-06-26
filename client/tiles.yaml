@@ -2,6 +2,7 @@ amount: 94
 
 0:
   - "sand 1"
+<<<<<<< HEAD
   - "../backgroundTiles/sand_1.bmp"
 
 1:
@@ -379,3 +380,382 @@ amount: 94
 94:
   - "spice 7"
   - "../backgroundTiles/spice_7.bmp"
+=======
+  - "../client/backgroundTiles/sand_1.bmp"
+
+1:
+  - "sand 2"
+  - "../client/backgroundTiles/sand_2.bmp"
+
+2:
+  - "sand 3"
+  - "../client/backgroundTiles/sand_3.bmp"
+
+3:
+  - "dune 1"
+  - "../client/backgroundTiles/dune_1.bmp"
+
+4:
+  - "dune 2"
+  - "../client/backgroundTiles/dune_2.bmp"
+
+5:
+  - "dune 3"
+  - "../client/backgroundTiles/dune_3.bmp"
+
+6:
+  - "rock 1"
+  - "../client/backgroundTiles/rock_1.bmp"
+
+7:
+  - "rock 2"
+  - "../client/backgroundTiles/rock_2.bmp"
+
+8:
+  - "rock 3"
+  - "../client/backgroundTiles/rock_3.bmp"
+
+9:
+  - "rock 4"
+  - "../client/backgroundTiles/rock_4.bmp"
+
+10:
+  - "rock 5"
+  - "../client/backgroundTiles/rock_5.bmp"
+
+11:
+  - "rock 6"
+  - "../client/backgroundTiles/rock_6.bmp"
+
+12:
+  - "rock 7"
+  - "../client/backgroundTiles/rock_7.bmp"
+
+13:
+  - "rock 8"
+  - "../client/backgroundTiles/rock_8.bmp"
+
+14:
+  - "rock 9"
+  - "../client/backgroundTiles/rock_9.bmp"
+
+15:
+  - "rock 10"
+  - "../client/backgroundTiles/rock_10.bmp"
+
+16:
+  - "rock 11"
+  - "../client/backgroundTiles/rock_11.bmp"
+
+17:
+  - "rock 12"
+  - "../client/backgroundTiles/rock_12.bmp"
+
+18:
+  - "rock 13"
+  - "../client/backgroundTiles/rock_13.bmp"
+
+19:
+  - "rock 14"
+  - "../client/backgroundTiles/rock_14.bmp"
+
+20:
+  - "rock 15"
+  - "../client/backgroundTiles/rock_15.bmp"
+
+21:
+  - "rock 16"
+  - "../client/backgroundTiles/rock_16.bmp"
+
+22:
+  - "mont 1"
+  - "../client/backgroundTiles/mont_1.bmp"
+
+23:
+  - "mont 2"
+  - "../client/backgroundTiles/mont_2.bmp"
+
+24:
+  - "mont 3"
+  - "../client/backgroundTiles/mont_3.bmp"
+
+25:
+  - "mont 4"
+  - "../client/backgroundTiles/mont_4.bmp"
+
+26:
+  - "mont 5"
+  - "../client/backgroundTiles/mont_5.bmp"
+
+27:
+  - "mont 6"
+  - "../client/backgroundTiles/mont_6.bmp"
+
+28:
+  - "mont 7"
+  - "../client/backgroundTiles/mont_7.bmp"
+
+29:
+  - "mont 8"
+  - "../client/backgroundTiles/mont_8.bmp"
+
+30:
+  - "mont 9"
+  - "../client/backgroundTiles/mont_9.bmp"
+
+31:
+  - "mont 10"
+  - "../client/backgroundTiles/mont_10.bmp"
+
+32:
+  - "mont 11"
+  - "../client/backgroundTiles/mont_11.bmp"
+
+33:
+  - "mont 12"
+  - "../client/backgroundTiles/mont_12.bmp"
+
+34:
+  - "mont 13"
+  - "../client/backgroundTiles/mont_13.bmp"
+
+35:
+  - "mont 14"
+  - "../client/backgroundTiles/mont_14.bmp"
+
+36:
+  - "mont 15"
+  - "../client/backgroundTiles/mont_15.bmp"
+
+37:
+  - "mont 16"
+  - "../client/backgroundTiles/mont_16.bmp"
+
+38:
+  - "mont 17"
+  - "../client/backgroundTiles/mont_17.bmp"
+
+39:
+  - "mont 18"
+  - "../client/backgroundTiles/mont_18.bmp"
+
+40:
+  - "mont 19"
+  - "../client/backgroundTiles/mont_19.bmp"
+
+41:
+  - "mont 20"
+  - "../client/backgroundTiles/mont_20.bmp"
+
+42:
+  - "mont 21"
+  - "../client/backgroundTiles/mont_21.bmp"
+
+43:
+  - "mont 22"
+  - "../client/backgroundTiles/mont_22.bmp"
+
+44:
+  - "mont 23"
+  - "../client/backgroundTiles/mont_23.bmp"
+
+45:
+  - "mont 24"
+  - "../client/backgroundTiles/mont_24.bmp"
+
+46:
+  - "mont 25"
+  - "../client/backgroundTiles/mont_25.bmp"
+
+47:
+  - "mont 26"
+  - "../client/backgroundTiles/mont_26.bmp"
+
+48:
+  - "mont 27"
+  - "../client/backgroundTiles/mont_27.bmp"
+
+49:
+  - "mont 28"
+  - "../client/backgroundTiles/mont_28.bmp"
+
+50:
+  - "mont 29"
+  - "../client/backgroundTiles/mont_29.bmp"
+
+51:
+  - "mont 30"
+  - "../client/backgroundTiles/mont_30.bmp"
+
+52:
+  - "mont 31"
+  - "../client/backgroundTiles/mont_31.bmp"
+
+53:
+  - "mont 32"
+  - "../client/backgroundTiles/mont_32.bmp"
+
+54:
+  - "mont 33"
+  - "../client/backgroundTiles/mont_33.bmp"
+
+55:
+  - "mont 34"
+  - "../client/backgroundTiles/mont_34.bmp"
+
+56:
+  - "cliff 1"
+  - "../client/backgroundTiles/cliff_1.bmp"
+
+57:
+  - "cliff 2"
+  - "../client/backgroundTiles/cliff_2.bmp"
+
+58:
+  - "cliff 3"
+  - "../client/backgroundTiles/cliff_3.bmp"
+
+59:
+  - "cliff 4"
+  - "../client/backgroundTiles/cliff_4.bmp"
+
+60:
+  - "cliff 5"
+  - "../client/backgroundTiles/cliff_5.bmp"
+
+61:
+  - "cliff 6"
+  - "../client/backgroundTiles/cliff_6.bmp"
+
+62:
+  - "cliff 7"
+  - "../client/backgroundTiles/cliff_7.bmp"
+
+63:
+  - "cliff 8"
+  - "../client/backgroundTiles/cliff_8.bmp"
+
+64:
+  - "cliff 9"
+  - "../client/backgroundTiles/cliff_9.bmp"
+
+65:
+  - "cliff 10"
+  - "../client/backgroundTiles/cliff_10.bmp"
+
+66:
+  - "cliff 11"
+  - "../client/backgroundTiles/cliff_11.bmp"
+
+67:
+  - "cliff 12"
+  - "../client/backgroundTiles/cliff_12.bmp"
+
+68:
+  - "cliff 13"
+  - "../client/backgroundTiles/cliff_13.bmp"
+
+69:
+  - "cliff 14"
+  - "../client/backgroundTiles/cliff_14.bmp"
+
+70:
+  - "cliff 15"
+  - "../client/backgroundTiles/cliff_15.bmp"
+
+71:
+  - "cliff 16"
+  - "../client/backgroundTiles/cliff_16.bmp"
+
+72:
+  - "cliff 17"
+  - "../client/backgroundTiles/cliff_17.bmp"
+
+73:
+  - "cliff 18"
+  - "../client/backgroundTiles/cliff_18.bmp"
+
+74:
+  - "cliff 19"
+  - "../client/backgroundTiles/cliff_19.bmp"
+
+75:
+  - "cliff 20"
+  - "../client/backgroundTiles/cliff_20.bmp"
+
+76:
+  - "cliff 21"
+  - "../client/backgroundTiles/cliff_21.bmp"
+
+77:
+  - "cliff 22"
+  - "../client/backgroundTiles/cliff_22.bmp"
+
+78:
+  - "cliff 23"
+  - "../client/backgroundTiles/cliff_23.bmp"
+
+79:
+  - "cliff 24"
+  - "../client/backgroundTiles/cliff_24.bmp"
+
+80:
+  - "cliff 25"
+  - "../client/backgroundTiles/cliff_25.bmp"
+
+81:
+  - "cliff 26"
+  - "../client/backgroundTiles/cliff_26.bmp"
+
+82:
+  - "cliff 27"
+  - "../client/backgroundTiles/cliff_27.bmp"
+
+83:
+  - "cliff 28"
+  - "../client/backgroundTiles/cliff_28.bmp"
+
+84:
+  - "cliff 29"
+  - "../client/backgroundTiles/cliff_29.bmp"
+
+85:
+  - "cliff 30"
+  - "../client/backgroundTiles/cliff_30.bmp"
+
+86:
+  - "cliff 31"
+  - "../client/backgroundTiles/cliff_31.bmp"
+
+87:
+  - "cliff 32"
+  - "../client/backgroundTiles/cliff_32.bmp"
+
+88:
+  - "spice 1"
+  - "../client/backgroundTiles/spice_1.bmp"
+
+89:
+  - "spice 2"
+  - "../client/backgroundTiles/spice_2.bmp"
+
+90:
+  - "spice 3"
+  - "../client/backgroundTiles/spice_3.bmp"
+
+91:
+  - "spice 4"
+  - "../client/backgroundTiles/spice_4.bmp"
+
+92:
+  - "spice 5"
+  - "../client/backgroundTiles/spice_5.bmp"
+
+93:
+  - "spice 6"
+  - "../client/backgroundTiles/spice_6.bmp"
+
+94:
+  - "spice 7"
+  - "../client/backgroundTiles/spice_7.bmp"
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd

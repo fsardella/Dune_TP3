@@ -34,6 +34,12 @@ private:
     void moveLeft();
     void moveRight();
 
+<<<<<<< HEAD
+=======
+    int getXOffset();
+    int getYOffset();
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     void render(Renderizable &renderizable);
     int render(Renderizable &renderizable, int x, int y);
     void renderInSight(SdlTexture* texture, Area& src,
@@ -47,7 +53,13 @@ private:
                        float posY);
     void renderInSightForMenuTitles(SdlTexture* texture, Area& src, float posX, float posY);
     void renderMenuRect();
+<<<<<<< HEAD
     bool isVisible(float x, float y);
+=======
+
+    bool isVisible(float x, float y);
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     ~Camera();
 };
 

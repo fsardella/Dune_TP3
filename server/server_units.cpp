@@ -29,17 +29,35 @@ int Unit::getSpeedForCliff() {
     return WALL;    
 }
 
+<<<<<<< HEAD
+=======
+int Unit::getSpeedForSand() {
+    return SAND;
+}
+int Unit::getSpeedForDune() {
+    return DUNE;
+}
+
+void Unit::print() {
+    this->moveAlgorithm.print();
+}
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 Unit::~Unit() {}
 
 
 
 
+<<<<<<< HEAD
 int Infantry::getSpeedForSand() {
     return SAND;
 }
 int Infantry::getSpeedForDune() {
     return DUNE;
 }
+=======
+
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 int Infantry::getSpeedForMount() {
     return SAND;
 }
@@ -48,6 +66,7 @@ Infantry::~Infantry() {}
 
 
 
+<<<<<<< HEAD
 
 int Vehicle::getSpeedForSand() {
     return SAND;
@@ -55,6 +74,8 @@ int Vehicle::getSpeedForSand() {
 int Vehicle::getSpeedForDune() {
     return DUNE;
 }
+=======
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 int Vehicle::getSpeedForMount() {
     return WALL;
 }

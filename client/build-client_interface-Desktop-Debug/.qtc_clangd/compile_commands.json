@@ -60,10 +60,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.cc"
 },
 {
     "arguments": [
@@ -126,10 +126,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioLock.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioLock.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioLock.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioLock.cc"
 },
 {
     "arguments": [
@@ -192,10 +192,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.cc"
 },
 {
     "arguments": [
@@ -258,10 +258,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Color.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Color.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Color.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Color.cc"
 },
 {
     "arguments": [
@@ -324,10 +324,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.cc"
 },
 {
     "arguments": [
@@ -390,10 +390,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Point.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Point.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Point.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Point.cc"
 },
 {
     "arguments": [
@@ -456,10 +456,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.cc"
 },
 {
     "arguments": [
@@ -522,10 +522,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.cc"
 },
 {
     "arguments": [
@@ -588,10 +588,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.cc"
 },
 {
     "arguments": [
@@ -654,10 +654,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.cc"
 },
 {
     "arguments": [
@@ -720,10 +720,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.cc"
 },
 {
     "arguments": [
@@ -786,10 +786,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SurfaceLock.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SurfaceLock.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SurfaceLock.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SurfaceLock.cc"
 },
 {
     "arguments": [
@@ -852,10 +852,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.cc"
 },
 {
     "arguments": [
@@ -918,10 +918,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/TextureLock.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/TextureLock.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/TextureLock.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/TextureLock.cc"
 },
 {
     "arguments": [
@@ -984,10 +984,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.cc"
 },
 {
     "arguments": [
@@ -1050,10 +1050,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Window.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Window.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Window.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Window.cc"
 },
 {
     "arguments": [
@@ -1116,10 +1116,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.cc"
 },
 {
     "arguments": [
@@ -1182,10 +1182,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Font.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Font.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Font.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Font.cc"
 },
 {
     "arguments": [
@@ -1248,10 +1248,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.cc"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.cc"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.cc"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.cc"
 },
 {
     "arguments": [
@@ -1314,10 +1314,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioDevice.hh"
 },
 {
     "arguments": [
@@ -1380,10 +1380,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/AudioSpec.hh"
 },
 {
     "arguments": [
@@ -1446,10 +1446,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Color.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Color.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Color.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Color.hh"
 },
 {
     "arguments": [
@@ -1512,10 +1512,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/ContainerRWops.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/ContainerRWops.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/ContainerRWops.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/ContainerRWops.hh"
 },
 {
     "arguments": [
@@ -1578,10 +1578,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Exception.hh"
 },
 {
     "arguments": [
@@ -1644,10 +1644,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Optional.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Optional.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Optional.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Optional.hh"
 },
 {
     "arguments": [
@@ -1710,10 +1710,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Point.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Point.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Point.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Point.hh"
 },
 {
     "arguments": [
@@ -1776,10 +1776,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/RWops.hh"
 },
 {
     "arguments": [
@@ -1842,10 +1842,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Rect.hh"
 },
 {
     "arguments": [
@@ -1908,10 +1908,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Renderer.hh"
 },
 {
     "arguments": [
@@ -1974,10 +1974,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL.hh"
 },
 {
     "arguments": [
@@ -2040,10 +2040,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL2pp.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL2pp.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDL2pp.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDL2pp.hh"
 },
 {
     "arguments": [
@@ -2106,10 +2106,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/StreamRWops.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/StreamRWops.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/StreamRWops.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/StreamRWops.hh"
 },
 {
     "arguments": [
@@ -2172,10 +2172,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Surface.hh"
 },
 {
     "arguments": [
@@ -2238,10 +2238,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Texture.hh"
 },
 {
     "arguments": [
@@ -2304,10 +2304,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Wav.hh"
 },
 {
     "arguments": [
@@ -2370,10 +2370,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Window.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Window.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Window.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Window.hh"
 },
 {
     "arguments": [
@@ -2436,10 +2436,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLTTF.hh"
 },
 {
     "arguments": [
@@ -2502,10 +2502,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Font.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Font.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/Font.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/Font.hh"
 },
 {
     "arguments": [
@@ -2568,10 +2568,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.hh"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.hh"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.hh"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/lib/libSDL2pp/SDL2pp/SDLImage.hh"
 },
 {
     "arguments": [
@@ -2650,10 +2650,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/main.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/main.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/main.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/main.cpp"
 },
 {
     "arguments": [
@@ -2732,10 +2732,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/mainwindow.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/mainwindow.cpp"
 },
 {
     "arguments": [
@@ -2814,10 +2814,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/choosehouse.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/choosehouse.cpp"
 },
 {
     "arguments": [
@@ -2896,10 +2896,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/maingame.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/maingame.cpp"
 },
 {
     "arguments": [
@@ -2978,10 +2978,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/creategamewindow.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/creategamewindow.cpp"
 },
 {
     "arguments": [
@@ -3060,10 +3060,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/joingamewindow.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/joingamewindow.cpp"
 },
 {
     "arguments": [
@@ -3142,10 +3142,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/waitingWindow.cpp"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.cpp"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/waitingWindow.cpp"
 },
 {
     "arguments": [
@@ -5110,10 +5110,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/mainwindow.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/mainwindow.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/mainwindow.h"
 },
 {
     "arguments": [
@@ -5192,10 +5192,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/choosehouse.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/choosehouse.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/choosehouse.h"
 },
 {
     "arguments": [
@@ -5274,10 +5274,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/maingame.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/maingame.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/maingame.h"
 },
 {
     "arguments": [
@@ -5356,10 +5356,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/creategamewindow.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/creategamewindow.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/creategamewindow.h"
 },
 {
     "arguments": [
@@ -5438,10 +5438,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/joingamewindow.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/joingamewindow.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/joingamewindow.h"
 },
 {
     "arguments": [
@@ -5520,10 +5520,10 @@
         "-Wno-unknown-pragmas",
         "-Wno-unknown-warning-option",
         "-Wno-documentation-unknown-command",
-        "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h"
+        "/home/pilar/Escritorio/pruebaTP/client/client_interface/waitingWindow.h"
     ],
     "directory": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/build-client_interface-Desktop-Debug/.qtc_clangd",
-    "file": "/home/pilar/Escritorio/tp3_taller/Dune_TP3/client/client_interface/waitingWindow.h"
+    "file": "/home/pilar/Escritorio/pruebaTP/client/client_interface/waitingWindow.h"
 },
 {
     "arguments": [

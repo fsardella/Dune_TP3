@@ -97,7 +97,11 @@ void Client::client_run() {
 	drawer.join();
 	inputReceiver.join();
 	serverDespatcher.join();
+<<<<<<< HEAD
 	receiver.join();	
+=======
+	receiver.join();
+>>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 }
 
 void Client::sendUserName(std::string userName) {
