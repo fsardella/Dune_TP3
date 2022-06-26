@@ -7,18 +7,25 @@
 #include "server_units.h"
 #include "server_terrain_map.h"
 #include "server_unitdata.h"
+#include "server_buildings.h"
+
+typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Player {
     std::string playerName;
     int house;
-    std::list<Unit*> units;
+    std::map<uint16_t, Unit*> units;
+    Base base;
+    // std::map<uint16_t, Building*> buildings;
     //  TODO BUILDINGS
  public:
-    Player(const int& house, const std::string& playerName);
+    Player(const int& house, const std::string& playerName, coor_t baseCoords);
     Player();
     void addUnit(int x, int y, TerrainMap& terr);
+    void buildBase(TerrainMap& terr, uint16_t id);
+    coor_t getBaseCoords();
     int getHouse();
-    std::list<UnitData> getUnits(); // TODO devolver lista de UnitData
+    std::list<UnitData> getUnits();
     
     ~Player();
     

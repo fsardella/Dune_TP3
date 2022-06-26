@@ -11,7 +11,6 @@ enum sketchElements {
     MOUNT,
     ROCK,
     SPICE,
-    BUILDING,
 };
 
 #define CHUNKSIZE 8
@@ -42,11 +41,6 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
                     break;
                 case SPICE:
                     row_res.push_back(new Spice(69));
-                    break;
-                case BUILDING:
-                    Rock* terr = new Rock();
-                    terr->build('b');
-                    row_res.push_back(terr);
                     break;
             }
         }
@@ -90,13 +84,32 @@ coor_t TerrainMap::getDims() {
 
 
 void TerrainMap::swapContent(coor_t source, coor_t destiny) {
+    uint16_t id = this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->getIdOfOccupant(source);
     this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->freeSpace(source);
-    this->terr[destiny.first / CHUNKSIZE][destiny.second / CHUNKSIZE]->occupySpace(destiny);
+    this->terr[destiny.first / CHUNKSIZE][destiny.second / CHUNKSIZE]->occupySpace(destiny, id);
 }
 
 
 int TerrainMap::getSpeed(coor_t coor, Unit& unit) {
     return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeed(unit, coor);
+}
+
+bool TerrainMap::canBuild(coor_t coor, coor_t size) {
+    for (uint16_t i = 0; i < size.first; i++) {
+        for (uint16_t j = 0; j < size.second; j++) {
+            if (!this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->canBuild())
+                return false;
+        }
+    }
+    return true;
+}
+
+void TerrainMap::build(coor_t coor, coor_t size, uint16_t id) {
+    for (uint16_t i = 0; i < size.first; i++) {
+        for (uint16_t j = 0; j < size.second; j++) {
+            this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->build(*this, id);
+        }
+    }   
 }
 
 bool TerrainMap::isOccupied(coor_t coord) {

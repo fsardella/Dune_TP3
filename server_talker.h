@@ -10,6 +10,9 @@
 #include "common_blockingqueue.h"
 #include "common_command.h"
 #include "server_sender.h"
+#include "server_playerdata.h"
+#include <atomic>
+
 
 #define CREAR 3
 #define UNIRSE 1
@@ -21,7 +24,7 @@ class Talker: public Thread {
     ProtocolServer protocol;
     BlockingQueue<Command>* commandQueue;
     Sender* sender;
-    bool finish = false;
+    std::atomic<bool> finish = false;
     GameSet *gameSet;
     std::string playerName;
     
@@ -34,7 +37,8 @@ class Talker: public Thread {
     bool finishedThread();
     std::string getPlayerName();
     void startPlaying(BlockingQueue<Command>* newGameQueue,
-                      sketch_t gameMap, BlockingQueue<Command>& sendingQueue);
+                      sketch_t gameMap, std::list<PlayerData> players,
+                      BlockingQueue<Command>& sendingQueue);
 	explicit Talker(Socket&& socket, GameSet* game_set);
 	void run() override;
 	~Talker() override;

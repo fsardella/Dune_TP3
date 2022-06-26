@@ -10,7 +10,11 @@ Post-Condiciones: Constructor de una Game.
 */
 
 Game::Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath):
-required(num_required),game_name(name), yamlMapPath(yamlMapPath) {}
+required(num_required),game_name(name), yamlMapPath(yamlMapPath) {
+    //this->basesCoordinates <= yamlMapPath.COORDENADAS_DE_BASES
+    this->basesCoordinates.push_back(coor_t(16, 16));
+    this->basesCoordinates.push_back(coor_t((41 - 8) * 8, (41 - 8) * 8));
+}
 
 /*
 Pre-Condiciones: -
@@ -18,7 +22,9 @@ Post-Condiciones: Agrega un participante a la Game actual.
 */
 
 void Game::add_participant(const int& ID_house, const std::string& playerName) {
-	this->participants[playerName] = std::move(Player(ID_house, playerName));
+	this->participants[playerName] = std::move(Player(ID_house, playerName,
+                                     basesCoordinates.front()));
+    basesCoordinates.pop_front();
 }
 
 /*
@@ -98,10 +104,14 @@ std::map<std::string, std::list<UnitData>> Game::getUnits() {
     return result;
 }
 
-std::list<std::string> Game::getPlayerNames() {
-    std::list<std::string> result;
-    for (auto const& p : this->participants) {
-        result.push_back(p.first);
+std::list<PlayerData> Game::buildBases(TerrainMap& terr) {
+    std::list<PlayerData> result;
+    uint16_t id = 0;
+    for (auto& p : this->participants) {
+        p.second.buildBase(terr, id);
+        result.push_back(PlayerData(p.first, p.second.getHouse(),
+                                    p.second.getBaseCoords()));
+        id++;
     }
     return result;
 }

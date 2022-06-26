@@ -61,6 +61,7 @@ T BlockingQueue<T>::pop() {
 
 template <class T>
 void BlockingQueue<T>::close() {
+    queueLock_t lock(m);
     this->closed = true;
     notEmpty.notify_all();
 }

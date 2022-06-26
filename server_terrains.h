@@ -4,20 +4,24 @@
 
 
 #include <stdint.h>
-#include <set>
+#include <map>
 #include "server_units.h"
 
 class Terrain {
  protected:
-    std::set<coor_t> occupied;
+    std::map<coor_t, uint16_t> occupiedUnits;
  public:
     Terrain();
-    void occupySpace(coor_t coord);
+    void occupySpace(coor_t coord, uint16_t id);
+    uint16_t getIdOfOccupant(coor_t coord);
     void freeSpace(coor_t coord);
     bool isOccupied(coor_t coord);
     virtual void print();
+    virtual bool canBuild();
+    virtual bool isBlocked();
     void printDebug();
     virtual int getSpeed(Unit& unit, coor_t coord) = 0;
+    virtual void build(TerrainMap& terr, uint16_t) {}
     virtual ~Terrain();
 };
 
@@ -30,10 +34,13 @@ class Sand : public Terrain {
 };
 
 class Rock : public Terrain {
-    char Building; // TODO CLASE BUILDING
+    uint16_t building_id;
+    bool built = false;
  public:
     Rock();
-    void build(char building);
+    void build(uint16_t building);
+    bool canBuild();
+    bool isBlocked();
     int getSpeed(Unit& unit, coor_t coord);
     virtual ~Rock();
 };
@@ -66,6 +73,7 @@ class Cliff : public Terrain {
  public:
     Cliff();
     int getSpeed(Unit& unit, coor_t coord);
+    bool isBlocked();
     void print();  // DEBUG
     virtual ~Cliff();
 };

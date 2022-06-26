@@ -6,7 +6,7 @@
 #include <iostream>
 
 #define WALL 0
-#define CHUNKSIZE 4
+#define CHUNKSIZE 8
 
 
 coor_t getChunk(const coor_t& coor) {

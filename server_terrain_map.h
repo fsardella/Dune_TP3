@@ -25,6 +25,8 @@ class TerrainMap {
     void printDebug();
     coor_t getDims();
     bool isOccupied(coor_t coord);
+    bool canBuild(coor_t coor, coor_t size);
+    void build(coor_t coor, coor_t size, uint16_t id);
     void swapContent(coor_t source, coor_t destiny);
     int getSpeed(coor_t coor, Unit& unit);
     ~TerrainMap();

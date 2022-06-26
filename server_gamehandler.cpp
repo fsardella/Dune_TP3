@@ -10,18 +10,18 @@
 
 GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
                                         game(ActiveGame(std::move(newGame))) {
-    std::list<std::string> names = this->game.getPlayerNames();
+    std::list<PlayerData> playersData = this->game.getPlayersData();
     sketch_t gameMapSketch = this->game.getMapSketch();
-    for (std::string name : names) {
-        this->playersQueue[name] = std::move(BlockingQueue<Command>());
-        talkerThreads[name]->startPlaying(&this->commandQueue, gameMapSketch,
-                                         this->playersQueue[name]);
+    for (PlayerData& player : playersData) {
+        this->playersQueue[player.name] = std::move(BlockingQueue<Command>());
+        talkerThreads[player.name]->startPlaying(&this->commandQueue, gameMapSketch,
+                                         playersData, this->playersQueue[player.name]);
     }
 }
 
 void GameHandler::processCommand(Command comm) {
     uint8_t commandType = comm.getType();
-    switch (commandType) { // Posible diccionario!
+    switch (commandType) {
         case DISCONNECT:
             std::cout << "Recibi request de disconnect de " << comm.getSender() << std::endl;
             this->disconnect(comm);

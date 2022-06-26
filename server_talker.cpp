@@ -108,12 +108,25 @@ std::string Talker::getPlayerName() {
 #define START_PLAYING 5
 
 void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap,
+                          std::list<PlayerData> names,
                           BlockingQueue<Command>& sendingQueue) {
-    this->protocol.send_msg_result(START_PLAYING);
-    this->protocol.send_msg_num_list(gameMap.size());
-    this->protocol.send_msg_num_list(gameMap[0].size());
-    for (std::vector<int> row : gameMap) {
-        this->protocol.send_map_row(row);
+    try {
+        this->protocol.send_msg_result(START_PLAYING);
+        this->protocol.send_msg_num_list(gameMap.size());
+        this->protocol.send_msg_num_list(gameMap[0].size());
+        for (std::vector<int> row : gameMap) {
+            this->protocol.send_map_row(row);
+        }
+        this->protocol.send_msg_num_list(names.size());
+        for (PlayerData& data : names) {
+            this->protocol.sendString(data.name);
+            this->protocol.send_msg_num_list(data.base.second);
+            this->protocol.send_msg_num_list(data.base.first);
+            this->protocol.send_msg_result(data.house);
+        }
+    } catch (ClosedSocketException const&) {
+        sendingQueue.close();
+        return;
     }
     this->commandQueue = newGameQueue;
     this->sender = new Sender(sendingQueue, this->protocol);

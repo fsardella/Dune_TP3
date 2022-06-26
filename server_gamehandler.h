@@ -9,6 +9,7 @@
 #include "server_talker.h"
 #include "server_broadcaster.h"
 #include "server_timewizard.h"
+#include "server_playerdata.h"
 #include <map>
 
 typedef std::map<std::string, Talker*> talkerMap_t;
