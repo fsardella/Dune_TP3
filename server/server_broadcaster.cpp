@@ -64,6 +64,7 @@ int Broadcaster::broadcast(/*Command comm*/) {
 
 #define DELTA 100000
 // POSIX: 1s == 1M ticks, 100K ticks -> 1/10 seg
+// usleep recibe una cantidad de microsegundos, no de ticks (la cuenta es la misma igualmente)
 
 
 void Broadcaster::run() {
@@ -79,7 +80,7 @@ void Broadcaster::run() {
                       << std::endl;
             continue;
         }
-        usleep(DELTA - (after - before));
+        usleep(DELTA - (after - before)); // Esta cuenta salió bien acá, pero no en el Drawer del cliente
     } while (countPlayers > 0);
     this->game.endGame();
     this->queueToKill.close();

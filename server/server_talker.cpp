@@ -128,6 +128,8 @@ el Cliente (jugador). Estas pueden ser: unir al jugador a una Game, listar las
 Games existentes y/o crear una Game. 
 */
 
+// Separá esto en varios métodos. Esos comments "GAME", "LOBBY" te lo piden a gritos.
+// También, podés dejar los cases, pero que cada case llame a un método.
 void Talker::run() {
 	while (this->finishedThread() == false) {
 		try {

@@ -1,6 +1,8 @@
 #include "thread.h"
 #include <utility>
 
+// Podrían tener una carpeta common con esto, el socket...
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Thread.

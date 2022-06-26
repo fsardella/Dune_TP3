@@ -1,6 +1,8 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+// Documentar todas las clases
+
 #include "SdlTexture.h"
 #include <map>
 #include <vector>

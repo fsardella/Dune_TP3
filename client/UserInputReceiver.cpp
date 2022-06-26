@@ -74,6 +74,8 @@ void UserInputReceiver::run() {
             }
             else if(event.type == SDL_KEYDOWN) {
                 switch(event.key.keysym.sym) {
+                    // Les dejo un comentario en la corrección general sobre cómo cambiar esto para
+                    // que el movimiento de la cámara sea más fluido.
                     case SDLK_UP: gameView->moveUpwards(); break;
                     case SDLK_DOWN: gameView->moveDownwards(); break;
                     case SDLK_LEFT: gameView->moveLeft(); break;

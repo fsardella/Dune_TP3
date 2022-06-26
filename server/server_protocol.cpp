@@ -16,6 +16,9 @@
 #include "server_gameSet.h"
 #include "server_protocol.h"
 
+// Esta clase tiene cosas del protocolo de comunicación (joya), pero Command también hace este
+// tipo de manejos. Por qué?
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Constructor de Protocolo.

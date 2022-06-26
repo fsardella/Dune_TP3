@@ -5,6 +5,8 @@
 
 class Area{
 public:
+
+    // Por qué public estos cuatro atributos?
     int x;
     int y;
     int width;

@@ -43,6 +43,7 @@ bool ActiveGame::isAlive() {
 }
 
 bool ActiveGame::addUnit(std::string playerName, int x, int y) {
+    // Hagan monitores, no dejen locks sueltos. Es la manera de no tener race conditions y no es difícil.
     lock_t lock(this->m);
     if (this->gameMap.isOccupied(coor_t(y, x)))
         return false;

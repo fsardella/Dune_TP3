@@ -21,7 +21,7 @@ class Talker: public Thread {
     ProtocolServer protocol;
     BlockingQueue<Command>* commandQueue;
     Sender* sender;
-    bool finish = false;
+    bool finish = false; // debería ser un std::atomic
     GameSet *gameSet;
     std::string playerName;
     

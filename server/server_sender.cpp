@@ -11,7 +11,7 @@ void Sender::run() {
             actComm = this->queue.pop();
             try {
                 this->protocol.sendCommand(actComm);
-            } catch (ClosedSocketException const&) {} // Como un pez: nada
+            } catch (ClosedSocketException const&) {} // Como un pez: nada.. Ok, comentarios simpáticos sí
         }
     } catch (ClosedQueueException const&) {
         return;

@@ -13,6 +13,8 @@ class MainGame : public QDialog
     Q_OBJECT
 
 public:
+    // Esto es generado? Sino, explicit solamente para los constructores que reciben un parámetro.
+    // Además, donde se pueda recibir referencias, reciban referencias.
     explicit MainGame(QWidget *parent, Client* client);
     ~MainGame();
 

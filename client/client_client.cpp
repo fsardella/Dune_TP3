@@ -78,6 +78,8 @@ void Client::client_run() {
 	int width = 1300;
 
 	SdlWindow sdlWindow(width, height, false, "DUNE 2000");
+
+	// Qué son estos números mágicos?
 	sdlWindow.fill(192, 150, 100, 255);
 	GameView gameViewObj(sdlWindow, houseNumber);
 

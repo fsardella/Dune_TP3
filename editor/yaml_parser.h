@@ -19,6 +19,8 @@ class YamlParser {
 
  public:
     YamlParser();
+
+    // explicit, y const en los strings que no son modificados en cada método.
     YamlParser(std::string& mapPath);
     void addMapName(std::string& mapName);
     std::vector<std::string> getMaps();

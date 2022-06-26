@@ -22,10 +22,12 @@ void Map::setIsNotNew() {
     this->isNew = false;
 }
 
+// referencia
 void Map::setMap(std::vector<std::vector<int>> map) {
     this->map = map;
 }
 
+// referencia
 void Map::setConstYards(std::vector<std::vector<int>> constYards) {
     this->constYards = constYards;
 }

@@ -36,7 +36,7 @@ Post-Condiciones: (Serializacion) Pasa de un int a un uint16_t, pasandolo a BE.
 
 uint16_t ProtocolClient::convert_to_uint16_with_endianess(int number){
 	int num_aux = htons((uint16_t) number);
-	return num_aux;
+	return num_aux; // Por qué int y no uint16_t?
 }
 
 /*
@@ -94,6 +94,8 @@ Post-Condiciones: Recibe mensaje del servidor sobre el nombre del juego.
 
 std::string ProtocolClient::recieve_msg_game_name(int bytes) {
 	std::vector<char> vector(bytes);
+
+	// Por qué de a un byte? Reciban todo junto usando .data()
 	for(int i = 0 ; i < bytes ; i++) {
 		socket.recvall(&vector[i], 1);
 	}
@@ -136,7 +138,7 @@ Post-Condiciones: Envia mensaje al servidor para poder crear una partida.
 */
 
 void ProtocolClient::send_msg_crear(int house, int num_players,
-	std::string& game_name) {
+	std::string& game_name) { //game_name debería ser constante
     uint8_t crear_convert = convert_to_uint8(3);
 	socket.sendall(&crear_convert, 1);
 
@@ -150,6 +152,7 @@ void ProtocolClient::send_msg_crear(int house, int num_players,
 	uint16_t num_bytes_convert = convert_to_uint16_with_endianess(num_bytes);
 	socket.sendall(&num_bytes_convert, 2);
 	
+	// Estos for hay que reemplazarlos por .c_str() o .data() según corresponda
 	for(int i = 0 ; i < num_bytes ; i++) {
 		socket.sendall(&game_name.at(i), 1);
 	}
@@ -180,6 +183,8 @@ void ProtocolClient::send_msg_unirse(int house, std::string& game_name) {
 	int num_bytes = game_name.length();
 	uint16_t num_bytes_convert = convert_to_uint16_with_endianess(num_bytes);
 	socket.sendall(&num_bytes_convert, 2);
+
+	// No for
 	for(int i = 0 ; i < num_bytes ; i++) {
 		socket.sendall(&game_name.at(i), 1);
 	}
@@ -190,10 +195,11 @@ Pre-Condiciones: -
 Post-Condiciones: Envia mensaje al servidor con el nombre del Usuario. 
 */
 
+// const std::string &
 void ProtocolClient::sendUserName(std::string userName) {
 	uint16_t nameSize = convert_to_uint16_with_endianess(userName.size());
 	socket.sendall(&nameSize, 2);
-	socket.sendall(&userName[0], userName.size());
+	socket.sendall(userName.c_str(), userName.size());
 }
 
 void ProtocolClient::sendOperation(int operationNumber) {

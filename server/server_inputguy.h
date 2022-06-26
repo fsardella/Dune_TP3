@@ -8,6 +8,7 @@
 #include "server_listener.h"
 #include "common_blockingqueue.h"
 
+// Ta bien, pero post-tpDeTaller no le pongas nombres graciosos a las clases
 class InputGuy: public Thread {
     Listener& listeningThread;
     BlockingQueue<Game>& readyGames;

@@ -4,7 +4,7 @@
 
 #include <string>
 
-
+// Esto parece no usarse, no tiene constructor ni se pueden setear los atributos...
 class Construction {
     int type;
     int x;

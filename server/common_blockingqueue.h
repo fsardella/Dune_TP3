@@ -7,7 +7,8 @@
 #include <deque>
 #include <utility>
 
-
+// Les hice comentarios en esta clase, pero del client. Esta clase debería estar en una
+// común, y hay que hacer las correciones señaladas.
 class ClosedQueueException: public std::exception {};
 
 typedef std::unique_lock<std::mutex> queueLock_t;

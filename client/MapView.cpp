@@ -90,7 +90,7 @@ void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>>
     rows = height;
     for (size_t i = 0; i < rows; i ++) {
         for (size_t j = 0; j < columns; j++) {
-            std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
+            std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]]; // Para qué esto?
             auto& backgroundTexture = tileTextureTranslator.at(map[i][j]);
             backgroundTiles.emplace_back(&backgroundTexture, TILE_PIX_SIZE, TILE_PIX_SIZE, j, i);
         }

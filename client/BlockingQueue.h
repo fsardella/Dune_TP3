@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+// Implementar el what() con un mensaje descriptivo
 class ClosedQueueException: public std::exception {};
 
 typedef std::unique_lock<std::mutex> queueLock_t;
@@ -34,6 +35,7 @@ class BlockingQueue{
 };
 
 // Definiciones en header porque los Templates son malas personas.
+// O porque no son clases...
 template <class T>
 BlockingQueue<T>::BlockingQueue(): closed(false) {}
 
@@ -46,6 +48,8 @@ void BlockingQueue<T>::push(T element) {
     notEmpty.notify_all();
 }
 
+// Si hacés un pop de una cola que está cerrada pero aún tiene elementos,
+// te tiene que devolver un elemento.
 template <class T>
 T BlockingQueue<T>::pop() {
     if (this->closed)
@@ -60,6 +64,7 @@ T BlockingQueue<T>::pop() {
     return value;
 }
 
+// Tomar el lock para esto
 template <class T>
 void BlockingQueue<T>::close() {
     this->closed = true;

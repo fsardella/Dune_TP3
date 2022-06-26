@@ -19,6 +19,7 @@ EditMap::EditMap(QWidget *parent) :
     this->setPalette(palette);
 }
 
+// Estás copiando todo el vector, pasar referencia
 EditMap::EditMap(std::vector<std::string> maps, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::edit_map),

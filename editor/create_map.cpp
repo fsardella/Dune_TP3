@@ -6,7 +6,7 @@
 #define MIN_HEIGHT 21
 #define MAX_WIDTH 110
 #define MAX_HEIGHT 80
-#define MAX_PLAYERS 10 // cambiar
+#define MAX_PLAYERS 10 // cambiar :)
 
 CreateMap::CreateMap(QWidget *parent) :
     QDialog(parent),

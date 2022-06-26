@@ -9,6 +9,7 @@
 #define ROCK_NAME "rock"
 #define SAND_NAME "sand"
 
+// Lo que se pueda de acá, por referencia
 MapScene::MapScene(Map* map, std::map<int, std::vector<std::string>> translator) :
     map(map),
     translator(translator)
@@ -112,6 +113,7 @@ void MapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QPointF newPos(event->scenePos().x() - xRemainder, event->scenePos().y() - yRemainder);
 
     MapItem* newItem = new MapItem(event->scenePos().y() - yRemainder, event->scenePos().x() - xRemainder, path, id);
+    // ojo que esto no lo usan
     std::string newName = translator[id][0];
 
     int x = static_cast<int>(event->scenePos().x() / SPACING);

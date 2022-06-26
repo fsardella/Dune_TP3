@@ -38,6 +38,9 @@ class Socket {
 
     Socket();
 
+    // Por qué no seguir con el constructor que estaba? Este approach hace que puedas
+    // tener un socket "vacío", entonces todos los otros métodos podrían tener errores
+    // porque necesitan que el socket esté conectado.
     void socketConnect(const char *hostname, const char *servicename);
 
     /* Socket::sendsome() lee hasta sz bytes del buffer y los envia. La funcion

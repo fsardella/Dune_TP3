@@ -52,7 +52,7 @@ Pre-Condiciones: -
 Post-Condiciones: Devuelve el numero de bytes del nombre de una Game.
 */
 
-int Game::get_num_bytes() const{
+int Game::get_num_bytes() const{ // get_name_length?
 	return this->game_name.length();
 }
 

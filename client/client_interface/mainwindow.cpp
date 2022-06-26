@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent, Client* client)
     QPixmap bkgnd("../client/Dune.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
+
+    // BTW, el método que hace que su código compile solamente contra vesiones de qt mayores
+    // a 5.12 es este.
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 }

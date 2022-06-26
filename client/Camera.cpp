@@ -15,6 +15,8 @@ Camera::Camera(SdlWindow& window)
   offsetX(0),
   offsetY(0) {
     centerPix = window.getCenter();
+
+    // Esto en la member initialization list
     width = int((centerPix.x) * 1.5 / TILE_PIX_SIZE);
     height = int(2*centerPix.y / TILE_PIX_SIZE);
 }

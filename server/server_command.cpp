@@ -11,6 +11,8 @@ void Command::add8BytesMessage(const uint8_t message) {
     this->command.push_back(message);
 }
 
+// Esta clase es la encargada del protocolo de comunicación?
+
 void Command::add16BytesMessage(const uint16_t message) {
     uint16_t newMessage = htons(message);
     uint8_t* auxPoint = (uint8_t*)&newMessage;
@@ -68,7 +70,7 @@ uint16_t Command::pop16BytesMessage(){
         throw std::runtime_error("Tried to pop empty Command");
     uint8_t bytes[2];
     bytes[0] = this->pop8BytesMessage();
-    bytes[1] = this->pop8BytesMessage();
+    bytes[1] = this->pop8BytesMessage(); // 8 bits == 1 Byte
     uint16_t* auxPoint = (uint16_t*)&bytes[0];
     return ntohs(*auxPoint);
 }

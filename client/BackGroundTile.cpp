@@ -16,6 +16,7 @@ void BackGroundTile::render(Camera &camera) {
 }
 
 int BackGroundTile::render(Camera &camera, int posX, int posY) {
+    // ?
     return 0;
 }
 

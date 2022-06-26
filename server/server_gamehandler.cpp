@@ -21,7 +21,7 @@ GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
 
 void GameHandler::processCommand(Command comm) {
     uint8_t commandType = comm.getType();
-    switch (commandType) { // Posible diccionario!
+    switch (commandType) { // Posible diccionario! Mientras mantengas que cada case sólo llama a una función, a menos que tengas bocha de cases está ok esto
         case DISCONNECT:
             std::cout << "Recibi request de disconnect de " << comm.getSender() << std::endl;
             this->disconnect(comm);
@@ -52,7 +52,7 @@ void GameHandler::addNewUnit(Command comm) {
         this->notifySuccess(comm);
 }
 
-#include <iostream> // DEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUG
+#include <iostream> // DEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUG DEBUG
 
 void GameHandler::notifyError(Command comm) {
     Command errorCom;

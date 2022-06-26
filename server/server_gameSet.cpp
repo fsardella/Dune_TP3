@@ -19,6 +19,7 @@ Pre-Condiciones: -
 Post-Condiciones: Chequea si la Game existe (devuelve true) o si no existe (devuelve false).
 */
 
+// Poné un comment diciendo que no usás el lock porque este método es privado
 bool GameSet::game_exists(const std::string& game_name) {
 	return (this->games.find(game_name) != this->games.end());
 }
@@ -28,6 +29,7 @@ Pre-Condiciones: Existe un juego game_name.
 Post-Condiciones: Chequea si la Game esta llena (devuelve true) o si no (devuelve false).
 */
 
+// Poné un comment diciendo que no usás el lock porque este método es privado
 bool GameSet::game_complete(const std::string& game_name) {
 	//Game& game = get_game(game_name);
     return (this->games[game_name].game_complete());

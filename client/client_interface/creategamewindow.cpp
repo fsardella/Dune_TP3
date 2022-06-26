@@ -10,6 +10,7 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     ui(new Ui::CreateGameWindow)
 {
     ui->setupUi(this);
+    // Guarda con los paths hardcodeados cuando hagan el instalador!
     QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
