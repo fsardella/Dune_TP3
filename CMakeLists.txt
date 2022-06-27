@@ -217,8 +217,4 @@ add_executable(server ${SERVER_SOURCES} server/main.cpp)
 
 target_link_libraries(editor_interface PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${YAML_CPP_LIBRARIES})
 target_link_libraries(client_interface Qt5::Widgets Qt5::Core ${SDL2PP_LIBRARIES} yaml-cpp)
-<<<<<<< HEAD
 target_link_libraries(server ${YAML_CPP_LIBRARIES})
-=======
-target_link_libraries(server ${YAML_CPP_LIBRARIES})
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
