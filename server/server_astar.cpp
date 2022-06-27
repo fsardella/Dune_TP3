@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-#include "server_astar.h"
-=======
 #include "server_units.h"
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 #include <queue>
 #include <math.h>
 
-<<<<<<< HEAD
-
-#define WALL 0
-=======
 #include <iostream>
 
 #define WALL 0
@@ -22,25 +14,16 @@ coor_t getChunk(const coor_t& coor) {
                   (coor.second / CHUNKSIZE) * CHUNKSIZE);
 }
 
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 AStar::AStar(Unit& unit, coor_t origin, TerrainMap& terrain): unit(unit),
                                                     terr(terrain),
                                                     actPos(origin),
                                                     actDest(coor_t(0, 0)) {}
 
-<<<<<<< HEAD
-bool AStar::path_is_clear() {
-    for (coor_t mov : this->movs) {
-        if (this->terr.getSpeed(mov, this->unit) == WALL) {
-            return false;
-        }
-=======
 bool AStar::pathIsClear() {
     for (coor_t mov : this->movs) {
         if (this->terr.getSpeed(mov, this->unit) == WALL)
             return false;
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     }
     return true;
 }
@@ -49,22 +32,11 @@ void AStar::processMove(coor_t dest) {
     if (this->actPos == dest || this->terr.getSpeed(dest, this->unit) == WALL) {
         return;
     } else if (!this->movs.empty() && this->actDest == dest
-<<<<<<< HEAD
-               && this->path_is_clear()) {
-=======
                && (this->pathIsClear() || this->movs.back() == this->actPos)) {
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
         coor_t ret = this->movs.back();
         this->movs.pop_back();
         this->terr.swapContent(this->actPos, ret);
         this->actPos = ret;
-<<<<<<< HEAD
-    } else {
-        this->movs.clear();
-        this->actDest = dest;
-        this->execAlgorithm();
-        if (!this->movs.empty())
-=======
     } else if (this->movs.empty() && !this->chunks.empty()) { 
         this->execSubAlgorithm();
         if (!this->movs.empty()) {
@@ -78,7 +50,6 @@ void AStar::processMove(coor_t dest) {
         this->actDest = dest;
         this->execAlgorithm();
         if (!this->chunks.empty())
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
             this->processMove(this->actDest);
     }
 }
@@ -101,15 +72,10 @@ float get_distance(std::map<coor_t, float>& dict, const coor_t& key) {
 std::list<coor_t> AStar::getAdjacents(const coor_t& coor) {
     std::list<coor_t> adjacents;
     coor_t dims = this->terr.getDims();
-<<<<<<< HEAD
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-=======
     for (int i = -CHUNKSIZE; i <= CHUNKSIZE; i += CHUNKSIZE) {
         for (int j = -CHUNKSIZE; j <= CHUNKSIZE; j += CHUNKSIZE) {
             if (i == 0 && j == 0)
                 continue;
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
             if (coor.first + i < (int)dims.first && coor.first + i >= 0 &&
                 coor.second + j < (int)dims.second
                 && coor.second + j >= 0) {
@@ -130,21 +96,6 @@ bool get_min(const dijk_t& a, const dijk_t& b) {
 
 std::map<coor_t, coor_t> AStar::_execAlgorithm() {
     std::map<coor_t, float> distance;
-<<<<<<< HEAD
-    std::map<coor_t, coor_t> parent;
-    std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)> prior_q(get_min); // Debe ser float para admitir inf...
-    distance[this->actPos] = 0;
-    parent[this->actDest] = this->actDest;
-    dijk_t act(this->actPos, 0);
-    prior_q.push(act);
-    while (!prior_q.empty()) {
-        coor_t u = prior_q.top().first;
-        if (u == this->actDest)
-            break;
-        prior_q.pop();
-        for (coor_t adj : getAdjacents(u)) {
-            if (distance.find(adj) == distance.end()) {
-=======
     std::map<coor_t, bool> seen;
     std::map<coor_t, coor_t> parent;
     std::priority_queue<dijk_t, std::vector<dijk_t>, decltype(&get_min)>
@@ -163,21 +114,14 @@ std::map<coor_t, coor_t> AStar::_execAlgorithm() {
         seen[u] = true;
         for (coor_t adj : getAdjacents(u)) {
             if (seen.find(adj) == seen.end()) {
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
                 float ter_speed = this->terr.getSpeed(adj, this->unit); 
                 if (ter_speed == WALL) {
                     distance[adj] = INFINITY;
                 } else if (get_distance(distance, adj) >
                            distance[u] + ter_speed + chevychev(adj)) {
-<<<<<<< HEAD
-                    distance[adj] = distance[u] + ter_speed + chevychev(adj);
-                    parent[adj] = u;
-                    act = dijk_t(adj, distance[adj]);
-=======
                     distance[adj] = distance[u] + ter_speed;
                     parent[adj] = u;
                     act = dijk_t(adj, distance[adj] + chevychev(adj));
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
                     prior_q.push(act);
                 }
             }
@@ -189,16 +133,6 @@ std::map<coor_t, coor_t> AStar::_execAlgorithm() {
 
 void AStar::execAlgorithm() {
     std::map<coor_t, coor_t> parents = this->_execAlgorithm();
-<<<<<<< HEAD
-    coor_t u = this->actDest;
-    while (u != this->actPos) {
-        for (float trav_turns = 0;
-             trav_turns < this->terr.getSpeed(u, this->unit);
-             trav_turns++)
-            this->movs.push_back(u);
-        u = parents[u];
-        if (u == this->actDest) {
-=======
     coor_t actChunk = getChunk(this->actPos);
     coor_t destChunk = getChunk(this->actDest);
     coor_t u = destChunk;
@@ -287,15 +221,12 @@ void AStar::execSubAlgorithm() {
             this->movs.push_back(u);
         u = parents[u];
         if (u == dest) {
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
             this->movs.clear();
             return;
         }
     }
 }
 
-<<<<<<< HEAD
-=======
 
 void AStar::print() {
     std::cout << "A* Chunks: ";
@@ -308,7 +239,6 @@ void AStar::print() {
     std::cout << std::endl;
 }
 
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 coor_t AStar::getPosition() {
     return this->actPos;
 }

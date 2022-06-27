@@ -9,11 +9,7 @@ WaitingWindow::WaitingWindow(QWidget *parent, Client* client) :
     ui(new Ui::WaitingWindow)
 {
     ui->setupUi(this);
-<<<<<<< HEAD
-    QPixmap bkgnd("../client_interface/images/waitingScreen.jpg");
-=======
     QPixmap bkgnd("../client/client_interface/images/waitingScreen.jpg");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);

@@ -1,17 +1,652 @@
-amount: 1
+amount: 21
 
-0_animationAmount: 2
+#######UNITS#######
 
+#######TRIKE#######
+
+0_animationAmount: 4
+
+#De centro a sur
 0_0:
-  - "../client/animations/s.bmp"
-  - "../client/animations/sw1.bmp"
-  - "../client/animations/sw2.bmp"
-  - "../client/animations/sw3.bmp"
-  - "../client/animations/sw4.bmp"
+  - "../client/animations/trike16.bmp"
+  - "../client/animations/trike17.bmp"
+  - "../client/animations/trike18.bmp"
+  - "../client/animations/trike1.bmp"
 
+#De centro a oeste
 0_1:
-  - "../client/animations/w.bmp"
-  - "../client/animations/wn1.bmp"
-  - "../client/animations/wn2.bmp"
-  - "../client/animations/wn3.bmp"
-  - "../client/animations/wn4.bmp"
+  - "../client/animations/trike16.bmp"
+  - "../client/animations/trike17.bmp"
+  - "../client/animations/trike18.bmp"
+  - "../client/animations/trike1.bmp"
+  - "../client/animations/trike2.bmp"
+  - "../client/animations/trike3.bmp"
+  - "../client/animations/trike4.bmp"
+  - "../client/animations/trike5.bmp"
+  - "../client/animations/trike6.bmp"
+
+#De centro a norte
+0_2:
+  - "../client/animations/trike16.bmp"
+  - "../client/animations/trike17.bmp"
+  - "../client/animations/trike18.bmp"
+  - "../client/animations/trike1.bmp"
+  - "../client/animations/trike2.bmp"
+  - "../client/animations/trike3.bmp"
+  - "../client/animations/trike4.bmp"
+  - "../client/animations/trike5.bmp"
+  - "../client/animations/trike6.bmp"
+  - "../client/animations/trike7.bmp"
+  - "../client/animations/trike8.bmp"
+  - "../client/animations/trike9.bmp"
+  - "../client/animations/trike10.bmp"
+  - "../client/animations/trike11.bmp"
+
+#Quieto
+0_3:
+  - "../client/animations/Trike16.bmp"
+
+#######COSECHADORA#######
+
+1_animationAmount: 4
+
+#De centro a sur
+1_0:
+  - "../client/animations/Cosechadora1.bmp"
+  - "../client/animations/Cosechadora18.bmp"
+  - "../client/animations/Cosechadora17.bmp"
+  - "../client/animations/Cosechadora16.bmp"
+
+#De centro a oeste
+1_1:
+  - "../client/animations/Cosechadora1.bmp"
+  - "../client/animations/Cosechadora18.bmp"
+  - "../client/animations/Cosechadora17.bmp"
+  - "../client/animations/Cosechadora16.bmp"
+  - "../client/animations/Cosechadora15.bmp"
+  - "../client/animations/Cosechadora14.bmp"
+  - "../client/animations/Cosechadora13.bmp"
+  - "../client/animations/Cosechadora12.bmp"
+  - "../client/animations/Cosechadora11.bmp"
+
+#De centro a norte
+1_2:
+  - "../client/animations/Cosechadora1.bmp"
+  - "../client/animations/Cosechadora18.bmp"
+  - "../client/animations/Cosechadora17.bmp"
+  - "../client/animations/Cosechadora16.bmp"
+  - "../client/animations/Cosechadora15.bmp"
+  - "../client/animations/Cosechadora14.bmp"
+  - "../client/animations/Cosechadora13.bmp"
+  - "../client/animations/Cosechadora12.bmp"
+  - "../client/animations/Cosechadora11.bmp"
+  - "../client/animations/Cosechadora10.bmp"
+  - "../client/animations/Cosechadora9.bmp"
+  - "../client/animations/Cosechadora8.bmp"
+  - "../client/animations/Cosechadora7.bmp"
+
+#Quieto
+1_3:
+  - "../client/animations/Cosechadora1.bmp"
+
+#######SONIC TANK#######
+
+2_animationAmount: 4
+
+#De centro a sur
+2_0:
+  - "../client/animations/SonicTank1.bmp"
+  - "../client/animations/SonicTank2.bmp"
+  - "../client/animations/SonicTank3.bmp"
+  - "../client/animations/SonicTank4.bmp"
+  - "../client/animations/SonicTank5.bmp"
+  - "../client/animations/SonicTank6.bmp"
+
+#De centro a oeste
+2_1:
+  - "../client/animations/SonicTank1.bmp"
+  - "../client/animations/SonicTank2.bmp"
+  - "../client/animations/SonicTank3.bmp"
+  - "../client/animations/SonicTank4.bmp"
+  - "../client/animations/SonicTank5.bmp"
+  - "../client/animations/SonicTank6.bmp"
+  - "../client/animations/SonicTank7.bmp"
+  - "../client/animations/SonicTank8.bmp"
+  - "../client/animations/SonicTank9.bmp"
+  - "../client/animations/SonicTank10.bmp"
+  - "../client/animations/SonicTank11.bmp"
+  - "../client/animations/SonicTank12.bmp"
+  - "../client/animations/SonicTank13.bmp"
+  - "../client/animations/SonicTank14.bmp"
+  - "../client/animations/SonicTank15.bmp"
+  - "../client/animations/SonicTank16.bmp"
+  - "../client/animations/SonicTank17.bmp"
+  - "../client/animations/SonicTank18.bmp"
+
+#De centro a norte
+2_2:
+  - "../client/animations/SonicTank1.bmp"
+  - "../client/animations/SonicTank2.bmp"
+  - "../client/animations/SonicTank3.bmp"
+  - "../client/animations/SonicTank4.bmp"
+  - "../client/animations/SonicTank5.bmp"
+  - "../client/animations/SonicTank6.bmp"
+  - "../client/animations/SonicTank7.bmp"
+  - "../client/animations/SonicTank8.bmp"
+  - "../client/animations/SonicTank9.bmp"
+  - "../client/animations/SonicTank10.bmp"
+  - "../client/animations/SonicTank11.bmp"
+  - "../client/animations/SonicTank12.bmp"
+  - "../client/animations/SonicTank13.bmp"
+  - "../client/animations/SonicTank14.bmp"
+  - "../client/animations/SonicTank15.bmp"
+  - "../client/animations/SonicTank16.bmp"
+  - "../client/animations/SonicTank17.bmp"
+  - "../client/animations/SonicTank18.bmp"
+  - "../client/animations/SonicTank19.bmp"
+  - "../client/animations/SonicTank20.bmp"
+  - "../client/animations/SonicTank21.bmp"
+
+#Quieto
+2_3:
+  - "../client/animations/SonicTank1.bmp"
+
+#######RAIDER#######
+
+3_animationAmount: 4
+
+#De centro a sur
+3_0:
+  - "../client/animations/Raider1.bmp"
+  - "../client/animations/Raider2.bmp"
+  - "../client/animations/Raider3.bmp"
+  - "../client/animations/Raider4.bmp"
+
+#De centro a oeste
+3_1:
+  - "../client/animations/Raider1.bmp"
+  - "../client/animations/Raider2.bmp"
+  - "../client/animations/Raider3.bmp"
+  - "../client/animations/Raider4.bmp"
+  - "../client/animations/Raider5.bmp"
+  - "../client/animations/Raider6.bmp"
+
+#De centro a norte
+3_2:
+  - "../client/animations/Raider1.bmp"
+  - "../client/animations/Raider2.bmp"
+  - "../client/animations/Raider3.bmp"
+  - "../client/animations/Raider4.bmp"
+  - "../client/animations/Raider5.bmp"
+  - "../client/animations/Raider6.bmp"
+  - "../client/animations/Raider7.bmp"
+  - "../client/animations/Raider8.bmp"
+
+#Quieto
+3_3:
+  - "../client/animations/Raider1.bmp"
+
+#######TANQUE#######
+
+4_animationAmount: 4
+
+#De centro a sur
+4_0:
+  - "../client/animations/Tanque1.bmp"
+  - "../client/animations/Tanque2.bmp"
+  - "../client/animations/Tanque3.bmp"
+  - "../client/animations/Tanque4.bmp"
+
+#De centro a oeste
+4_1:
+  - "../client/animations/Tanque1.bmp"
+  - "../client/animations/Tanque2.bmp"
+  - "../client/animations/Tanque3.bmp"
+  - "../client/animations/Tanque4.bmp"
+  - "../client/animations/Tanque5.bmp"
+  - "../client/animations/Tanque6.bmp"
+
+#De centro a norte
+4_2:
+  - "../client/animations/Tanque1.bmp"
+  - "../client/animations/Tanque2.bmp"
+  - "../client/animations/Tanque3.bmp"
+  - "../client/animations/Tanque4.bmp"
+  - "../client/animations/Tanque5.bmp"
+  - "../client/animations/Tanque6.bmp"
+  - "../client/animations/Tanque7.bmp"
+  - "../client/animations/Tanque8.bmp"
+
+#Quieto
+4_3:
+  - "../client/animations/Tanque1.bmp"
+
+
+#######DESVIADOR#######
+
+5_animationAmount: 4
+
+#De centro a sur
+5_0:
+  - "../client/animations/Desviador1.bmp"
+  - "../client/animations/Desviador2.bmp"
+  - "../client/animations/Desviador3.bmp"
+  - "../client/animations/Desviador4.bmp"
+  - "../client/animations/Desviador5.bmp"
+  - "../client/animations/Desviador6.bmp"
+  - "../client/animations/Desviador7.bmp"
+  - "../client/animations/Desviador8.bmp"
+  - "../client/animations/Desviador9.bmp"
+  - "../client/animations/Desviador10.bmp"
+
+#De centro a oeste
+5_1:
+  - "../client/animations/Desviador1.bmp"
+  - "../client/animations/Desviador2.bmp"
+  - "../client/animations/Desviador3.bmp"
+  - "../client/animations/Desviador4.bmp"
+  - "../client/animations/Desviador5.bmp"
+  - "../client/animations/Desviador6.bmp"
+  - "../client/animations/Desviador7.bmp"
+  - "../client/animations/Desviador8.bmp"
+  - "../client/animations/Desviador9.bmp"
+  - "../client/animations/Desviador10.bmp"
+  - "../client/animations/Desviador11.bmp"
+  - "../client/animations/Desviador12.bmp"
+  - "../client/animations/Desviador13.bmp"
+  - "../client/animations/Desviador14.bmp"
+  - "../client/animations/Desviador15.bmp"
+  - "../client/animations/Desviador16.bmp"
+  - "../client/animations/Desviador17.bmp"
+
+#De centro a norte
+5_2:
+  - "../client/animations/Desviador1.bmp"
+  - "../client/animations/Desviador2.bmp"
+  - "../client/animations/Desviador3.bmp"
+  - "../client/animations/Desviador4.bmp"
+  - "../client/animations/Desviador5.bmp"
+  - "../client/animations/Desviador6.bmp"
+  - "../client/animations/Desviador7.bmp"
+  - "../client/animations/Desviador8.bmp"
+  - "../client/animations/Desviador9.bmp"
+  - "../client/animations/Desviador10.bmp"
+  - "../client/animations/Desviador11.bmp"
+  - "../client/animations/Desviador12.bmp"
+  - "../client/animations/Desviador13.bmp"
+  - "../client/animations/Desviador14.bmp"
+  - "../client/animations/Desviador15.bmp"
+  - "../client/animations/Desviador16.bmp"
+  - "../client/animations/Desviador17.bmp"
+  - "../client/animations/Desviador18.bmp"
+  - "../client/animations/Desviador19.bmp"
+  - "../client/animations/Desviador20.bmp"
+  - "../client/animations/Desviador21.bmp"
+  - "../client/animations/Desviador22.bmp"
+  - "../client/animations/Desviador23.bmp"
+  - "../client/animations/Desviador24.bmp"
+
+#Quieto
+5_3:
+  - "../client/animations/Desviador1.bmp"
+
+#######DEVASTADOR#######
+
+6_animationAmount: 4
+
+#De centro a sur
+6_0:
+  - "../client/animations/Devastador1.bmp"
+  - "../client/animations/Devastador2.bmp"
+  - "../client/animations/Devastador3.bmp"
+  - "../client/animations/Devastador4.bmp"
+  - "../client/animations/Devastador5.bmp"
+
+#De centro a oeste
+6_1:
+  - "../client/animations/Devastador1.bmp"
+  - "../client/animations/Devastador2.bmp"
+  - "../client/animations/Devastador3.bmp"
+  - "../client/animations/Devastador4.bmp"
+  - "../client/animations/Devastador5.bmp"
+  - "../client/animations/Devastador6.bmp"
+  - "../client/animations/Devastador7.bmp"
+
+#De centro a norte
+6_2:
+  - "../client/animations/Devastador1.bmp"
+  - "../client/animations/Devastador2.bmp"
+  - "../client/animations/Devastador3.bmp"
+  - "../client/animations/Devastador4.bmp"
+  - "../client/animations/Devastador5.bmp"
+  - "../client/animations/Devastador6.bmp"
+  - "../client/animations/Devastador7.bmp"
+  - "../client/animations/Devastador8.bmp"
+  - "../client/animations/Devastador8.bmp"
+
+#Quieto
+6_3:
+  - "../client/animations/Devastador1.bmp"
+
+#######SARDUKAR#######
+
+7_animationAmount: 5
+
+#Quieto mirando al sur
+7_0:
+  - "../client/animations/Sardukar3.bmp"
+
+#Quieto mirando al oeste
+7_1:
+  - "../client/animations/Sardukar4.bmp"
+
+#Quieto mirando al norte
+7_2:
+  - "../client/animations/Sardukar1.bmp"
+
+#Quieto mirando al este
+7_3:
+  - "../client/animations/Sardukar2.bmp"
+
+#Moviendose al este
+7_4:
+  - "../client/animations/Sardukar2.bmp"
+  - "../client/animations/Sardukar5.bmp"
+  - "../client/animations/Sardukar6.bmp"
+
+#Moviendose al oeste
+7_5:
+  - "../client/animations/Sardukar4.bmp"
+  - "../client/animations/Sardukar7.bmp"
+
+#######FREMEN#######
+
+8_animationAmount: 5
+
+#Quieto mirando al sur
+8_0:
+  - "../client/animations/Fremen3.bmp"
+
+#Quieto mirando al oeste
+8_1:
+  - "../client/animations/Fremen4.bmp"
+
+#Quieto mirando al norte
+8_2:
+  - "../client/animations/Fremen1.bmp"
+
+#Quieto mirando al este
+8_3:
+  - "../client/animations/Fremen2.bmp"
+
+#Moviendose al este
+8_4:
+  - "../client/animations/Fremen2.bmp"
+  - "../client/animations/Fremen5.bmp"
+
+#Moviendose al oeste
+8_5:
+  - "../client/animations/Fremen4.bmp"
+  - "../client/animations/Fremen6.bmp"
+
+#######INFANTERIA PESADA#######
+
+9_animationAmount: 5
+
+#Quieto mirando al sur
+9_0:
+  - "../client/animations/InfanteriaPesada3.bmp"
+
+#Quieto mirando al oeste
+9_1:
+  - "../client/animations/InfanteriaPesada4.bmp"
+
+#Quieto mirando al norte
+9_2:
+  - "../client/animations/InfanteriaPesada1.bmp"
+
+#Quieto mirando al este
+9_3:
+  - "../client/animations/InfanteriaPesada2.bmp"
+
+#Moviendose al este
+9_4:
+  - "../client/animations/InfanteriaPesada2.bmp"
+  - "../client/animations/InfanteriaPesada5.bmp"
+
+#Moviendose al oeste
+9_5:
+  - "../client/animations/InfanteriaPesada4.bmp"
+  - "../client/animations/InfanteriaPesada6.bmp"
+
+#######INFANTERIA LIGERA#######
+
+10_animationAmount: 5
+
+#Quieto mirando al sur
+10_0:
+  - "../client/animations/InfanteriaLigera3.bmp"
+
+#Quieto mirando al oeste
+10_1:
+  - "../client/animations/InfanteriaLigera4.bmp"
+
+#Quieto mirando al norte
+10_2:
+  - "../client/animations/InfanteriaLigera1.bmp"
+
+#Quieto mirando al este
+10_3:
+  - "../client/animations/InfanteriaLigera2.bmp"
+
+#Moviendose al este
+10_4:
+  - "../client/animations/InfanteriaLigera2.bmp"
+  - "../client/animations/InfanteriaLigera5.bmp"
+
+#Moviendose al oeste
+10_5:
+  - "../client/animations/InfanteriaLigera4.bmp"
+  - "../client/animations/InfanteriaLigera6.bmp"
+
+#######CONSTRUCTIONS#######
+
+#######CENTRO DE CONSTRUCCION#######
+
+11_animationAmount: 3
+
+#Quieto
+11_0:
+  - "../client/animations/CentroDeConstruccion.bmp"
+
+#Crear
+11_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/CentroDeConstruccionDestruido.bmp"
+  - "../client/animations/CentroDeConstruccion.bmp"
+
+#Morir
+11_2:
+  - "../client/animations/CentroDeConstruccion.bmp"
+  - "../client/animations/CentroDeConstruccionDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######FABRICA LIGERA#######
+
+12_animationAmount: 3
+
+#Quieto
+12_0:
+  - "../client/animations/FabericaLigera.bmp"
+
+#Crear
+12_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/FabericaLigeraDestruida.bmp"
+  - "../client/animations/FabericaLigera.bmp"
+
+#Morir
+12_2:
+  - "../client/animations/FabericaLigera.bmp"
+  - "../client/animations/FabericaLigeraDestruida.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######FABRICA PESADA#######
+
+13_animationAmount: 3
+
+#Quieto
+13_0:
+  - "../client/animations/FabericaPesada.bmp"
+
+#Crear
+13_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/FabericaPesadaDestruida.bmp"
+  - "../client/animations/FabericaPesada.bmp"
+
+#Morir
+13_2:
+  - "../client/animations/FabericaPesada.bmp"
+  - "../client/animations/FabericaPesadaDestruida.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######PALACIO#######
+
+14_animationAmount: 3
+
+#Quieto
+14_0:
+  - "../client/animations/Palacio.bmp"
+
+#Crear
+14_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/PalacioDestruido.bmp"
+  - "../client/animations/Palacio.bmp"
+
+#Morir
+14_2:
+  - "../client/animations/Palacio.bmp"
+  - "../client/animations/PalacioDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######REFINERIA#######
+
+15_animationAmount: 3
+
+#Quieto
+15_0:
+  - "../client/animations/Refineria.bmp"
+
+#Crear
+15_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/RefineriaDestruida.bmp"
+  - "../client/animations/Refineria.bmp"
+
+#Morir
+15_2:
+  - "../client/animations/Refineria.bmp"
+  - "../client/animations/RefineriaDestruida.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######SILO#######
+
+16_animationAmount: 3
+
+#Quieto
+16_0:
+  - "../client/animations/Silo.bmp"
+
+#Crear
+16_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/SiloDestruido.bmp"
+  - "../client/animations/Silo.bmp"
+
+#Morir
+16_2:
+  - "../client/animations/Silo.bmp"
+  - "../client/animations/SiloDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######TRAMPA#######
+
+17_animationAmount: 3
+
+#Quieto
+17_0:
+  - "../client/animations/Trampa.bmp"
+
+#Crear
+17_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/TrampaDestruida.bmp"
+  - "../client/animations/Trampa.bmp"
+
+#Morir
+17_2:
+  - "../client/animations/Trampa.bmp"
+  - "../client/animations/TrampaDestruida.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######CUARTEL HARKONNEN#######
+
+18_animationAmount: 3
+
+#Quieto
+18_0:
+  - "../client/animations/CuartelHarkonnen.bmp"
+
+#Crear
+18_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/CuartelHarkonnenDestruido.bmp"
+  - "../client/animations/CuartelHarkonnen.bmp"
+
+#Morir
+18_2:
+  - "../client/animations/CuartelHarkonnen.bmp"
+  - "../client/animations/CuartelHarkonnenDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######CUARTEL ORDOS#######
+
+19_animationAmount: 3
+
+#Quieto
+19_0:
+  - "../client/animations/CuartelOrdos.bmp"
+
+#Crear
+19_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/CuartelOrdosDestruido.bmp"
+  - "../client/animations/CuartelOrdos.bmp"
+
+#Morir
+19_2:
+  - "../client/animations/CuartelOrdos.bmp"
+  - "../client/animations/CuartelOrdosDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"
+
+#######CUARTEL ATREIDES#######
+
+20_animationAmount: 3
+
+#Quieto
+20_0:
+  - "../client/animations/CuartelAtreides.bmp"
+
+#Crear
+20_1:
+  - "../client/animations/Destruction1.bmp"
+  - "../client/animations/CuartelAtreidesDestruido.bmp"
+  - "../client/animations/CuartelAtreides.bmp"
+
+#Morir
+20_2:
+  - "../client/animations/CuartelAtreides.bmp"
+  - "../client/animations/CuartelAtreidesDestruido.bmp"
+  - "../client/animations/Destruction1.bmp"

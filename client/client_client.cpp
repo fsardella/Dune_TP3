@@ -20,7 +20,7 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor de Cliente.
 */
 
-Client::Client():protocol() {
+Client::Client():readyToRun(false),protocol() {
 }
 
 /*
@@ -97,11 +97,7 @@ void Client::client_run() {
 	drawer.join();
 	inputReceiver.join();
 	serverDespatcher.join();
-<<<<<<< HEAD
-	receiver.join();	
-=======
 	receiver.join();
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 }
 
 void Client::sendUserName(std::string userName) {
@@ -144,6 +140,14 @@ int Client::recvStartGame() {
 
 int Client::recvOperationResult() {
 	return protocol.recvOperationResult();
+}
+
+void Client::setReadyToRun() {
+	readyToRun = true;
+}
+
+bool Client::isReadyToRun() {
+	return readyToRun;
 }
 
 /*

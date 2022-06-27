@@ -3,21 +3,10 @@
 
 #include "SdlTexture.h"
 #include <map>
-<<<<<<< HEAD
-// #include <tuple>
 #include <vector>
-
-#define FRAME_DURATION 10000
-
-class Animation {
-    // std::map<std::tuple<int, int>, SdlTexture>& animationsRepository; //cada animacion tiene su ID
-=======
-#include <vector>
-
 #define FRAME_DURATION 500
 
 class Animation {
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     std::vector<SdlTexture*> frames;
     int currentAnimation;
     int currentTime;

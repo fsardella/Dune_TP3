@@ -1,19 +1,5 @@
 #include <iostream>
 #include "Unit.h"
-<<<<<<< HEAD
-/*
-Unit::Unit(SdlTexture &texture,
-        int sizeW,
-           int sizeH,
-           float posX,
-           float posY, int unitId)
-: Renderizable(texture, sizeW, sizeH, posX, posY), id(unitId) {
-    rescaling = 1;
-}*/
-=======
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
-
-#define FRAMES_AMOUNT 5
 
 Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository, 
             int sizeW,
@@ -32,13 +18,19 @@ Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
   house(house),
   animationId(animationId) 
 {
-    for (size_t i = 0; i < newAnimationsRepository.size() / 5; i ++) {
-        std::vector<SdlTexture*> textures;
-        for (int j = 0; j < FRAMES_AMOUNT; j ++) {
-            textures.push_back(&(animationsRepository.at(std::make_tuple(i, j))));
+    int actualSprite = 0;
+    std::vector<SdlTexture*> textures;
+    for (const auto& [key, value] : animationsRepository) {
+        if (std::get<0>(key) != actualSprite) {
+            animations.emplace_back(textures);
+            actualSprite = std::get<0>(key);
+            std::vector<SdlTexture*> textures;
         }
-        animations.emplace_back(textures);
+        int animationType = std::get<0>(key);
+        int animationSprite = std::get<1>(key);
+        textures.push_back(&(animationsRepository.at(std::make_tuple(animationType, animationSprite))));
     }
+    animations.emplace_back(textures);
     getTexture();
 }
 

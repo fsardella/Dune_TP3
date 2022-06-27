@@ -25,12 +25,8 @@
 #define CREATE_GAME 3
 // #define LIST_MAPS 4
 
-
 class Client {
-<<<<<<< HEAD
 	bool readyToRun;
-=======
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 	int houseNumber;
 	std::string gameName;
 	std::string mapName;
@@ -38,10 +34,8 @@ class Client {
 	public:
 	ProtocolClient protocol; //get protocol despues
 	Client();
-<<<<<<< HEAD
 	void setReadyToRun();
-=======
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
+	bool isReadyToRun();
 	void setConnection(const char* name_host, const char* service_port);
 	void client_run();
 	void chooseNumberHouse(std::string house);

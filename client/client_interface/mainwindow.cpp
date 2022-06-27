@@ -11,11 +11,7 @@ MainWindow::MainWindow(QWidget *parent, Client* client)
 {
     newClient = client;
     ui->setupUi(this);
-<<<<<<< HEAD
-    QPixmap bkgnd("../Dune.png");
-=======
     QPixmap bkgnd("../client/Dune.png");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);

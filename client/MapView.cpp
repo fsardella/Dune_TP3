@@ -23,11 +23,7 @@ void MapView::loadFontTitles() {
 }
 
 void MapView::loadSpritesTranslator() {
-<<<<<<< HEAD
-    YAML::Node node = YAML::LoadFile("../sprites.yaml");
-=======
     YAML::Node node = YAML::LoadFile("../client/sprites.yaml");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     int amount = node["amount"].as<int>();
     for (int i = 0; i < amount; i++) {
         std::map<std::tuple<int, int>, SdlTexture> animations;
@@ -48,11 +44,7 @@ void MapView::loadSpritesTranslator() {
 }
 
 void MapView::loadTileTranslator() {
-<<<<<<< HEAD
-    YAML::Node node = YAML::LoadFile("../tiles.yaml");
-=======
     YAML::Node node = YAML::LoadFile("../client/tiles.yaml");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
@@ -65,11 +57,7 @@ void MapView::loadTileTranslator() {
 }
 
 void MapView::loadMenuTranslator() {
-<<<<<<< HEAD
-    YAML::Node node = YAML::LoadFile("../menu.yaml");
-=======
     YAML::Node node = YAML::LoadFile("../client/menu.yaml");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> menuImgInfo = node[i].as<std::vector<std::string>>();
@@ -112,21 +100,6 @@ void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>>
 void MapView::createUnit(int x, int y, int unitType, int house, bool property, int animationId) {
     int posX = int(x / 32);
     int posY = int(y / 32);
-<<<<<<< HEAD
-    animationsRepository.at(0);
-    unitsTiles.emplace_back(animationsRepository.at(unitType), 100, 100, posX, posY, property, house, animationId);
-}
-/*
-void MapView::createUnit(int x, int y, int unitType, int unitId) {
-    std::string path("../small_trike.bmp");
-    unitTextureTranslator.emplace(std::piecewise_construct,
-                          std::forward_as_tuple(unitType),
-                          std::forward_as_tuple(path, window, true));
-    auto& unitTexture = unitTextureTranslator.at(unitType);
-    unitsTiles.emplace_back(unitTexture, 64, 64, x, y, unitId);
-}
-*/
-=======
     /* en una mejor implementacion cada unidad tiene un identificador unico
     y unitTiles es un mapa con clave id*/
     for (Unit& unit : unitsTiles) {
@@ -135,7 +108,6 @@ void MapView::createUnit(int x, int y, int unitType, int unitId) {
     unitsTiles.emplace_back(animationsRepository.at(unitType), 100, 100, posX, posY, property, house, animationId);
 }
 
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 void MapView::setMoney(int actualMoney) {
     std::string text("Money: $" + std::to_string(actualMoney));
     menuTextsTranslator.emplace(std::piecewise_construct,

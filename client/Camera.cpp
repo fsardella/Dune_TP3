@@ -141,8 +141,6 @@ void Camera::moveRight() {
     offsetX += 1;
 }
 
-<<<<<<< HEAD
-=======
 int Camera::getXOffset() {
     return offsetX;
 }
@@ -151,6 +149,5 @@ int Camera::getYOffset() {
     return offsetY;
 }
 
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 Camera::~Camera() {
 }

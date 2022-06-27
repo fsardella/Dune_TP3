@@ -87,8 +87,6 @@ void GameView::update(int delta) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.update(delta);
 }
-<<<<<<< HEAD
-=======
 
 int GameView::getXOffset() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
@@ -99,4 +97,4 @@ int GameView::getYOffset() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return camera.getYOffset();
 }
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
+

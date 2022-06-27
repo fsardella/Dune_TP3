@@ -250,28 +250,14 @@ void ProtocolClient::recvListOfMaps(std::list<std::string>& list) {
 	}
 }
 
-<<<<<<< HEAD
 void ProtocolClient::recvListOfGames(std::list <std::string>& list) {
 	uint16_t numberOfGamesConvert = 0;
 	socket.recvall(&numberOfGamesConvert, 2);
 	int numberOfGames = convert_from_uint16_with_endianess(numberOfGamesConvert);
-	std::cout << "nomber of games " << numberOfGames << std::endl;
-	for(int i = 0; i < numberOfGames; i++) {
-		int numberPlayersInt = recieve_msg_result();
-		std::cout << "players " << numberPlayersInt << std::endl;
-
-		int numberRequiredInt = recieve_msg_result();
-		std::cout << "players " << numberRequiredInt << std::endl;
-=======
-void ProtocolClient::recvListOfGames(std::list<std::string>& list) {
-	uint16_t numberOfGamesConvert = 0;
-	socket.recvall(&numberOfGamesConvert, 2);
-	int numberOfGames = convert_from_uint16_with_endianess(numberOfGamesConvert);
 	for(int i = 0; i < numberOfGames; i++) {
 		int numberPlayersInt = recieve_msg_result();
 
 		int numberRequiredInt = recieve_msg_result();
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 
 		uint16_t nameSizeConvert = 0;
 		socket.recvall(&nameSizeConvert, 2);
@@ -314,30 +300,6 @@ void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<ui
 }
 
 void ProtocolClient::recvUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>>& units) {
-<<<<<<< HEAD
-	int totalAmount = recieve_msg_count(); // cambiar nombres a todos los metodos
-
-	int clientAmount = recieve_msg_count();
-	int clientHouse = recieve_msg_result();
-
-	for (int i = 0; i < clientAmount; i ++) {
-		int x = recieve_msg_count() * 4;
-		int y = recieve_msg_count() * 4;
-		int type = recieve_msg_result();
-		units[std::make_tuple(x, y)] = std::make_tuple(type, clientHouse, true);
-	}
-
-	int othersAmount = 0;
-	for (int i = clientAmount; i < totalAmount; i += othersAmount) {
-		othersAmount = recieve_msg_count();
-		int otherHouse = recieve_msg_result();
-		for (int j = 0; j < othersAmount; j ++) {
-			int otherX = recieve_msg_count() * 4;
-			int otherY = recieve_msg_count() * 4;
-			int otherType = recieve_msg_result();
-			units[std::make_tuple(otherX, otherY)] =  std::make_tuple(otherType, otherHouse, false);
-		}
-=======
 	int playersAmount = recieve_msg_count(); // cambiar nombres a todos los metodos
 
 	bool propiety = true;
@@ -352,7 +314,6 @@ void ProtocolClient::recvUnits(std::map<std::tuple<int, int>, std::tuple<int, in
 			units[std::make_tuple(x, y)] = std::make_tuple(type, house, propiety);
 		}
 		propiety = false;
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
 	}
 }
 

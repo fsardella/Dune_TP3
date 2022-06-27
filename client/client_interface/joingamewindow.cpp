@@ -10,22 +10,13 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     ui(new Ui::JoinGameWindow)
 {
     ui->setupUi(this);
-<<<<<<< HEAD
-    QPixmap bkgnd("../client_interface/images/DuneCreateGame.png");
-=======
     QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
-
-<<<<<<< HEAD
-    std::list <std::string>list;
-=======
     std::list<std::string> list;
     // std::vector<int> playersRequired;
->>>>>>> 36cfca8b5fc3e40013363ce7346d4da70ed724dd
     newClient->sendListGamesOperation();
     newClient->recvListOfGames(list);
     int size = list.size();
@@ -62,6 +53,9 @@ void JoinGameWindow::on_joinGameButton_clicked()
     newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
     newClient->sendJoinGameOperation();
     int result = newClient->recvOperationResult();
+    if(result == 0) {
+        newClient->setReadyToRun();
+    }
     this->showWaitingWindow();
 }
 
