@@ -32,6 +32,10 @@ class Player {
     
     uint8_t getUnitFactor(uint8_t type);
     coor_t getUnitDir(uint8_t type, TerrainMap& terr);
+    
+    Unit* getUnit(uint16_t unitID);
+    Building* getBuilding(uint16_t buildingID);
+    
     void addUnit(Unit* unit, uint8_t id);
     bool addBuilding(uint8_t type, uint16_t x, uint16_t y, TerrainMap& terr,
                      uint16_t id);

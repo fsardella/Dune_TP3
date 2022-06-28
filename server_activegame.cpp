@@ -1,4 +1,6 @@
 #include "server_activegame.h"
+#include "server_units.h"
+#include "server_buildings.h"
 
 #include <vector>
 #include <utility>
@@ -35,9 +37,17 @@ ActiveGame::ActiveGame(Game game): buildingIDCount(game.get_required()),
     // de tiles a cada tipo de terreno.
 }
 
-int ActiveGame::getHouse(std::string playerName) {
-    lock_t lock(this->m);
-    return this->game.getHouse(playerName);
+//int ActiveGame::getHouse(std::string playerName) {
+    //lock_t lock(this->m);
+    //return this->game.getHouse(playerName);
+//}
+
+bool ActiveGame::hasUnit(uint16_t unitID) {
+    return (this->unitIDs.find(unitID) != this->unitIDs.end());
+}
+
+bool ActiveGame::hasBuilding(uint16_t buildingID) {
+    return (this->buildingIDs.find(buildingID) != this->buildingIDs.end());
 }
 
 
@@ -145,6 +155,7 @@ bool ActiveGame::addBuilding(std::string playerName, uint8_t type, uint16_t x, u
         newEvent.add16BytesMessage(x);
         newEvent.add16BytesMessage(x);
         this->events.push_back(newEvent);
+        this->buildingIDs[this->buildingIDCount] = playerName;
         this->buildingIDCount++;
     }
     return ret;
@@ -152,8 +163,36 @@ bool ActiveGame::addBuilding(std::string playerName, uint8_t type, uint16_t x, u
 
 void ActiveGame::moveUnit(std::string playerName, uint16_t unitID, uint16_t x,
                           uint16_t y) {
+    lock_t lock(this->m);
     this->game.moveUnit(playerName, unitID, coor_t(y, x));
 }
+
+
+void ActiveGame::attackUnit(uint16_t attacker, uint16_t attackedUnit) {
+    lock_t lock(this->m);
+    if (!this->hasUnit(attacker) || !this->hasUnit(attackedUnit))
+        return;
+    Unit* atta = this->game.getUnit(unitIDs[attacker], attacker);
+    Unit* attad = this->game.getUnit(unitIDs[attackedUnit], attackedUnit);
+    if (atta == nullptr || attad == nullptr)
+        return;
+    atta->attack(attad);
+}
+
+
+void ActiveGame::attackBuilding(uint16_t attacker, uint16_t attackedBuilding) {
+    lock_t lock(this->m);
+    if (!this->hasUnit(attacker) || !this->hasBuilding(attackedBuilding))
+        return;
+    Unit* atta = this->game.getUnit(unitIDs[attacker], attacker);
+    Building* attad = this->game.getBuilding(buildingIDs[attackedBuilding],
+                                             attackedBuilding);
+    if (atta == nullptr || attad == nullptr)
+        return;
+    atta->attack(attad);
+}
+                  
+
 //std::list<std::string> ActiveGame::getPlayerNames() {
     //lock_t lock(this->m);
     //return this->game.getPlayerNames(this->gameMap);

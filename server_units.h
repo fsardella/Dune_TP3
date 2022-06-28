@@ -4,21 +4,30 @@
 
 #include "server_astar.h"
 #include "server_terrain_map.h"
+#include "server_buildings.h"
 
 
 enum unitStates {
     IDLE,  
-    MOVING,
-    ATTACKING
+    ATTACKING_UNIT,
+    ATTACKING_BUILDING,
+    MOVING
 };
+
+class Building;
 
 class Unit {
     AStar moveAlgorithm;
     coor_t actDest;
     unitStates state = IDLE;
+    Unit* unitObjv = nullptr;
+    Building* buildingObjv = nullptr;
+    uint16_t watchers = 0; // Para asegurarse de que, al destruir,
+    // no queden dangling pointers... Es lo que se me ocurre... perdon
     
     void processMove();
  public:
+ 
     Unit(coor_t coor, TerrainMap& terr);
     virtual int getSpeedWeightForMount() = 0;
     int getSpeedWeightForSand();
@@ -29,6 +38,11 @@ class Unit {
     void setDest(coor_t newDest);
     uint8_t getDir();
     void print();
+    void attack(Unit* attacked);
+    void attack(Building* attacked);
+    void watch();
+    void stopWatching();
+    bool canBeCleaned();
     virtual ~Unit();
 };
 

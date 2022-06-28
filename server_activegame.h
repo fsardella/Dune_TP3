@@ -30,9 +30,10 @@ class ActiveGame {
     std::list<UnitBuffer> unitsBuilding;
     std::list<Command> events;
     
-    
+    bool hasUnit(uint16_t unitID);
+    bool hasBuilding(uint16_t buildingID);
     void updateUnitsBuffer();
-    int getHouse(std::string playerName);
+    //int getHouse(std::string playerName);
  public:
     ActiveGame(Game game);
     sketch_t getMapSketch();
@@ -47,6 +48,9 @@ class ActiveGame {
                      uint16_t y);
     void moveUnit(std::string playerName, uint16_t unitID, uint16_t x,
                   uint16_t y);
+    void attackUnit(uint16_t attacker, uint16_t attackedUnit);
+    void attackBuilding(uint16_t attacker, uint16_t attackedBuilding);
+                  
     std::map<uint8_t, std::list<UnitData>> getUnits();
     ~ActiveGame();
 };

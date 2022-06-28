@@ -75,6 +75,19 @@ coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
     return ret;
 }
 
+Unit* Player::getUnit(uint16_t unitID) {
+    if (!this->hasUnit(unitID))
+        return nullptr;
+    return this->units[unitID];
+}
+
+Building* Player::getBuilding(uint16_t buildingID) { 
+    if (!this->hasBuilding(buildingID))
+        return nullptr;
+    return this->buildings[buildingID];
+}
+
+
 void Player::addUnit(Unit* unit, uint8_t id) {
     this->units[id] = unit;
 }

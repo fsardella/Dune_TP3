@@ -12,17 +12,23 @@ class Building {
     coor_t size;
     uint16_t actualLife;
     uint16_t totalLife;
+    uint16_t buildingID = 0xFFFF;
+    uint16_t watchers = 0;
  public:
     Building(coor_t position, coor_t size, uint16_t totalLife);
     coor_t getPosition();
     coor_t getSize();
     virtual bool isLightFactory();
     bool canBuild(TerrainMap& terr);
+    uint16_t getID();
     void build(TerrainMap& terr, uint16_t id);
     uint16_t getActualLife();
     uint16_t getTotalLife();
     void attack(uint16_t damage);
     bool destroyed();
+    void watch();
+    void stopWatching();
+    bool canBeCleaned();
     virtual ~Building();
 };
 

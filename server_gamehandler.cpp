@@ -46,6 +46,10 @@ void GameHandler::processCommand(Command comm) {
             std::cout << "Recibi request de edificio de " << comm.getSender() << std::endl;
             this->addNewBuilding(comm);
             break;
+        case ATTACK:
+            std::cout << "Recibi request de ataque de " << comm.getSender() << std::endl;
+            this->processAttack(comm);
+            break;
         case MOVE:
             std::cout << "Recibi request de moverse de " << comm.getSender() << std::endl;
             this->moveUnit(comm);
@@ -68,13 +72,30 @@ void GameHandler::addNewUnit(Command comm) {
 
 void GameHandler::addNewBuilding(Command comm) {
     uint8_t type = comm.pop8BytesMessage();
-    uint16_t x = comm.pop8BytesMessage();
-    uint16_t y = comm.pop8BytesMessage();
+    uint16_t x = comm.pop16BytesMessage();
+    uint16_t y = comm.pop16BytesMessage();
     bool result = this->game.addBuilding(comm.getSender(), type, x, y);
     if (!result)
         this->notifyError(comm);
     else
         this->notifySuccess(comm);
+}
+
+#define ATTACK_UNIT 0
+#define ATTACK_BUILDING 1
+
+void GameHandler::processAttack(Command comm) {
+    uint8_t type = comm.pop8BytesMessage();
+    uint16_t attacker = comm.pop16BytesMessage();
+    uint16_t attacked = comm.pop16BytesMessage();
+    switch (type) {
+        case ATTACK_UNIT:
+            this->game.attackUnit(attacker, attacked);
+            break;
+        case ATTACK_BUILDING:
+            this->game.attackBuilding(attacker, attacked);
+            break;
+    }
 }
 
 void GameHandler::moveUnit(Command comm) {

@@ -15,6 +15,10 @@ coor_t Building::getSize() {
     return this->size;
 }
 
+uint16_t Building::getID() {
+    return this->buildingID;
+}
+
 bool Building::isLightFactory() {
     return false;
 }
@@ -32,6 +36,7 @@ bool Building::canBuild(TerrainMap& terr) {
 }
 
 void Building::build(TerrainMap& terr, uint16_t id) {
+    this->buildingID = id;
     return terr.build(this->position, this->size, id);
 }
 
@@ -42,6 +47,21 @@ void Building::attack(uint16_t damage) {
 bool Building::destroyed() {
     return (this->actualLife == 0);
 }
+
+void Building::watch() {
+    this->watchers++;    
+}
+
+void Building::stopWatching() {
+    if (this->canBeCleaned())
+        return;
+    this->watchers--;   
+}
+
+bool Building::canBeCleaned() {
+    return (this->watchers == 0);
+}
+
 
 Building::~Building() {}
 

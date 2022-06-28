@@ -95,6 +95,19 @@ coor_t Game::getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr) 
     return this->participants[playerName].getUnitDir(type, terr);
 }
 
+Unit* Game::getUnit(std::string playerName, uint16_t unitID) {
+    if (!this->isPlaying(playerName))
+        return nullptr;
+    return this->participants[playerName].getUnit(unitID);
+}
+
+
+Building* Game::getBuilding(std::string playerName, uint16_t buildingID) {
+    if (!this->isPlaying(playerName))
+        return nullptr;
+    return this->participants[playerName].getBuilding(buildingID);
+}
+
 
 bool Game::addUnit(std::string playerName, Unit* unit, uint8_t id) {
     if (!this->isPlaying(playerName))

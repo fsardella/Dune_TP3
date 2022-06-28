@@ -11,6 +11,8 @@
 #include "server_terrain_map.h"
 #include "server_unitdata.h"
 #include "server_playerdata.h"
+#include "server_units.h"
+#include "server_buildings.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
@@ -32,6 +34,9 @@ class Game {
     
     int getHouse(std::string playerName);
     uint8_t getPlayerID(std::string playerName);
+    
+    Unit* getUnit(std::string playerName, uint16_t unitID);
+    Building* getBuilding(std::string playerName, uint16_t buildingID);
     
     bool isPlaying(std::string playerName);
     uint8_t getUnitFactor(std::string playerName, uint8_t type);
