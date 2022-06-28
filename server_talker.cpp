@@ -133,6 +133,76 @@ void Talker::startPlaying(BlockingQueue<Command>* newGameQueue, sketch_t gameMap
     this->sender->start();
 }
 
+void Talker::handleLobby(int operation) {
+    int house, result, bytes;
+    std::string game_name;
+    switch(operation) {
+        case UNIRSE:
+            bytes = protocol.recieve_msg_bytes();
+            game_name = protocol.recieve_msg_game_name(bytes);
+            house = protocol.recieve_msg_house();
+            result = join_game(house, game_name);
+            protocol.send_msg_result(result);
+            break;
+        case LISTAR:
+            list_games();
+            break;
+        case CREAR:
+            this->list_maps();
+            bytes = protocol.recieve_msg_bytes();
+            std::string game_name = protocol.recieve_msg_game_name(bytes);
+            bytes = protocol.recieve_msg_bytes();
+            std::string yamlPath = protocol.recieve_msg_game_name(bytes);
+            yamlPath = "DEBUG_YAML_PATH"; // DEBUG
+            house = protocol.recieve_msg_house();
+            //int required = readYaml(required);
+            int required = 2;
+            result = create_game(house,required,game_name, yamlPath);
+            protocol.send_msg_result(result);
+            break;
+    }
+}
+
+
+
+void Talker::handleGame(int operation) {
+    Command comm;
+    int bytes;
+    switch (operation) {
+        case UNIRSE: // Estan para evitar race conditions
+            bytes = protocol.recieve_msg_bytes();
+            protocol.recieve_msg_game_name(bytes);
+            protocol.recieve_msg_house();
+            return; // IGNORE COMMAND!
+        case CREAR: // Estan para evitar race conditions
+            bytes = protocol.recieve_msg_bytes();
+            protocol.recieve_msg_game_name(bytes);
+            bytes = protocol.recieve_msg_bytes();
+            protocol.recieve_msg_game_name(bytes);
+            protocol.recieve_msg_house();
+            return; // IGNORE COMMAND!
+        case NEW_UNIT:
+            bytes = 1; // CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE
+            break;
+        case NEW_BUILDING:
+            bytes = 5;
+            break;
+        case ATTACK:
+            bytes = 5;
+            break;
+        case MOVE:
+            bytes = 6;
+            break;
+        default:
+            return;
+    }
+    comm.reserve(bytes); // CHANGE
+    comm = protocol.recvCommand(bytes);
+    comm.setType(operation);
+    comm.changeSender(this->playerName);
+    this->commandQueue->push(comm);
+}
+
 
 /*
 Pre-Condiciones: -
@@ -145,65 +215,10 @@ void Talker::run() {
 	while (this->finishedThread() == false) {
 		try {
             int operation = protocol.recieve_msg_operation();
-            int bytes;
-            // GAME
-            if (this->sender != nullptr) {
-                Command comm;
-                //int unitType = 0; // TODO que haga algo...
-                switch (operation) {
-                    case UNIRSE: // Estan para evitar race conditions
-                        bytes = protocol.recieve_msg_bytes();
-				        protocol.recieve_msg_game_name(bytes);
-                        protocol.recieve_msg_house();
-				        break; // IGNORE COMMAND!
-			        case CREAR: // Estan para evitar race conditions
-                        bytes = protocol.recieve_msg_bytes();
-				        protocol.recieve_msg_game_name(bytes);
-				        bytes = protocol.recieve_msg_bytes();
-				        protocol.recieve_msg_game_name(bytes);
-                        protocol.recieve_msg_house();
-			            break; // IGNORE COMMAND!
-
-
-                    case NEW_UNIT:
-                        comm.reserve(5);
-                        comm = protocol.recvCommand(5);
-                        comm.setType(operation);
-                        comm.changeSender(this->playerName);
-                        this->commandQueue->push(comm);
-                        break;
-                }
-                continue;
-            }
-            
-            // LOBBY
-            int house, result;
-            std::string game_name;
-            switch(operation) {
-			    case UNIRSE:
-				    bytes = protocol.recieve_msg_bytes();
-				    game_name = protocol.recieve_msg_game_name(bytes);
-                    house = protocol.recieve_msg_house();
-                    result = join_game(house, game_name);
-				    protocol.send_msg_result(result);
-				    break;
-			    case LISTAR:
-				    list_games();
-				    break;
-			    case CREAR:
-                    this->list_maps();
-                    bytes = protocol.recieve_msg_bytes();
-				    std::string game_name = protocol.recieve_msg_game_name(bytes);
-				    bytes = protocol.recieve_msg_bytes();
-				    std::string yamlPath = protocol.recieve_msg_game_name(bytes);
-                    yamlPath = "DEBUG_YAML_PATH"; // DEBUG
-                    house = protocol.recieve_msg_house();
-				    //int required = readYaml(required);
-                    int required = 2;
-                    result = create_game(house,required,game_name, yamlPath);
-				    protocol.send_msg_result(result);
-			        break;
-            }
+            if (this->sender != nullptr) // GAME
+                this->handleGame(operation);
+            else  // LOBBY
+                this->handleLobby(operation);
         } catch (ClosedSocketException const&) {
             if (this->sender == nullptr) {
                 this->finish = true;

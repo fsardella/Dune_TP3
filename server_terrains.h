@@ -20,7 +20,7 @@ class Terrain {
     virtual bool canBuild();
     virtual bool isBlocked();
     void printDebug();
-    virtual int getSpeed(Unit& unit, coor_t coord) = 0;
+    virtual int getSpeedWeight(Unit& unit, coor_t coord) = 0;
     virtual void build(TerrainMap& terr, uint16_t) {}
     virtual ~Terrain();
 };
@@ -28,7 +28,7 @@ class Terrain {
 class Sand : public Terrain {
  public:
     Sand();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     //void print(); // DEBUG
     virtual ~Sand();
 };
@@ -41,7 +41,7 @@ class Rock : public Terrain {
     void build(uint16_t building);
     bool canBuild();
     bool isBlocked();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Rock();
 };
 
@@ -49,14 +49,14 @@ class Spice : public Terrain {
     uint16_t quantity;
  public:
     Spice(uint16_t quantity);
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Spice();
 };
 
 class Dune : public Terrain {
  public:
     Dune();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Dune();
 };
@@ -64,7 +64,7 @@ class Dune : public Terrain {
 class Mount : public Terrain {
  public:
     Mount();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Mount();
 };
@@ -72,7 +72,7 @@ class Mount : public Terrain {
 class Cliff : public Terrain {
  public:
     Cliff();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     bool isBlocked();
     void print();  // DEBUG
     virtual ~Cliff();

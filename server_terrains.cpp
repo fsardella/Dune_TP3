@@ -24,7 +24,7 @@ bool Terrain::canBuild() {
 
 uint16_t Terrain::getIdOfOccupant(coor_t coord) {
     if (!this->isOccupied(coord))
-        return 0xFF;
+        return 0xFFFF;
     return this->occupiedUnits[coord];
 }
 
@@ -38,10 +38,10 @@ bool Terrain::isOccupied(coor_t coord) {
 
 
 Sand::Sand(): Terrain() {}
-int Sand::getSpeed(Unit& unit, coor_t coord) {
+int Sand::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord))
         return 0;
-    return unit.getSpeedForSand();
+    return unit.getSpeedWeightForSand();
 }
 Sand::~Sand() {}
 
@@ -79,47 +79,47 @@ bool Rock::isBlocked() {
     return this->built;
 }
 
-int Rock::getSpeed(Unit& unit, coor_t coord) {
+int Rock::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord) || this->isBlocked())
         return 0;
-    return unit.getSpeedForSand();
+    return unit.getSpeedWeightForSand();
 }
 Rock::~Rock() {}
 
 
 
 Spice::Spice(u_int16_t quantity): Terrain(), quantity(quantity) {} 
-int Spice::getSpeed(Unit& unit, coor_t coord) {
+int Spice::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord))
         return 0;
-    return unit.getSpeedForSand();
+    return unit.getSpeedWeightForSand();
 }
 Spice::~Spice() {}
 
 
 
 Dune::Dune(): Terrain() {}
-int Dune::getSpeed(Unit& unit, coor_t coord) {
+int Dune::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord))
         return 0;
-    return unit.getSpeedForDune();
+    return unit.getSpeedWeightForDune();
 }
 Dune::~Dune() {}
 
 
 Mount::Mount(): Terrain() {}
-int Mount::getSpeed(Unit& unit, coor_t coord) {
+int Mount::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord))
         return 0;
-    return unit.getSpeedForMount();
+    return unit.getSpeedWeightForMount();
 }
 Mount::~Mount() {}
 
 Cliff::Cliff(): Terrain() {}
-int Cliff::getSpeed(Unit& unit, coor_t coord) {
+int Cliff::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord))
         return 0;
-    return unit.getSpeedForCliff();
+    return unit.getSpeedWeightForCliff();
 }
 
 bool Cliff::isBlocked() {

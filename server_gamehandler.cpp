@@ -5,8 +5,20 @@
 #include <utility>
 #include <stdint.h>
 
-#define DISCONNECT 4
-#define NEW_UNIT 5
+#ifndef CLIENTOPERS
+#define CLIENTOPERS
+enum clientOpers {
+    XXXX = 0,
+    UNIRSE,
+    LISTAR,
+    CREAR, // Estan en espaniol porque asi era el tp de threads. Too bad!
+    DISCONNECT,
+    NEW_UNIT,
+    NEW_BUILDING,
+    ATTACK,
+    MOVE
+};
+#endif
 
 GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
                                         game(ActiveGame(std::move(newGame))) {
@@ -30,6 +42,14 @@ void GameHandler::processCommand(Command comm) {
             std::cout << "Recibi request de creacion de " << comm.getSender() << std::endl;
             this->addNewUnit(comm);
             break;
+        case NEW_BUILDING:
+            std::cout << "Recibi request de edificio de " << comm.getSender() << std::endl;
+            this->addNewBuilding(comm);
+            break;
+        case MOVE:
+            std::cout << "Recibi request de moverse de " << comm.getSender() << std::endl;
+            this->moveUnit(comm);
+            break;
     }
 }
 
@@ -42,30 +62,48 @@ bool GameHandler::endedRun() {
 }
 
 void GameHandler::addNewUnit(Command comm) {
-    int x = (int) comm.pop16BytesMessage();
-    int y = (int) comm.pop16BytesMessage();
-    // TODO TRADUCIR EL TYPE
-    bool result = this->game.addUnit(comm.getSender(), x, y);
+    uint8_t type = comm.pop8BytesMessage();
+    this->game.addUnit(comm.getSender(), type);
+}
+
+void GameHandler::addNewBuilding(Command comm) {
+    uint8_t type = comm.pop8BytesMessage();
+    uint16_t x = comm.pop8BytesMessage();
+    uint16_t y = comm.pop8BytesMessage();
+    bool result = this->game.addBuilding(comm.getSender(), type, x, y);
     if (!result)
         this->notifyError(comm);
     else
         this->notifySuccess(comm);
 }
 
+void GameHandler::moveUnit(Command comm) {
+    uint16_t unitID = comm.pop16BytesMessage();
+    uint16_t x = comm.pop16BytesMessage();
+    uint16_t y = comm.pop16BytesMessage();
+    this->game.moveUnit(comm.getSender(), unitID, x, y);
+    
+}
+
 #include <iostream> // DEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUGDEBUG DEBUG DEBUG
+
+#define SUCCESS 0
+#define FAILURE 1
 
 void GameHandler::notifyError(Command comm) {
     Command errorCom;
-    errorCom.setType(69);
+    errorCom.setType(FAILURE);
+    errorCom.add8BytesMessage(FAILURE);
     errorCom.changeSender(comm.getSender());
-    std::cout << "Error por parte de " << errorCom.getSender() << std::endl;
+    this->playersQueue[errorCom.getSender()].push(errorCom);
 }
 
 void GameHandler::notifySuccess(Command comm) {
     Command succCom;
-    succCom.setType(68);
+    succCom.setType(SUCCESS);
+    succCom.add8BytesMessage(SUCCESS);
     succCom.changeSender(comm.getSender());
-    std::cout << "Accion realizada por parte de " << succCom.getSender() << std::endl;
+    this->playersQueue[succCom.getSender()].push(succCom);
 }
 
 void GameHandler::run() {

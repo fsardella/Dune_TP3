@@ -13,23 +13,31 @@ class Building {
     uint16_t actualLife;
     uint16_t totalLife;
  public:
-    Building(coor_t position, coor_t size,
-             uint16_t actualLife, uint16_t totalLife);
+    Building(coor_t position, coor_t size, uint16_t totalLife);
     coor_t getPosition();
     coor_t getSize();
+    virtual bool isLightFactory();
+    bool canBuild(TerrainMap& terr);
     void build(TerrainMap& terr, uint16_t id);
     uint16_t getActualLife();
     uint16_t getTotalLife();
     void attack(uint16_t damage);
     bool destroyed();
-    ~Building();
+    virtual ~Building();
 };
 
 
 class Base: public Building {
  public:
     Base(coor_t position);
-    ~Base();
+    virtual ~Base();
+};
+
+class LightFactory : public Building {
+ public:
+    LightFactory(coor_t position);
+    bool isLightFactory();
+    virtual ~LightFactory();
 };
 
 #endif

@@ -87,19 +87,50 @@ bool Game::isPlaying(std::string playerName) {
 }
 
 
-void Game::addUnit(std::string playerName, int x, int y, TerrainMap& terr) {
-    if (!this->isPlaying(playerName))
-        return;
-    this->participants[playerName].addUnit(x, y, terr);
+uint8_t Game::getUnitFactor(std::string playerName, uint8_t type) {
+    return this->participants[playerName].getUnitFactor(type);
+}
+
+coor_t Game::getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr) {
+    return this->participants[playerName].getUnitDir(type, terr);
 }
 
 
-std::map<std::string, std::list<UnitData>> Game::getUnits() {
-    std::map<std::string, std::list<UnitData>> result; 
+bool Game::addUnit(std::string playerName, Unit* unit, uint8_t id) {
+    if (!this->isPlaying(playerName))
+        return false;
+    this->participants[playerName].addUnit(unit, id);
+    return true;
+}
+
+bool Game::addBuilding(std::string playerName, uint8_t type,
+                   uint16_t x, uint16_t y, TerrainMap& terr, uint16_t id) {
+    if (!this->isPlaying(playerName))
+        return false;
+    return this->participants[playerName].addBuilding(type, x, y, terr, id);
+}
+
+void Game::moveUnit(std::string playerName, uint16_t unitID, coor_t coor) {
+    if (!this->isPlaying(playerName))
+        return;
+    this->participants[playerName].moveUnit(unitID, coor);
+}
+
+void Game::updateUnits() {
+    for (auto& p : this->participants)
+        p.second.updateUnits();
+}
+
+uint8_t Game::getPlayerID(std::string playerName) {
+    return this->participants[playerName].getID();
+}
+
+std::map<uint8_t, std::list<UnitData>> Game::getUnits() {
+    std::map<uint8_t, std::list<UnitData>> result; 
     for (std::map<std::string, Player>::iterator it = this->participants.begin();
          it != this->participants.end();
          ++it) {
-        result[it->first] = it->second.getUnits();
+        result[it->second.getID()] = it->second.getUnits();
 	}
     return result;
 }
@@ -114,6 +145,10 @@ std::list<PlayerData> Game::buildBases(TerrainMap& terr) {
         id++;
     }
     return result;
+}
+
+void Game::setPlayerID(std::string playerName, uint8_t id) {
+    this->participants[playerName].setID(id);
 }
 
 int Game::getHouse(std::string playerName) {

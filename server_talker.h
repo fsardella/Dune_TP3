@@ -13,12 +13,20 @@
 #include "server_playerdata.h"
 #include <atomic>
 
-
-#define CREAR 3
-#define UNIRSE 1
-#define LISTAR 2
-#define DISCONNECT 4
-#define NEW_UNIT 5
+#ifndef CLIENTOPERS
+#define CLIENTOPERS
+enum clientOpers {
+    XXXX = 0,
+    UNIRSE,
+    LISTAR,
+    CREAR, // Estan en espaniol porque asi era el tp de threads. Too bad!
+    DISCONNECT,
+    NEW_UNIT,
+    NEW_BUILDING,
+    ATTACK,
+    MOVE
+};
+#endif
 
 class Talker: public Thread {
     ProtocolServer protocol;
@@ -28,6 +36,9 @@ class Talker: public Thread {
     GameSet *gameSet;
     std::string playerName;
     
+    
+    void handleLobby(int operation);
+    void handleGame(int operation);
     int create_game(int house, int required, const std::string& game_name,
                     const std::string& mapPath);
     void list_games();

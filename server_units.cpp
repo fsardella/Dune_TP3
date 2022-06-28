@@ -21,18 +21,48 @@ coor_t Unit::getPosition() {
     return this->moveAlgorithm.getPosition();
 }
 
-void Unit::processMove(coor_t dest) {
-    this->moveAlgorithm.processMove(dest);
+uint8_t Unit::getDir() {
+    return 0;
 }
 
-int Unit::getSpeedForCliff() {
+void Unit::setDest(coor_t newDest) {
+    this->state = MOVING;
+    this->actDest = newDest;
+}
+
+void Unit::processMove() {
+    bool ret = this->moveAlgorithm.processMove(this->actDest);
+    if (ret) {
+        if (this->actDest == this->moveAlgorithm.getPosition())
+            this->state = IDLE;
+        else
+            this->state = MOVING;
+    } else {
+        this->actDest = this->moveAlgorithm.getPosition();
+        this->state = IDLE;
+    }
+}
+
+void Unit::update() {
+    switch (this->state) {
+        case IDLE:
+            break;
+        case ATTACKING:
+            break;
+        case MOVING:
+            processMove();
+            break;
+    }
+}
+
+int Unit::getSpeedWeightForCliff() {
     return WALL;    
 }
 
-int Unit::getSpeedForSand() {
+int Unit::getSpeedWeightForSand() {
     return SAND;
 }
-int Unit::getSpeedForDune() {
+int Unit::getSpeedWeightForDune() {
     return DUNE;
 }
 
@@ -46,7 +76,7 @@ Unit::~Unit() {}
 
 
 
-int Infantry::getSpeedForMount() {
+int Infantry::getSpeedWeightForMount() {
     return SAND;
 }
 
@@ -54,7 +84,7 @@ Infantry::~Infantry() {}
 
 
 
-int Vehicle::getSpeedForMount() {
+int Vehicle::getSpeedWeightForMount() {
     return WALL;
 }
 Vehicle::~Vehicle() {}

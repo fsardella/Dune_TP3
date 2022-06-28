@@ -5,16 +5,29 @@
 #include "server_astar.h"
 #include "server_terrain_map.h"
 
+
+enum unitStates {
+    IDLE,  
+    MOVING,
+    ATTACKING
+};
+
 class Unit {
     AStar moveAlgorithm;
+    coor_t actDest;
+    unitStates state = IDLE;
+    
+    void processMove();
  public:
     Unit(coor_t coor, TerrainMap& terr);
-    virtual int getSpeedForMount() = 0;
-    int getSpeedForSand();
-    int getSpeedForDune();
-    int getSpeedForCliff();
+    virtual int getSpeedWeightForMount() = 0;
+    int getSpeedWeightForSand();
+    int getSpeedWeightForDune();
+    int getSpeedWeightForCliff();
     coor_t getPosition();
-    void processMove(coor_t dest);
+    void update();
+    void setDest(coor_t newDest);
+    uint8_t getDir();
     void print();
     virtual ~Unit();
 };
@@ -22,14 +35,14 @@ class Unit {
 class Infantry : public Unit {
  public:
     Infantry(coor_t coor, TerrainMap& terr);
-    int getSpeedForMount();
+    int getSpeedWeightForMount();
     virtual ~Infantry();
 };
 
 class Vehicle : public Unit {
  public:
     Vehicle(coor_t coor, TerrainMap& terr);
-    int getSpeedForMount();
+    int getSpeedWeightForMount();
     virtual ~Vehicle();
 };
 

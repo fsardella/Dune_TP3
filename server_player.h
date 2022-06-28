@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <map>
+#include <list>
 #include <string>
 #include "server_units.h"
 #include "server_terrain_map.h"
@@ -13,18 +14,35 @@ typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Player {
     std::string playerName;
+    uint8_t playerID = 0xFF;
     int house;
     std::map<uint16_t, Unit*> units;
     Base base;
-    // std::map<uint16_t, Building*> buildings;
-    //  TODO BUILDINGS
+    uint16_t cantLightFactories = 0;
+    std::map<uint16_t, Building*> buildings;
+    
+    void addSpecialBuilding(uint8_t type);
+    bool isBlockInRange(coor_t blockCoord);
+    bool isBuildingInRange(Building* toBuild);
+    bool hasUnit(uint16_t unitID);
+    bool hasBuilding(uint16_t buildingID);
  public:
     Player(const int& house, const std::string& playerName, coor_t baseCoords);
     Player();
-    void addUnit(int x, int y, TerrainMap& terr);
+    
+    uint8_t getUnitFactor(uint8_t type);
+    coor_t getUnitDir(uint8_t type, TerrainMap& terr);
+    void addUnit(Unit* unit, uint8_t id);
+    bool addBuilding(uint8_t type, uint16_t x, uint16_t y, TerrainMap& terr,
+                     uint16_t id);
+    void moveUnit(uint16_t unitID, coor_t coor);
+    void updateUnits();            
+    
     void buildBase(TerrainMap& terr, uint16_t id);
     coor_t getBaseCoords();
     int getHouse();
+    void setID(uint8_t newID);
+    uint8_t getID();
     std::list<UnitData> getUnits();
     
     ~Player();

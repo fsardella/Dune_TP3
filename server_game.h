@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <set>
 #include <iostream>
 #include <string>
 #include "server_player.h"
@@ -19,7 +20,6 @@ class Game {
 	std::map<std::string, Player> participants;
     std::string yamlMapPath;
     std::list<coor_t> basesCoordinates;
-    bool isPlaying(std::string playerName);
  public:
 	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath);
     Game(); // Not intended for use
@@ -31,10 +31,21 @@ class Game {
 	bool game_complete() const;
     
     int getHouse(std::string playerName);
-    void addUnit(std::string playerName, int x, int y, TerrainMap& terr);
-    std::map<std::string, std::list<UnitData>> getUnits();
+    uint8_t getPlayerID(std::string playerName);
+    
+    bool isPlaying(std::string playerName);
+    uint8_t getUnitFactor(std::string playerName, uint8_t type);
+    coor_t getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr);
+    bool addUnit(std::string playerName, Unit* unit, uint8_t id);
+    void moveUnit(std::string playerName, uint16_t unitID, coor_t coor);
+    void updateUnits();
+    bool addBuilding(std::string playerName, uint8_t type,
+                 uint16_t x, uint16_t y, TerrainMap& terr,
+                 uint16_t id);
+    std::map<uint8_t, std::list<UnitData>> getUnits();
     std::list<PlayerData> buildBases(TerrainMap& terr);
-	~Game();
+	void setPlayerID(std::string playerName, uint8_t id);
+    ~Game();
     
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;

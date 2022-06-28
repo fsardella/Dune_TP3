@@ -4,7 +4,7 @@
 #include <stdexcept>	
 #include <arpa/inet.h>
 
-Command::Command(): actTop(0), sender("HOST"), type(255) {}
+Command::Command(): actTop(0), sender("HOST"), type(0xFF) {}
 
 
 void Command::add8BytesMessage(const uint8_t message) {

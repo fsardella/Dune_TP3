@@ -13,7 +13,7 @@ void TimeWizard::run() {
     clock_t before, after;
     while (this->game.isAlive()) {
         before = clock();
-        //  GAME -> (mutexed) -> MAKE TIME HAPPEN
+        this->game.update();
         after = clock();
         if ((after - before) > DELTA) {
             std::cout << "WARNING: desincronizacion de reloj. Considere reducir su frecuencia."

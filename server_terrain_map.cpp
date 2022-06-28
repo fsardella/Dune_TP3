@@ -48,7 +48,6 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
     }
 }
 
-
 void TerrainMap::print(coor_t org, coor_t dest) {
     coor_t dims = this->getDims();
     for (size_t i = 0; i < dims.first / CHUNKSIZE; i++) {
@@ -83,20 +82,31 @@ coor_t TerrainMap::getDims() {
 }
 
 
+bool TerrainMap::isInsideMap(coor_t place) {
+    coor_t dims = this->getDims();
+    return (place.first < dims.first && place.second < dims.second); 
+}
+
 void TerrainMap::swapContent(coor_t source, coor_t destiny) {
+    if (!this->isInsideMap(source) || !this->isInsideMap(destiny))
+        return;
     uint16_t id = this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->getIdOfOccupant(source);
     this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->freeSpace(source);
     this->terr[destiny.first / CHUNKSIZE][destiny.second / CHUNKSIZE]->occupySpace(destiny, id);
 }
 
 
-int TerrainMap::getSpeed(coor_t coor, Unit& unit) {
-    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeed(unit, coor);
+int TerrainMap::getSpeedWeight(coor_t coor, Unit& unit) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeedWeight(unit, coor);
 }
 
 bool TerrainMap::canBuild(coor_t coor, coor_t size) {
     for (uint16_t i = 0; i < size.first; i++) {
         for (uint16_t j = 0; j < size.second; j++) {
+            if (!this->isInsideMap(coor_t(i,j)))
+                return false;
             if (!this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->canBuild())
                 return false;
         }
@@ -113,7 +123,15 @@ void TerrainMap::build(coor_t coor, coor_t size, uint16_t id) {
 }
 
 bool TerrainMap::isOccupied(coor_t coord) {
+    if (!this->isInsideMap(coord))
+        return true;
     return this->terr[coord.first / CHUNKSIZE][coord.second / CHUNKSIZE]->isOccupied(coord);
+}
+
+bool TerrainMap::isBlocked(coor_t coord) {
+    if (!this->isInsideMap(coord))
+        return true;
+    return this->terr[coord.first / CHUNKSIZE][coord.second / CHUNKSIZE]->isBlocked();
 }
 
 TerrainMap::~TerrainMap() {
