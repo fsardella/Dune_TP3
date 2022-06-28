@@ -4,26 +4,36 @@
 #include "Renderizable.h"
 
 class MenuImage : public Renderizable {
+    int type;
     int rescaling;
+    bool blocked;
+    bool hasBarrack;
+    bool hasPalace;
+    bool hasHeavyFactory;
 
     public:
     MenuImage(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,
-           float posY);
+           float posY, 
+           int type);
 
     void render(Camera &camera) override;
-    int render(Camera &camera, int posX, int posY) override;
-
+    
     MenuImage(const MenuImage& other) = delete;
     MenuImage& operator=(const MenuImage& other) = delete;
 
-    MenuImage(MenuImage&& other) ;
-    MenuImage& operator=(MenuImage&& other) ;
+    MenuImage(MenuImage&& other);
+    MenuImage& operator=(MenuImage&& other);
 
     int getX();
     int getY();
+
+    bool isBlocked();
+    bool checkUnblockPosibility(int buildingType);
+    void updateBuildings(int buildingType);
+    void updateBlocking(int buildingType);
 
     ~MenuImage();
 };

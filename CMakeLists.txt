@@ -78,6 +78,12 @@ set(CLIENT_SOURCES
         client/client_interface/waitingWindow.cpp
         client/client_interface/waitingWindow.h
         client/client_interface/waitingWindow.ui
+        client/client_interface/losewindow.cpp
+        client/client_interface/losewindow.h
+        client/client_interface/losewindow.ui
+        client/client_interface/winwindow.cpp
+        client/client_interface/winwindow.h
+        client/client_interface/winwindow.ui
         client/BlockingQueue.h
         client/client_client.cpp
         client/client_client.h
@@ -125,6 +131,8 @@ set(CLIENT_SOURCES
         client/MenuText.h
         client/Animation.cpp
         client/Animation.h
+        client/GameWaiter.cpp
+        client/GameWaiter.h
 )
 
 set(SERVER_SOURCES

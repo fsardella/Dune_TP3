@@ -15,10 +15,6 @@ void MenuText::render(Camera &camera) {
     camera.renderInSightForMenuTitles(texture, src, posX, posY);
 }
 
-int MenuText::render(Camera &camera, int posX, int posY) {
-    return 0;
-}
-
 int MenuText::getX() {
     return posX;
 }

@@ -1,19 +1,56 @@
 #ifndef __CONSTRUCTION_H__
 #define __CONSTRUCTION_H__
 
-
-#include <string>
-
+#include "Animation.h"
+#include "Camera.h"
 
 class Construction {
-    int type;
-    int x;
-    int y;
-    std::string name;
+    std::vector<Animation> animations;
+    std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
+    std::map<int, SdlTexture>& lifeTextures;
+    int sizeW;
+    int sizeH;
+    float posX;
+    float posY;
+    bool propiety;
+    int animationId;
+    int lifeId;
+    bool isDead;
+    SdlTexture* texture;
+    SdlTexture* currentLifeTexture;
+
     public:
-    int getType();
-    int getPosX();
-    int getPosY();
+    Construction(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
+                 std::map<int, SdlTexture>& lifeTextures,
+                 int sizeW,
+                 int sizeH,
+                 float posX,
+                 float posY,
+                 bool propiety);
+
+    int render(Camera &camera, int posX, int posY);
+
+    Construction(const Construction& other) = delete;
+    Construction& operator=(const Construction& other) = delete;
+
+    Construction(Construction&& other);
+    Construction& operator=(Construction&& other);
+
+    void getTexture();
+    void getLifeTexture();
+
+    float getX();
+
+    float getY();
+
+    bool getPropiety();
+
+    void updateLife(int currentLife, int totalLife);
+
+    void update(int delta);
+
+    ~Construction();
 };
+
 
 #endif /*__CONSTRUCTION_H__*/

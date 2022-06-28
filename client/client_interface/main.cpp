@@ -6,6 +6,9 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "winwindow.h"
+#include "losewindow.h"
+
 #define MASK 255, 255, 255
 
 int main(int argc, char *argv[])
@@ -24,9 +27,27 @@ int main(int argc, char *argv[])
         if (app.exec()) {
             throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
         }
-        if(client.isReadyToRun()) {
+        if (client.isReadyToRun()) {
             client.client_run();
         }
+
+        // qt
+        if (client.getGameResult() == 1) {
+            WinWindow winWindow(NULL);
+            winWindow.showMaximized();
+            if (app.exec()) {
+                throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
+            }        
+        } 
+        if (client.getGameResult() == 0) {
+            LoseWindow loseWindow(NULL);
+            loseWindow.showMaximized();
+            if (app.exec()) {
+                throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
+            }
+        }
+        
+        
 
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;

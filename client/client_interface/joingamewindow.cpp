@@ -1,6 +1,7 @@
 #include "joingamewindow.h"
 #include "ui_joingamewindow.h"
 #include <QMessageBox>
+#include "../GameWaiter.h"
 
 #include <iostream>
 
@@ -16,7 +17,6 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
     std::list<std::string> list;
-    // std::vector<int> playersRequired;
     newClient->sendListGamesOperation();
     newClient->recvListOfGames(list);
     int size = list.size();
@@ -38,8 +38,9 @@ void JoinGameWindow::showWaitingWindow()
     WaitingWindow waitingWindow(NULL, this->newClient);
     waitingWindow.setModal(true);
     waitingWindow.showMaximized();
+    GameWaiter waiter(waitingWindow);
     waitingWindow.exec();
-    waitingWindow.wait();
+    waiter.join();
 }
 
 void JoinGameWindow::on_joinGameButton_clicked()

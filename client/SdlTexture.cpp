@@ -22,7 +22,8 @@ SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 	SDL_FreeSurface(tmp);
 }
 
-SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, bool color)
+SdlTexture::SdlTexture(const std::string &filename, 
+                       SdlWindow* window, int r, int g, int b)
 : window(window),
   texture(nullptr) {
     SDL_Surface* tmp = IMG_Load(filename.c_str());
@@ -30,7 +31,7 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, bool colo
         return;
     }
 
-    SDL_SetColorKey(tmp, SDL_TRUE, SDL_MapRGB(tmp->format, 0, 0, 0));
+    SDL_SetColorKey(tmp, SDL_TRUE, SDL_MapRGB(tmp->format, r, g, b));
 
     this->texture = window->createTexture(tmp);
 

@@ -11,10 +11,12 @@ class Animation {
     int currentAnimation;
     int currentTime;
     int animationTime;
+
     public:
     explicit Animation(std::vector<SdlTexture*> frames);
     SdlTexture* getTexture();
     void update(int delta);
+    bool isLastFrame();
 
     Animation(const Animation& other) = delete;
     Animation& operator=(const Animation& other) = delete;

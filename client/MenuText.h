@@ -14,7 +14,6 @@ class MenuText : public Renderizable {
            float posY);
 
     void render(Camera &camera) override;
-    int render(Camera &camera, int posX, int posY) override;
 
     MenuText(const MenuText& other) = delete;
     MenuText& operator=(const MenuText& other) = delete;

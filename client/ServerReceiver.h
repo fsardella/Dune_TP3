@@ -8,9 +8,21 @@
 class ServerReceiver: public Thread {
 	ProtocolClient* protocolClient;
 	GameView* gameView;
+	std::string& clientName;
+	int clientId;
+	int* result;
+	std::map<int, int> clientHouses;
+
 	public:
+	ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj,
+				   std::string& clientName, int* result);
 	void receiveBackground();
-	ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj);
+	void buildConstructionYards();
+	void gameLoop();
+	void receiveUnits();
+	void receiveBuilding();
+	void receiveUnitAttack();
+	void receiveBuildingAttack();
 	void run() override;
 	~ServerReceiver() override;
 };

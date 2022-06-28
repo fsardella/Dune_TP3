@@ -16,5 +16,4 @@ class Drawer : public Thread {
     ~Drawer() override;
 };
 
-
 #endif

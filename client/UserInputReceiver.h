@@ -13,10 +13,12 @@ class UserInputReceiver: public Thread {
 	BlockingQueue<ClientInput>* blockingQueue;
 
 	int currentMenuImage = NONE_TYPE;
+	int touchedUnit = NONE_TYPE;
 
 	int findRow(int y);
 	int findCol(int x);
 	void handlePosition(int x, int y);
+	void handleMovement(int x, int y);
 
 	public:
 	UserInputReceiver(GameView* gameViewObj, BlockingQueue<ClientInput>* blockingQueue);

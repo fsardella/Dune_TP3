@@ -27,6 +27,11 @@ void Animation::update(int delta) {
     currentAnimation = std::floor(currentTime / FRAME_DURATION);
 }
 
+bool Animation::isLastFrame() {
+    if (currentAnimation == int(frames.size()) - 1) return true;
+    return false;
+}
+
 Animation::Animation(Animation &&other)
 : frames(std::move(other.frames)),
 currentAnimation(other.currentAnimation) {

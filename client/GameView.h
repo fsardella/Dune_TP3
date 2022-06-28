@@ -26,9 +26,9 @@ class GameView {
 
     void render();
     void buildMap(int height, int width, std::vector<std::vector<uint8_t>> map);
-    //void buildUnit(int x, int y, int unitType, int unitId);
-    void buildUnit(int x, int y, int unitType, int house, bool property, int animationId);
-    void buildUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>> units);
+    void buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property);
+    void buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units);
+    void buildConstruction(int x, int y, int constructionId, int constType, bool property, int house);
     void setSize(int newWidth, int newHeight);
     void shutdown();
     bool isRunning();
@@ -37,8 +37,16 @@ class GameView {
     void moveLeft();
     void moveRight();
     
+    void unitAttack(int attackerId, int attackedId, int currentLife, int totalLife);
+    void buildingAttack(int attackerId, int attackedId, int currentLife, int totalLife);
+
     int getXOffset();
     int getYOffset();
+
+    bool isBuilding(int posX, int posY, bool propiety);
+    bool isUnit(int posX, int posY, bool propiety);
+
+    bool isBlocked(int currentUnit);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);

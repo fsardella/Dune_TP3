@@ -15,10 +15,19 @@
 #define LAST_ROW 6
 #define ERROR -1
 
+#define TILE_SIZE 32
 
-UserInputReceiver::UserInputReceiver(GameView* gameViewObj, BlockingQueue<ClientInput>* blockingQueue): gameView(gameViewObj),
-blockingQueue(blockingQueue) {
-}
+#define CREATE_UNIT 5
+#define CREATE_BUILDING 6
+#define ATTACK 7
+#define MOVEMENT 8
+
+
+UserInputReceiver::UserInputReceiver(GameView* gameViewObj,
+                                     BlockingQueue<ClientInput>* blockingQueue)
+: gameView(gameViewObj),
+  blockingQueue(blockingQueue) 
+{}
 
 int UserInputReceiver::findRow(int y) {
     for (int i = MENU_IMAGE_OFFSET_Y; i < END_ROWS; i += (SPACING_Y + IMAGE_PIX_HEIGHT)) {
@@ -41,13 +50,45 @@ int UserInputReceiver::findCol(int x) {
 }
 
 void UserInputReceiver::handlePosition(int x, int y) {
-    int posX = x + gameView->getXOffset() * 32;
-    int posY = y + gameView->getYOffset() * 32;
+    int posX = x + gameView->getXOffset() * TILE_SIZE;
+    int posY = y + gameView->getYOffset() * TILE_SIZE;
     if (0 < posX && posX < MENU_OFFSET_X) {
         try {
-            ClientInput clientInput(posX, posY);
-            blockingQueue->push(std::move(clientInput));
-            return;
+            if (currentMenuImage == NONE_TYPE && touchedUnit == NONE_TYPE) {
+                int id = gameView->isUnit(posX, posY, true);
+                if (id != NONE_TYPE) touchedUnit = id;
+                return;
+            }
+            if (currentMenuImage < 11) {
+                // op 5
+                int unitType = currentMenuImage;
+                if (!gameView->isBlocked(currentMenuImage)) {
+                    ClientInput clientInput(CREATE_UNIT, unitType);
+                    blockingQueue->push(std::move(clientInput));
+                }
+                currentMenuImage = NONE_TYPE;
+                return;
+            }
+            int borderX = posX - (posX % TILE_SIZE);
+            int borderY = posY - (posY % TILE_SIZE);
+            if (currentMenuImage > 10) {
+                // op 6
+                int buildingType = currentMenuImage;
+                ClientInput clientInput(CREATE_BUILDING, buildingType, borderX / 4, borderY / 4);
+                blockingQueue->push(std::move(clientInput));
+                currentMenuImage = NONE_TYPE;
+                return;
+            }
+            int unitId = gameView->isUnit(borderX,borderY, false); // puede devolver -1 si no
+            int buildingId = gameView->isBuilding(borderX, borderY, false); // puede devolver -1 si no
+            if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
+                // op 7
+                int attackedType = unitId != NONE_TYPE ? 0 : 1;
+                ClientInput clientInput(ATTACK, attackedType, touchedUnit, unitId);
+                blockingQueue->push(std::move(clientInput));
+                touchedUnit = NONE_TYPE;
+                return;
+            }
         } catch(const ClosedQueueException& e) {
             return;
         }
@@ -60,6 +101,19 @@ void UserInputReceiver::handlePosition(int x, int y) {
     currentMenuImage = row * 3 + col;
 }
 
+void UserInputReceiver::handleMovement(int x, int y) {
+    int posX = x + gameView->getXOffset() * TILE_SIZE;
+    int posY = y + gameView->getYOffset() * TILE_SIZE;
+    int borderX = posX - (posX % TILE_SIZE);
+    int borderY = posY - (posY % TILE_SIZE);
+    if (touchedUnit) {
+        ClientInput clientInput(MOVEMENT, touchedUnit, borderX / 4, borderY / 4);
+        blockingQueue->push(std::move(clientInput));
+        touchedUnit = NONE_TYPE;
+        return;
+    }
+}
+
 void UserInputReceiver::run() {
     while (gameView->isRunning()) {
         SDL_Event event;
@@ -69,8 +123,11 @@ void UserInputReceiver::run() {
                 blockingQueue->close();
                 break;
             }
-            else if(event.type == SDL_MOUSEBUTTONDOWN) {
+            else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
                 handlePosition(event.button.x, event.button.y);
+            }
+            else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
+                handleMovement(event.button.x, event.button.y);
             }
             else if(event.type == SDL_KEYDOWN) {
                 switch(event.key.keysym.sym) {

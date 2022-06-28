@@ -32,6 +32,10 @@ void Client::setConnection(const char* name_host, const char* service_port) {
 	this->protocol.setSktConnection(name_host, service_port);
 }
 
+void Client::chooseName(std::string name) {
+	this->name = name;
+}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Determina el numero de la casa elegida por el Cliente segun el nombre de la casa.
@@ -53,7 +57,6 @@ void Client::chooseNumberHouse(std::string house) {
 Pre-Condiciones: -
 Post-Condiciones: Determina el nombre del juego elegido por el Cliente.
 */
-
 
 void Client::chooseGameName(std::string name) {
 	this->gameName = name;
@@ -81,7 +84,8 @@ void Client::client_run() {
 	sdlWindow.fill(192, 150, 100, 255);
 	GameView gameViewObj(sdlWindow, houseNumber);
 
-	ServerReceiver receiver(&protocol, &gameViewObj);
+	int result = -1;
+	ServerReceiver receiver(&protocol, &gameViewObj, name, &result);
 	receiver.start();
 
 	Drawer drawer(&gameViewObj);
@@ -98,10 +102,16 @@ void Client::client_run() {
 	inputReceiver.join();
 	serverDespatcher.join();
 	receiver.join();
+
+	gameResult = result;
 }
 
-void Client::sendUserName(std::string userName) {
-	protocol.sendUserName(userName);
+int Client::getGameResult() {
+	return gameResult;
+}
+
+void Client::sendUserName() {
+	protocol.sendUserName(name);
 }
 
 // Comento todos los metodos porque no va a estar conectado a ningun socket todavia. 

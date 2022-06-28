@@ -20,7 +20,7 @@ class SdlTexture {
     SdlTexture(SdlWindow* window, TTF_Font* font, std::string text);
 	SdlTexture(const std::string& filename, SdlWindow* window);
     SdlTexture(const std::string& filename, SdlWindow* window,
-                            bool color);
+               int r, int g, int b);
 
     SdlTexture(const SdlTexture& other) = delete;
     SdlTexture& operator=(const SdlTexture& other) = delete;

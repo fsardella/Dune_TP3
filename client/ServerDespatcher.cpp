@@ -1,6 +1,10 @@
 #include "ServerDespatcher.h"
 #include <iostream>
 
+#define CREATE_UNIT 5
+#define CREATE_BUILDING 6
+#define ATTACK 7
+
 ServerDespatcher::ServerDespatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue): 
 protocolClient(protocol), blockingQueue(blockingQueue) {
 }
@@ -9,7 +13,14 @@ void ServerDespatcher::run() {
     while(true) {
         try {
             ClientInput clientInput(std::move(blockingQueue->pop()));
-            protocolClient->sendUnitConstructionPetition(clientInput.getPosX() / 4, clientInput.getPosY() / 4, 1);
+            int operation = clientInput.getOperation();
+            if (operation == CREATE_UNIT) {
+                // protocolClient->sendUnitConstructionPetition(clientInput.getPosX() / 4, clientInput.getPosY() / 4, 1);
+                protocolClient->sendUnitConstructionPetition(operation, clientInput.getType());
+            } else {
+                protocolClient->sendOperationInfo(operation, clientInput.getType(),
+                                                  clientInput.getParam1(), clientInput.getParam2());
+            }
         } catch (const ClosedQueueException& e) {
             return;
         } catch(const ClosedSocketException& e) {

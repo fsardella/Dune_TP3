@@ -30,18 +30,23 @@ class Client {
 	int houseNumber;
 	std::string gameName;
 	std::string mapName;
+	std::string name;
+	int gameResult;
 	void operation_run(std::string& line);
+
 	public:
 	ProtocolClient protocol; //get protocol despues
 	Client();
 	void setReadyToRun();
 	bool isReadyToRun();
+	int getGameResult();
 	void setConnection(const char* name_host, const char* service_port);
 	void client_run();
+	void chooseName(std::string name);
 	void chooseNumberHouse(std::string house);
 	void chooseGameName(std::string name);
 	void chooseMapName(std::string name);
-	void sendUserName(std::string userName);
+	void sendUserName();
 	void sendCreateGameOperation();
 	void sendCreateGameInfo();
 	void sendJoinGameOperation();

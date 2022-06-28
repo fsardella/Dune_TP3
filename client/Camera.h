@@ -21,6 +21,8 @@ private:
     int width;
     int height;
 
+    SdlTexture blockedTexture;
+
     bool isVisibleInX(float x);
     bool isVisibleInY(float y);
     bool isUnitVisible(float x, float y, float txtWidth, float txtHeight);
@@ -38,17 +40,15 @@ private:
     int getYOffset();
     
     void render(Renderizable &renderizable);
-    int render(Renderizable &renderizable, int x, int y);
     void renderInSight(SdlTexture* texture, Area& src,
-                       float posX,
-                       float posY);
+                       float posX, float posY);
     int renderInSightForUnit(SdlTexture* texture, Area& src,
-                       float posX,
-                       float posY);
+                             float posX, float posY);
     void renderInSightForMenu(SdlTexture* texture, Area& src,
-                       float posX,
-                       float posY);
-    void renderInSightForMenuTitles(SdlTexture* texture, Area& src, float posX, float posY);
+                              float posX, float posY);
+    void renderBlockingFigure(int posX, int posY);
+    void renderInSightForMenuTitles(SdlTexture* texture, Area& src,
+                                    float posX, float posY);
     void renderMenuRect();
     bool isVisible(float x, float y);
     ~Camera();

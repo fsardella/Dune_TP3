@@ -1,85 +1,85 @@
 amount: 20
 
 0:
-  - "harkonnen barrack"
-  - "../client/menuImgs/cuartel_harkonnen.bmp"
-
-1:
-  - "atreides barrack"
-  - "../client/menuImgs/cuartel_atreides.bmp"
-
-2:
-  - "ordos barrack"
-  - "../client/menuImgs/cuartel_ordos.bmp"
-
-3:
-  - "construction yard"
-  - "../client/menuImgs/centro_de_construccion.bmp"
-
-4:
-  - "light factory"
-  - "../client/menuImgs/fabrica_ligera.bmp"
-
-5:
-  - "heavy factory"
-  - "../client/menuImgs/fabrica_pesada.bmp"
-
-6:
-  - "palace"
-  - "../client/menuImgs/palacio.bmp"
-
-7:
-  - "refinery"
-  - "../client/menuImgs/refineria.bmp"
-
-8:
-  - "silo"
-  - "../client/menuImgs/silo.bmp"
-
-9:
-  - "wind trap"
-  - "../client/menuImgs/trampa.bmp"
-
-10:
-  - "raider"
-  - "../client/menuImgs/raider.bmp"
-
-11:
-  - "harvester"
-  - "../client/menuImgs/cosechadora.bmp"
-
-12:
-  - "tank"
-  - "../client/menuImgs/tanque.bmp"
-
-13:
   - "trike"
   - "../client/menuImgs/trike.bmp"
 
-14:
+1:
+  - "raider"
+  - "../client/menuImgs/raider.bmp"
+
+2:
+  - "tank"
+  - "../client/menuImgs/tanque.bmp"
+
+3:
+  - "harvester"
+  - "../client/menuImgs/cosechadora.bmp"
+
+4:
   - "deviator"
   - "../client/menuImgs/desviador.bmp"
 
-15:
+5:
   - "devastator"
   - "../client/menuImgs/devastador.bmp"
 
-16:
+6:
   - "sonik tank"
   - "../client/menuImgs/tanque_sonico.bmp"
 
-17:
+7:
   - "light infantry"
   - "../client/menuImgs/infanteria_ligera.bmp"
 
-18:
+8:
   - "heavy infantry"
   - "../client/menuImgs/infanteria_pesada.bmp"
 
-19:
+9:
   - "sardaukar"
   - "../client/menuImgs/sardaukar.bmp"
 
-20:
+10:
   -  "fremen"
   - "../client/menuImgs/fremen.bmp"
+
+11:
+  - "construction yard"
+  - "../client/menuImgs/centro_de_construccion.bmp"
+
+12:
+  - "light factory"
+  - "../client/menuImgs/fabrica_ligera.bmp"
+
+13:
+  - "heavy factory"
+  - "../client/menuImgs/fabrica_pesada.bmp"
+
+14:
+  - "palace"
+  - "../client/menuImgs/palacio.bmp"
+
+15:
+  - "refinery"
+  - "../client/menuImgs/refineria.bmp"
+
+16:
+  - "silo"
+  - "../client/menuImgs/silo.bmp"
+
+17:
+  - "wind trap"
+  - "../client/menuImgs/trampa.bmp"
+
+18:
+  - "harkonnen barrack"
+  - "../client/menuImgs/cuartel_harkonnen.bmp"
+
+19:
+  - "atreides barrack"
+  - "../client/menuImgs/cuartel_atreides.bmp"
+
+20:
+  - "ordos barrack"
+  - "../client/menuImgs/cuartel_ordos.bmp"

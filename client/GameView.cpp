@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
-GameView::GameView(SdlWindow& window, int houseNumberClient): window(window), camera(window), map(window, houseNumberClient), running(true) {
+GameView::GameView(SdlWindow& window, int houseNumberClient)
+: window(window), camera(window), map(window, houseNumberClient),
+  running(true) {
 }
 
 GameView::~GameView() {
@@ -14,21 +16,30 @@ void GameView::buildMap(int height, int width, std::vector<std::vector<uint8_t>>
     camera.setMapSize(width, height);
 	map.createMap(height, width, std::move(mapMatrix));
 }
-/*
-void GameView::buildUnit(int x, int y, int unitType, int unitId) {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.createUnit(x, y, unitType, unitId);
-}
-*/
-void GameView::buildUnit(int x, int y, int unitType, int house, bool property, int animationId) {
-    map.createUnit(x, y, unitType, house, property, animationId);
+
+void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property) {
+    map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
-void GameView::buildUnits(std::map<std::tuple<int, int>, std::tuple<int, int, bool>> units) {
+void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     for (const auto& [key, value] : units) {
-        buildUnit(std::get<0>(key), std::get<1>(key), std::get<0>(value), std::get<1>(value), std::get<2>(value), 0);
+        buildUnit(std::get<0>(value), std::get<1>(value),
+                  key, std::get<2>(value), std::get<3>(value),
+                  std::get<4>(value), std::get<5>(value));
     }
+}
+
+void GameView::buildConstruction(int x, int y, int constructionId, int constType, bool property, int house) {
+    map.createConstruction(x, y, constructionId, constType, property, house);
+}
+
+void GameView::unitAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+    map.attackUnit(attackerId, attackedId, currentLife, totalLife);
+}
+
+void GameView::buildingAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+    map.attackBuilding(attackerId, attackedId, currentLife, totalLife);
 }
 
 void GameView::render() {
@@ -98,3 +109,14 @@ int GameView::getYOffset() {
     return camera.getYOffset();
 }
 
+bool GameView::isBuilding(int posX, int posY, bool propiety) {
+    return map.isBuilding(posX, posY, propiety);
+}
+
+bool GameView::isUnit(int posX, int posY, bool propiety) {
+    return map.isUnit(posX, posY, propiety);
+}
+
+bool GameView::isBlocked(int currentUnit) {
+    return map.isBlocked(currentUnit);
+} 

@@ -1,6 +1,7 @@
 #include "creategamewindow.h"
 #include "ui_creategamewindow.h"
 #include <QMessageBox>
+#include "../GameWaiter.h"
 
 #include <iostream>
 
@@ -39,8 +40,9 @@ void CreateGameWindow::showWaitingWindow()
     WaitingWindow waitingWindow(NULL, this->newClient);
     waitingWindow.setModal(true);
     waitingWindow.showMaximized();
+    GameWaiter waiter(waitingWindow);
     waitingWindow.exec();
-    waitingWindow.wait();
+    waiter.join();
 }
 
 void CreateGameWindow::on_createGameButton_clicked()

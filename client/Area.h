@@ -4,12 +4,12 @@
 #include <SDL2/SDL.h>
 
 class Area{
-public:
     int x;
     int y;
     int width;
     int height;
 
+public:
 	Area(int x, int y, int width, int height);
 
 	SDL_Rect buildRectangle() const;
