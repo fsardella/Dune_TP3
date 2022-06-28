@@ -27,7 +27,7 @@ Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
   unitType(unitType),
   playerId(playerId),
   animationId(findAnimationId(animationId)),
-  lifeId(1),
+  lifeId(4),
   isCurrentlyAttacking(false),
   isDead(false)
 {
