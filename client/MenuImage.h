@@ -7,9 +7,10 @@ class MenuImage : public Renderizable {
     int type;
     int rescaling;
     bool blocked;
-    bool hasBarrack;
-    bool hasPalace;
-    bool hasHeavyFactory;
+    int barracks;
+    int palaces;
+    int heavyFactorys;
+    int lightFactorys;
 
     public:
     MenuImage(SdlTexture* texture,
@@ -34,6 +35,7 @@ class MenuImage : public Renderizable {
     bool checkUnblockPosibility(int buildingType);
     void updateBuildings(int buildingType);
     void updateBlocking(int buildingType);
+    void updateUnblocking(int buildingType);
 
     ~MenuImage();
 };

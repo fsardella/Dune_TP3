@@ -16,7 +16,7 @@ amount: 21
   
 # Este 4 5
 0_2:
-  - "../client/animations/Trike16.bmp"
+  - "../client/animations/trike16.bmp"
 
 # Sur 6 7 8
 0_3:
@@ -499,11 +499,10 @@ amount: 21
 
 # Muerte
 7_5:
-  - "../client/animations/DestructionUnit1.bmp"
-  - "../client/animations/DestructionUnit2.bmp"
-  - "../client/animations/DestructionUnit3.bmp"
-  - "../client/animations/DestructionUnit4.bmp"
-  - "../client/animations/Destruction0.bmp"
+  - "../client/animations/InfanteryDead1.bmp"
+  - "../client/animations/InfanteryDead2.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
 
 #######INFANTERIA PESADA#######
 
@@ -535,11 +534,10 @@ amount: 21
 
 # Muerte
 8_5:
-  - "../client/animations/DestructionUnit1.bmp"
-  - "../client/animations/DestructionUnit2.bmp"
-  - "../client/animations/DestructionUnit3.bmp"
-  - "../client/animations/DestructionUnit4.bmp"
-  - "../client/animations/Destruction0.bmp"
+  - "../client/animations/InfanteryDead1.bmp"
+  - "../client/animations/InfanteryDead2.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
 
 #######FREMEN#######
 
@@ -571,11 +569,10 @@ amount: 21
 
 # Muerte
 9_5:
-  - "../client/animations/DestructionUnit1.bmp"
-  - "../client/animations/DestructionUnit2.bmp"
-  - "../client/animations/DestructionUnit3.bmp"
-  - "../client/animations/DestructionUnit4.bmp"
-  - "../client/animations/Destruction0.bmp"
+  - "../client/animations/InfanteryDead1.bmp"
+  - "../client/animations/InfanteryDead2.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
 
 
 #######SARDUKAR#######
@@ -609,11 +606,10 @@ amount: 21
 
 # Muerte
 10_5:
-  - "../client/animations/DestructionUnit1.bmp"
-  - "../client/animations/DestructionUnit2.bmp"
-  - "../client/animations/DestructionUnit3.bmp"
-  - "../client/animations/DestructionUnit4.bmp"
-  - "../client/animations/Destruction0.bmp"
+  - "../client/animations/InfanteryDead1.bmp"
+  - "../client/animations/InfanteryDead2.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
+  - "../client/animations/InfanteryDead3.bmp"
 
 #######CONSTRUCTIONS#######
 
@@ -636,6 +632,8 @@ amount: 21
   - "../client/animations/CentroDeConstruccion.bmp"
   - "../client/animations/CentroDeConstruccionDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######FABRICA LIGERA#######
 
@@ -643,19 +641,21 @@ amount: 21
 
 #Quieto
 12_0:
-  - "../client/animations/FabericaLigera.bmp"
+  - "../client/animations/FabricaLigera.bmp"
 
 #Crear
 12_1:
   - "../client/animations/Destruction1.bmp"
-  - "../client/animations/FabericaLigeraDestruida.bmp"
-  - "../client/animations/FabericaLigera.bmp"
+  - "../client/animations/FabricaLigeraDestruida.bmp"
+  - "../client/animations/FabricaLigera.bmp"
 
 #Morir
 12_2:
-  - "../client/animations/FabericaLigera.bmp"
-  - "../client/animations/FabericaLigeraDestruida.bmp"
+  - "../client/animations/FabricaLigera.bmp"
+  - "../client/animations/FabricaLigeraDestruida.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######FABRICA PESADA#######
 
@@ -676,6 +676,8 @@ amount: 21
   - "../client/animations/FabericaPesada.bmp"
   - "../client/animations/FabericaPesadaDestruida.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######PALACIO#######
 
@@ -696,6 +698,8 @@ amount: 21
   - "../client/animations/Palacio.bmp"
   - "../client/animations/PalacioDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######REFINERIA#######
 
@@ -716,6 +720,8 @@ amount: 21
   - "../client/animations/Refineria.bmp"
   - "../client/animations/RefineriaDestruida.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######SILO#######
 
@@ -723,19 +729,21 @@ amount: 21
 
 #Quieto
 16_0:
-  - "../client/animations/Silo.bmp"
+  - "../client/animations/Silos.bmp"
 
 #Crear
 16_1:
   - "../client/animations/Destruction1.bmp"
-  - "../client/animations/SiloDestruido.bmp"
-  - "../client/animations/Silo.bmp"
+  - "../client/animations/SilosDestruido.bmp"
+  - "../client/animations/Silos.bmp"
 
 #Morir
 16_2:
-  - "../client/animations/Silo.bmp"
-  - "../client/animations/SiloDestruido.bmp"
+  - "../client/animations/Silos.bmp"
+  - "../client/animations/SilosDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######TRAMPA#######
 
@@ -756,6 +764,8 @@ amount: 21
   - "../client/animations/Trampa.bmp"
   - "../client/animations/TrampaDestruida.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######CUARTEL HARKONNEN#######
 
@@ -776,6 +786,8 @@ amount: 21
   - "../client/animations/CuartelHarkonnen.bmp"
   - "../client/animations/CuartelHarkonnenDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######CUARTEL ORDOS#######
 
@@ -796,6 +808,8 @@ amount: 21
   - "../client/animations/CuartelOrdos.bmp"
   - "../client/animations/CuartelOrdosDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"
 
 #######CUARTEL ATREIDES#######
 
@@ -816,3 +830,5 @@ amount: 21
   - "../client/animations/CuartelAtreides.bmp"
   - "../client/animations/CuartelAtreidesDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
+  - "../client/animations/Destruction2.bmp"
+  - "../client/animations/Destruction3.bmp"

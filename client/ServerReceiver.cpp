@@ -2,6 +2,8 @@
 #include "SdlWindow.h"
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #define SUCCESSFULL_OPERATION 0
 #define FAILED_OPERATION 1
@@ -29,12 +31,60 @@ void ServerReceiver::run() {
 		this->buildConstructionYards();
 		gameView->setEnergy(0); //iria energy
 		gameView->setMoney(0); //iria money
-		gameView->buildUnit(100, 100, 0, 0, 0, 0, true); // borrar
+		
+		gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
+
+		// ATAQUE A UNIDAD
+		gameView->buildUnit(200, 100, 1, 10, 1, 3, false); // BORRAR
+		gameView->unitAttack(0, 1, 80, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(0, 1, 60, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(0, 1, 40, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(0, 1, 0, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+
+		gameView->buildUnit(100, 150, 2, 5, 0, 5, true); // BORRAR
+		gameView->buildUnit(200, 150, 4, 9, 1, 3, false); // BORRAR
+		gameView->unitAttack(2, 4, 80, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(2, 4, 60, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(2, 4, 40, 80);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->unitAttack(2, 4, 0, 80);
+
+		// ATAQUE A EDIFICIO
+		// gameView->buildConstruction(300, 100, 3, 12, false, 0);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->buildingAttack(0, 3, 80, 80);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->buildingAttack(0, 3, 60, 80);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->buildingAttack(0, 3, 40, 80);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->buildingAttack(0, 3, 0, 80);
+
+		// MOVIMIENTO
+		// std::this_thread::sleep_for (std::chrono::seconds(1));
+		// gameView->buildUnit(110, 100, 0, 0, 0, 5, true); // BORRAR
+		// std::this_thread::sleep_for (std::chrono::seconds(1));
+		// gameView->buildUnit(120, 100, 0, 0, 0, 5, true); // BORRAR
+		// std::this_thread::sleep_for (std::chrono::seconds(1));
+		// gameView->buildUnit(130, 100, 0, 0, 0, 5, true); // BORRAR
+		// std::this_thread::sleep_for (std::chrono::seconds(1));
+		// gameView->buildUnit(300, 100, 0, 0, 0, 5, true); // BORRAR
+		// std::this_thread::sleep_for (std::chrono::seconds(1));
+
+		// VARIAS CONSTRUCCIONES
+		// gameView->buildConstruction(400, 400, 4, 18, true, 0);
+		// gameView->buildConstruction(100, 500, 6, 18, true, 2);
+		// gameView->buildConstruction(500, 100, 5, 16, true, 0);
 		this->gameLoop();
 	} catch(const ClosedSocketException& e) {
 		std::cout << "el socket se cerro inesperadamente 2\n";
 	}
-	
 }
 
 void ServerReceiver::receiveBackground() {

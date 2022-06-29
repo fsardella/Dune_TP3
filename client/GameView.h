@@ -43,8 +43,8 @@ class GameView {
     int getXOffset();
     int getYOffset();
 
-    bool isBuilding(int posX, int posY, bool propiety);
-    bool isUnit(int posX, int posY, bool propiety);
+    int isBuilding(int posX, int posY, bool propiety);
+    int isUnit(int posX, int posY, bool propiety);
 
     bool isBlocked(int currentUnit);
 

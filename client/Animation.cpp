@@ -11,9 +11,6 @@ Animation::Animation(std::vector<SdlTexture*> frames):
     animationTime = animationSize * FRAME_DURATION;
 }
 
-Animation::~Animation() {
-}
-
 SdlTexture* Animation::getTexture() {
     if (currentAnimation < 0) currentAnimation = 0;
     return frames.at(currentAnimation);
@@ -27,6 +24,15 @@ void Animation::update(int delta) {
     currentAnimation = std::floor(currentTime / FRAME_DURATION);
 }
 
+int Animation::getFrame() {
+    return currentAnimation;
+}
+
+void Animation::reset() {
+    currentAnimation = 0;
+    currentTime = 0;
+}
+
 bool Animation::isLastFrame() {
     if (currentAnimation == int(frames.size()) - 1) return true;
     return false;
@@ -35,4 +41,7 @@ bool Animation::isLastFrame() {
 Animation::Animation(Animation &&other)
 : frames(std::move(other.frames)),
 currentAnimation(other.currentAnimation) {
+}
+
+Animation::~Animation() {
 }

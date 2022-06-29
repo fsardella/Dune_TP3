@@ -5,8 +5,9 @@
 
 #include <iostream>
 
-#define CONSTRUCTION_OFFSET 11
+// #define CONSTRUCTION_OFFSET 11 antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
+#define BARRACK 18
 
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
@@ -18,6 +19,7 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
     this->loadMenuTranslator();
     this->loadSpritesTranslator();
     this->loadLifeTranslator();
+    this->loadAttackTranslator();
     this->createMenu();
 }
 
@@ -83,6 +85,21 @@ void MapView::loadLifeTranslator() {
     }
 }
 
+void MapView::loadAttackTranslator() {
+    YAML::Node node = YAML::LoadFile("../client/armament.yaml");
+    int amount = node["amount"].as<int>();
+    for (int i = 0; i <= amount; i++) {
+        if (i == 3) continue;
+        std::vector<std::string> attackInfo = node[i].as<std::vector<std::string>>();
+        for (size_t j = 0; j < attackInfo.size(); j++) {
+                attackTextureTranslator.emplace(std::piecewise_construct,
+                                      std::forward_as_tuple(std::make_tuple(i, j)),
+                                      std::forward_as_tuple(attackInfo[j],
+                                      &window));
+        }
+    }
+}
+
 void MapView::createMenu() {
     for (size_t i = 0; i <= 18; i += 3) {
         for (size_t j = 0; j < 3; j++) {
@@ -113,26 +130,49 @@ void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>>
     }
 }
 
-void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property) {
-    int posX = int(x / TILE_PIX_SIZE);
-    int posY = int(y / TILE_PIX_SIZE);
+void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool propiety) {
+    float posX = float(x) / float(TILE_PIX_SIZE);
+    float posY = float(y) / float(TILE_PIX_SIZE);
 
     if (unitTiles.find(unitId) != unitTiles.end() &&
-        unitTiles.at(unitId).getAnimationId() == animationId) return;
+        unitTiles.at(unitId).getAnimationId() == animationId &&
+        unitTiles.at(unitId).getX() == posX &&
+        unitTiles.at(unitId).getY() == posY) {
+            return;
+    }
     if (unitTiles.find(unitId) != unitTiles.end()) {
-        unitTiles.at(unitId).setAnimationId(animationId);
+        if (unitTiles.at(unitId).getAnimationId() != animationId) {
+            unitTiles.at(unitId).setAnimationId(animationId);
+        }
+        if (unitTiles.at(unitId).getX() != posX ||
+            unitTiles.at(unitId).getY() != posY) {
+            unitTiles.at(unitId).setNewPosition(posX, posY);
+        }
         return;
     }
+
+    std::vector<SdlTexture*> attackSprites;
+    for (int i = 0; i < 3; i ++) {
+        attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(unitType, i))));
+    }
+
     unitTiles.emplace(std::piecewise_construct,
                        std::forward_as_tuple(unitId),
                        std::forward_as_tuple(animationsRepository.at(unitType),
                                              lifeTextureTranslator,
+                                             std::move(attackSprites),
                                              UNIT_PIX_SIZE, UNIT_PIX_SIZE,
-                                             posX, posY, property, unitType,
+                                             posX, posY, propiety, unitType,
                                              playerId, animationId));
 }
 
 void MapView::updateBlockedUnits(int constType) {
+    for (MenuImage &image : menuImages) {
+        image.updateUnblocking(constType);
+    }
+}
+
+void MapView::updateUnblockedUnits(int constType) {
     for (MenuImage &image : menuImages) {
         image.updateBlocking(constType);
     }
@@ -159,38 +199,37 @@ void MapView::getBuildingDimensions(int constType, int* width, int* height) {
 }
 
 void MapView::createConstruction(int x, int y, int constructionId,
-                                 int constType, bool property, int house) {
-    int posX = int(x / TILE_PIX_SIZE);
-    int posY = int(y / TILE_PIX_SIZE);
+                                 int constType, bool propiety, int house) {
+    float posX = float(x) / float(TILE_PIX_SIZE);
+    float posY = float(y) / float(TILE_PIX_SIZE);
     if (house != -1) {
         // hacer otra cuenta para obtener los textures
+    }
+    if (constType == BARRACK) {
+        constType += house;
     }
     int width, height;
     getBuildingDimensions(constType, &width, &height);
 
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
-                    std::forward_as_tuple(animationsRepository.at(
-                                          constType + CONSTRUCTION_OFFSET),
+                    std::forward_as_tuple(animationsRepository.at(constType),
                                           lifeTextureTranslator,
                                           width, height, posX, posY,
-                                          property));
+                                          constType, propiety));
     updateBlockedUnits(constType);
 }
 
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife, int totalLife) {
-    if (unitTiles.at(attackerId).isAttacking() && currentLife == 0) {
-        unitTiles.at(attackerId).stopAttacking();
-    }
     unitTiles.at(attackerId).startAttacking();
     unitTiles.at(attackedId).updateLife(currentLife, totalLife);
 }
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife, int totalLife) {
-    if (unitTiles.at(attackerId).isAttacking() && currentLife == 0) {
-        unitTiles.at(attackerId).stopAttacking();    
-    }
     unitTiles.at(attackerId).startAttacking();
+    if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
+        updateUnblockedUnits(constructionTiles.at(attackedId).getConstType());
+    }
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
 }
 
@@ -232,40 +271,63 @@ void MapView::render(Camera &cam) {
     for (BackGroundTile &tile : backgroundTiles) {
         cam.render(tile);
     }
-    for (size_t i = 0; i < unitTiles.size(); i ++) {
-        int surpasses = unitTiles.at(i).render(cam, unitTiles.at(i).getX(), unitTiles.at(i).getY());
+    for (auto const& unit : unitTiles) {
+        if (unitTiles.at(unit.first).getIsDead()) continue;
+        int surpasses = unitTiles.at(unit.first).render(cam,
+                                            unitTiles.at(unit.first).getX(),
+                                            unitTiles.at(unit.first).getY());
         if (surpasses) {
             renderMenu(cam);
-        }
+        }    
+    }
+    for (auto const& building : constructionTiles) {
+        if (constructionTiles.at(building.first).getIsDead()) continue;
+        int surpasses = constructionTiles.at(building.first).render(cam,
+                                constructionTiles.at(building.first).getX(),
+                                constructionTiles.at(building.first).getY());
+        if (surpasses) {
+            renderMenu(cam);
+        }    
     }
 }
 
 void MapView::update(int delta) {
-    for (size_t i = 0; i < unitTiles.size(); i ++) {
-        unitTiles.at(i).update(delta);
+    for (auto const& unit : unitTiles) {
+        unitTiles.at(unit.first).update(delta);
+    }
+    for (auto const& building : constructionTiles) {
+        constructionTiles.at(building.first).update(delta);
     }
 }
 
-bool MapView::isBuilding(int posX, int posY, bool propiety) {
-    for (size_t i = 0; i < constructionTiles.size(); i ++) {
-        if (int(constructionTiles.at(i).getX()) == posX &&
-            int(constructionTiles.at(i).getY()) == posY &&
-            constructionTiles.at(i).getPropiety() == propiety) {
-                return true;
+int MapView::isBuilding(int posX, int posY, bool propiety) {
+    for (auto const& building : constructionTiles) {
+        if ((posX >= constructionTiles.at(building.first).getX() * TILE_PIX_SIZE &&
+            (posX <= (constructionTiles.at(building.first).getX() * TILE_PIX_SIZE +
+            constructionTiles.at(building.first).getWidth()))) &&
+            (posY >= constructionTiles.at(building.first).getY() * TILE_PIX_SIZE &&
+            (posY <= (constructionTiles.at(building.first).getY() * TILE_PIX_SIZE +
+            constructionTiles.at(building.first).getHeight()))) &&
+            constructionTiles.at(building.first).getPropiety() == propiety) {
+                return building.first;
         }
     }
-    return false;
+    return -1;
 }
     
-bool MapView::isUnit(int posX, int posY, bool propiety) {
-    for (size_t i = 0; i < unitTiles.size(); i ++) {
-        if (int(unitTiles.at(i).getX()) == posX &&
-            int(unitTiles.at(i).getY()) == posY &&
-            unitTiles.at(i).getPropiety() == propiety) {
-                return true;
+int MapView::isUnit(int posX, int posY, bool propiety) {
+    for (auto const& unit : unitTiles) {
+        if ((posX >= unitTiles.at(unit.first).getX() * TILE_PIX_SIZE &&
+            (posX <= (unitTiles.at(unit.first).getX() * TILE_PIX_SIZE +
+            unitTiles.at(unit.first).getWidth()))) &&
+            (posY >= unitTiles.at(unit.first).getY() * TILE_PIX_SIZE &&
+            (posY <= (unitTiles.at(unit.first).getY() * TILE_PIX_SIZE +
+            unitTiles.at(unit.first).getHeight()))) &&
+            unitTiles.at(unit.first).getPropiety() == propiety) {
+            return unit.first;
         }
     }
-    return false;
+    return -1;
 }
 
 bool MapView::isBlocked(int currentUnit) {

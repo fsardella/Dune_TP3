@@ -17,9 +17,10 @@ MenuImage::MenuImage(SdlTexture* texture,
 : Renderizable(texture, sizeW, sizeH, posX, posY),
   type(type),
   blocked(false),
-  hasBarrack(false),
-  hasPalace(false),
-  hasHeavyFactory(false)
+  barracks(0),
+  palaces(0),
+  heavyFactorys(0),
+  lightFactorys(0)
 {
     if (type < 11) blocked = true;
     rescaling = 1;
@@ -46,38 +47,50 @@ bool MenuImage::isBlocked() {
 }
 
 bool MenuImage::checkUnblockPosibility(int buildingType) {
-    if (type < 2 && buildingType == LIGHT_FACTORY) return true;
-    if (type > 2 && type < 4 && buildingType == HEAVY_FACTORY) return true;
-    if (type > 3 && type < 7 && buildingType == HEAVY_FACTORY && hasPalace) return true;
-    if (type > 3 && type < 7 && buildingType == PALACE && hasHeavyFactory) return true;
-    if (type > 6 && type < 9 && buildingType == BARRACK) return true;
-    if (type > 8 && type < 11 && buildingType == BARRACK && hasPalace) return true;
-    if (type > 8 && type < 11 && buildingType == PALACE && hasBarrack) return true;
+    if (type < 2 && lightFactorys != 0) return true;
+    if (type > 2 && type < 4 && heavyFactorys != 0) return true;
+    if (type > 3 && type < 7 && heavyFactorys != 0 && palaces != 0) return true;
+    if (type > 3 && type < 7 && palaces != 0 && heavyFactorys != 0) return true;
+    if (type > 6 && type < 9 && barracks != 0) return true;
+    if (type > 8 && type < 11 && barracks != 0 && palaces != 0) return true;
+    if (type > 8 && type < 11 && palaces != 0 && barracks != 0) return true;
     return false;
 }
 
 void MenuImage::updateBuildings(int buildingType) {
-    if (buildingType == BARRACK) hasBarrack = true;
-    if (buildingType == HEAVY_FACTORY) hasHeavyFactory = true;
-    if (buildingType == PALACE) hasPalace = true;
+    if (buildingType == BARRACK) barracks += 1;
+    if (buildingType == HEAVY_FACTORY) heavyFactorys += 1;
+    if (buildingType == PALACE) palaces += 1;
+    if (buildingType == LIGHT_FACTORY) lightFactorys += 1;
 }
 
-void MenuImage::updateBlocking(int buildingType) {
-    std::cout << "me llamaron \n";
+void MenuImage::updateUnblocking(int buildingType) {
+    updateBuildings(buildingType);
     if (checkUnblockPosibility(buildingType)) {
         blocked = false;
     }
-    updateBuildings(buildingType);
 }
+
+void MenuImage::updateBlocking(int buildingType) {
+    if (buildingType == BARRACK) barracks -= 1;
+    if (buildingType == HEAVY_FACTORY) heavyFactorys -= 1;
+    if (buildingType == PALACE) palaces -= 1;
+    if (buildingType == LIGHT_FACTORY) lightFactorys -= 1;
+    if (type < 11) {
+        blocked = !checkUnblockPosibility(buildingType);
+    }
+}
+
 
 MenuImage::MenuImage(MenuImage &&other)
 : Renderizable(std::move(other)),
   type(other.type),
   rescaling(other.rescaling),
   blocked(other.blocked),
-  hasBarrack(other.hasBarrack),
-  hasPalace(other.hasPalace),
-  hasHeavyFactory(other.hasHeavyFactory)
+  barracks(other.barracks),
+  palaces(other.palaces),
+  heavyFactorys(other.heavyFactorys),
+  lightFactorys(other.lightFactorys)
 {
 }
 

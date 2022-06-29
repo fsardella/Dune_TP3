@@ -39,6 +39,7 @@ class MapView {
     std::map<int, SdlTexture> menuTextureTranslator;
     std::map<std::string, SdlTexture> menuTextsTranslator;
     std::map<int, SdlTexture> lifeTextureTranslator;
+    std::map<std::tuple<int, int>, SdlTexture> attackTextureTranslator;
 
     std::map<int, std::map<std::tuple<int, int>, SdlTexture>> animationsRepository; 
 
@@ -50,12 +51,13 @@ class MapView {
     void loadMenuTranslator();
     void loadSpritesTranslator();
     void loadLifeTranslator();
+    void loadAttackTranslator();
     void createMenu();
     void createUnit(int x, int y, int unitId, int unitType,
-                    int playerId, int animationId, bool property);
+                    int playerId, int animationId, bool propiety);
     void getBuildingDimensions(int constType, int* width, int* height);
     void createConstruction(int x, int y, int constructionId, int constType,
-                            bool property, int house);
+                            bool propiety, int house);
     void createMap(int height, int width, std::vector<std::vector<uint8_t>> map);
 
     void attackUnit(int attackerId, int attackedId, int currentLife, int totalLife);
@@ -65,11 +67,12 @@ class MapView {
     void render(Camera& cam);
     void loadFontTitles();
 
-    bool isBuilding(int posX, int posY, bool propiety);
-    bool isUnit(int posX, int posY, bool propiety);
+    int isBuilding(int posX, int posY, bool propiety);
+    int isUnit(int posX, int posY, bool propiety);
 
     bool isBlocked(int currentUnit);
     void updateBlockedUnits(int constType);
+    void updateUnblockedUnits(int constType);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);

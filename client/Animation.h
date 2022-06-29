@@ -17,6 +17,8 @@ class Animation {
     SdlTexture* getTexture();
     void update(int delta);
     bool isLastFrame();
+    int getFrame();
+    void reset();
 
     Animation(const Animation& other) = delete;
     Animation& operator=(const Animation& other) = delete;

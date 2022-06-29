@@ -8,6 +8,8 @@ class Unit {
     std::vector<Animation> animations;
     std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
     std::map<int, SdlTexture>&  lifeTextures;
+    std::vector<SdlTexture*> attackTextures;
+    Animation attackAnimation;
     int sizeW;
     int sizeH;
     float posX;
@@ -25,16 +27,17 @@ class Unit {
     public:
     Unit(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
          std::map<int, SdlTexture>&  lifeTextures,
+         std::vector<SdlTexture*> attackTextures,
          int sizeW,
          int sizeH,
          float posX,
          float posY,
-         bool property,
+         bool propiety,
          int unitType,
          int playerId,
-         int animationId);
+         int newAnimationId);
 
-    int render(Camera &camera, int posX, int posY);
+    int render(Camera &camera, float posX, float posY);
 
     Unit(const Unit& other) = delete;
     Unit& operator=(const Unit& other) = delete;
@@ -49,12 +52,16 @@ class Unit {
     void updateAnimationId(int oldAnimationId, int newAnimationId);
     float getX();
     float getY();
+    int getWidth();
+    int getHeight();
+    
     bool getPropiety();
     int getAnimationId();
     void setAnimationId(int animationId);
+    void setNewPosition(float x, float y);
+    bool getIsDead();
 
     bool isAttacking();
-    void stopAttacking();
     void startAttacking();
     void updateLife(int currentLife, int totalLife);
 

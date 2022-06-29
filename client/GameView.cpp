@@ -18,6 +18,7 @@ void GameView::buildMap(int height, int width, std::vector<std::vector<uint8_t>>
 }
 
 void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property) {
+    std::lock_guard<std::mutex> lock(gameViewMutex); // BORRAR
     map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
@@ -31,14 +32,17 @@ void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool
 }
 
 void GameView::buildConstruction(int x, int y, int constructionId, int constType, bool property, int house) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.createConstruction(x, y, constructionId, constType, property, house);
 }
 
 void GameView::unitAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.attackUnit(attackerId, attackedId, currentLife, totalLife);
 }
 
 void GameView::buildingAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.attackBuilding(attackerId, attackedId, currentLife, totalLife);
 }
 
@@ -54,11 +58,13 @@ void GameView::setSize(int newWidth, int newHeight) {
 }
 
 bool GameView::isRunning() {
-	return running;
+	std::lock_guard<std::mutex> lock(gameViewMutex);
+    return running;
 }
 
 void GameView::shutdown() {
-	running = false;
+	std::lock_guard<std::mutex> lock(gameViewMutex);
+    running = false;
     SDL_Event quit;
     quit.type = SDL_QUIT;
     SDL_PushEvent(&quit);
@@ -109,14 +115,17 @@ int GameView::getYOffset() {
     return camera.getYOffset();
 }
 
-bool GameView::isBuilding(int posX, int posY, bool propiety) {
+int GameView::isBuilding(int posX, int posY, bool propiety) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isBuilding(posX, posY, propiety);
 }
 
-bool GameView::isUnit(int posX, int posY, bool propiety) {
+int GameView::isUnit(int posX, int posY, bool propiety) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isUnit(posX, posY, propiety);
 }
 
 bool GameView::isBlocked(int currentUnit) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isBlocked(currentUnit);
 } 

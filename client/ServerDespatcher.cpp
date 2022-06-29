@@ -14,8 +14,7 @@ void ServerDespatcher::run() {
         try {
             ClientInput clientInput(std::move(blockingQueue->pop()));
             int operation = clientInput.getOperation();
-            if (operation == CREATE_UNIT) {
-                // protocolClient->sendUnitConstructionPetition(clientInput.getPosX() / 4, clientInput.getPosY() / 4, 1);
+            if (operation != ATTACK) {
                 protocolClient->sendUnitConstructionPetition(operation, clientInput.getType());
             } else {
                 protocolClient->sendOperationInfo(operation, clientInput.getType(),

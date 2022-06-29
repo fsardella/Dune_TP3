@@ -197,13 +197,8 @@ void ProtocolClient::sendUnitConstructionPetition(int operation, int type) {
 
 void ProtocolClient::sendOperationInfo(int operation, int type, int param1, int param2) {
 	this->sendOperation(operation);
-	if (operation < 8) {
-		uint8_t unitType = convert_to_uint8(type);
-		socket.sendall(&unitType, 1);	
-	} else {
-		uint16_t id = convert_to_uint16_with_endianess(type);
-		socket.sendall(&id, 2);
-	}
+	uint8_t unitType = convert_to_uint8(type);
+	socket.sendall(&unitType, 1);
 	uint16_t parameter1 = convert_to_uint16_with_endianess(param1);
 	uint16_t parameter2 = convert_to_uint16_with_endianess(param2);
 	socket.sendall(&parameter1, 2);

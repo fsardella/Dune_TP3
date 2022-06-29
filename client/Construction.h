@@ -12,6 +12,7 @@ class Construction {
     int sizeH;
     float posX;
     float posY;
+    int constType;
     bool propiety;
     int animationId;
     int lifeId;
@@ -26,6 +27,7 @@ class Construction {
                  int sizeH,
                  float posX,
                  float posY,
+                 int constType,
                  bool propiety);
 
     int render(Camera &camera, int posX, int posY);
@@ -38,12 +40,13 @@ class Construction {
 
     void getTexture();
     void getLifeTexture();
-
     float getX();
-
     float getY();
-
+    int getConstType();
     bool getPropiety();
+    int getWidth();
+    int getHeight();
+    bool getIsDead();
 
     void updateLife(int currentLife, int totalLife);
 
