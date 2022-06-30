@@ -48,10 +48,10 @@ uint16_t UnitBuffer::getTimeToEnd() {
 }
 
 
-Unit* UnitBuffer::getResult(coor_t coor) {
+Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
     switch (this->type) {
         case TRIKE:
-            return new Vehicle(coor, this->terr);
+            return new Vehicle(coor, this->terr, newID, this->playerName);
         default:
             return nullptr;
     }

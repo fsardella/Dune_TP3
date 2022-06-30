@@ -109,10 +109,10 @@ Building* Game::getBuilding(std::string playerName, uint16_t buildingID) {
 }
 
 
-bool Game::addUnit(std::string playerName, Unit* unit, uint8_t id) {
+bool Game::addUnit(std::string playerName, Unit* unit) {
     if (!this->isPlaying(playerName))
         return false;
-    this->participants[playerName].addUnit(unit, id);
+    this->participants[playerName].addUnit(unit);
     return true;
 }
 

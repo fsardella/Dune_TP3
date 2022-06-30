@@ -17,7 +17,7 @@ Player::Player(): playerName(""),
 
 
 void Player::buildBase(TerrainMap& terr, uint16_t id) {
-    terr.build(this->base.getPosition(), this->base.getSize(), id);
+    this->base.build(terr, this->base.getPosition(), id);
 }
 
 void Player::setID(uint8_t newID) {
@@ -29,6 +29,8 @@ bool Player::hasUnit(uint16_t unitID) {
 }
 
 bool Player::hasBuilding(uint16_t buildingID) {
+    if (buildingID == this->playerID) // la base!
+        return true;
     return (this->buildings.find(buildingID) != this->buildings.end());
 }
 
@@ -84,12 +86,14 @@ Unit* Player::getUnit(uint16_t unitID) {
 Building* Player::getBuilding(uint16_t buildingID) { 
     if (!this->hasBuilding(buildingID))
         return nullptr;
+    if (buildingID == this->playerID)
+        return &this->base;
     return this->buildings[buildingID];
 }
 
 
-void Player::addUnit(Unit* unit, uint8_t id) {
-    this->units[id] = unit;
+void Player::addUnit(Unit* unit) {
+    this->units[unit->getID()] = unit;
 }
 
 enum buildingTypes {
@@ -97,10 +101,10 @@ enum buildingTypes {
     LIGHT_FACTORY
 };
 
-Building* newBuilding(uint8_t type, uint16_t x, uint16_t y) {
+Building* newBuilding(uint8_t type) {
     switch (type) {
         case LIGHT_FACTORY:
-            return new LightFactory(coor_t(y, x));
+            return new LightFactory();
         default:
             return NULL;
     }
@@ -143,9 +147,9 @@ bool Player::isBlockInRange(coor_t blockCoord) {
     return false;
 }
 
-bool Player::isBuildingInRange(Building* toBuild) {
-    coor_t toBuildBlock(toBuild->getPosition().first / CHUNKSIZE,
-                        toBuild->getPosition().second / CHUNKSIZE);
+bool Player::isBuildingInRange(Building* toBuild, uint16_t x, uint16_t y) {
+    coor_t toBuildBlock(y / CHUNKSIZE,
+                        x / CHUNKSIZE);
     coor_t toBuildSize = toBuild->getSize();
     for (uint16_t i = toBuildBlock.first;
          i < toBuildBlock.first + toBuildSize.first;
@@ -172,12 +176,13 @@ void Player::addSpecialBuilding(uint8_t type) {
 
 bool Player::addBuilding(uint8_t type, uint16_t x, uint16_t y, TerrainMap& terr,
                          uint16_t id) {
-    Building* toBuild = newBuilding(type, x, y);
-    if (!this->isBuildingInRange(toBuild) || !toBuild->canBuild(terr)) {
+    Building* toBuild = newBuilding(type);
+    if (!this->isBuildingInRange(toBuild, x, y) || !toBuild->canBuild(terr,
+                                                                coor_t(y, x))) {
         delete toBuild;
-        return false;   
+        return false;
     }
-    toBuild->build(terr, id);
+    toBuild->build(terr, coor_t(y, x), id);
     addSpecialBuilding(type);
     this->buildings[id] = toBuild;
     return true;

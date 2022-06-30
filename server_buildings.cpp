@@ -1,8 +1,7 @@
 #include "server_buildings.h"
 
 
-Building::Building(coor_t position, coor_t size, uint16_t totalLife):
-                   position(position),
+Building::Building(coor_t size, uint16_t totalLife):
                    size(size),
                    actualLife(totalLife),
                    totalLife(totalLife) {}
@@ -31,13 +30,14 @@ uint16_t Building::getTotalLife() {
     return this->totalLife;
 }
 
-bool Building::canBuild(TerrainMap& terr) {
-    return terr.canBuild(this->position, this->size);
+bool Building::canBuild(TerrainMap& terr, coor_t position) {
+    return terr.canBuild(position, this->size);
 }
 
-void Building::build(TerrainMap& terr, uint16_t id) {
+void Building::build(TerrainMap& terr, coor_t position, uint16_t id) {
     this->buildingID = id;
-    return terr.build(this->position, this->size, id);
+    this->position = position;
+    return terr.build(position, this);
 }
 
 void Building::attack(uint16_t damage) {
@@ -67,13 +67,14 @@ Building::~Building() {}
 
 
 
-Base::Base(coor_t position): Building(position, coor_t(3, 3), 3000) {}
+Base::Base(coor_t position): Building(coor_t(3, 3), 3000) {
+    this->position = position;
+}
 
 Base::~Base() {}
 
 
-LightFactory::LightFactory(coor_t position): Building(position, coor_t(3, 3),
-                                                      500) {} 
+LightFactory::LightFactory(): Building(coor_t(3, 3), 500) {} 
 
 bool LightFactory::isLightFactory() {
     return true;

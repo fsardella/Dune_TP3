@@ -4,6 +4,7 @@
 
 #include "server_units.h"
 
+
 enum sketchElements {
     CLIFF = 0,
     SAND,
@@ -90,7 +91,7 @@ bool TerrainMap::isInsideMap(coor_t place) {
 void TerrainMap::swapContent(coor_t source, coor_t destiny) {
     if (!this->isInsideMap(source) || !this->isInsideMap(destiny))
         return;
-    uint16_t id = this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->getIdOfOccupant(source);
+    Unit* id = this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->getOccupant(source);
     this->terr[source.first / CHUNKSIZE][source.second / CHUNKSIZE]->freeSpace(source);
     this->terr[destiny.first / CHUNKSIZE][destiny.second / CHUNKSIZE]->occupySpace(destiny, id);
 }
@@ -114,10 +115,30 @@ bool TerrainMap::canBuild(coor_t coor, coor_t size) {
     return true;
 }
 
-void TerrainMap::build(coor_t coor, coor_t size, uint16_t id) {
-    for (uint16_t i = 0; i < size.first; i++) {
-        for (uint16_t j = 0; j < size.second; j++) {
-            this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->build(*this, id);
+Building* TerrainMap::getBuilding(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return nullptr;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getBuilding();
+}
+
+Unit* TerrainMap::getUnit(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return nullptr;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getOccupant(coor);
+}
+
+std::list<Unit*> TerrainMap::getAllUnits(coor_t coor) {
+    std::list<Unit*> ret;
+    if (this->isInsideMap(coor))
+        this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getAllOccupants(ret);
+    return ret;
+}
+
+
+void TerrainMap::build(coor_t coor, Building* building) {
+    for (uint16_t i = 0; i < building->getSize().first; i++) {
+        for (uint16_t j = 0; j < building->getSize().second; j++) {
+            this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->build(building);
         }
     }   
 }

@@ -41,7 +41,7 @@ class Game {
     bool isPlaying(std::string playerName);
     uint8_t getUnitFactor(std::string playerName, uint8_t type);
     coor_t getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr);
-    bool addUnit(std::string playerName, Unit* unit, uint8_t id);
+    bool addUnit(std::string playerName, Unit* unit);
     void moveUnit(std::string playerName, uint16_t unitID, coor_t coor);
     void updateUnits();
     bool addBuilding(std::string playerName, uint8_t type,

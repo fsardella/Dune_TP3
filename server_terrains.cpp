@@ -5,8 +5,8 @@
 Terrain::Terrain() {}
 Terrain::~Terrain() {}
 
-void Terrain::occupySpace(coor_t coord, uint16_t id) {
-    this->occupiedUnits[coord] = id;
+void Terrain::occupySpace(coor_t coord, Unit* unit) {
+    this->occupiedUnits[coord] = unit;
 }
 void Terrain::freeSpace(coor_t coord) {
     this->occupiedUnits.erase(coord);
@@ -22,10 +22,20 @@ bool Terrain::canBuild() {
     return false;
 }
 
-uint16_t Terrain::getIdOfOccupant(coor_t coord) {
+Unit* Terrain::getOccupant(coor_t coord) {
     if (!this->isOccupied(coord))
-        return 0xFFFF;
+        return nullptr;
     return this->occupiedUnits[coord];
+}
+
+void Terrain::getAllOccupants(std::list<Unit*>& ret) {
+    for (auto& tile : this->occupiedUnits) {
+        ret.push_back(tile.second);
+    }
+}
+
+Building* Terrain::getBuilding() {
+    return nullptr;
 }
 
 bool Terrain::isBlocked() {
@@ -64,19 +74,22 @@ void Cliff::print() {
 
 Rock::Rock(): Terrain() {}
 
-void Rock::build(uint16_t building) {
-    this->building_id = building;
-    this->built = true;
+void Rock::build(Building* newBuilding) {
+    this->building = newBuilding;
 }
 
 bool Rock::canBuild() {
-    if (this->built)
+    if (this->isBlocked())
         return false;
     return (this->occupiedUnits.size() == 0);
 }
 
 bool Rock::isBlocked() {
-    return this->built;
+    return this->building == nullptr;
+}
+
+Building* Rock::getBuilding() {
+    return this->building;
 }
 
 int Rock::getSpeedWeight(Unit& unit, coor_t coord) {

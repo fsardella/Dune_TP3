@@ -117,8 +117,8 @@ void ActiveGame::updateUnitsBuffer() {
                                              this->gameMap);
             if (validDir == coor_t(0,0))
                 continue;
-            this->game.addUnit(it->getPlayerName(), it->getResult(validDir),
-                               this->unitIDCount);
+            this->game.addUnit(it->getPlayerName(),
+                               it->getResult(validDir, this->unitIDCount));
             this->unitIDs[this->unitIDCount] = it->getPlayerName();
             this->unitIDCount++;
             it = unitsBuilding.erase(it);

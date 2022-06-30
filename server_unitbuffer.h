@@ -24,7 +24,7 @@ class UnitBuffer {
     uint16_t getTimeToEnd();
     std::string getPlayerName();
     uint8_t getPlayerID();
-    Unit* getResult(coor_t coor);
+    Unit* getResult(coor_t coor, uint16_t newID);
     ~UnitBuffer();
 };
 

@@ -23,7 +23,7 @@ class Player {
     
     void addSpecialBuilding(uint8_t type);
     bool isBlockInRange(coor_t blockCoord);
-    bool isBuildingInRange(Building* toBuild);
+    bool isBuildingInRange(Building* toBuild, uint16_t x, uint16_t y);
     bool hasUnit(uint16_t unitID);
     bool hasBuilding(uint16_t buildingID);
  public:
@@ -36,7 +36,7 @@ class Player {
     Unit* getUnit(uint16_t unitID);
     Building* getBuilding(uint16_t buildingID);
     
-    void addUnit(Unit* unit, uint8_t id);
+    void addUnit(Unit* unit);
     bool addBuilding(uint8_t type, uint16_t x, uint16_t y, TerrainMap& terr,
                      uint16_t id);
     void moveUnit(uint16_t unitID, coor_t coor);

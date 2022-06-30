@@ -8,20 +8,21 @@
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Building {
-    coor_t position;
     coor_t size;
     uint16_t actualLife;
     uint16_t totalLife;
     uint16_t buildingID = 0xFFFF;
     uint16_t watchers = 0;
+ protected:
+    coor_t position = coor_t(0xFFFF, 0xFFFF);
  public:
-    Building(coor_t position, coor_t size, uint16_t totalLife);
+    Building(coor_t size, uint16_t totalLife);
     coor_t getPosition();
     coor_t getSize();
     virtual bool isLightFactory();
-    bool canBuild(TerrainMap& terr);
+    bool canBuild(TerrainMap& terr, coor_t position);
     uint16_t getID();
-    void build(TerrainMap& terr, uint16_t id);
+    void build(TerrainMap& terr, coor_t position, uint16_t id);
     uint16_t getActualLife();
     uint16_t getTotalLife();
     void attack(uint16_t damage);
@@ -41,7 +42,7 @@ class Base: public Building {
 
 class LightFactory : public Building {
  public:
-    LightFactory(coor_t position);
+    LightFactory();
     bool isLightFactory();
     virtual ~LightFactory();
 };

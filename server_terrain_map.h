@@ -14,6 +14,8 @@ class Terrain;
 
 #include "server_terrains.h"
 #include "server_units.h"
+#include "server_buildings.h"
+#include <list>
 
 class TerrainMap {
     std::vector<std::vector<Terrain*>> terr;
@@ -28,7 +30,10 @@ class TerrainMap {
     bool isOccupied(coor_t coord);
     bool isBlocked(coor_t coord);
     bool canBuild(coor_t coor, coor_t size);
-    void build(coor_t coor, coor_t size, uint16_t id);
+    void build(coor_t coor, Building* building);
+    Building* getBuilding(coor_t coor);
+    Unit* getUnit(coor_t coor);
+    std::list<Unit*> getAllUnits(coor_t coor);
     void swapContent(coor_t source, coor_t destiny);
     int getSpeedWeight(coor_t coor, Unit& unit);
     ~TerrainMap();
