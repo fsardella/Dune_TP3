@@ -33,9 +33,13 @@ void ServerReceiver::run() {
 		gameView->setMoney(0); //iria money
 		
 		gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
+		gameView->buildUnit(150, 150, 1, 9, 1, 5, false); // BORRAR
+		gameView->buildUnit(200, 100, 2, 10, 2, 5, false); // BORRAR
+
+		gameView->buildConstruction(300, 100, 0, 3, 12, true, 0);
 
 		// ATAQUE A UNIDAD
-		gameView->buildUnit(200, 100, 1, 10, 1, 3, false); // BORRAR
+		/*gameView->buildUnit(200, 100, 1, 10, 1, 3, false); // BORRAR
 		gameView->unitAttack(0, 1, 80, 80);
 		std::this_thread::sleep_for (std::chrono::seconds(3));
 		gameView->unitAttack(0, 1, 60, 80);
@@ -53,7 +57,7 @@ void ServerReceiver::run() {
 		std::this_thread::sleep_for (std::chrono::seconds(3));
 		gameView->unitAttack(2, 4, 40, 80);
 		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->unitAttack(2, 4, 0, 80);
+		gameView->unitAttack(2, 4, 0, 80);*/
 
 		// ATAQUE A EDIFICIO
 		// gameView->buildConstruction(300, 100, 3, 12, false, 0);
@@ -95,12 +99,12 @@ void ServerReceiver::receiveBackground() {
 }
 
 void ServerReceiver::buildConstructionYards() {
-	std::map<int, std::tuple<int, int, int, bool>> constYards;
+	std::map<int, std::tuple<int, int, int, int, bool>> constYards;
 	clientHouses = protocolClient->recvConstYards(constYards, clientName, &clientId);
 	for (const auto& [key, value] : constYards) {
 		// x y id type house property
-		gameView->buildConstruction(std::get<0>(value), std::get<1>(value), key,
-									0, std::get<3>(value), std::get<2>(value));
+		gameView->buildConstruction(std::get<0>(value), std::get<1>(value), std::get<2>(value), key,
+									11, std::get<4>(value), std::get<3>(value));
 	}
 }
 
@@ -156,11 +160,11 @@ void ServerReceiver::receiveUnits() {
 	gameView->buildUnits(units);
 }
 
-void ServerReceiver::receiveBuilding() {
+void ServerReceiver::receiveBuilding() { //x y playerId constId constType prop house
 	std::tuple<int, int, int, int, int, bool> buildingInfo = protocolClient->recvBuildingInfo(clientId);
 	gameView->buildConstruction(std::get<0>(buildingInfo), std::get<1>(buildingInfo),
-								std::get<3>(buildingInfo), std::get<4>(buildingInfo),
-								std::get<5>(buildingInfo), clientHouses[std::get<2>(buildingInfo)]);
+								std::get<2>(buildingInfo), std::get<3>(buildingInfo),
+								std::get<4>(buildingInfo), std::get<5>(buildingInfo), clientHouses[std::get<2>(buildingInfo)]);
 }
 
 void ServerReceiver::receiveUnitAttack() {

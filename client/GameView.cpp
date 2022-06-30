@@ -27,13 +27,13 @@ void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool
     for (const auto& [key, value] : units) {
         buildUnit(std::get<0>(value), std::get<1>(value),
                   key, std::get<2>(value), std::get<3>(value),
-                  std::get<4>(value), std::get<5>(value));
+                  std::get<4>(value), std::get<5>(value)); //segun un id de jugador podria tener un color identificador
     }
 }
 
-void GameView::buildConstruction(int x, int y, int constructionId, int constType, bool property, int house) {
+void GameView::buildConstruction(int x, int y, int playerId, int constructionId, int constType, bool property, int house) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.createConstruction(x, y, constructionId, constType, property, house);
+    map.createConstruction(x, y, playerId, constructionId, constType, property, house);
 }
 
 void GameView::unitAttack(int attackerId, int attackedId, int currentLife, int totalLife) {

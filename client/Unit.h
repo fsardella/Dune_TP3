@@ -9,6 +9,7 @@ class Unit {
     std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
     std::map<int, SdlTexture>&  lifeTextures;
     std::vector<SdlTexture*> attackTextures;
+    SdlTexture* identifierTexture;
     Animation attackAnimation;
     int sizeW;
     int sizeH;
@@ -28,6 +29,7 @@ class Unit {
     Unit(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
          std::map<int, SdlTexture>&  lifeTextures,
          std::vector<SdlTexture*> attackTextures,
+         SdlTexture* identifierTexture,
          int sizeW,
          int sizeH,
          float posX,
@@ -47,6 +49,7 @@ class Unit {
 
     void getTexture();
     void getLifeTexture();
+    void getIdentificatorTexture();
 
     int findAnimationId(int animationType);
     void updateAnimationId(int oldAnimationId, int newAnimationId);

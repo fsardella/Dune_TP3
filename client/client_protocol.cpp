@@ -218,7 +218,7 @@ void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<ui
 	*width = cols;
 }
 
-std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, int, int, bool>>& constYards,
+std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,
 												  std::string& clientName, int* clientId) {
 	std::map<int, int> clientHouses;
 	int playersAmount = receiveOneByte();
@@ -236,7 +236,8 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, 
 			property = true;
 		}
 		clientHouses[i] = house;
-		constYards[i] = std::make_tuple(x, y, house, property);
+		constYards[i] = std::make_tuple(x, y, i, house, property);
+		playerHouses[i] = house;
 	}
 	return clientHouses;
 }

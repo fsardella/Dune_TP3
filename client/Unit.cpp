@@ -7,10 +7,12 @@
 #define ATTACK_DIMENSION 6
 #define VEHICLE_DEAD_ANIMATION 7
 #define SOLDIER_DEAD_ANIMATION 5
+#define IDENTIFIER_DIMENSION 4
 
 Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
            std::map<int, SdlTexture>&  lifeTextures,
            std::vector<SdlTexture*> attackTextures,
+           SdlTexture* identifierTexture,
            int sizeW,
            int sizeH,
            float posX,
@@ -22,6 +24,7 @@ Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
 : animationsRepository(newAnimationsRepository),
   lifeTextures(lifeTextures),
   attackTextures(attackTextures),
+  identifierTexture(identifierTexture),
   attackAnimation(attackTextures),
   sizeW(sizeW),
   sizeH(sizeH),
@@ -98,6 +101,8 @@ int Unit::render(Camera &camera, float posX, float posY) {
     }
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
     camera.renderInSightForUnit(currentLifeTexture, srcLife, posX, posY - 0.2);
+    Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
+    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6, posY - 0.2); 
     Area src(0, 0, sizeW, sizeH);
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
@@ -214,6 +219,7 @@ Unit::Unit(Unit &&other)
   animationsRepository(other.animationsRepository),
   lifeTextures(other.lifeTextures),
   attackTextures(other.attackTextures),
+  identifierTexture(other.identifierTexture),
   attackAnimation(std::move(other.attackAnimation)),
   sizeW(other.sizeW),
   sizeH(other.sizeH),

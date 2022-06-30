@@ -41,6 +41,9 @@ class MapView {
     std::map<int, SdlTexture> lifeTextureTranslator;
     std::map<std::tuple<int, int>, SdlTexture> attackTextureTranslator;
 
+    std::map<int, SdlTexture> identifierTranslator;
+    //std::vector<SdlTexture> identifierTranslator;
+
     std::map<int, std::map<std::tuple<int, int>, SdlTexture>> animationsRepository; 
 
     TTF_Font *font;
@@ -52,11 +55,12 @@ class MapView {
     void loadSpritesTranslator();
     void loadLifeTranslator();
     void loadAttackTranslator();
+    void loadIdentifierTranslator();
     void createMenu();
     void createUnit(int x, int y, int unitId, int unitType,
                     int playerId, int animationId, bool propiety);
     void getBuildingDimensions(int constType, int* width, int* height);
-    void createConstruction(int x, int y, int constructionId, int constType,
+    void createConstruction(int x, int y, int playerId, int constructionId, int constType,
                             bool propiety, int house);
     void createMap(int height, int width, std::vector<std::vector<uint8_t>> map);
 

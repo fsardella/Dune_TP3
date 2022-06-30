@@ -7,22 +7,27 @@
 #define DEAD_ANIMATION 2
 #define LIFE_BAR_WIDTH 12 // hacer que sea mas grande?
 #define LIFE_BAR_HEIGHT 4
+#define IDENTIFIER_DIMENSION 4
 
 Construction::Construction(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
                            std::map<int, SdlTexture>& lifeTextures,
+                           SdlTexture* identifierTexture,
                            int sizeW,
                            int sizeH,
                            float posX,
                            float posY,
                            int constType,
+                           int playerId,
                            bool propiety)
 : animationsRepository(newAnimationsRepository),
   lifeTextures(lifeTextures),
+  identifierTexture(identifierTexture),
   sizeW(sizeW),
   sizeH(sizeH),
   posX(posX),
   posY(posY),
   constType(constType),
+  playerId(playerId),
   propiety(propiety),
   animationId(1),
   lifeId(4),
@@ -49,6 +54,8 @@ int Construction::render(Camera &camera, int posX, int posY) {
     if (isDead) return 0;
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
     camera.renderInSightForUnit(currentLifeTexture, srcLife, posX, posY - 0.2);
+    Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
+    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6, posY - 0.2);
     Area src(0, 0, sizeW, sizeH);
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
@@ -116,11 +123,13 @@ Construction::Construction(Construction &&other)
 : animations(std::move(other.animations)),
   animationsRepository(other.animationsRepository),
   lifeTextures(other.lifeTextures),
+  identifierTexture(other.identifierTexture),
   sizeW(other.sizeW),
   sizeH(other.sizeH),
   posX(other.posX),
   posY(other.posY),
   constType(other.constType),
+  playerId(other.playerId),
   propiety(other.propiety),
   animationId(other.animationId),
   lifeId(other.lifeId),

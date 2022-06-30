@@ -8,11 +8,13 @@ class Construction {
     std::vector<Animation> animations;
     std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
     std::map<int, SdlTexture>& lifeTextures;
+    SdlTexture* identifierTexture;
     int sizeW;
     int sizeH;
     float posX;
     float posY;
     int constType;
+    int playerId;
     bool propiety;
     int animationId;
     int lifeId;
@@ -23,11 +25,13 @@ class Construction {
     public:
     Construction(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
                  std::map<int, SdlTexture>& lifeTextures,
+                 SdlTexture* identifierTexture,
                  int sizeW,
                  int sizeH,
                  float posX,
                  float posY,
                  int constType,
+                 int playerId,
                  bool propiety);
 
     int render(Camera &camera, int posX, int posY);

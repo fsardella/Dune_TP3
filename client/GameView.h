@@ -28,7 +28,7 @@ class GameView {
     void buildMap(int height, int width, std::vector<std::vector<uint8_t>> map);
     void buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property);
     void buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units);
-    void buildConstruction(int x, int y, int constructionId, int constType, bool property, int house);
+    void buildConstruction(int x, int y, int playerId, int constructionId, int constType, bool property, int house);
     void setSize(int newWidth, int newHeight);
     void shutdown();
     bool isRunning();

@@ -20,6 +20,7 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
     this->loadSpritesTranslator();
     this->loadLifeTranslator();
     this->loadAttackTranslator();
+    this->loadIdentifierTranslator();
     this->createMenu();
 }
 
@@ -71,6 +72,18 @@ void MapView::loadMenuTranslator() {
         menuTextureTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
                                       std::forward_as_tuple(menuImgInfo[1],
+                                      &window));
+    }
+}
+
+void MapView::loadIdentifierTranslator() {
+    YAML::Node node = YAML::LoadFile("../client/ident.yaml");
+    int amount = node["amount"].as<int>();
+    for (int i = 0; i <= amount; i++) {
+        std::vector<std::string> identifierMgsInfo = node[i].as<std::vector<std::string>>();
+        identifierTranslator.emplace(std::piecewise_construct,
+                                      std::forward_as_tuple(i),
+                                      std::forward_as_tuple(identifierMgsInfo[0],
                                       &window));
     }
 }
@@ -161,6 +174,7 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, i
                        std::forward_as_tuple(animationsRepository.at(unitType),
                                              lifeTextureTranslator,
                                              std::move(attackSprites),
+                                             &(identifierTranslator.at(playerId)),
                                              UNIT_PIX_SIZE, UNIT_PIX_SIZE,
                                              posX, posY, propiety, unitType,
                                              playerId, animationId));
@@ -198,7 +212,7 @@ void MapView::getBuildingDimensions(int constType, int* width, int* height) {
     *height = 3 * TILE_PIX_SIZE;
 }
 
-void MapView::createConstruction(int x, int y, int constructionId,
+void MapView::createConstruction(int x, int y, int playerId, int constructionId,
                                  int constType, bool propiety, int house) {
     float posX = float(x) / float(TILE_PIX_SIZE);
     float posY = float(y) / float(TILE_PIX_SIZE);
@@ -215,8 +229,9 @@ void MapView::createConstruction(int x, int y, int constructionId,
                     std::forward_as_tuple(constructionId),
                     std::forward_as_tuple(animationsRepository.at(constType),
                                           lifeTextureTranslator,
+                                          &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,
-                                          constType, propiety));
+                                          constType, playerId, propiety));
     updateBlockedUnits(constType);
 }
 

@@ -1,0 +1,16 @@
+amount: 4
+
+0:
+  - "../client/animations/colors1.bmp"
+
+1:
+  - "../client/animations/colors2.bmp"
+
+2:
+  - "../client/animations/colors3.bmp"
+
+3:
+  - "../client/animations/colors4.bmp"
+
+4:
+  - "../client/animations/colors5.bmp"

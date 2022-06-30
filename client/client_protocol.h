@@ -14,6 +14,7 @@
 
 class ProtocolClient {
     Socket socket;
+    std::map<int, int> playerHouses;
     public:
     ProtocolClient();
     void setSktConnection(const char* name_host, const char* service_port);
@@ -35,7 +36,7 @@ class ProtocolClient {
     void sendOperationInfo(int operation, int type, int param1, int param2);
     void recvListOfMaps(std::list<std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
-    std::map<int, int> recvConstYards(std::map<int, std::tuple<int, int, int, bool>>& constYards,
+    std::map<int, int> recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,
 									  std::string& clientName, int* clientId);
     void recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map);
     void recvUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>& units,
