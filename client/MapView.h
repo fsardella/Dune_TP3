@@ -22,7 +22,6 @@ class MapView {
     int houseNumberClient;
     size_t columns;
     size_t rows;
-    SdlTexture menuShadow;
 
     // int actualMoney;
     // int actualEnergy;

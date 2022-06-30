@@ -13,7 +13,7 @@ class MenuImage : public Renderizable {
     int lightFactorys;
     bool isUnderConstruction;
     int progress;
-    SdlTexture* shadowTexture;
+    bool isReady;
 
     public:
     MenuImage(SdlTexture* texture,
@@ -21,8 +21,7 @@ class MenuImage : public Renderizable {
            int sizeH,
            float posX,
            float posY, 
-           int type,
-           SdlTexture* shadowTexture);
+           int type);
 
     void render(Camera &camera) override;
     

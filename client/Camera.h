@@ -22,6 +22,8 @@ private:
     int height;
 
     SdlTexture blockedTexture;
+    SdlTexture menuShadowTexture;
+    SdlTexture readyTexture;
 
     bool isVisibleInX(float x);
     bool isVisibleInY(float y);
@@ -47,10 +49,11 @@ private:
     void renderInSightForMenu(SdlTexture* texture, Area& src,
                               float posX, float posY);
     void renderBlockingFigure(int posX, int posY);
+    void renderReadyFigure(int posX, int posY);
     void renderInSightForMenuTitles(SdlTexture* texture, Area& src,
                                     float posX, float posY);
     void renderMenuRect();
-    void renderShadowForMenu(SdlTexture* texture, Area& src, float posX, float posY, int progress);
+    void renderShadowForMenu(Area& src, float posX, float posY, int progress);
     bool isVisible(float x, float y);
     ~Camera();
 };

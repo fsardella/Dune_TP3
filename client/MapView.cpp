@@ -8,14 +8,13 @@
 // #define CONSTRUCTION_OFFSET 11 antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
-#define SHADOW_PATH "../client/menuImgs/sombra.bmp"
 
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
   houseNumberClient(houseNumberClient),
   columns(0),
-  rows(0),
-  menuShadow(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, 180) {
+  rows(0)
+  {
     this->loadFontTitles();
     this->loadTileTranslator();
     this->loadMenuTranslator();
@@ -121,13 +120,13 @@ void MapView::createMenu() {
             size_t row = i / 3;
             if (i == 18 && j == 0) {
                 auto image = menuTextureTranslator.find(houseNumberClient + 18);
-                menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row, 18, &menuShadow);
+                menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row, 18);
                 continue;
             }
             if (i == 18 && j > 0) continue;
             if (i == 0) row = i;
             auto image = menuTextureTranslator.find(i + j);
-            menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row, i + j, &menuShadow);
+            menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH, IMAGE_PIX_HEIGHT, j, row, i + j);
         }
     }
 

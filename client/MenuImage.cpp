@@ -13,8 +13,7 @@ MenuImage::MenuImage(SdlTexture* texture,
            int sizeH,
            float posX,
            float posY,
-           int type,
-           SdlTexture* shadowTexture)
+           int type)
 : Renderizable(texture, sizeW, sizeH, posX, posY),
   type(type),
   blocked(false),
@@ -24,7 +23,7 @@ MenuImage::MenuImage(SdlTexture* texture,
   lightFactorys(0),
   isUnderConstruction(false),
   progress(0),
-  shadowTexture(shadowTexture)
+  isReady(false)
 {
     if (type < 11) blocked = true;
     rescaling = 1;
@@ -33,12 +32,15 @@ MenuImage::MenuImage(SdlTexture* texture,
 void MenuImage::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSightForMenu(texture, src, posX, posY);
-    if (isBlocked()) {
+    if (blocked) {
         camera.renderBlockingFigure(posX, posY);
     }
     if (isUnderConstruction) {
         Area shadowScr(0, 0, sizeW, sizeH - (sizeH * (float(progress) / float(100))));
-        camera.renderShadowForMenu(shadowTexture, shadowScr, posX, posY, progress);
+        camera.renderShadowForMenu(shadowScr, posX, posY, progress);
+    }
+    if (isReady) {
+        camera.renderReadyFigure(posX, posY);
     }
 }
 
@@ -94,7 +96,10 @@ void MenuImage::updateProgress(int progress) {
         isUnderConstruction = true;
     }
     this->progress = progress;
-    if (progress == 100) isUnderConstruction = false;
+    if (progress == 100) {
+        if (type > 10) isReady = true;
+        isUnderConstruction = false;
+    }
 }
 
 MenuImage::MenuImage(MenuImage &&other)
@@ -108,7 +113,7 @@ MenuImage::MenuImage(MenuImage &&other)
   lightFactorys(other.lightFactorys),
   isUnderConstruction(other.isUnderConstruction),
   progress(other.progress),
-  shadowTexture(other.shadowTexture)
+  isReady(other.isReady)
 {
 }
 
