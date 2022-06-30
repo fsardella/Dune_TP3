@@ -22,6 +22,7 @@ class MapView {
     int houseNumberClient;
     size_t columns;
     size_t rows;
+    SdlTexture menuShadow;
 
     // int actualMoney;
     // int actualEnergy;
@@ -77,6 +78,8 @@ class MapView {
     bool isBlocked(int currentUnit);
     void updateBlockedUnits(int constType);
     void updateUnblockedUnits(int constType);
+
+    void updateProgress(int menuId, int progress);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);

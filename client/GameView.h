@@ -29,6 +29,7 @@ class GameView {
     void buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property);
     void buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units);
     void buildConstruction(int x, int y, int playerId, int constructionId, int constType, bool property, int house);
+    void updateProgress(int menuId, int progress);
     void setSize(int newWidth, int newHeight);
     void shutdown();
     bool isRunning();

@@ -32,7 +32,7 @@ class ProtocolClient {
     void sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber);
     void sendListGamesOperation(int operationNumber);
     void sendListMapsOperation(int operationNumber);
-    void sendUnitConstructionPetition(int operation, int type);
+    void sendConstructionPetition(int operation, int type);
     void sendOperationInfo(int operation, int type, int param1, int param2);
     void recvListOfMaps(std::list<std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
@@ -43,7 +43,8 @@ class ProtocolClient {
                    int clientId);
     std::tuple<int, int, int, int, int, bool> recvBuildingInfo(int clientId);
     std::tuple<int, int, int, int> receiveAttackInfo();
-    void recvUnitStatus(std::vector<std::tuple<int, int, bool>>& unitsInConstruction, int clientId);
+    void recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress, int clientId);
+    void recvBuildingsProgress(std::vector<std::tuple<int, int>>& buildingsProgress);
     int recvStartGame();
     int recvOperationResult();
     int recvOperationNumber();

@@ -13,14 +13,18 @@ MenuImage::MenuImage(SdlTexture* texture,
            int sizeH,
            float posX,
            float posY,
-           int type)
+           int type,
+           SdlTexture* shadowTexture)
 : Renderizable(texture, sizeW, sizeH, posX, posY),
   type(type),
   blocked(false),
   barracks(0),
   palaces(0),
   heavyFactorys(0),
-  lightFactorys(0)
+  lightFactorys(0),
+  isUnderConstruction(false),
+  progress(0),
+  shadowTexture(shadowTexture)
 {
     if (type < 11) blocked = true;
     rescaling = 1;
@@ -31,6 +35,10 @@ void MenuImage::render(Camera &camera) {
     camera.renderInSightForMenu(texture, src, posX, posY);
     if (isBlocked()) {
         camera.renderBlockingFigure(posX, posY);
+    }
+    if (isUnderConstruction) {
+        Area shadowScr(0, 0, sizeW, sizeH - (sizeH * (float(progress) / float(100))));
+        camera.renderShadowForMenu(shadowTexture, shadowScr, posX, posY, progress);
     }
 }
 
@@ -81,6 +89,13 @@ void MenuImage::updateBlocking(int buildingType) {
     }
 }
 
+void MenuImage::updateProgress(int progress) {
+    if (!isUnderConstruction) {
+        isUnderConstruction = true;
+    }
+    this->progress = progress;
+    if (progress == 100) isUnderConstruction = false;
+}
 
 MenuImage::MenuImage(MenuImage &&other)
 : Renderizable(std::move(other)),
@@ -90,7 +105,10 @@ MenuImage::MenuImage(MenuImage &&other)
   barracks(other.barracks),
   palaces(other.palaces),
   heavyFactorys(other.heavyFactorys),
-  lightFactorys(other.lightFactorys)
+  lightFactorys(other.lightFactorys),
+  isUnderConstruction(other.isUnderConstruction),
+  progress(other.progress),
+  shadowTexture(other.shadowTexture)
 {
 }
 

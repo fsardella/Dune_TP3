@@ -20,7 +20,8 @@
 #define CREATE_UNIT 5
 #define CREATE_BUILDING 6
 #define ATTACK 7
-#define MOVEMENT 8
+#define POSITION_BUILDING 8
+#define MOVEMENT 9
 
 
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj,

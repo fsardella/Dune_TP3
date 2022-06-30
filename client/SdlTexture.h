@@ -21,6 +21,9 @@ class SdlTexture {
 	SdlTexture(const std::string& filename, SdlWindow* window);
     SdlTexture(const std::string& filename, SdlWindow* window,
                int r, int g, int b);
+    SdlTexture(const std::string &filename,
+                           SdlWindow* window, SDL_BlendMode blending,
+                           uint8_t alpha);
 
     SdlTexture(const SdlTexture& other) = delete;
     SdlTexture& operator=(const SdlTexture& other) = delete;

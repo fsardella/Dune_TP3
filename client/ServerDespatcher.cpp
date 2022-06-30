@@ -15,7 +15,7 @@ void ServerDespatcher::run() {
             ClientInput clientInput(std::move(blockingQueue->pop()));
             int operation = clientInput.getOperation();
             if (operation != ATTACK) {
-                protocolClient->sendUnitConstructionPetition(operation, clientInput.getType());
+                protocolClient->sendConstructionPetition(operation, clientInput.getType());
             } else {
                 protocolClient->sendOperationInfo(operation, clientInput.getType(),
                                                   clientInput.getParam1(), clientInput.getParam2());

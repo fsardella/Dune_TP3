@@ -11,6 +11,9 @@ class MenuImage : public Renderizable {
     int palaces;
     int heavyFactorys;
     int lightFactorys;
+    bool isUnderConstruction;
+    int progress;
+    SdlTexture* shadowTexture;
 
     public:
     MenuImage(SdlTexture* texture,
@@ -18,7 +21,8 @@ class MenuImage : public Renderizable {
            int sizeH,
            float posX,
            float posY, 
-           int type);
+           int type,
+           SdlTexture* shadowTexture);
 
     void render(Camera &camera) override;
     
@@ -36,6 +40,7 @@ class MenuImage : public Renderizable {
     void updateBuildings(int buildingType);
     void updateBlocking(int buildingType);
     void updateUnblocking(int buildingType);
+    void updateProgress(int progress);
 
     ~MenuImage();
 };

@@ -11,8 +11,8 @@
 #define SUCCESS 0
 
 #define BLOCKED_PATH "../client/menuImgs/blocked.bmp"
-#define BLOCKED_WIDTH 100
-#define BLOCKED_HEIGHT 75
+#define MENU_WIDTH 100
+#define MENU_HEIGHT 75
 
 Camera::Camera(SdlWindow& window)
 : window(window),
@@ -76,6 +76,15 @@ void Camera::renderMenuRect() {
     window.renderRect(r);
 }
 
+void Camera::renderShadowForMenu(SdlTexture* texture, Area& src, float posX, float posY, int progress) {
+    auto rect = src.buildRectangle();
+    int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
+    int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * MENU_HEIGHT + MENU_HEIGHT * (float(progress) / float(100));
+
+    Area dst(newX, newY, rect.w, rect.h);
+    texture->render(src,dst);
+}
+
 void Camera::renderInSightForMenu(SdlTexture* texture, Area& src, float posX, float posY) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
@@ -85,7 +94,7 @@ void Camera::renderInSightForMenu(SdlTexture* texture, Area& src, float posX, fl
 }
 
 void Camera::renderBlockingFigure(int posX, int posY) {
-    Area src(0, 0, BLOCKED_WIDTH, BLOCKED_HEIGHT);
+    Area src(0, 0, MENU_WIDTH, MENU_HEIGHT);
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;

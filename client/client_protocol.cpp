@@ -189,7 +189,7 @@ Pre-Condiciones: -
 Post-Condiciones: 
 */
 
-void ProtocolClient::sendUnitConstructionPetition(int operation, int type) {
+void ProtocolClient::sendConstructionPetition(int operation, int type) {
 	this->sendOperation(operation);
 	uint8_t unitType = convert_to_uint8(type);
 	socket.sendall(&unitType, 1);
@@ -282,15 +282,24 @@ std::tuple<int, int, int, int> ProtocolClient::receiveAttackInfo() {
 	return std::make_tuple(attackedId, attackedId, currentLife, totalLife);
 }
 
-void ProtocolClient::recvUnitStatus(std::vector<std::tuple<int, int, bool>>& unitsInConstruction, int clientId) {
+void ProtocolClient::recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress, int clientId) {
 	int unitsAmount = receiveTwoBytes();
 	for (int i = 0; i < unitsAmount; i ++) {
 		int playerId = receiveOneByte();
 		int unitType = receiveOneByte();
-		int constPercentage = receiveTwoBytes();
-		bool propiety = false;
-		if (clientId == playerId) propiety = true;
-		unitsInConstruction.push_back(std::make_tuple(unitType, constPercentage, propiety));
+		int percentage = receiveOneByte();
+		if (playerId == clientId) {
+			unitsProgress.push_back(std::make_tuple(unitType, percentage));
+		}
+	}
+}
+
+void ProtocolClient::recvBuildingsProgress(std::vector<std::tuple<int, int>>& buildingsProgress) {
+	int buildingsAmount = receiveTwoBytes();
+	for (int i = 0; i < buildingsAmount; i ++) {
+		int buildingType = receiveOneByte();
+		int percentage = receiveOneByte();
+		buildingsProgress.push_back(std::make_tuple(buildingType, percentage));
 	}
 }
 

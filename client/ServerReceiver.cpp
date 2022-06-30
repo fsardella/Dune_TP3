@@ -14,6 +14,7 @@
 #define GAME_LOST 6
 #define GAME_WON 7
 #define UNIT_UNDER_CONSTRUCTION 8
+#define BUILDING_UNDER_CONSTRUCTION 9
 
 ServerReceiver::ServerReceiver(ProtocolClient* protocol,
 							   GameView* gameViewObj,
@@ -37,6 +38,16 @@ void ServerReceiver::run() {
 		gameView->buildUnit(200, 100, 2, 10, 2, 5, false); // BORRAR
 
 		gameView->buildConstruction(300, 100, 0, 3, 12, true, 0);
+
+		gameView->updateProgress(11, 0);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->updateProgress(11, 20);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->updateProgress(11, 50);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->updateProgress(11, 60);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->updateProgress(11, 100);
 
 		// ATAQUE A UNIDAD
 		/*gameView->buildUnit(200, 100, 1, 10, 1, 3, false); // BORRAR
@@ -147,6 +158,10 @@ void ServerReceiver::gameLoop() {
 			break;
 		case UNIT_UNDER_CONSTRUCTION:
 			// imagen quieta y la updateamos con el porcentaje aca
+			this->receiveUnitProgress();
+			break;
+		case BUILDING_UNDER_CONSTRUCTION:
+			this->receiveBuildingProgress();
 			break;
 		}
 		// int money = protocolClient->recvMoney();
@@ -164,7 +179,8 @@ void ServerReceiver::receiveBuilding() { //x y playerId constId constType prop h
 	std::tuple<int, int, int, int, int, bool> buildingInfo = protocolClient->recvBuildingInfo(clientId);
 	gameView->buildConstruction(std::get<0>(buildingInfo), std::get<1>(buildingInfo),
 								std::get<2>(buildingInfo), std::get<3>(buildingInfo),
-								std::get<4>(buildingInfo), std::get<5>(buildingInfo), clientHouses[std::get<2>(buildingInfo)]);
+								std::get<4>(buildingInfo), std::get<5>(buildingInfo),
+								clientHouses[std::get<2>(buildingInfo)]);
 }
 
 void ServerReceiver::receiveUnitAttack() {
@@ -179,6 +195,22 @@ void ServerReceiver::receiveBuildingAttack() {
 	std::tuple<int, int, int, int> attackInfo = protocolClient->receiveAttackInfo();
 	gameView->buildingAttack(std::get<0>(attackInfo), std::get<1>(attackInfo),
 						 	 std::get<2>(attackInfo), std::get<3>(attackInfo));
+}
+
+void ServerReceiver::receiveUnitProgress() {
+	std::vector<std::tuple<int, int>> unitProgress;
+	protocolClient->recvUnitsProgress(unitProgress, clientId);
+	for (std::tuple<int, int>& unit : unitProgress) {
+		gameView->updateProgress(std::get<0>(unit), std::get<1>(unit));
+	}
+}
+
+void ServerReceiver::receiveBuildingProgress() {
+	std::vector<std::tuple<int, int>> buildingProgress;
+	protocolClient->recvBuildingsProgress(buildingProgress);
+	for (std::tuple<int, int>& building : buildingProgress) {
+		gameView->updateProgress(std::get<0>(building), std::get<1>(building));
+	}
 }
 
 ServerReceiver::~ServerReceiver() {

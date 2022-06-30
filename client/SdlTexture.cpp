@@ -41,6 +41,26 @@ SdlTexture::SdlTexture(const std::string &filename,
     SDL_FreeSurface(tmp);
 }
 
+SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, SDL_BlendMode blending, uint8_t alpha)
+: window(window),
+  texture(nullptr) {
+
+    SDL_Surface* tmp = IMG_Load(filename.c_str());
+    if (!tmp) {
+        return;
+    }
+
+    this->texture = window->createTexture(tmp);
+
+    SDL_SetTextureBlendMode(this->texture, blending);
+    SDL_SetTextureAlphaMod(this->texture, alpha);
+
+	width = tmp->w;
+	height = tmp->h;
+
+    SDL_FreeSurface(tmp);
+}
+
 SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
 : window(window),
   texture(nullptr) {

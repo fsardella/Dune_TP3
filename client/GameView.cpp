@@ -36,6 +36,10 @@ void GameView::buildConstruction(int x, int y, int playerId, int constructionId,
     map.createConstruction(x, y, playerId, constructionId, constType, property, house);
 }
 
+void GameView::updateProgress(int menuId, int progress) {
+    map.updateProgress(menuId, progress);
+}
+
 void GameView::unitAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.attackUnit(attackerId, attackedId, currentLife, totalLife);

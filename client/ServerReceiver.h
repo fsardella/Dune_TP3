@@ -23,6 +23,9 @@ class ServerReceiver: public Thread {
 	void receiveBuilding();
 	void receiveUnitAttack();
 	void receiveBuildingAttack();
+	void receiveUnitProgress();
+	void receiveBuildingProgress();
+
 	void run() override;
 	~ServerReceiver() override;
 };
