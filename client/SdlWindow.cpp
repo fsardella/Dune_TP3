@@ -7,7 +7,7 @@
 #define SPACINGX 20
 #define SPACINGY 20
 
-SdlWindow::SdlWindow(int width, int height, bool fullScreen, std::string title) {
+SdlWindow::SdlWindow(int width, int height, bool fullScreen, std::string title): sounds() {
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(width, height, SDL_RENDERER_ACCELERATED, &this->windowPtr, &this->rendererPtr);
 	SDL_SetWindowPosition(this->windowPtr, 70, 0);
@@ -15,6 +15,10 @@ SdlWindow::SdlWindow(int width, int height, bool fullScreen, std::string title) 
 	if (fullScreen) {
 		SDL_SetWindowFullscreen(this->windowPtr, SDL_WINDOW_FULLSCREEN);
 	}
+	SDL_Init(SDL_INIT_AUDIO);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    sounds.loadSounds();
+    sounds.playSounds();
 	this->width = width;
     this->height = height;
 }
@@ -64,6 +68,11 @@ int SdlWindow::handleRender(SDL_Texture *txt, const SDL_Rect &src, const SDL_Rec
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     SDL_SetTextureAlphaMod(txt, alpha);
     return SDL_RenderCopyEx(rendererPtr, txt, &src, &dst, 0, nullptr, SDL_FLIP_NONE);
+}
+
+void SdlWindow::playSound(int soundId, int volume) {
+    sounds.push(soundId, volume);
+    sounds.playSounds();
 }
 
 SdlWindow::~SdlWindow() {

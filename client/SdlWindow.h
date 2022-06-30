@@ -7,11 +7,14 @@
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_mixer.h>
 
+#include "Sounds.h"
+
 class SdlWindow {
 	int width;
 	int height;
 	SDL_Window* windowPtr;
 	SDL_Renderer* rendererPtr;
+	SoundManager sounds;
 
 	public:
 	SdlWindow(int width, int height, bool fullScreen, std::string title);
@@ -35,6 +38,8 @@ class SdlWindow {
                      const SDL_Rect& src,
                      const SDL_Rect& dst,
                      uint8_t alpha);
+
+    void playSound(int soundId, int volume);
 
 	SDL_Point getCenter();
 

@@ -133,6 +133,8 @@ set(CLIENT_SOURCES
         client/Animation.h
         client/GameWaiter.cpp
         client/GameWaiter.h
+        client/Sounds.cpp
+        client/Sounds.h
 )
 
 set(SERVER_SOURCES
@@ -223,6 +225,8 @@ endif()
 
 add_executable(server ${SERVER_SOURCES} server/main.cpp)
 
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS})
+
 target_link_libraries(editor_interface PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${YAML_CPP_LIBRARIES})
-target_link_libraries(client_interface Qt5::Widgets Qt5::Core ${SDL2PP_LIBRARIES} yaml-cpp)
+target_link_libraries(client_interface Qt5::Widgets Qt5::Core ${SDL2PP_LIBRARIES} yaml-cpp SDL2_mixer ${SDL2_MIXER_LIBRARIES})
 target_link_libraries(server ${YAML_CPP_LIBRARIES})

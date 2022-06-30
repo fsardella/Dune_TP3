@@ -33,8 +33,8 @@ void ServerReceiver::run() {
 		gameView->setEnergy(0); //iria energy
 		gameView->setMoney(0); //iria money
 		
-		gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
-		gameView->buildUnit(150, 150, 1, 9, 1, 5, false); // BORRAR
+		gameView->buildUnit(100, 100, 0, 0, 0, 5, false); // BORRAR
+		/*gameView->buildUnit(150, 150, 1, 9, 1, 5, false); // BORRAR
 		gameView->buildUnit(200, 100, 2, 10, 2, 5, false); // BORRAR
 
 		gameView->buildConstruction(300, 100, 0, 3, 12, true, 0);
@@ -47,9 +47,10 @@ void ServerReceiver::run() {
 		std::this_thread::sleep_for (std::chrono::seconds(3));
 		gameView->updateProgress(11, 60);
 		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->updateProgress(11, 100);
+		gameView->updateProgress(11, 100);*/
 
 		// ATAQUE A UNIDAD
+
 		/*gameView->buildUnit(200, 100, 1, 10, 1, 3, false); // BORRAR
 		gameView->unitAttack(0, 1, 80, 80);
 		std::this_thread::sleep_for (std::chrono::seconds(3));
@@ -71,15 +72,32 @@ void ServerReceiver::run() {
 		gameView->unitAttack(2, 4, 0, 80);*/
 
 		// ATAQUE A EDIFICIO
-		// gameView->buildConstruction(300, 100, 3, 12, false, 0);
-		// std::this_thread::sleep_for (std::chrono::seconds(3));
-		// gameView->buildingAttack(0, 3, 80, 80);
-		// std::this_thread::sleep_for (std::chrono::seconds(3));
-		// gameView->buildingAttack(0, 3, 60, 80);
-		// std::this_thread::sleep_for (std::chrono::seconds(3));
-		// gameView->buildingAttack(0, 3, 40, 80);
-		// std::this_thread::sleep_for (std::chrono::seconds(3));
-		// gameView->buildingAttack(0, 3, 0, 80);
+		/* gameView->buildConstruction(300, 100, 1, 3, 11, true, 0);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(0, 3, 80, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(0, 3, 60, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(0, 3, 40, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(0, 3, 0, 80);
+
+
+		 gameView->buildUnit(150, 100, 2, 0, 4, 5, false); // BORRAR*/
+
+
+		 //gameView->buildUnit(150, 150, 1, 9, 1, 5, false);
+
+		/* gameView->buildConstruction(450, 100, 1, 4, 12, true, 0);
+
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(2, 4, 80, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(2, 4, 60, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(2, 4, 40, 80);
+		 std::this_thread::sleep_for (std::chrono::seconds(3));
+		 gameView->buildingAttack(2, 4, 0, 80);*/
 
 		// MOVIMIENTO
 		// std::this_thread::sleep_for (std::chrono::seconds(1));

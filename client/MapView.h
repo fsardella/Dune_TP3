@@ -15,6 +15,7 @@
 #define TILE_PIX_SIZE 32
 #define IMAGE_PIX_WIDTH 100
 #define IMAGE_PIX_HEIGHT 75
+#define VOLUME 80
 
 class MapView {
     SdlWindow& window;
@@ -84,6 +85,8 @@ class MapView {
     void setEnergy(int actualEnergy);
 
     void update(int delta);
+
+    int getSoundOffset();
 
     MapView(const MapView& other) = delete;
     MapView& operator=(const MapView& other) = delete;

@@ -54,6 +54,8 @@ class GameView {
 
     void update(int delta);
 
+    void touchedUnit(int unitId);
+
     ~GameView();
 
 };

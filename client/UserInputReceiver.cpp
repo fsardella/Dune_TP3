@@ -57,7 +57,10 @@ void UserInputReceiver::handlePosition(int x, int y) {
         try {
             if (currentMenuImage == NONE_TYPE && touchedUnit == NONE_TYPE) {
                 int id = gameView->isUnit(posX, posY, true);
-                if (id != NONE_TYPE) touchedUnit = id;
+                if (id != NONE_TYPE) {
+                    touchedUnit = id;
+                    gameView->touchedUnit(touchedUnit);
+                }
                 return;
             }
             // FALTA MENSAJE DE DONDE CONSTRUIRLO, CUANDO CRIS NOS MANDE MENSAJE DE CONST TERMINADA.

@@ -205,6 +205,14 @@ void ProtocolClient::sendOperationInfo(int operation, int type, int param1, int 
 	socket.sendall(&parameter2, 2);
 }
 
+void ProtocolClient::sendBuildingPosition(int operation, int x, int y) {
+	this->sendOperation(operation);
+	uint16_t posX = convert_to_uint16_with_endianess(x);
+	uint16_t posY = convert_to_uint16_with_endianess(y);
+	socket.sendall(&posX, 2);
+	socket.sendall(&posY, 2);
+}
+
 void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map) {
 	int rows = receiveTwoBytes();
 	int cols = receiveTwoBytes();

@@ -34,6 +34,7 @@ class ProtocolClient {
     void sendListMapsOperation(int operationNumber);
     void sendConstructionPetition(int operation, int type);
     void sendOperationInfo(int operation, int type, int param1, int param2);
+    void sendBuildingPosition(int operation, int x, int y);
     void recvListOfMaps(std::list<std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
     std::map<int, int> recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,

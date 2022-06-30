@@ -157,6 +157,10 @@ bool Unit::getIsDead() {
     return isDead;
 }
 
+int Unit::getUnitType() {
+    return unitType;
+}
+
 bool Unit::isAttacking() {
     return isCurrentlyAttacking;
 }

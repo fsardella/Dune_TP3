@@ -8,6 +8,22 @@
 // #define CONSTRUCTION_OFFSET 11 antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
+#define PROGRESS_COMPLETED 100
+#define HARKONNEN_SOUND_OFFSET 14
+#define ATREIDES_SOUND_OFFSET 19
+#define ORDOS_SOUND_OFFSET 24
+#define UNIT_CREATED 4
+#define UNIT_ATTACKED 29
+#define BUILDING_CREATED 2
+#define HOUSE_HARKONNEN 0
+#define HOUSE_ATREIDES 1
+#define HOUSE_ORDOS 2
+#define CONSTRUCTION_YARD_ID 11
+#define CONSTRUCTION_YARD_ATTACKED 3
+#define WITHOUT_LIFE 0
+#define EXPLOSION 11
+#define MISIL_SOUND 13
+#define GUN_SOUND 12
 
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
@@ -237,20 +253,77 @@ void MapView::createConstruction(int x, int y, int playerId, int constructionId,
 }
 
 void MapView::updateProgress(int menuId, int progress) {
+    int soundCreationType = menuId > 10 ? BUILDING_CREATED : UNIT_CREATED;
+
+    int offset = getSoundOffset();
+
+    if(progress == PROGRESS_COMPLETED) {
+        window.playSound(offset + soundCreationType, VOLUME);
+    }
     menuImages.at(menuId).updateProgress(progress);
 }
 
+int MapView::getSoundOffset() {
+    if(houseNumberClient == HOUSE_HARKONNEN) {
+        return HARKONNEN_SOUND_OFFSET;
+    }
+    else if(houseNumberClient == HOUSE_ATREIDES) {
+        return ATREIDES_SOUND_OFFSET;
+    }
+    else {
+        return ORDOS_SOUND_OFFSET;
+    }
+}
+
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife, int totalLife) {
+    if(unitTiles.at(attackedId).getPropiety()) {
+        window.playSound(UNIT_ATTACKED, VOLUME);
+    }
+
     unitTiles.at(attackerId).startAttacking();
+    
+    if((unitTiles.at(attackerId).getUnitType() == 4) || 
+        ((unitTiles.at(attackerId).getUnitType() > 7) && 
+        (unitTiles.at(attackerId).getUnitType() < 11))) {
+        window.playSound(MISIL_SOUND, VOLUME);
+    }
+    else if((unitTiles.at(attackerId).getUnitType() == 0 || 
+        (unitTiles.at(attackerId).getUnitType() == 7))) {
+        window.playSound(GUN_SOUND, VOLUME);
+    }
+
     unitTiles.at(attackedId).updateLife(currentLife, totalLife);
+    if((currentLife == WITHOUT_LIFE) && (unitTiles.at(attackedId).getUnitType() > 6 
+        && unitTiles.at(attackedId).getUnitType() < 11)) {
+        window.playSound(EXPLOSION, VOLUME);
+    }
 }
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife, int totalLife) {
+    if((constructionTiles.at(attackedId).getConstType() == CONSTRUCTION_YARD_ID) && 
+        (constructionTiles.at(attackedId).getPropiety())) {
+        int offset = getSoundOffset();
+        window.playSound(offset + CONSTRUCTION_YARD_ATTACKED, VOLUME);
+    }
     unitTiles.at(attackerId).startAttacking();
+
+    if((unitTiles.at(attackerId).getUnitType() == 4) || 
+        ((unitTiles.at(attackerId).getUnitType() > 7) && 
+        (unitTiles.at(attackerId).getUnitType() < 11))) {
+        window.playSound(MISIL_SOUND, VOLUME);
+    }
+    else if((unitTiles.at(attackerId).getUnitType() == 0 || 
+        (unitTiles.at(attackerId).getUnitType() == 7))) {
+        window.playSound(GUN_SOUND, VOLUME);
+    }
+
     if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
         updateUnblockedUnits(constructionTiles.at(attackedId).getConstType());
     }
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
+    if(currentLife == WITHOUT_LIFE) {
+        window.playSound(EXPLOSION, VOLUME);
+    }
 }
 
 void MapView::setMoney(int actualMoney) {

@@ -63,6 +63,7 @@ class Unit {
     void setAnimationId(int animationId);
     void setNewPosition(float x, float y);
     bool getIsDead();
+    int getUnitType();
 
     bool isAttacking();
     void startAttacking();

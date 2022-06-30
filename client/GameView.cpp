@@ -133,3 +133,7 @@ bool GameView::isBlocked(int currentUnit) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isBlocked(currentUnit);
 } 
+
+void GameView::touchedUnit(int unitId) {
+    window.playSound(unitId, VOLUME);
+}
