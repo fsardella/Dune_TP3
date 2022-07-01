@@ -20,8 +20,11 @@
 #define CREATE_UNIT 5
 #define CREATE_BUILDING 6
 #define ATTACK 7
-#define POSITION_BUILDING 8
-#define MOVEMENT 9
+#define MOVEMENT 8
+#define POSITION_BUILDING 9
+#define CHASE 10
+#define DESTRUCTION 11
+
 
 
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj,
@@ -50,32 +53,51 @@ int UserInputReceiver::findCol(int x) {
     return ERROR;
 }
 
+bool UserInputReceiver::wasUntouched(int id) {
+    for (int& i : touchedUnits) {
+        if (i == id) return false;
+    }
+    return true;
+}
+
 void UserInputReceiver::handlePosition(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
     int posY = y + gameView->getYOffset() * TILE_SIZE;
     if (0 < posX && posX < MENU_OFFSET_X) {
         try {
-            if (currentMenuImage == NONE_TYPE && touchedUnit == NONE_TYPE) {
-                int id = gameView->isUnit(posX, posY, true);
-                if (id != NONE_TYPE) {
-                    touchedUnit = id;
-                    gameView->touchedUnit(touchedUnit);
-                }
+            int id = gameView->isUnit(posX, posY, true);
+            if (currentMenuImage == NONE_TYPE && id != NONE_TYPE) {
+                if (!wasUntouched(id)) return;
+                touchedUnits.push_back(id);
+                gameView->touchedUnit(id);
                 return;
             }
-            // FALTA MENSAJE DE DONDE CONSTRUIRLO, CUANDO CRIS NOS MANDE MENSAJE DE CONST TERMINADA.
-            // imagen menu con un bool de construcion terminada, imagen menu con sombra de progreso.
+
             int unitId = gameView->isUnit(posX, posY, false);
             int buildingId = gameView->isBuilding(posX, posY, false);
+
+            if (gameView->isBuildingReady(currentMenuImage) && unitId == NONE_TYPE && buildingId == NONE_TYPE) {
+                // op 9
+                // quiero posicionar un edificio ya listo
+                ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
+                blockingQueue->push(std::move(clientInput));
+                gameView->setNotReady(currentMenuImage);
+                currentMenuImage = NONE_TYPE;
+                return;
+            }
+
+
             if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
                 // op 7
                 int attackedType = unitId != NONE_TYPE ? 0 : 1;
                 int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
-                std::cout << "entro en la opcion 7 que es atacar a otro ";
-                std::cout << "ataco a " << attackedType << " con " << touchedUnit << " a " << attackedId << std::endl; 
-                ClientInput clientInput(ATTACK, attackedType, touchedUnit, attackedId);
-                blockingQueue->push(std::move(clientInput));
-                touchedUnit = NONE_TYPE;
+                // quiero atacar a un edificio/unidad
+                for (int& id : touchedUnits) {
+                    ClientInput clientInput(ATTACK, attackedType, id, attackedId);
+                    blockingQueue->push(std::move(clientInput));
+                    gameView->untouchedUnit(id);
+                }
+                touchedUnits.clear();
                 if (unitId != NONE_TYPE) {
                     unitId = NONE_TYPE;
                 } else {
@@ -98,7 +120,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
         // op 5
         int unitType = currentMenuImage;
         if (!gameView->isBlocked(currentMenuImage)) {
-            std::cout << "entro en la opcion 5 que es crear unidad con el tipo " << unitType << std::endl;
+            // quiero construir una unidad
             ClientInput clientInput(CREATE_UNIT, unitType);
             blockingQueue->push(std::move(clientInput));
         }
@@ -108,50 +130,62 @@ void UserInputReceiver::handlePosition(int x, int y) {
     if (currentMenuImage > 10) {
         // op 6
         int buildingType = currentMenuImage;
-        std::cout << "entro en la opcion 6 que es crear un edificio con el tipo " << buildingType << std::endl;
-        ClientInput clientInput(CREATE_BUILDING, buildingType);
-        blockingQueue->push(std::move(clientInput));
+        if (gameView->isBuildingReady(buildingType)) {
+            return;
+        }
+        if (!gameView->isBuildingUnderConstruction(buildingType)) {
+            // quiero construir un edificio
+            ClientInput clientInput(CREATE_BUILDING, buildingType);
+            blockingQueue->push(std::move(clientInput));
+        }
         currentMenuImage = NONE_TYPE;
         return;
     }
 }
 
-void UserInputReceiver::handleMovement(int x, int y) {
+void UserInputReceiver::handleRightClick(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
     int posY = y + gameView->getYOffset() * TILE_SIZE;
     // int borderX = posX - (posX % TILE_SIZE);
     // int borderY = posY - (posY % TILE_SIZE);
-    std::cout << "entre al click derecho\n";
-    if (touchedUnit != NONE_TYPE) {
-        std::cout << "operacion de movimiento con " << touchedUnit << " y pos " << posX / 4 << "," << posY / 4 << std::endl; 
+    if (touchedUnits.size() != 0) {
         int unitId = gameView->isUnit(posX, posY, false);
         int buildingId = gameView->isBuilding(posX, posY, false);
-        if (unitId != NONE_TYPE) {
-            // quería seguir a una unidad
-            std::cout << "me quiero mover hacia la unidad " << unitId << std::endl;
-            // ClientInput clientInput(MOVEMENT, touchedUnit, posX / 4, posY / 4);
-            // blockingQueue->push(std::move(clientInput));
-            // touchedUnit = NONE_TYPE;
-            // return;
+        if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
+            // op 10
+            // quiero perseguir a una unidad/edificio
+            int chasedId = (unitId == NONE_TYPE) ? buildingId : unitId;
+            for (int& id : touchedUnits) {
+                ClientInput clientInput(CHASE, id, chasedId);
+                blockingQueue->push(std::move(clientInput));
+                gameView->untouchedUnit(id);
+            }
+            touchedUnits.clear();
+            return;
         }
-        if (buildingId != NONE_TYPE) {
-            // quería seguir a un edificio
-            std::cout << "me quiero mover hacia el edificio " << buildingId << std::endl;
-            // ClientInput clientInput(MOVEMENT, touchedUnit, posX / 4, posY / 4);
-            // blockingQueue->push(std::move(clientInput));
-            // touchedUnit = NONE_TYPE;
-            // return;
+        // me quiero mover a una direccion vacia
+        // op 8
+        for (int& id : touchedUnits) {
+            ClientInput clientInput(MOVEMENT, id, posX / 4, posY / 4);
+            blockingQueue->push(std::move(clientInput));
+            gameView->untouchedUnit(id);
         }
-        ClientInput clientInput(MOVEMENT, touchedUnit, posX / 4, posY / 4);
-        blockingQueue->push(std::move(clientInput));
-        touchedUnit = NONE_TYPE;
+        touchedUnits.clear();
         return;
+    }
+    // op 11
+    // quiero destruir un edificio
+    int buildingId = gameView->isBuilding(posX, posY, true);
+    if (buildingId != NONE_TYPE) {
+        ClientInput clientInput(DESTRUCTION, buildingId);
+        blockingQueue->push(std::move(clientInput));
     }
 }
 
 void UserInputReceiver::run() {
     while (gameView->isRunning()) {
         SDL_Event event;
+        bool selection;
         while(SDL_PollEvent(&event)) {
             if(event.type == SDL_QUIT) {
                 gameView->shutdown();
@@ -159,10 +193,17 @@ void UserInputReceiver::run() {
                 break;
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                selection = true;
                 handlePosition(event.button.x, event.button.y);
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
-                handleMovement(event.button.x, event.button.y);
+                handleRightClick(event.button.x, event.button.y);
+            }
+            else if (event.type == SDL_MOUSEMOTION && selection) {
+                handlePosition(event.button.x, event.button.y);
+            }
+            else if (event.type == SDL_MOUSEBUTTONUP) {
+                selection = false;
             }
             else if(event.type == SDL_KEYDOWN) {
                 switch(event.key.keysym.sym) {

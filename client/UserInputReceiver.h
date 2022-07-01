@@ -13,12 +13,14 @@ class UserInputReceiver: public Thread {
 	BlockingQueue<ClientInput>* blockingQueue;
 
 	int currentMenuImage = NONE_TYPE;
-	int touchedUnit = NONE_TYPE;
+	// int touchedUnit = NONE_TYPE;
+	std::vector<int> touchedUnits;
 
 	int findRow(int y);
 	int findCol(int x);
 	void handlePosition(int x, int y);
-	void handleMovement(int x, int y);
+	void handleRightClick(int x, int y);
+	bool wasUntouched(int id);
 
 	public:
 	UserInputReceiver(GameView* gameViewObj, BlockingQueue<ClientInput>* blockingQueue);

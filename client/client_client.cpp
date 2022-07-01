@@ -85,7 +85,7 @@ void Client::client_run() {
 	GameView gameViewObj(sdlWindow, houseNumber);
 
 	int result = -1;
-	ServerReceiver receiver(&protocol, &gameViewObj, name, &result);
+	ServerReceiver receiver(&protocol, &gameViewObj, name, result);
 	receiver.start();
 
 	Drawer drawer(&gameViewObj);

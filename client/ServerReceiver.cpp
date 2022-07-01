@@ -15,11 +15,14 @@
 #define GAME_WON 7
 #define UNIT_UNDER_CONSTRUCTION 8
 #define BUILDING_UNDER_CONSTRUCTION 9
+#define WORM 10
+#define REFINEMENT 11
+#define BUILDING_DESTROYED 12
 
 ServerReceiver::ServerReceiver(ProtocolClient* protocol,
 							   GameView* gameViewObj,
 							   std::string& clientName,
-							   int* result)
+							   int& result)
 : protocolClient(protocol),
   gameView(gameViewObj),
   clientName(clientName),
@@ -32,22 +35,25 @@ void ServerReceiver::run() {
 		this->buildConstructionYards();
 		gameView->setEnergy(0); //iria energy
 		gameView->setMoney(0); //iria money
-		
-		gameView->buildUnit(100, 100, 0, 0, 0, 5, false); // BORRAR
-		/*gameView->buildUnit(150, 150, 1, 9, 1, 5, false); // BORRAR
-		gameView->buildUnit(200, 100, 2, 10, 2, 5, false); // BORRAR
 
-		gameView->buildConstruction(300, 100, 0, 3, 12, true, 0);
+		gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
+		gameView->buildUnit(100, 150, 2, 2, 0, 5, true); // BORRAR
+		gameView->buildUnit(100, 200, 4, 5, 0, 5, true); // BORRAR
+		gameView->buildUnit(100, 300, 5, 7, 0, 5, true); // BORRAR
+		gameView->buildUnit(150, 150, 1, 9, 1, 5, false); // BORRAR
+		// gameView->buildUnit(200, 100, 2, 10, 2, 5, false); // BORRAR
 
-		gameView->updateProgress(11, 0);
-		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->updateProgress(11, 20);
-		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->updateProgress(11, 50);
-		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->updateProgress(11, 60);
-		std::this_thread::sleep_for (std::chrono::seconds(3));
-		gameView->updateProgress(11, 100);*/
+		// gameView->buildConstruction(300, 100, 0, 3, 12, true, 0);
+
+		// gameView->updateProgress(11, 0);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->updateProgress(11, 20);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->updateProgress(11, 50);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->updateProgress(11, 60);
+		// std::this_thread::sleep_for (std::chrono::seconds(3));
+		// gameView->updateProgress(11, 100);
 
 		// ATAQUE A UNIDAD
 
@@ -72,18 +78,19 @@ void ServerReceiver::run() {
 		gameView->unitAttack(2, 4, 0, 80);*/
 
 		// ATAQUE A EDIFICIO
-		/* gameView->buildConstruction(300, 100, 1, 3, 11, true, 0);
-		 std::this_thread::sleep_for (std::chrono::seconds(3));
-		 gameView->buildingAttack(0, 3, 80, 80);
-		 std::this_thread::sleep_for (std::chrono::seconds(3));
-		 gameView->buildingAttack(0, 3, 60, 80);
-		 std::this_thread::sleep_for (std::chrono::seconds(3));
-		 gameView->buildingAttack(0, 3, 40, 80);
-		 std::this_thread::sleep_for (std::chrono::seconds(3));
-		 gameView->buildingAttack(0, 3, 0, 80);
+		gameView->buildConstruction(300, 100, 0, 3, 12, true, 2);
+		std::this_thread::sleep_for (std::chrono::seconds(3));
+		gameView->destroyBuilding(3);
+		//  gameView->buildingAttack(0, 3, 80, 80);
+		//  std::this_thread::sleep_for (std::chrono::seconds(3));
+		//  gameView->buildingAttack(0, 3, 60, 80);
+		//  std::this_thread::sleep_for (std::chrono::seconds(3));
+		//  gameView->buildingAttack(0, 3, 40, 80);
+		//  std::this_thread::sleep_for (std::chrono::seconds(3));
+		//  gameView->buildingAttack(0, 3, 0, 80);
 
 
-		 gameView->buildUnit(150, 100, 2, 0, 4, 5, false); // BORRAR*/
+		//  gameView->buildUnit(150, 100, 2, 0, 4, 5, false); // BORRAR
 
 
 		 //gameView->buildUnit(150, 150, 1, 9, 1, 5, false);
@@ -123,13 +130,13 @@ void ServerReceiver::run() {
 void ServerReceiver::receiveBackground() {
 	int width, height;
 	std::vector<std::vector<uint8_t>> map;
-	protocolClient->recvMap(&width, &height, map);
+	protocolClient->recvMap(width, height, map);
 	gameView->buildMap(height, width, std::move(map));
 }
 
 void ServerReceiver::buildConstructionYards() {
 	std::map<int, std::tuple<int, int, int, int, bool>> constYards;
-	clientHouses = protocolClient->recvConstYards(constYards, clientName, &clientId);
+	clientHouses = protocolClient->recvConstYards(constYards, clientName, clientId);
 	for (const auto& [key, value] : constYards) {
 		// x y id type house property
 		gameView->buildConstruction(std::get<0>(value), std::get<1>(value), std::get<2>(value), key,
@@ -139,8 +146,8 @@ void ServerReceiver::buildConstructionYards() {
 
 void ServerReceiver::gameLoop() {
 	while(gameView->isRunning()) {
-		int operacion = protocolClient->recvOperationNumber();
-		switch (operacion)
+		int operation = protocolClient->recvOperationNumber();
+		switch (operation)
 		{
 		case SUCCESSFULL_OPERATION:
 			// en gameView/mapView tener cola de eventos pendientes
@@ -159,41 +166,48 @@ void ServerReceiver::gameLoop() {
 			this->receiveBuilding();
 			break;
 		case UNIT_ATTACKED:
-			// dibujar destellos
 			this->receiveUnitAttack();
 			break;
 		case BUILDING_ATTACKED:
-			// dibujar destellos
 			this->receiveBuildingAttack();
 			break;
 		case GAME_LOST:
-			*result = 0;
+			result = 0;
 			gameView->shutdown();
 			break;
 		case GAME_WON:
-			*result = 1;
+			result = 1;
 			gameView->shutdown();
 			break;
 		case UNIT_UNDER_CONSTRUCTION:
-			// imagen quieta y la updateamos con el porcentaje aca
 			this->receiveUnitProgress();
 			break;
 		case BUILDING_UNDER_CONSTRUCTION:
 			this->receiveBuildingProgress();
 			break;
+		case WORM:
+			this->receiveWormInfo();
+			break;
+		case REFINEMENT:
+			this->receiveRefinementInfo();
+			break;
+		case BUILDING_DESTROYED:
+			this->receiveDestroyedBuilding();
+			break;
 		}
-		// int money = protocolClient->recvMoney();
-		// int energy = protocolClient->recvEnergy();
 	}
 }
 
 void ServerReceiver::receiveUnits() {
 	std::map<int, std::tuple<int, int, int, int, int, bool>> units;
-	protocolClient->recvUnits(units, clientId);
+	int money, energy;
+	protocolClient->recvUnits(units, clientId, money, energy);
+	gameView->setEnergy(energy);
+	gameView->setMoney(money);
 	gameView->buildUnits(units);
 }
 
-void ServerReceiver::receiveBuilding() { //x y playerId constId constType prop house
+void ServerReceiver::receiveBuilding() {
 	std::tuple<int, int, int, int, int, bool> buildingInfo = protocolClient->recvBuildingInfo(clientId);
 	gameView->buildConstruction(std::get<0>(buildingInfo), std::get<1>(buildingInfo),
 								std::get<2>(buildingInfo), std::get<3>(buildingInfo),
@@ -202,14 +216,12 @@ void ServerReceiver::receiveBuilding() { //x y playerId constId constType prop h
 }
 
 void ServerReceiver::receiveUnitAttack() {
-	// atancante atacado vidaactual vidatotal
 	std::tuple<int, int, int, int> attackInfo = protocolClient->receiveAttackInfo();
 	gameView->unitAttack(std::get<0>(attackInfo), std::get<1>(attackInfo),
 						 std::get<2>(attackInfo), std::get<3>(attackInfo));
 }
 
 void ServerReceiver::receiveBuildingAttack() {
-	// atancante atacado vidaactual vidatotal
 	std::tuple<int, int, int, int> attackInfo = protocolClient->receiveAttackInfo();
 	gameView->buildingAttack(std::get<0>(attackInfo), std::get<1>(attackInfo),
 						 	 std::get<2>(attackInfo), std::get<3>(attackInfo));
@@ -224,11 +236,29 @@ void ServerReceiver::receiveUnitProgress() {
 }
 
 void ServerReceiver::receiveBuildingProgress() {
-	std::vector<std::tuple<int, int>> buildingProgress;
-	protocolClient->recvBuildingsProgress(buildingProgress);
-	for (std::tuple<int, int>& building : buildingProgress) {
-		gameView->updateProgress(std::get<0>(building), std::get<1>(building));
+	std::vector<int> buildingProgress;
+	protocolClient->recvBuildingProgress(buildingProgress);
+	gameView->updateProgress(buildingProgress.at(0), buildingProgress.at(1));
+}
+
+void ServerReceiver::receiveWormInfo() {
+	int x, y;
+	std::vector<int> deadId;
+	protocolClient->recvWormAttack(x, y, deadId);
+	// gameView->wormAttack(x, y, deadId);
+}
+
+void ServerReceiver::receiveRefinementInfo() {
+	std::vector<std::tuple<int, int, int>> species;
+	protocolClient->recvRefinementInfo(species);
+	for (std::tuple<int, int, int>& specie : species) {
+		// gameView->updateSpecie(std::get<0>(specie), std::get<1>(specie), std::get<2>(specie));
 	}
+}
+
+void ServerReceiver::receiveDestroyedBuilding() {
+	int id = protocolClient->receiveDestroyedBuilding();
+	gameView->destroyBuilding(id);
 }
 
 ServerReceiver::~ServerReceiver() {

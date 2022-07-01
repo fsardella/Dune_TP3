@@ -4,82 +4,168 @@ amount: 20
   - "trike"
   - "../client/menuImgs/trike.bmp"
 
+0_houses:
+  - 0
+  - 1
+
 1:
   - "raider"
   - "../client/menuImgs/raider.bmp"
+
+1_houses:
+  - 2
 
 2:
   - "tank"
   - "../client/menuImgs/tanque.bmp"
 
+2_houses:
+  - 0
+  - 1
+  - 2
+
 3:
   - "harvester"
   - "../client/menuImgs/cosechadora.bmp"
+
+3_houses:
+  - 0
+  - 1
+  - 2
 
 4:
   - "deviator"
   - "../client/menuImgs/desviador.bmp"
 
+4_houses:
+  - 2
+
 5:
   - "devastator"
   - "../client/menuImgs/devastador.bmp"
+
+5_houses:
+  - 0
 
 6:
   - "sonik tank"
   - "../client/menuImgs/tanque_sonico.bmp"
 
+6_houses:
+  - 1
+
 7:
   - "light infantry"
   - "../client/menuImgs/infanteria_ligera.bmp"
+
+7_houses:
+  - 0
+  - 1
+  - 2
 
 8:
   - "heavy infantry"
   - "../client/menuImgs/infanteria_pesada.bmp"
 
+8_houses:
+  - 0
+  - 1
+  - 2
+
 9:
   - "sardaukar"
   - "../client/menuImgs/sardaukar.bmp"
+
+9_houses:
+  - 0  
 
 10:
   -  "fremen"
   - "../client/menuImgs/fremen.bmp"
 
+10_houses:
+  - 1
+
 11:
   - "construction yard"
   - "../client/menuImgs/centro_de_construccion.bmp"
+
+11_houses:
+  - 0
+  - 1
+  - 2
 
 12:
   - "light factory"
   - "../client/menuImgs/fabrica_ligera.bmp"
 
+12_houses:
+  - 0
+  - 1
+  - 2
+
 13:
   - "heavy factory"
   - "../client/menuImgs/fabrica_pesada.bmp"
+
+13_houses:
+  - 0
+  - 1
+  - 2
 
 14:
   - "palace"
   - "../client/menuImgs/palacio.bmp"
 
+14_houses:
+  - 0
+  - 1
+  - 2
+
 15:
   - "refinery"
   - "../client/menuImgs/refineria.bmp"
+
+15_houses:
+  - 0
+  - 1
+  - 2
 
 16:
   - "silo"
   - "../client/menuImgs/silo.bmp"
 
+16_houses:
+  - 0
+  - 1
+  - 2
+
 17:
   - "wind trap"
   - "../client/menuImgs/trampa.bmp"
+
+17_houses:
+  - 0
+  - 1
+  - 2
 
 18:
   - "harkonnen barrack"
   - "../client/menuImgs/cuartel_harkonnen.bmp"
 
+18_houses:
+  - 0
+
 19:
   - "atreides barrack"
   - "../client/menuImgs/cuartel_atreides.bmp"
 
+19_houses:
+  - 1
+
 20:
   - "ordos barrack"
   - "../client/menuImgs/cuartel_ordos.bmp"
+
+20_houses:
+  - 2

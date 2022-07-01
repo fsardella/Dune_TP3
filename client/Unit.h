@@ -22,6 +22,7 @@ class Unit {
     int lifeId;
     bool isCurrentlyAttacking;
     bool isDead;
+    bool isTouched;
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
 
@@ -64,6 +65,7 @@ class Unit {
     void setNewPosition(float x, float y);
     bool getIsDead();
     int getUnitType();
+    void setIsTouched(bool status);
 
     bool isAttacking();
     void startAttacking();

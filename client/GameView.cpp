@@ -134,6 +134,30 @@ bool GameView::isBlocked(int currentUnit) {
     return map.isBlocked(currentUnit);
 } 
 
+bool GameView::isBuildingUnderConstruction(int currentBuilding) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    return map.isBuildingUnderConstruction(currentBuilding);
+}
+
+bool GameView::isBuildingReady(int currentBuilding) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    return map.isBuildingReady(currentBuilding);
+}
+
+void GameView::setNotReady(int currentBuilding) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.setNotReady(currentBuilding);
+}
+
+void GameView::destroyBuilding(int id) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.destroyBuilding(id);
+}
+
 void GameView::touchedUnit(int unitId) {
-    window.playSound(unitId, VOLUME);
+    map.touchedUnit(unitId);
+}
+
+void GameView::untouchedUnit(int unitId) {
+    map.untouchedUnit(unitId);
 }

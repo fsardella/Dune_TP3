@@ -24,8 +24,8 @@ class MapView {
     size_t columns;
     size_t rows;
 
-    // int actualMoney;
-    // int actualEnergy;
+    int actualMoney;
+    int actualEnergy;
 
     std::vector<BackGroundTile> backgroundTiles;
     std::map<int, Unit> unitTiles;
@@ -34,6 +34,7 @@ class MapView {
     std::map<std::string, MenuText> menuTexts;
 
     std::map<int, std::vector<std::string>> tileInfoTranslator;
+    std::map<int, std::vector<int>> menuInfoHouses;
 
     std::map<int, SdlTexture> unitTextureTranslator;
     std::map<int, SdlTexture> tileTextureTranslator;
@@ -43,7 +44,6 @@ class MapView {
     std::map<std::tuple<int, int>, SdlTexture> attackTextureTranslator;
 
     std::map<int, SdlTexture> identifierTranslator;
-    //std::vector<SdlTexture> identifierTranslator;
 
     std::map<int, std::map<std::tuple<int, int>, SdlTexture>> animationsRepository; 
 
@@ -76,13 +76,22 @@ class MapView {
     int isUnit(int posX, int posY, bool propiety);
 
     bool isBlocked(int currentUnit);
-    void updateBlockedUnits(int constType);
+    void updateBlockedUnits(int constType, int house);
     void updateUnblockedUnits(int constType);
+
+    bool isBuildingUnderConstruction(int currentBuilding);
+    bool isBuildingReady(int currentBuilding);
+    void setNotReady(int currentBuilding);
+
+    void destroyBuilding(int id);
 
     void updateProgress(int menuId, int progress);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
+
+    void touchedUnit(int unitId);
+    void untouchedUnit(int unitId);
 
     void update(int delta);
 

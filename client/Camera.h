@@ -24,6 +24,7 @@ private:
     SdlTexture blockedTexture;
     SdlTexture menuShadowTexture;
     SdlTexture readyTexture;
+    SdlTexture frameTexture;
 
     bool isVisibleInX(float x);
     bool isVisibleInY(float y);
@@ -46,6 +47,7 @@ private:
                        float posX, float posY);
     int renderInSightForUnit(SdlTexture* texture, Area& src,
                              float posX, float posY);
+    void renderUnitFrame(Area&src, float posX, float posY);
     void renderInSightForMenu(SdlTexture* texture, Area& src,
                               float posX, float posY);
     void renderBlockingFigure(int posX, int posY);

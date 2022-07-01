@@ -48,6 +48,10 @@ class GameView {
     int isUnit(int posX, int posY, bool propiety);
 
     bool isBlocked(int currentUnit);
+    bool isBuildingUnderConstruction(int currentBuilding);
+    bool isBuildingReady(int currentBuilding);
+    void setNotReady(int currentBuilding);
+    void destroyBuilding(int id);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
@@ -55,6 +59,7 @@ class GameView {
     void update(int delta);
 
     void touchedUnit(int unitId);
+    void untouchedUnit(int unitId);
 
     ~GameView();
 

@@ -195,7 +195,7 @@ void ProtocolClient::sendConstructionPetition(int operation, int type) {
 	socket.sendall(&unitType, 1);
 }
 
-void ProtocolClient::sendOperationInfo(int operation, int type, int param1, int param2) {
+void ProtocolClient::sendAttacknInfo(int operation, int type, int param1, int param2) {
 	this->sendOperation(operation);
 	uint8_t unitType = convert_to_uint8(type);
 	socket.sendall(&unitType, 1);
@@ -203,6 +203,16 @@ void ProtocolClient::sendOperationInfo(int operation, int type, int param1, int 
 	uint16_t parameter2 = convert_to_uint16_with_endianess(param2);
 	socket.sendall(&parameter1, 2);
 	socket.sendall(&parameter2, 2);
+}
+
+void ProtocolClient::sendMovementUnit(int operation, int unitId, int x, int y) {
+	this->sendOperation(operation);
+	uint16_t id = convert_to_uint16_with_endianess(unitId);
+	socket.sendall(&id, 2);
+	uint16_t posX = convert_to_uint16_with_endianess(x);
+	socket.sendall(&posX, 2);
+	uint16_t posY = convert_to_uint16_with_endianess(y);
+	socket.sendall(&posY, 2);
 }
 
 void ProtocolClient::sendBuildingPosition(int operation, int x, int y) {
@@ -213,7 +223,21 @@ void ProtocolClient::sendBuildingPosition(int operation, int x, int y) {
 	socket.sendall(&posY, 2);
 }
 
-void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map) {
+void ProtocolClient::sendChasingInfo(int operation, int idChaser, int idChased) {
+	this->sendOperation(operation);
+	uint16_t chaser = convert_to_uint16_with_endianess(idChaser);
+	uint16_t chased = convert_to_uint16_with_endianess(idChased);
+	socket.sendall(&chaser, 2);
+	socket.sendall(&chased, 2);
+}
+
+void ProtocolClient::sendBuildingDestruction(int operation, int buildingId) {
+	this->sendOperation(operation);
+	uint16_t id = convert_to_uint16_with_endianess(buildingId);
+	socket.sendall(&id, 2);
+}
+
+void ProtocolClient::recvMap(int& width, int& height, std::vector<std::vector<uint8_t>>& map) {
 	int rows = receiveTwoBytes();
 	int cols = receiveTwoBytes();
 	for (int i = 0; i < rows; i ++) {
@@ -222,12 +246,12 @@ void ProtocolClient::recvMap(int* width, int* height, std::vector<std::vector<ui
 		socket.recvall(&row[0], cols);
 		map.push_back(std::move(row));
 	}
-	*height = rows;
-	*width = cols;
+	height = rows;
+	width = cols;
 }
 
 std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,
-												  std::string& clientName, int* clientId) {
+												  std::string& clientName, int& clientId) {
 	std::map<int, int> clientHouses;
 	int playersAmount = receiveOneByte();
 	for (int i = 0; i < playersAmount; i ++) {
@@ -240,7 +264,7 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, 
 		int y = receiveTwoBytes();
 		int house = receiveOneByte();
 		if (name.compare(clientName) == 0) {
-			*clientId = i;
+			clientId = i;
 			property = true;
 		}
 		clientHouses[i] = house;
@@ -250,12 +274,21 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int, std::tuple<int, 
 	return clientHouses;
 }
 
-void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>& units, int clientId) {
+void ProtocolClient::recvUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>& units,
+							   int& clientId, int& money, int& energy) {
 	int playersAmount = receiveTwoBytes();
 	
 	for (int i = 0; i < playersAmount; i ++) {
 		bool propiety = false;
 		int playerId = receiveOneByte();
+		int energy = receiveTwoBytes(); // VERIFICAR
+		int money = receiveTwoBytes(); // VERIFICAR
+
+		if (playerId == clientId) {
+			energy = energy;
+			money = money;
+		}
+
 		int unitsAmount = receiveTwoBytes();
 
 		if (clientId == playerId) propiety = true;
@@ -302,13 +335,11 @@ void ProtocolClient::recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsP
 	}
 }
 
-void ProtocolClient::recvBuildingsProgress(std::vector<std::tuple<int, int>>& buildingsProgress) {
-	int buildingsAmount = receiveTwoBytes();
-	for (int i = 0; i < buildingsAmount; i ++) {
-		int buildingType = receiveOneByte();
-		int percentage = receiveOneByte();
-		buildingsProgress.push_back(std::make_tuple(buildingType, percentage));
-	}
+void ProtocolClient::recvBuildingProgress(std::vector<int>& buildingsProgress) {
+	int buildingType = receiveOneByte();
+	int percentage = receiveOneByte();
+	buildingsProgress.push_back(buildingType);
+	buildingsProgress.push_back(percentage);
 }
 
 int ProtocolClient::recvStartGame() {
@@ -321,4 +352,28 @@ int ProtocolClient::recvOperationResult() {
 
 int ProtocolClient::recvOperationNumber() {
 	return receiveOneByte();
+}
+
+void ProtocolClient::recvWormAttack(int& x, int& y, std::vector<int>& ids) {
+	x = receiveTwoBytes();
+	y = receiveTwoBytes();
+	int nDeaths = receiveTwoBytes();
+	for (int i = 0; i < nDeaths; i ++) {
+		int id = receiveTwoBytes();
+		ids.push_back(id);
+	}
+}
+
+void ProtocolClient::recvRefinementInfo(std::vector<std::tuple<int, int, int>>& species) {
+	int tilesAmount = receiveTwoBytes();
+	for (int i = 0; i < tilesAmount; i ++) {
+		int x = receiveTwoBytes();
+		int y = receiveTwoBytes();
+		int state = receiveOneByte();
+		species.push_back(std::make_tuple(x, y, state));
+	}
+}
+
+int ProtocolClient::receiveDestroyedBuilding() {
+	return receiveTwoBytes();
 }

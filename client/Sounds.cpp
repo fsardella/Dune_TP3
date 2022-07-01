@@ -6,6 +6,7 @@
 #define SOUNDS_PATH "../client/sounds/"
 #define EXTENTION ".wav"
 #define MAX_EFFECTS 29
+#define VOLUME 50
 
 SoundManager::SoundManager(): musicIsPlaying(false)
 {
@@ -31,7 +32,8 @@ void SoundManager::playSounds() {
         Mix_PlayChannel(-1, soundsToPlay[i], 0);
     }
 
-    if (!musicIsPlaying){
+    if (!musicIsPlaying) {
+        Mix_VolumeMusic(VOLUME);
         if(Mix_PlayMusic(music, -1) == -1) {
             std::cout << "Failed reproducing music" << std::endl;
         }

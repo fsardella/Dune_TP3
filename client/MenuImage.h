@@ -14,6 +14,7 @@ class MenuImage : public Renderizable {
     bool isUnderConstruction;
     int progress;
     bool isReady;
+    std::vector<int>& houses;
 
     public:
     MenuImage(SdlTexture* texture,
@@ -21,7 +22,8 @@ class MenuImage : public Renderizable {
            int sizeH,
            float posX,
            float posY, 
-           int type);
+           int type,
+           std::vector<int>& houses);
 
     void render(Camera &camera) override;
     
@@ -35,11 +37,18 @@ class MenuImage : public Renderizable {
     int getY();
 
     bool isBlocked();
-    bool checkUnblockPosibility(int buildingType);
+    void updateUnblocking(int buildingType, int house);
     void updateBuildings(int buildingType);
     void updateBlocking(int buildingType);
     void updateUnblocking(int buildingType);
+    bool checkUnblockPosibility(int buildingType);
+    bool checkHouse(int house);
+
     void updateProgress(int progress);
+
+    bool isCurrentlyUnderConstruction();
+    bool isBuildingReady();
+    void setNotReady();
 
     ~MenuImage();
 };

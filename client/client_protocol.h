@@ -33,22 +33,30 @@ class ProtocolClient {
     void sendListGamesOperation(int operationNumber);
     void sendListMapsOperation(int operationNumber);
     void sendConstructionPetition(int operation, int type);
-    void sendOperationInfo(int operation, int type, int param1, int param2);
+    void sendAttacknInfo(int operation, int type, int param1, int param2);
+    void sendMovementUnit(int operation, int unitId, int x, int y);
     void sendBuildingPosition(int operation, int x, int y);
+    void sendChasingInfo(int operation, int idChaser, int idChased);
+    void sendBuildingDestruction(int operation, int buildingId);
+
     void recvListOfMaps(std::list<std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
     std::map<int, int> recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,
-									  std::string& clientName, int* clientId);
-    void recvMap(int* width, int* height, std::vector<std::vector<uint8_t>>& map);
+									  std::string& clientName, int& clientId);
+    void recvMap(int& width, int& height, std::vector<std::vector<uint8_t>>& map);
     void recvUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>& units,
-                   int clientId);
+				   int& clientId, int& money, int& energy);
     std::tuple<int, int, int, int, int, bool> recvBuildingInfo(int clientId);
     std::tuple<int, int, int, int> receiveAttackInfo();
     void recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress, int clientId);
-    void recvBuildingsProgress(std::vector<std::tuple<int, int>>& buildingsProgress);
+    void recvBuildingProgress(std::vector<int>& buildingsProgress);
     int recvStartGame();
     int recvOperationResult();
     int recvOperationNumber();
+    void recvWormAttack(int& x, int& y, std::vector<int>& ids);
+    void recvRefinementInfo(std::vector<std::tuple<int, int, int>>& species);
+    int receiveDestroyedBuilding();
+
     ~ProtocolClient();
 };
 

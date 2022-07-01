@@ -4,6 +4,7 @@
 
 #define LIFE_BAR_WIDTH 12
 #define LIFE_BAR_HEIGHT 4
+#define FRAME_DIMENSION 25
 #define ATTACK_DIMENSION 6
 #define VEHICLE_DEAD_ANIMATION 7
 #define SOLDIER_DEAD_ANIMATION 5
@@ -36,7 +37,8 @@ Unit::Unit(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
   animationId(findAnimationId(newAnimationId)),
   lifeId(4),
   isCurrentlyAttacking(false),
-  isDead(false)
+  isDead(false),
+  isTouched(false)
 {
     int actualSprite = 0;
     std::vector<SdlTexture*> textures;
@@ -81,6 +83,10 @@ void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
 
 int Unit::render(Camera &camera, float posX, float posY) {
     if (isDead) return 0;
+    if (isTouched) {
+        Area frameArea(0, 0, FRAME_DIMENSION, FRAME_DIMENSION);
+        camera.renderUnitFrame(frameArea, posX - 0.1, posY - 0.3);
+    }
     if (isCurrentlyAttacking) {
         Area srcAttack(0, 0, ATTACK_DIMENSION, ATTACK_DIMENSION);
         float direcX, direcY;
@@ -102,7 +108,7 @@ int Unit::render(Camera &camera, float posX, float posY) {
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
     camera.renderInSightForUnit(currentLifeTexture, srcLife, posX, posY - 0.2);
     Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
-    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6, posY - 0.2); 
+    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.5, posY - 0.2); 
     Area src(0, 0, sizeW, sizeH);
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
@@ -155,6 +161,10 @@ void Unit::getLifeTexture() {
 
 bool Unit::getIsDead() {
     return isDead;
+}
+
+void Unit::setIsTouched(bool status) {
+    isTouched = status;
 }
 
 int Unit::getUnitType() {
@@ -233,6 +243,9 @@ Unit::Unit(Unit &&other)
   unitType(other.unitType),
   playerId(other.playerId),
   lifeId(other.lifeId),
+  isCurrentlyAttacking(other.isCurrentlyAttacking),
+  isDead(other.isDead),
+  isTouched(other.isTouched),
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture) {
 }

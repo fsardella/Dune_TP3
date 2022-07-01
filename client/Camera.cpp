@@ -13,6 +13,7 @@
 #define BLOCKED_PATH "../client/menuImgs/blocked.bmp"
 #define SHADOW_PATH "../client/menuImgs/sombra.bmp"
 #define READY_PATH "../client/menuImgs/ready.bmp"
+#define FRAME_PATH "../client/animations/images(1).bmp"
 #define MENU_WIDTH 100
 #define MENU_HEIGHT 75
 
@@ -24,7 +25,8 @@ Camera::Camera(SdlWindow& window)
   height(int(2*window.getCenter().y / TILE_PIX_SIZE)),
   blockedTexture(BLOCKED_PATH, &window, 255, 255, 255),
   menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, 180),
-  readyTexture(READY_PATH, &window, 255, 255, 255)
+  readyTexture(READY_PATH, &window, 255, 255, 255),
+  frameTexture(FRAME_PATH, &window, 255, 255, 255)
 {}
 
 void Camera::render(Renderizable &renderizable) {
@@ -68,6 +70,19 @@ int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, flo
     Area dst(newX, newY, txtWidth, txtHeight);
     texture->render(src, dst);
     return returnValue;
+}
+
+void Camera::renderUnitFrame(Area&src, float posX, float posY) {
+    auto rect = src.buildRectangle();
+    if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
+        return;
+    }
+    int newX = (posX - offsetX) * TILE_PIX_SIZE;
+    int newY = (posY - offsetY) * TILE_PIX_SIZE;
+    int txtWidth = rect.w;
+    int txtHeight = rect.h;
+    Area dst(newX, newY, txtWidth, txtHeight);
+    frameTexture.render(src, dst);
 }
 
 void Camera::renderMenuRect() {

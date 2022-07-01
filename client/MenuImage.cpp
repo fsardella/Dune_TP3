@@ -13,7 +13,8 @@ MenuImage::MenuImage(SdlTexture* texture,
            int sizeH,
            float posX,
            float posY,
-           int type)
+           int type,
+           std::vector<int>& houses)
 : Renderizable(texture, sizeW, sizeH, posX, posY),
   type(type),
   blocked(false),
@@ -23,7 +24,8 @@ MenuImage::MenuImage(SdlTexture* texture,
   lightFactorys(0),
   isUnderConstruction(false),
   progress(0),
-  isReady(false)
+  isReady(false),
+  houses(houses)
 {
     if (type < 11) blocked = true;
     rescaling = 1;
@@ -74,7 +76,15 @@ void MenuImage::updateBuildings(int buildingType) {
     if (buildingType == LIGHT_FACTORY) lightFactorys += 1;
 }
 
-void MenuImage::updateUnblocking(int buildingType) {
+bool MenuImage::checkHouse(int house) {
+    for (int& posibleHouse : houses) {
+        if (posibleHouse == house) return true;
+    }
+    return false;
+}
+
+void MenuImage::updateUnblocking(int buildingType, int house) {
+    if (!checkHouse(house)) return;
     updateBuildings(buildingType);
     if (checkUnblockPosibility(buildingType)) {
         blocked = false;
@@ -102,6 +112,18 @@ void MenuImage::updateProgress(int progress) {
     }
 }
 
+bool MenuImage::isCurrentlyUnderConstruction() {
+    return isUnderConstruction;
+}
+
+bool MenuImage::isBuildingReady() {
+    return isReady;
+}
+
+void MenuImage::setNotReady() {
+    isReady = false;
+}
+
 MenuImage::MenuImage(MenuImage &&other)
 : Renderizable(std::move(other)),
   type(other.type),
@@ -113,7 +135,8 @@ MenuImage::MenuImage(MenuImage &&other)
   lightFactorys(other.lightFactorys),
   isUnderConstruction(other.isUnderConstruction),
   progress(other.progress),
-  isReady(other.isReady)
+  isReady(other.isReady),
+  houses(other.houses)
 {
 }
 
