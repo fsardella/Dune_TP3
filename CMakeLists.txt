@@ -119,8 +119,8 @@ set(CLIENT_SOURCES
         client/BackGroundTile.h
         client/UserInputReceiver.cpp
         client/UserInputReceiver.h
-        client/ServerDespatcher.cpp
-        client/ServerDespatcher.h
+        client/ServerDispatcher.cpp
+        client/ServerDispatcher.h
         client/ClientInput.cpp
         client/ClientInput.h
         client/Unit.cpp

@@ -81,13 +81,13 @@ void ServerReceiver::run() {
 		gameView->buildConstruction(300, 100, 0, 3, 12, true, 2);
 		std::this_thread::sleep_for (std::chrono::seconds(3));
 		gameView->destroyBuilding(3);
-		//  gameView->buildingAttack(0, 3, 80, 80);
-		//  std::this_thread::sleep_for (std::chrono::seconds(3));
-		//  gameView->buildingAttack(0, 3, 60, 80);
-		//  std::this_thread::sleep_for (std::chrono::seconds(3));
-		//  gameView->buildingAttack(0, 3, 40, 80);
-		//  std::this_thread::sleep_for (std::chrono::seconds(3));
-		//  gameView->buildingAttack(0, 3, 0, 80);
+		//gameView->buildingAttack(0, 3, 80, 80);
+		//std::this_thread::sleep_for (std::chrono::seconds(3));
+		//gameView->buildingAttack(0, 3, 60, 80);
+		//std::this_thread::sleep_for (std::chrono::seconds(3));
+		//gameView->buildingAttack(0, 3, 40, 80);
+		//std::this_thread::sleep_for (std::chrono::seconds(3));
+		//gameView->buildingAttack(0, 3, 0, 80);
 
 
 		//  gameView->buildUnit(150, 100, 2, 0, 4, 5, false); // BORRAR

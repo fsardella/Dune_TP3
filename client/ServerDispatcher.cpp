@@ -1,4 +1,4 @@
-#include "ServerDespatcher.h"
+#include "ServerDispatcher.h"
 #include <iostream>
 
 #define CREATE_UNIT 5
@@ -9,11 +9,11 @@
 #define CHASE 10
 #define DESTRUCTION 11
 
-ServerDespatcher::ServerDespatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue): 
+ServerDispatcher::ServerDispatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue): 
 protocolClient(protocol), blockingQueue(blockingQueue) {
 }
 
-void ServerDespatcher::run() {
+void ServerDispatcher::run() {
     while(true) {
         try {
             ClientInput clientInput(std::move(blockingQueue->pop()));
@@ -54,5 +54,5 @@ void ServerDespatcher::run() {
     }
 }
 
-ServerDespatcher::~ServerDespatcher() {
+ServerDispatcher::~ServerDispatcher() {
 }

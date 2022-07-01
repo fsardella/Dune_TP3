@@ -13,7 +13,7 @@ class MainGame : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainGame(QWidget *parent, Client* client);
+    MainGame(QWidget *parent, Client* client);
     ~MainGame();
 
 private slots:

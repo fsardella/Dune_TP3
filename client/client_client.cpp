@@ -13,7 +13,7 @@
 #include "MapView.h"
 #include "UserInputReceiver.h"
 #include "BlockingQueue.h"
-#include "ServerDespatcher.h"
+#include "ServerDispatcher.h"
 
 /*
 Pre-Condiciones: -
@@ -95,12 +95,12 @@ void Client::client_run() {
 	UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
 	inputReceiver.start();
 
-	ServerDespatcher serverDespatcher(&protocol, &blockingQueue);
-	serverDespatcher.start();
+	ServerDispatcher serverDispatcher(&protocol, &blockingQueue);
+	serverDispatcher.start();
 
 	drawer.join();
 	inputReceiver.join();
-	serverDespatcher.join();
+	serverDispatcher.join();
 	receiver.join();
 
 	gameResult = result;
