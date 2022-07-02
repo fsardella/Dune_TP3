@@ -10,9 +10,6 @@ echo "${green}${bold}***********************************************************
 
 echo "${green}\n~INSTALACIÓN DE DEPENDENCIAS C++~\n${reset}"
 
-chmod +x qt-unified-linux-x64-4.4.1-online.run
-./qt-unified-linux-x64-4.4.1-online.run
-
 echo "${green}Instalando 'clang'...${reset}"
 sudo apt-get install clang -y 
 
