@@ -10,6 +10,12 @@
 #define VEHICLE_DEAD_ANIMATION 7
 #define SOLDIER_DEAD_ANIMATION 5
 #define IDENTIFIER_DIMENSION 4
+#define LIFE_COMPLETE 4
+
+/*
+Pre-Condiciones: Constructor de Unit.
+Post-Condiciones: -
+*/
 
 Unit::Unit(std::map<std::tuple<int, int>,
            SdlTexture>& newAnimationsRepository,
@@ -37,7 +43,7 @@ Unit::Unit(std::map<std::tuple<int, int>,
   unitType(unitType),
   playerId(playerId),
   animationId(findAnimationId(newAnimationId)),
-  lifeId(4),
+  lifeId(LIFE_COMPLETE),
   isCurrentlyAttacking(false),
   isDead(false),
   isTouched(false) {
@@ -59,6 +65,11 @@ Unit::Unit(std::map<std::tuple<int, int>,
     getLifeTexture();
 }
 
+/*
+Pre-Condiciones: Obtiene el id de animación según el tipo de .
+Post-Condiciones: -
+*/
+
 int Unit::findAnimationId(int animationType) {
     if (animationType >= 0 && animationType < 3) return 0;
     if (animationType == 3) {
@@ -74,6 +85,11 @@ int Unit::findAnimationId(int animationType) {
     return 4;
 }
 
+/*
+Pre-Condiciones: Actualiza el animation id.
+Post-Condiciones: -
+*/
+
 void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
     // solo si soy vehiculo
     if ((oldAnimationId == 2)) {
@@ -82,6 +98,11 @@ void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
         if (newAnimationId >= 6 && newAnimationId < 9) animationId = 4;
     }
 }
+
+/*
+Pre-Condiciones: Renderiza la unidad
+Post-Condiciones: -
+*/
 
 int Unit::render(Camera &camera, float posX, float posY) {
     if (isDead) return 0;
@@ -122,29 +143,65 @@ int Unit::render(Camera &camera, float posX, float posY) {
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la posición x de la unidad.
+*/
+
 float Unit::getX() {
     return posX;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la posición y de la unidad.
+*/
 
 float Unit::getY() {
     return posY;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el ancho de la unidad.
+*/
+
 int Unit::getWidth() {
     return sizeW;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el largo de la unidad.
+*/
 
 int Unit::getHeight() {
     return sizeH;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true si la unidad es del jugador 
+o false si no.
+*/
+
 bool Unit::getPropiety() {
     return propiety;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el animation id de la unidad.
+*/
+
 int Unit::getAnimationId() {
     return animationId;
 }
+
+/*
+Pre-Condiciones: Determina el animation id de la unidad.
+Post-Condiciones: -
+*/
 
 void Unit::setAnimationId(int newAnimationId) {
     if (unitType < 7 && animationId == 2) {
@@ -155,43 +212,94 @@ void Unit::setAnimationId(int newAnimationId) {
     }
 }
 
+/*
+Pre-Condiciones: Determina la nueva posición de la unidad.
+Post-Condiciones: -
+*/
+
 void Unit::setNewPosition(float x, float y) {
     posX = x;
     posY = y;
 }
 
+/*
+Pre-Condiciones: Determina la textura de la unidad.
+Post-Condiciones: -
+*/
+
 void Unit::getTexture() {
     texture = animations.at(animationId).getTexture();
 }
+
+/*
+Pre-Condiciones: Determina la textura de la barra de vida de la unidad.
+Post-Condiciones: -
+*/
 
 void Unit::getLifeTexture() {
     currentLifeTexture = &(lifeTextures.at(lifeId));
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true si la unidad esta muerta o false si no.
+*/
+
 bool Unit::getIsDead() {
     return isDead;
 }
+
+/*
+Pre-Condiciones: Setea en true que la unidad esta muerta.
+Post-Condiciones: -
+*/
 
 void Unit::kill() {
     isDead = true;
 }
 
+/*
+Pre-Condiciones: Setea en true que la unidad fue tocada.
+Post-Condiciones: -
+*/
+
 void Unit::setIsTouched(bool status) {
     isTouched = status;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el tipo de unidad.
+*/
 
 int Unit::getUnitType() {
     return unitType;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true si la unidad esta atacando o false si no.
+*/
+
 bool Unit::isAttacking() {
     return isCurrentlyAttacking;
 }
+
+
+/*
+Pre-Condiciones: Setea a la unidad en ataque.
+Post-Condiciones: -
+*/
 
 void Unit::startAttacking() {
     isCurrentlyAttacking = true;
     attackAnimation.reset();
 }
+
+/*
+Pre-Condiciones: Actualiza la vida de la unidad.
+Post-Condiciones: -
+*/
 
 void Unit::updateLife(int currentLife, int totalLife) {
     lifeId = static_cast<int>(currentLife / (totalLife / 4));
@@ -205,6 +313,11 @@ void Unit::updateLife(int currentLife, int totalLife) {
         }
     }
 }
+
+/*
+Pre-Condiciones: Actualiza el animation id de la unidad y su textura.
+Post-Condiciones: -
+*/
 
 void Unit::update(int delta) {
     if (isDead) return;
@@ -244,6 +357,11 @@ void Unit::update(int delta) {
     }
 }
 
+/*
+Pre-Condiciones: Constructor de Unit.
+Post-Condiciones: -
+*/
+
 Unit::Unit(Unit &&other)
 : animations(std::move(other.animations)),
   animationsRepository(other.animationsRepository),
@@ -266,6 +384,11 @@ Unit::Unit(Unit &&other)
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture) {
 }
+
+/*
+Pre-Condiciones: Destructor de Unit.
+Post-Condiciones: -
+*/
 
 Unit::~Unit() {
 }

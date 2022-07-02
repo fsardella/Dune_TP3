@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+#define BLACK 0
+#define ALPHA 0
 
 SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 : window(window),
@@ -67,7 +69,7 @@ SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
     TTF_Init();
     if (font == NULL) return;
 
-    SDL_Color textColor = {0, 0, 0, 0};
+    SDL_Color textColor = {BLACK, BLACK, BLACK, ALPHA};
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), textColor);
 

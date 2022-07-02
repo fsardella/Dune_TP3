@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1300</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <widget class="QPushButton" name="createGameButton">
      <property name="maximumSize">
       <size>
-       <width>16777215</width>
-       <height>80</height>
+       <width>1300</width>
+       <height>700</height>
       </size>
      </property>
      <property name="font">

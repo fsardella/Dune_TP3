@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "GameView.h"
-#include "thread.h"
+#include "../common/thread.h"
 #include "BlockingQueue.h"
 #include "ClientInput.h"
 

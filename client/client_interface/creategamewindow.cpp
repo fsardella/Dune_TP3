@@ -5,13 +5,20 @@
 #include "../GameWaiter.h"
 #include "ui_creategamewindow.h"
 
+#define PATH_CREATE_GAME "../client/client_interface/images/DuneCreateGame.png"
+
+/*
+Pre: Constructor de ventana para crear el juego.
+Post: Todos los atributos están inicializados.
+*/
+
 CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     newClient(client),
     ui(new Ui::CreateGameWindow) {
     ui->setupUi(this);
-    QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
-    bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
+    QPixmap bkgnd(PATH_CREATE_GAME);
+    bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
@@ -28,9 +35,19 @@ CreateGameWindow::CreateGameWindow(QWidget *parent, Client* client) :
     }
 }
 
+/*
+Pre: Destructor de ventana para crear el juego.
+Post: -
+*/
+
 CreateGameWindow::~CreateGameWindow() {
     delete ui;
 }
+
+/*
+Pre: Visualizador de ventana de espera.
+Post: -
+*/
 
 void CreateGameWindow::showWaitingWindow() {
     this->close();
@@ -41,6 +58,11 @@ void CreateGameWindow::showWaitingWindow() {
     waitingWindow.exec();
     waiter.join();
 }
+
+/*
+Pre: Seleccionador de crear juego.
+Post: -
+*/
 
 void CreateGameWindow::on_createGameButton_clicked() {
     if (!(ui->listWidget->currentItem())) {

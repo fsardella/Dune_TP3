@@ -57,10 +57,9 @@ class GameView {
     int isUnit(int posX, int posY, bool propiety);
 
     bool isBlocked(int currentUnit);
-    bool isBuildingUnderConstruction(int currentBuilding);
+    bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
     void setNotReady(int currentBuilding);
-    void destroyBuilding(int id);
     void wormAttack(int x, int y, std::vector<int> deadId);
     void updateSpecie(int x, int y, int state);
 
@@ -71,6 +70,9 @@ class GameView {
 
     void touchedUnit(int unitId);
     void untouchedUnit(int unitId);
+
+    void playWinSound();
+    void playLostSound();
 
     ~GameView();
 };

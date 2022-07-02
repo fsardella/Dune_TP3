@@ -6,22 +6,40 @@
 #include "./ui_choosehouse.h"
 #include "../client_client.h"
 
+#define PATH_MAIN "../client/client_interface/images/Dune.png"
+
+/*
+Pre: Constructor de la primer ventana que se abre al iniciar qt. 
+En ella se selecciona el port, ip y nombre del jugador.
+Post: Todos los atributos están inicializados.
+*/
+
 MainWindow::MainWindow(QWidget *parent, Client* client)
     : QMainWindow(parent),
       ui(new Ui::MainWindow) {
     newClient = client;
     ui->setupUi(this);
-    QPixmap bkgnd("../client/client_interface/images/Dune.png");
-    bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
+    QPixmap bkgnd(PATH_MAIN);
+    bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 }
 
+/*
+Pre: Destructor de la primer ventana que se abre al iniciar qt. 
+En ella se selecciona el port, ip y nombre del jugador.
+Post: -
+*/
+
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+/*
+Pre: Seleccionador de la opción continuar.
+Post: -
+*/
 
 void MainWindow::on_continueButton_clicked() {
     std::string ip = ui->ipLineEdit->text().toStdString();

@@ -17,6 +17,14 @@
 #define MENU_WIDTH 100
 #define MENU_HEIGHT 75
 
+#define WHITE_COLOR 255
+#define OPACITY 180
+
+/*
+Pre: Constuctor de la clase Camera.
+Post: -
+*/
+
 Camera::Camera(SdlWindow& window)
 : window(window),
   offsetX(0),
@@ -25,11 +33,16 @@ Camera::Camera(SdlWindow& window)
   mapHeight(0),
   width(static_cast<int>((window.getCenter().x) * 1.5 / TILE_PIX_SIZE)),
   height(static_cast<int>(2*window.getCenter().y / TILE_PIX_SIZE)),
-  blockedTexture(BLOCKED_PATH, &window, 255, 255, 255),
-  menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, 180),
-  readyTexture(READY_PATH, &window, 255, 255, 255),
-  frameTexture(FRAME_PATH, &window, 255, 255, 255)
+  blockedTexture(BLOCKED_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
+  menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, OPACITY),
+  readyTexture(READY_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
+  frameTexture(FRAME_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR)
 {}
+
+/*
+Pre: Renderizador para la camara.
+Post: -
+*/
 
 void Camera::render(Renderizable &renderizable) {
     renderizable.render(*this);
@@ -39,6 +52,11 @@ void Camera::setMapSize(int width, int height) {
     this->mapWidth = width;
     this->mapHeight = height;
 }
+
+/*
+Pre: Renderizador para la camara.
+Post: -
+*/
 
 void Camera::renderInSight(SdlTexture* texture, const Area& src, float posX,
                            float posY) {
@@ -51,6 +69,11 @@ void Camera::renderInSight(SdlTexture* texture, const Area& src, float posX,
     Area dst(newX, newY, rect.w, rect.h);
     texture->render(src, dst);
 }
+
+/*
+Pre: Renderizador de unidades para la camara.
+Post: -
+*/
 
 int Camera::renderInSightForUnit(SdlTexture* texture, const Area& src, float posX,
                                  float posY) {
@@ -77,6 +100,11 @@ int Camera::renderInSightForUnit(SdlTexture* texture, const Area& src, float pos
     return returnValue;
 }
 
+/*
+Pre: Renderizador de frame de unidades para la camara.
+Post: -
+*/
+
 void Camera::renderUnitFrame(const Area&src, float posX, float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
@@ -90,6 +118,11 @@ void Camera::renderUnitFrame(const Area&src, float posX, float posY) {
     frameTexture.render(src, dst);
 }
 
+/*
+Pre: Renderizador de rectangulo del menu para la camara.
+Post: -
+*/
+
 void Camera::renderMenuRect() {
     SDL_Rect r;
     r.x = MENU_OFFSET_X;
@@ -99,6 +132,12 @@ void Camera::renderMenuRect() {
 
     window.renderRect(r);
 }
+
+/*
+Pre: Renderizador de la sombra para simular la construccion de 
+edificios o entrenamiento de unidades.
+Post: -
+*/
 
 void Camera::renderShadowForMenu(Area& src, float posX, float posY,
                                  int progress) {
@@ -112,6 +151,11 @@ void Camera::renderShadowForMenu(Area& src, float posX, float posY,
     menuShadowTexture.render(src, dst);
 }
 
+/*
+Pre: Renderizador del menu para la camara.
+Post: -
+*/
+
 void Camera::renderInSightForMenu(SdlTexture* texture, const Area& src,
                                   float posX, float posY) {
     auto rect = src.buildRectangle();
@@ -120,6 +164,12 @@ void Camera::renderInSightForMenu(SdlTexture* texture, const Area& src,
     Area dst(newX, newY, rect.w, rect.h);
     texture->render(src, dst);
 }
+
+/*
+Pre: Renderizador del bloqueo de unidades y/o construcciones
+para cuando no estan disponibles para el jugador.
+Post: -
+*/
 
 void Camera::renderBlockingFigure(int posX, int posY) {
     Area src(0, 0, MENU_WIDTH, MENU_HEIGHT);
@@ -130,6 +180,13 @@ void Camera::renderBlockingFigure(int posX, int posY) {
     blockedTexture.render(src, dst);
 }
 
+/*
+Pre: Renderizador del ready de construcciones
+para cuando ya están construidas y disponibles para que el jugador
+pueda posicionarlas donde el desee.
+Post: -
+*/
+
 void Camera::renderReadyFigure(int posX, int posY) {
     Area src(0, 0, MENU_WIDTH, MENU_HEIGHT);
     auto rect = src.buildRectangle();
@@ -138,6 +195,12 @@ void Camera::renderReadyFigure(int posX, int posY) {
     Area dst(newX, newY, rect.w, rect.h);
     readyTexture.render(src, dst);
 }
+
+/*
+Pre: Renderizador del bloqueo de unidades y/o construcciones
+para cuando no estan disponibles para el jugador.
+Post: -
+*/
 
 void Camera::renderInSightForMenuTitles(SdlTexture* texture, const Area& src,
                                         float posX, float posY) {
@@ -148,17 +211,38 @@ void Camera::renderInSightForMenuTitles(SdlTexture* texture, const Area& src,
     texture->render(src, dst);
 }
 
+/*
+Pre: Chequea si una posición es visible en x.
+Post: -
+*/
+
 bool Camera::isVisibleInX(float x) {
     return (x >= offsetX && x <= width + offsetX);
 }
+
+/*
+Pre: Chequea si una posición es visible en y.
+Post: -
+*/
 
 bool Camera::isVisibleInY(float y) {
     return (y >= offsetY && y <= height + offsetY);
 }
 
+/*
+Pre: Chequea si una posición es visible en x y en y.
+Post: -
+*/
+
 bool Camera::isVisible(float x, float y) {
     return isVisibleInX(x) && isVisibleInY(y);
 }
+
+/*
+Pre: Chequea si una unidad dado una posicion (x, y) y un 
+ancho y largo es visible en la camara.
+Post: -
+*/
 
 bool Camera::isUnitVisible(float x, float y, float txtWidth, float txtHeight) {
     if (isVisible(x, y)) return true;
@@ -169,12 +253,22 @@ bool Camera::isUnitVisible(float x, float y, float txtWidth, float txtHeight) {
     return ((condLeft || condRight) && (condUp || condDown));
 }
 
+/*
+Pre: -
+Post: La camara se mueve para arriba.
+*/
+
 void Camera::moveUpwards() {
     if (offsetY - 1 < 0) {
         return;
     }
     offsetY -= 1;
 }
+
+/*
+Pre: -
+Post: La camara se mueve para abajo.
+*/
 
 void Camera::moveDownwards() {
     if (offsetY + 1 > mapWidth - offsetY) {
@@ -183,12 +277,22 @@ void Camera::moveDownwards() {
     offsetY += 1;
 }
 
+/*
+Pre: -
+Post: La camara se mueve para la izquierda.
+*/
+
 void Camera::moveLeft() {
     if (offsetX - 1 < 0) {
         return;
     }
     offsetX -= 1;
 }
+
+/*
+Pre: -
+Post: La camara se mueve para la derecha.
+*/
 
 void Camera::moveRight() {
     if (offsetX + 1 > mapWidth - offsetX) {
@@ -197,13 +301,28 @@ void Camera::moveRight() {
     offsetX += 1;
 }
 
+/*
+Pre: -
+Post: Se obtiene el offset de x.
+*/
+
 int Camera::getXOffset() {
     return offsetX;
 }
 
+/*
+Pre: -
+Post: Se obtiene el offset de y.
+*/
+
 int Camera::getYOffset() {
     return offsetY;
 }
+
+/*
+Pre: Destructor de la clase Camera.
+Post: -
+*/
 
 Camera::~Camera() {
 }

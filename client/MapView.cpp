@@ -10,6 +10,8 @@
 // antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
+#define HEAVY_FACTORY 13
+#define SILO 16
 #define PROGRESS_COMPLETED 100
 #define HARKONNEN_SOUND_OFFSET 14
 #define ATREIDES_SOUND_OFFSET 19
@@ -31,6 +33,22 @@
 #define INITIAL_MONEY 1000
 #define INITIAL_ENERGY 100
 #define SPICE_OFFSET 88
+#define SIZE_FONT 22
+#define BARRACK_OFFSET 18
+#define FONT_PATH "/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1"
+#define SPRITES_PATH "../client/sprites.yaml"
+#define TILES_PATH "../client/tiles.yaml"
+#define MENU_PATH "../client/menu.yaml"
+#define IDENT_PATH "../client/ident.yaml"
+#define LIFE_PATH "../client/animations/vida"
+#define ARMAMENT_PATH "../client/armament.yaml"
+#define WORM_PATH "../client/animations/Worm"
+
+
+/*
+Pre-Condiciones: Constructor del MapView.
+Post-Condiciones: -
+*/
 
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
@@ -54,14 +72,23 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
     this->setMoney(INITIAL_MONEY);
 }
 
+/*
+Pre-Condiciones: Se carga la fuente a utilizar en el menu del mapa.
+Post-Condiciones: -
+*/
+
 void MapView::loadFontTitles() {
     TTF_Init();
-    font = TTF_OpenFont("/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1",
-                        22);
+    font = TTF_OpenFont(FONT_PATH, SIZE_FONT);
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de sprites.
+Post-Condiciones: -
+*/
+
 void MapView::loadSpritesTranslator() {
-    YAML::Node node = YAML::LoadFile("../client/sprites.yaml");
+    YAML::Node node = YAML::LoadFile(SPRITES_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i < amount; i++) {
         std::map<std::tuple<int, int>, SdlTexture> animations;
@@ -85,8 +112,13 @@ void MapView::loadSpritesTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de tiles.
+Post-Condiciones: -
+*/
+
 void MapView::loadTileTranslator() {
-    YAML::Node node = YAML::LoadFile("../client/tiles.yaml");
+    YAML::Node node = YAML::LoadFile(TILES_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> tileInfo = node[i].as<std::vector<
@@ -99,8 +131,13 @@ void MapView::loadTileTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor del menu.
+Post-Condiciones: -
+*/
+
 void MapView::loadMenuTranslator() {
-    YAML::Node node = YAML::LoadFile("../client/menu.yaml");
+    YAML::Node node = YAML::LoadFile(MENU_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> menuImgInfo = node[i].as<std::vector<
@@ -115,8 +152,13 @@ void MapView::loadMenuTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de identificadores de jugadores.
+Post-Condiciones: -
+*/
+
 void MapView::loadIdentifierTranslator() {
-    YAML::Node node = YAML::LoadFile("../client/ident.yaml");
+    YAML::Node node = YAML::LoadFile(IDENT_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         std::vector<std::string> identifierMgsInfo = node[i].as<std::vector<
@@ -129,10 +171,15 @@ void MapView::loadIdentifierTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de vidas de las unidades y
+construcciones.
+Post-Condiciones: -
+*/
+
 void MapView::loadLifeTranslator() {
     for (int i = 1; i <= 4; i ++) {
-        std::string path("../client/animations/vida" + std::to_string(i) +
-                         ".bmp");
+        std::string path(LIFE_PATH + std::to_string(i) + ".bmp");
         lifeTextureTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
                                       std::forward_as_tuple(path,
@@ -140,8 +187,13 @@ void MapView::loadLifeTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de armamentos para unidades.
+Post-Condiciones: -
+*/
+
 void MapView::loadAttackTranslator() {
-    YAML::Node node = YAML::LoadFile("../client/armament.yaml");
+    YAML::Node node = YAML::LoadFile(ARMAMENT_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         if (i == 3) continue;
@@ -157,10 +209,15 @@ void MapView::loadAttackTranslator() {
     }
 }
 
+/*
+Pre-Condiciones: Se carga el traductor de las animaciones para el gusano
+de arena.
+Post-Condiciones: -
+*/
+
 void MapView::loadWormTranslator() {
     for (int i = 0; i < 5; i ++) {
-        std::string path("../client/animations/Worm" + std::to_string(i + 1) +
-                         ".bmp");
+        std::string path(WORM_PATH + std::to_string(i + 1) + ".bmp");
         wormTextureTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
                                       std::forward_as_tuple(path, &window,
@@ -169,17 +226,23 @@ void MapView::loadWormTranslator() {
     this->wormTexturesInitializer();
 }
 
+/*
+Pre-Condiciones: Se crea el menu del juego con sus construcciones y unidades
+disponibles, dinero y energía del jugador.
+Post-Condiciones: -
+*/
+
 void MapView::createMenu() {
     for (size_t i = 0; i <= 18; i += 3) {
         for (size_t j = 0; j < 3; j++) {
             size_t row = i / 3;
             if (i == 18 && j == 0) {
                 auto image = menuTextureTranslator.find(houseNumberClient +
-                                                        18);
+                                                        BARRACK_OFFSET);
                 menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH,
-                                        IMAGE_PIX_HEIGHT, j, row, 18,
+                                        IMAGE_PIX_HEIGHT, j, row, BARRACK_OFFSET,
                                         menuInfoHouses.at(houseNumberClient
-                                        + 18));
+                                        + BARRACK_OFFSET));
                 continue;
             }
             if (i == 18 && j > 0) continue;
@@ -191,6 +254,12 @@ void MapView::createMenu() {
         }
     }
 }
+
+/*
+Pre-Condiciones: Se inicializan las texturas del gusano de arena a
+partir de su traductor.
+Post-Condiciones: -
+*/
 
 void MapView::wormTexturesInitializer() {
     std::vector<SdlTexture*> textures;
@@ -205,6 +274,12 @@ std::vector<SdlTexture*> MapView::wormEmptyTexturesInitializer() {
     return textures;
 }
 
+/*
+Pre-Condiciones: Se inicializan las texturas del mapa a
+partir de su traductor.
+Post-Condiciones: -
+*/
+
 void MapView::createMap(int height, int width, std::vector<std::vector<
                         uint8_t>> map) {
     columns = width;
@@ -218,6 +293,12 @@ void MapView::createMap(int height, int width, std::vector<std::vector<
         }
     }
 }
+
+/*
+Pre-Condiciones: Se crea una unidad con: animaciones, sprites de
+ataque, identificador, texturas de vida, de que jugador es. 
+Post-Condiciones: -
+*/
 
 void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
                          int animationId, bool propiety) {
@@ -261,11 +342,22 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
                                              playerId, animationId));
 }
 
+/*
+Pre-Condiciones: Se actualiza el bloqueo de unidades para mostrarse en el menu.
+Post-Condiciones: -
+*/
+
 void MapView::updateBlockedUnits(int constType, int house) {
     for (MenuImage &image : menuImages) {
         image.updateUnblocking(constType, house);
     }
 }
+
+/*
+Pre-Condiciones: Se actualiza el desbloqueo de unidades para 
+mostrarse en el menu.
+Post-Condiciones: -
+*/
 
 void MapView::updateUnblockedUnits(int constType) {
     for (MenuImage &image : menuImages) {
@@ -273,18 +365,23 @@ void MapView::updateUnblockedUnits(int constType) {
     }
 }
 
+/*
+Pre-Condiciones: Se setea el tamaño del edificio a partir de su tipo.
+Post-Condiciones: -
+*/
+
 void MapView::getBuildingDimensions(int constType, int* width, int* height) {
-    if (constType == 13) {
+    if (constType == HEAVY_FACTORY) {
         *width = 4 * TILE_PIX_SIZE;
         *height = 4 * TILE_PIX_SIZE;
         return;
     }
-    if (constType == 16) {
+    if (constType == SILO) {
         *width = TILE_PIX_SIZE;
         *height = TILE_PIX_SIZE;
         return;
     }
-    if (constType == 18) {
+    if (constType == BARRACK) {
         *width = 2 * TILE_PIX_SIZE;
         *height = 3 * TILE_PIX_SIZE;
         return;
@@ -292,6 +389,14 @@ void MapView::getBuildingDimensions(int constType, int* width, int* height) {
     *width = 3 * TILE_PIX_SIZE;
     *height = 3 * TILE_PIX_SIZE;
 }
+
+/*
+Pre-Condiciones: Se crea un edificio con: su tipo, dimensiones, animaciones, 
+identificador, texturas de vida, casa, de que jugador es.
+En caso de que una construccion desbloquee una unidad, se actualizará ese
+desbloqueo. 
+Post-Condiciones: -
+*/
 
 void MapView::createConstruction(int x, int y, int playerId,
                                  int constructionId, int constType,
@@ -315,6 +420,12 @@ void MapView::createConstruction(int x, int y, int playerId,
     updateBlockedUnits(constType, house);
 }
 
+/*
+Pre-Condiciones: Se actualiza el progreso de creación de un edificio
+o de una unidad.
+Post-Condiciones: -
+*/
+
 void MapView::updateProgress(int menuId, int progress) {
     int soundCreationType = menuId > 10 ? BUILDING_CREATED : UNIT_CREATED;
 
@@ -326,14 +437,31 @@ void MapView::updateProgress(int menuId, int progress) {
     menuImages.at(menuId).updateProgress(progress);
 }
 
+/*
+Pre-Condiciones: Determina que el jugador toco a una unidad. 
+Post-Condiciones: -
+*/
+
 void MapView::touchedUnit(int unitId) {
     window.playSound(unitTiles.at(unitId).getUnitType(), VOLUME);
     unitTiles.at(unitId).setIsTouched(true);
 }
 
+/*
+Pre-Condiciones: La unidad tocada vuelve a su estado actual:
+no tocada.
+Post-Condiciones: -
+*/
+
 void MapView::untouchedUnit(int unitId) {
     unitTiles.at(unitId).setIsTouched(false);
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve un offset para determinar el sonido según
+la casa elegida por el jugador. 
+*/
 
 int MapView::getSoundOffset() {
     if (houseNumberClient == HOUSE_HARKONNEN) {
@@ -345,8 +473,43 @@ int MapView::getSoundOffset() {
     }
 }
 
+/*
+Pre-Condiciones: Establece como debería reaccionar la unidad atacada.
+Post-Condiciones: -
+*/
+
+void MapView::attackUnitReaction(int attackedId, int currentLife, int totalLife) {
+    unitTiles.at(attackedId).updateLife(currentLife, totalLife);
+    if ((currentLife == WITHOUT_LIFE) &&
+        (unitTiles.at(attackedId).getUnitType() > 6
+        && unitTiles.at(attackedId).getUnitType() < 11)) {
+        window.playSound(EXPLOSION, VOLUME);
+    }
+}
+
+/*
+Pre-Condiciones: Establece como debería reaccionar el edificio atacado.
+Post-Condiciones: -
+*/
+
+void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalLife) {
+    constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
+    if (currentLife == WITHOUT_LIFE) {
+        window.playSound(EXPLOSION, VOLUME);
+    }
+}
+
+/*
+Pre-Condiciones: Maneja el ataque a una unidad. 
+Post-Condiciones: -
+*/
+
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
                          int totalLife) {
+    if (attackerId == -1) {
+        attackUnitReaction(attackedId, currentLife, totalLife);
+        return;
+    }
     if (unitTiles.at(attackedId).getPropiety()) {
         window.playSound(UNIT_ATTACKED, VOLUME);
     }
@@ -361,17 +524,20 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         (unitTiles.at(attackerId).getUnitType() == 7))) {
         window.playSound(GUN_SOUND, VOLUME);
     }
-
-    unitTiles.at(attackedId).updateLife(currentLife, totalLife);
-    if ((currentLife == WITHOUT_LIFE) &&
-        (unitTiles.at(attackedId).getUnitType() > 6
-        && unitTiles.at(attackedId).getUnitType() < 11)) {
-        window.playSound(EXPLOSION, VOLUME);
-    }
+    attackUnitReaction(attackedId, currentLife, totalLife);
 }
+
+/*
+Pre-Condiciones: Maneja el ataque a un edificio. 
+Post-Condiciones: -
+*/
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
                              int totalLife) {
+    if (attackerId == -1) {
+        attackBuildingReaction(attackedId, currentLife, totalLife);
+        return;
+    }
     if ((constructionTiles.at(attackedId).getConstType() ==
         CONSTRUCTION_YARD_ID) &&
         (constructionTiles.at(attackedId).getPropiety())) {
@@ -392,11 +558,14 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
     if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
         updateUnblockedUnits(constructionTiles.at(attackedId).getConstType());
     }
-    constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
-    if (currentLife == WITHOUT_LIFE) {
-        window.playSound(EXPLOSION, VOLUME);
-    }
+    attackBuildingReaction(attackedId, currentLife, totalLife);
 }
+
+/*
+Pre-Condiciones: Setea el dinero del jugador para que se muestre en el
+menu del mapa. 
+Post-Condiciones: -
+*/
 
 void MapView::setMoney(int money) {
     if (actualMoney == money) return;
@@ -410,6 +579,12 @@ void MapView::setMoney(int money) {
                           ("money"), 200, 32, 0, 0));
 }
 
+/*
+Pre-Condiciones: Setea la energía del jugador para que se muestre en el
+menu del mapa. 
+Post-Condiciones: -
+*/
+
 void MapView::setEnergy(int energy) {
     if (actualEnergy == energy) return;
     std::string text("Energy: " + std::to_string(energy) + "%");
@@ -421,6 +596,11 @@ void MapView::setEnergy(int energy) {
                           std::forward_as_tuple(&menuTextsTranslator.at
                           ("energy"), 200, 32, 0, 1));
 }
+
+/*
+Pre-Condiciones: Renderiza el menu del mapa.
+Post-Condiciones: -
+*/
 
 void MapView::renderMenu(Camera &cam) {
     cam.renderMenuRect();
@@ -434,6 +614,11 @@ void MapView::renderMenu(Camera &cam) {
         cam.render(image);
     }
 }
+
+/*
+Pre-Condiciones: Renderiza el mapa entero.
+Post-Condiciones: -
+*/
 
 void MapView::render(Camera &cam) {
     renderMenu(cam);
@@ -464,6 +649,12 @@ void MapView::render(Camera &cam) {
     }
 }
 
+/*
+Pre-Condiciones: Actualiza el estado del mapa: si hay un gusano de arena,
+unidades, construcciones.
+Post-Condiciones: -
+*/
+
 void MapView::update(int delta) {
     if (worm.isAttacking()) {
         worm.update(delta);
@@ -475,6 +666,12 @@ void MapView::update(int delta) {
         constructionTiles.at(building.first).update(delta);
     }
 }
+
+/*
+Pre-Condiciones: Determina si el jugador clickeo en un edificio.
+Post-Condiciones: Devuelve el id del edificio clickeado o -1 
+en caso de que no se haya clickeado ningún edificio. 
+*/
 
 int MapView::isBuilding(int posX, int posY, bool propiety) {
     for (auto const& building : constructionTiles) {
@@ -495,6 +692,12 @@ int MapView::isBuilding(int posX, int posY, bool propiety) {
     return -1;
 }
 
+/*
+Pre-Condiciones: Determina si el jugador clickeo en una unidad.
+Post-Condiciones: Devuelve el id de la unidad clickeada o -1 
+en caso de que no se haya clickeado ninguna unidad. 
+*/
+
 int MapView::isUnit(int posX, int posY, bool propiety) {
     for (auto const& unit : unitTiles) {
         if ((posX >= unitTiles.at(unit.first).getX() * TILE_PIX_SIZE &&
@@ -510,26 +713,47 @@ int MapView::isUnit(int posX, int posY, bool propiety) {
     return -1;
 }
 
+/*
+Pre-Condiciones: Determina si una unidad esta bloqueada o no. 
+Post-Condiciones: Devuelve true si esta bloqueada o false si no. 
+*/
+
 bool MapView::isBlocked(int currentUnit) {
     return menuImages[currentUnit].isBlocked();
 }
 
-bool MapView::isBuildingUnderConstruction(int currentBuilding) {
-    return menuImages[currentBuilding].isCurrentlyUnderConstruction();
+/*
+Pre-Condiciones: Determina si una unidad o edificio esta en construcción. 
+Post-Condiciones: Devuelve true si esta en construcción o false si no. 
+*/
+
+bool MapView::isUnderConstruction(int current) {
+    return menuImages[current].isCurrentlyUnderConstruction();
 }
+
+/*
+Pre-Condiciones: Determina si un edificio ya esta listo para ser posicionado
+(ya se construyó). 
+Post-Condiciones: Devuelve true si esta listo o false si no. 
+*/
 
 bool MapView::isBuildingReady(int currentBuilding) {
     return menuImages[currentBuilding].isBuildingReady();
 }
 
+/*
+Pre-Condiciones: Setea que el edificio no esta construido todavia. 
+Post-Condiciones: -
+*/
+
 void MapView::setNotReady(int currentBuilding) {
     menuImages[currentBuilding].setNotReady();
 }
 
-void MapView::destroyBuilding(int id) {
-    constructionTiles.at(id).kill();
-    constructionTiles.erase(id);
-}
+/*
+Pre-Condiciones: Maneja el ataque del gusano de arena. 
+Post-Condiciones: -
+*/
 
 void MapView::wormAttack(int x, int y, std::vector<int> deadId) {
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
@@ -544,6 +768,11 @@ void MapView::wormAttack(int x, int y, std::vector<int> deadId) {
     worm.startAttacking();
 }
 
+/*
+Pre-Condiciones: Actualiza la especia según el estado de la misma.
+Post-Condiciones: -
+*/
+
 void MapView::updateSpecie(int x, int y, int state) {
     // si lo que cris me manda es el numero de tile tipo matriz
     int index = SPICE_OFFSET + state;
@@ -551,6 +780,31 @@ void MapView::updateSpecie(int x, int y, int state) {
     backgroundTiles[y * columns + x].changeTile(&(tileTextureTranslator.at(
                                                 index)), x, y);
 }
+
+/*
+Pre-Condiciones: Reproduce música en caso de que el jugador gane.
+Post-Condiciones: -
+*/
+
+void MapView::playWinSound() {
+    int offset = getSoundOffset();
+    window.playSound(offset + WIN_SOUND, VOLUME);
+}
+
+/*
+Pre-Condiciones: Reproduce música en caso de que el jugador pierda.
+Post-Condiciones: -
+*/
+
+void MapView::playLostSound() {
+    int offset = getSoundOffset();
+    window.playSound(offset + LOST_SOUND, VOLUME);
+}
+
+/*
+Pre-Condiciones: Destructor del MapView.
+Post-Condiciones: -
+*/
 
 MapView::~MapView() {
 }

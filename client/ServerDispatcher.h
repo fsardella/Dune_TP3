@@ -2,7 +2,7 @@
 #define __SERVERDISPATCHER_H__
 
 #include "GameView.h"
-#include "thread.h"
+#include "../common/thread.h"
 #include "BlockingQueue.h"
 #include "client_protocol.h"
 #include "ClientInput.h"

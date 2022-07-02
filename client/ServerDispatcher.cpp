@@ -11,11 +11,21 @@
 #define CHASE 10
 #define DESTRUCTION 11
 
+/*
+Pre-Condiciones: Constructor de Server Dispatcher.
+Post-Condiciones: -
+*/
+
 ServerDispatcher::ServerDispatcher(ProtocolClient* protocol,
                                    BlockingQueue<ClientInput>* blockingQueue)
 : protocolClient(protocol),
   blockingQueue(blockingQueue) {
 }
+
+/*
+Pre-Condiciones: Loop de Server Dispatcher.
+Post-Condiciones: -
+*/
 
 void ServerDispatcher::run() {
     while (true) {
@@ -65,6 +75,11 @@ void ServerDispatcher::run() {
         }
     }
 }
+
+/*
+Pre-Condiciones: Destructor de Server Dispatcher.
+Post-Condiciones: -
+*/
 
 ServerDispatcher::~ServerDispatcher() {
 }

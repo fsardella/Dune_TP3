@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include "GameView.h"
-#include "thread.h"
+#include "../common/thread.h"
 #include "client_protocol.h"
 
 class ServerReceiver: public Thread {
@@ -29,7 +29,6 @@ class ServerReceiver: public Thread {
     void receiveBuildingProgress();
     void receiveWormInfo();
     void receiveRefinementInfo();
-    void receiveDestroyedBuilding();
 
     void run() override;
     ~ServerReceiver() override;

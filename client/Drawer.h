@@ -2,7 +2,7 @@
 #define __DRAWER_H__
 
 #include <atomic>
-#include "thread.h"
+#include "../common/thread.h"
 #include "GameView.h"
 #include "Unit.h"
 

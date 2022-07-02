@@ -19,6 +19,8 @@
 #define IMAGE_PIX_WIDTH 100
 #define IMAGE_PIX_HEIGHT 75
 #define VOLUME 80
+#define WIN_SOUND 1
+#define LOST_SOUND 0
 
 class MapView {
     SdlWindow& window;
@@ -80,6 +82,8 @@ class MapView {
                     int totalLife);
     void attackBuilding(int attackerId, int attackedId, int currentLife,
                         int totalLife);
+    void attackUnitReaction(int attackedId, int currentLife, int totalLife);
+    void attackBuildingReaction(int attackedId, int currentLife, int totalLife);
 
     void renderMenu(Camera &cam);
     void render(Camera& cam);
@@ -92,11 +96,9 @@ class MapView {
     void updateBlockedUnits(int constType, int house);
     void updateUnblockedUnits(int constType);
 
-    bool isBuildingUnderConstruction(int currentBuilding);
+    bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
     void setNotReady(int currentBuilding);
-
-    void destroyBuilding(int id);
 
     void wormAttack(int x, int y, std::vector<int> deadId);
 
@@ -111,6 +113,8 @@ class MapView {
     void update(int delta);
 
     int getSoundOffset();
+    void playWinSound();
+    void playLostSound();
 
     void updateSpecie(int x, int y, int state);
 

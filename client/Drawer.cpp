@@ -4,8 +4,18 @@
 
 #define DRAWER_FRAME_DURATION 500
 
+/*
+Pre-Condiciones: Constructor del Drawer.
+Post-Condiciones: -
+*/
+
 Drawer::Drawer(GameView* gameView): gameView(gameView) {
 }
+
+/*
+Pre-Condiciones: Loop del drawer.
+Post-Condiciones: -
+*/
 
 void Drawer::run() {
     while (gameView->isRunning()) {
@@ -23,6 +33,11 @@ void Drawer::run() {
         }
     }
 }
+
+/*
+Pre-Condiciones: Destructor del Drawer.
+Post-Condiciones: -
+*/
 
 Drawer::~Drawer() {
 }

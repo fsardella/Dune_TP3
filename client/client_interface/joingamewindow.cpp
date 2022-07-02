@@ -5,13 +5,19 @@
 #include "../GameWaiter.h"
 #include "ui_joingamewindow.h"
 
+#define PATH_JOIN_GAME "../client/client_interface/images/DuneCreateGame.png"
+/*
+Pre: Constructor de ventana para unirse a un juego.
+Post: Todos los atributos están inicializados.
+*/
+
 JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     newClient(client),
     ui(new Ui::JoinGameWindow) {
     ui->setupUi(this);
-    QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
-    bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
+    QPixmap bkgnd(PATH_JOIN_GAME);
+    bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
@@ -26,9 +32,19 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     }
 }
 
+/*
+Pre: Destructor de ventana para unirse a un juego.
+Post: -
+*/
+
 JoinGameWindow::~JoinGameWindow() {
     delete ui;
 }
+
+/*
+Pre: Visualizador de ventana de espera.
+Post: -
+*/
 
 void JoinGameWindow::showWaitingWindow() {
     this->close();
@@ -39,6 +55,11 @@ void JoinGameWindow::showWaitingWindow() {
     waitingWindow.exec();
     waiter.join();
 }
+
+/*
+Pre: Seleccionador de unirse al juego.
+Post: -
+*/
 
 void JoinGameWindow::on_joinGameButton_clicked() {
     if (!(this->ui->listWidget->currentItem())) {

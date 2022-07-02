@@ -29,6 +29,15 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(yaml-cpp)
 
+set(COMMON_SOURCES
+    common/common_resolver.cpp
+    common/common_resolver.h
+    common/common_socket.cpp
+    common/common_socket.h
+    common/thread.cpp
+    common/thread.h
+)
+
 set(EDITOR_SOURCES
         editor/main.cpp
         editor/mainwindow.cpp
@@ -87,10 +96,6 @@ set(CLIENT_SOURCES
         client/client_client.h
         client/client_protocol.cpp
         client/client_protocol.h
-        client/common_socket.cpp
-        client/common_socket.h
-        client/common_resolver.cpp
-        client/common_resolver.h
         client/Area.cpp
         client/Area.h
         client/SdlWindow.cpp
@@ -111,8 +116,6 @@ set(CLIENT_SOURCES
         client/ServerReceiver.h
         client/Construction.cpp
         client/Construction.h
-        client/thread.cpp
-        client/thread.h
         client/BackGroundTile.cpp
         client/BackGroundTile.h
         client/UserInputReceiver.cpp
@@ -198,6 +201,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     )
     qt_add_executable(client_interface
         ${CLIENT_SOURCES}
+        ${COMMON_SOURCES}
     )
 else()
     if(ANDROID)
@@ -206,6 +210,7 @@ else()
         )
         add_library(client_interface SHARED
             ${CLIENT_SOURCES}
+            ${COMMON_SOURCES}
         )
         add_library(server SHARED
             ${SERVER_SOURCES}
@@ -216,6 +221,7 @@ else()
         )
         add_executable(client_interface
             ${CLIENT_SOURCES}
+            ${COMMON_SOURCES}
         )
         # add_executable(server
         #     ${SERVER_SOURCES}

@@ -25,13 +25,24 @@
 #define CHASE 10
 #define DESTRUCTION 11
 
+#define CONSTRUCTION_OFFSET 11
+#define UNIT_LIMIT 10
 
+/*
+Pre-Condiciones: Constructor de UserInputReceiver.
+Post-Condiciones: -
+*/
 
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj,
                                      BlockingQueue<ClientInput>* blockingQueue)
 : gameView(gameViewObj),
   blockingQueue(blockingQueue)
 {}
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la fila donde toco el jugador o -1 en caso de error.
+*/
 
 int UserInputReceiver::findRow(int y) {
     for (int i = MENU_IMAGE_OFFSET_Y; i < END_ROWS; i +=
@@ -44,6 +55,12 @@ int UserInputReceiver::findRow(int y) {
     return ERROR;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la columna donde toco el jugador o -1 
+en caso de error.
+*/
+
 int UserInputReceiver::findCol(int x) {
     for (int i = MENU_IMAGE_OFFSET_X; i < END_COLS; i +=
         (SPACING_X + IMAGE_PIX_WIDTH)) {
@@ -55,12 +72,25 @@ int UserInputReceiver::findCol(int x) {
     return ERROR;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true en caso de que las unidades se dejan de
+visualizar como tocadas o false si no.
+*/
 bool UserInputReceiver::wasUntouched(int id) {
     for (int& i : touchedUnits) {
         if (i == id) return false;
     }
     return true;
 }
+
+/*
+Pre-Condiciones: Maneja las opciones cuando se hace click izquierdo:
+si se clickeo sobre una unidad o edificio (para que sean atacados), 
+sobre el mapa (para posicionar un edificio) o sobre el menu (para 
+construir un edificio o entrenar una unidad).
+Post-Condiciones: -
+*/
 
 void UserInputReceiver::handlePosition(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
@@ -120,9 +150,12 @@ void UserInputReceiver::handlePosition(int x, int y) {
 
     currentMenuImage = row * 3 + col;
 
-    if (currentMenuImage < 11) {
+    if (currentMenuImage < CONSTRUCTION_OFFSET) {
         // op 5
         int unitType = currentMenuImage;
+        if (gameView->isUnderConstruction(unitType)) {
+            return;
+        }
         if (!gameView->isBlocked(currentMenuImage)) {
             // quiero construir una unidad
             ClientInput clientInput(CREATE_UNIT, unitType);
@@ -131,13 +164,13 @@ void UserInputReceiver::handlePosition(int x, int y) {
         currentMenuImage = NONE_TYPE;
         return;
     }
-    if (currentMenuImage > 10) {
+    if (currentMenuImage > UNIT_LIMIT) {
         // op 6
         int buildingType = currentMenuImage;
         if (gameView->isBuildingReady(buildingType)) {
             return;
         }
-        if (!gameView->isBuildingUnderConstruction(buildingType)) {
+        if (!gameView->isUnderConstruction(buildingType)) {
             // quiero construir un edificio
             ClientInput clientInput(CREATE_BUILDING, buildingType);
             blockingQueue->push(std::move(clientInput));
@@ -146,6 +179,13 @@ void UserInputReceiver::handlePosition(int x, int y) {
         return;
     }
 }
+
+/*
+Pre-Condiciones: Maneja las opciones cuando se hace click derecho:
+si se clickeo sobre una unidad (para movimiento o para atacar) o sobre 
+un edificio (para que su dueño lo destruya).
+Post-Condiciones: -
+*/
 
 void UserInputReceiver::handleRightClick(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
@@ -186,12 +226,20 @@ void UserInputReceiver::handleRightClick(int x, int y) {
     }
 }
 
+/*
+Pre-Condiciones: Se lanza el UserInputReceiver.
+Post-Condiciones: -
+*/
+
 void UserInputReceiver::run() {
     while (gameView->isRunning()) {
         SDL_Event event;
         bool selection;
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+            if (event.type == SDL_QUIT && !gameView->isRunning()) {
+                blockingQueue->close();
+                break;
+            } else if (event.type == SDL_QUIT && gameView->isRunning()) {
                 gameView->shutdown();
                 blockingQueue->close();
                 break;
@@ -217,6 +265,11 @@ void UserInputReceiver::run() {
         }
     }
 }
+
+/*
+Pre-Condiciones: Destructor de UserInputReceiver.
+Post-Condiciones: -
+*/
 
 UserInputReceiver::~UserInputReceiver() {
 }

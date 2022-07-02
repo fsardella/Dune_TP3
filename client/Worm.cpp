@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+/*
+Pre-Condiciones: Constructor de gusano de arena.
+Post-Condiciones: -
+*/
+
 Worm::Worm(std::vector<SdlTexture*> emptyTextures,
            int sizeW,
            int sizeH,
@@ -16,50 +21,105 @@ Worm::Worm(std::vector<SdlTexture*> emptyTextures,
   isCurrentlyAttacking(false) {
 }
 
+/*
+Pre-Condiciones: Renderiza el gusano de arena.
+Post-Condiciones: - 
+*/
+
 int Worm::render(Camera &camera, float posX, float posY) {
     Area src(0, 0, sizeW, sizeH);
     int i = camera.renderInSightForUnit(texture, src, posX, posY);
     return i;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la posición x del gusano de arena. 
+*/
+
 float Worm::getX() {
     return posX;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la posición y del gusano de arena. 
+*/
 
 float Worm::getY() {
     return posY;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el ancho del gusano de arena. 
+*/
+
 int Worm::getWidth() {
     return sizeW;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el largo del gusano de arena. 
+*/
+
 int Worm::getHeight() {
     return sizeH;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Determina la nueva posición del gusano de arena. 
+*/
 
 void Worm::setNewPosition(float x, float y) {
     posX = x;
     posY = y;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Determina la textura del gusano de arena del gusano de arena. 
+*/
+
 void Worm::setTextures(std::vector<SdlTexture*> textures) {
     attackAnimation.setTextures(std::move(textures));
     getTexture();
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Setea la textura del gusano de arena del gusano de arena. 
+*/
+
 void Worm::getTexture() {
     texture = attackAnimation.getTexture();
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true si el gusano de arena esta atacando o false si no.
+*/
 
 bool Worm::isAttacking() {
     return isCurrentlyAttacking;
 }
 
+/*
+Pre-Condiciones: Comienza el ataque del gusano de arena.
+Post-Condiciones: -
+*/
+
 void Worm::startAttacking() {
     isCurrentlyAttacking = true;
     attackAnimation.reset();
 }
+
+/*
+Pre-Condiciones: Actualiza la textura del gusano de arena.
+Post-Condiciones: -
+*/
 
 void Worm::update(int delta) {
     if (attackAnimation.isLastFrame()) {
@@ -70,6 +130,11 @@ void Worm::update(int delta) {
     getTexture();
 }
 
+/*
+Pre-Condiciones: Constructor de gusano de arena.
+Post-Condiciones: -
+*/
+
 Worm::Worm(Worm &&other)
 : attackAnimation(std::move(other.attackAnimation)),
   sizeW(other.sizeW),
@@ -79,6 +144,11 @@ Worm::Worm(Worm &&other)
   isCurrentlyAttacking(other.isCurrentlyAttacking),
   texture(other.texture)
 {}
+
+/*
+Pre-Condiciones: Destructor de gusano de arena.
+Post-Condiciones: -
+*/
 
 Worm::~Worm() {
 }

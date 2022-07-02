@@ -6,7 +6,7 @@
 #include <list>
 #include <map>
 #include <tuple>
-#include "common_socket.h"
+#include "../common/common_socket.h"
 #include "Construction.h"
 
 #define BUILD_UNIT 5

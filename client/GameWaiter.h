@@ -2,7 +2,7 @@
 #define __GAME_WAITER_H__
 
 #include <atomic>
-#include "thread.h"
+#include "../common/thread.h"
 #include "client_interface/waitingWindow.h"
 
 class GameWaiter : public Thread {

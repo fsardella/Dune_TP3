@@ -22,6 +22,11 @@
 #define REFINEMENT 11
 #define BUILDING_DESTROYED 12
 
+/*
+Pre-Condiciones: Constructor de Server Receiver.
+Post-Condiciones: -
+*/
+
 ServerReceiver::ServerReceiver(ProtocolClient* protocol,
                                GameView* gameViewObj,
                                std::string& clientName,
@@ -32,6 +37,11 @@ ServerReceiver::ServerReceiver(ProtocolClient* protocol,
   clientId(0),
   result(result)
 {}
+
+/*
+Pre-Condiciones: Se lanza el server receiver.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::run() {
     try {
@@ -140,12 +150,23 @@ void ServerReceiver::run() {
     }
 }
 
+/*
+Pre-Condiciones: Recibe la información para crear el mapa.
+Post-Condiciones: -
+*/
+
 void ServerReceiver::receiveBackground() {
     int width, height;
     std::vector<std::vector<uint8_t>> map;
     protocolClient->recvMap(width, height, map);
     gameView->buildMap(height, width, std::move(map));
 }
+
+
+/*
+Pre-Condiciones: Recibe la información para crear un centro de construcción.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::buildConstructionYards() {
     std::map<int, std::tuple<int, int, int, int, bool>> constYards;
@@ -159,9 +180,16 @@ void ServerReceiver::buildConstructionYards() {
     }
 }
 
+/*
+Pre-Condiciones: Loop del server receiver.
+Post-Condiciones: -
+*/
+
 void ServerReceiver::gameLoop() {
+    //std::this_thread::sleep_for (std::chrono::seconds(3));
     while (gameView->isRunning()) {
-        int operation = protocolClient->recvOperationNumber();
+        //int operation = protocolClient->recvOperationNumber();
+        int operation = GAME_LOST;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
             // no utilizado evitando message responce
@@ -182,11 +210,16 @@ void ServerReceiver::gameLoop() {
             this->receiveBuildingAttack();
             break;
         case GAME_LOST:
+            //std::cout << "estoy en game lost" << std::endl;
             result = 0;
+            //gameView->playLostSound();
+            //std::this_thread::sleep_for (std::chrono::seconds(1));
             gameView->shutdown();
             break;
         case GAME_WON:
+            //std::cout << "Estoy en game win" << std::endl;
             result = 1;
+            gameView->playWinSound();
             gameView->shutdown();
             break;
         case UNIT_UNDER_CONSTRUCTION:
@@ -201,12 +234,15 @@ void ServerReceiver::gameLoop() {
         case REFINEMENT:
             this->receiveRefinementInfo();
             break;
-        case BUILDING_DESTROYED:
-            this->receiveDestroyedBuilding();
-            break;
         }
     }
 }
+
+
+/*
+Pre-Condiciones: Recibe la información para crear unidades.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::receiveUnits() {
     std::map<int, std::tuple<int, int, int, int, int, bool>> units;
@@ -216,6 +252,11 @@ void ServerReceiver::receiveUnits() {
     gameView->setMoney(money);
     gameView->buildUnits(units);
 }
+
+/*
+Pre-Condiciones: Recibe la información para crear un edificio.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::receiveBuilding() {
     std::tuple<int, int, int, int, int, bool> buildingInfo =
@@ -229,6 +270,11 @@ void ServerReceiver::receiveBuilding() {
                                 clientHouses[std::get<2>(buildingInfo)]);
 }
 
+/*
+Pre-Condiciones: Recibe el ataque hacia una unidad.
+Post-Condiciones: -
+*/
+
 void ServerReceiver::receiveUnitAttack() {
     std::tuple<int, int, int, int> attackInfo =
             protocolClient->receiveAttackInfo();
@@ -237,6 +283,11 @@ void ServerReceiver::receiveUnitAttack() {
                          std::get<2>(attackInfo),
                          std::get<3>(attackInfo));
 }
+
+/*
+Pre-Condiciones: Recibe el ataque hacia un edificio.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::receiveBuildingAttack() {
     std::tuple<int, int, int, int> attackInfo =
@@ -247,6 +298,11 @@ void ServerReceiver::receiveBuildingAttack() {
                              std::get<3>(attackInfo));
 }
 
+/*
+Pre-Condiciones: Recibe el progreso de la unidad en entrenamiento.
+Post-Condiciones: -
+*/
+
 void ServerReceiver::receiveUnitProgress() {
     std::vector<std::tuple<int, int>> unitProgress;
     protocolClient->recvUnitsProgress(unitProgress, clientId);
@@ -255,11 +311,21 @@ void ServerReceiver::receiveUnitProgress() {
     }
 }
 
+/*
+Pre-Condiciones: Recibe el progreso del edificio en construcción.
+Post-Condiciones: -
+*/
+
 void ServerReceiver::receiveBuildingProgress() {
     std::vector<int> buildingProgress;
     protocolClient->recvBuildingProgress(buildingProgress);
     gameView->updateProgress(buildingProgress.at(0), buildingProgress.at(1));
 }
+
+/*
+Pre-Condiciones: Recibe información del gusano de arena.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::receiveWormInfo() {
     int x, y;
@@ -267,6 +333,11 @@ void ServerReceiver::receiveWormInfo() {
     protocolClient->recvWormAttack(x, y, deadId);
     gameView->wormAttack(x, y, deadId);
 }
+
+/*
+Pre-Condiciones: Recibe que información de las refinerías.
+Post-Condiciones: -
+*/
 
 void ServerReceiver::receiveRefinementInfo() {
     std::vector<std::tuple<int, int, int>> species;
@@ -277,10 +348,10 @@ void ServerReceiver::receiveRefinementInfo() {
     }
 }
 
-void ServerReceiver::receiveDestroyedBuilding() {
-    int id = protocolClient->receiveDestroyedBuilding();
-    gameView->destroyBuilding(id);
-}
+/*
+Pre-Condiciones: Destructor de Server Receiver.
+Post-Condiciones: -
+*/
 
 ServerReceiver::~ServerReceiver() {
 }

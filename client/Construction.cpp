@@ -3,13 +3,17 @@
 
 #include <iostream>
 
-
 #define STILL_ANIMATION 0
 #define CREATE_ANIMATION 1
 #define DEAD_ANIMATION 2
 #define LIFE_BAR_WIDTH 12
 #define LIFE_BAR_HEIGHT 4
 #define IDENTIFIER_DIMENSION 4
+
+/*
+Pre-Condiciones: Constructor de Construction.
+Post-Condiciones: -
+*/
 
 Construction::Construction(std::map<std::tuple<int, int>,
                            SdlTexture>& newAnimationsRepository,
@@ -53,6 +57,11 @@ Construction::Construction(std::map<std::tuple<int, int>,
     getLifeTexture();
 }
 
+/*
+Pre-Condiciones: Se renderiza un edificio.
+Post-Condiciones: -
+*/
+
 int Construction::render(Camera &camera, int posX, int posY) {
     if (isDead) return 0;
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
@@ -64,45 +73,103 @@ int Construction::render(Camera &camera, int posX, int posY) {
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
 
+/*
+Pre-Condiciones: Se obtiene la posicion x de un edificio.
+Post-Condiciones: -
+*/
+
 float Construction::getX() {
     return posX;
 }
+
+/*
+Pre-Condiciones: Se obtiene la posicion y de un edificio.
+Post-Condiciones: -
+*/
 
 float Construction::getY() {
     return posY;
 }
 
+/*
+Pre-Condiciones: Devuelve true si el edificio es propiedad del
+jugador o false si no.
+Post-Condiciones: -
+*/
+
 bool Construction::getPropiety() {
     return propiety;
 }
+
+/*
+Pre-Condiciones: Devuelve el tipo de edificio.
+Post-Condiciones: -
+*/
 
 int Construction::getConstType() {
     return constType;
 }
 
+/*
+Pre-Condiciones: Devuelve la textura del edificio.
+Post-Condiciones: -
+*/
+
 void Construction::getTexture() {
     texture = animations.at(animationId).getTexture();
 }
+
+/*
+Pre-Condiciones: Devuelve el ancho del edificio.
+Post-Condiciones: -
+*/
 
 int Construction::getWidth() {
     return sizeW;
 }
 
+/*
+Pre-Condiciones: Devuelve el largo del edificio.
+Post-Condiciones: -
+*/
+
 int Construction::getHeight() {
     return sizeH;
 }
+
+/*
+Pre-Condiciones: Setea la textura para la barra de vida del edificio. 
+Post-Condiciones: -
+*/
 
 void Construction::getLifeTexture() {
     currentLifeTexture = &(lifeTextures.at(lifeId));
 }
 
+/*
+Pre-Condiciones: Devuelve true si el edificio fue destruido o false si no. 
+Post-Condiciones: -
+*/
+
 bool Construction::getIsDead() {
     return isDead;
 }
 
+/*
+Pre-Condiciones: Setea al edificio como destruido. 
+Post-Condiciones: -
+*/
+
 void Construction::kill() {
     isDead = true;
 }
+
+/*
+Pre-Condiciones: Actualiza la vida del edificio y con ella 
+la textura para la barra de vida. En caso de que la vida sea 0, se va a 
+setear la animación de destruccion. 
+Post-Condiciones: -
+*/
 
 void Construction::updateLife(int currentLife, int totalLife) {
     lifeId = static_cast<int>(currentLife / (totalLife / 4));
@@ -112,6 +179,12 @@ void Construction::updateLife(int currentLife, int totalLife) {
         animationId = DEAD_ANIMATION;
     }
 }
+
+/*
+Pre-Condiciones: Actualiza el animation id de la construcción y en
+caso de que sea distinto cambia la textura. 
+Post-Condiciones: -
+*/
 
 void Construction::update(int delta) {
     if (isDead) return;
@@ -128,6 +201,11 @@ void Construction::update(int delta) {
         animationId = STILL_ANIMATION;
     }
 }
+
+/*
+Pre-Condiciones: Constructor de Construction.
+Post-Condiciones: -
+*/
 
 Construction::Construction(Construction &&other)
 : animations(std::move(other.animations)),
@@ -147,6 +225,11 @@ Construction::Construction(Construction &&other)
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture)
 {}
+
+/*
+Pre-Condiciones: Destructor de Construction.
+Post-Condiciones: -
+*/
 
 Construction::~Construction() {
 }
