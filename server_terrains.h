@@ -17,11 +17,13 @@ class Terrain {
     Unit* getOccupant(coor_t coord);
     void getAllOccupants(std::list<Unit*>& ret);
     void freeSpace(coor_t coord);
+    virtual void eraseBuilding() {}
     bool isOccupied(coor_t coord);
     virtual void print();
     virtual bool canBuild();
     virtual bool isBlocked();
     virtual Building* getBuilding();
+    uint16_t virtual harvestMenage(uint16_t freeSpace);
     void printDebug();
     virtual int getSpeedWeight(Unit& unit, coor_t coord) = 0;
     virtual void build(Building* newBuilding) {}
@@ -43,6 +45,7 @@ class Rock : public Terrain {
     void build(Building* newBuilding);
     bool canBuild();
     bool isBlocked();
+    void eraseBuilding();
     Building* getBuilding();
     int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Rock();
@@ -52,6 +55,7 @@ class Spice : public Terrain {
     uint16_t quantity;
  public:
     Spice(uint16_t quantity);
+    uint16_t harvestMenage(uint16_t freeSpace);
     int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Spice();
 };

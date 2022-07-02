@@ -41,7 +41,7 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
                     row_res.push_back(new Cliff());
                     break;
                 case SPICE:
-                    row_res.push_back(new Spice(69));
+                    row_res.push_back(new Spice(500));
                     break;
             }
         }
@@ -114,6 +114,21 @@ bool TerrainMap::canBuild(coor_t coor, coor_t size) {
     }
     return true;
 }
+
+void TerrainMap::eraseBuildingFromMap(coor_t coor, coor_t size) {
+    for (uint16_t i = 0; i < size.first; i++) {
+        for (uint16_t j = 0; j < size.second; j++) {
+            if (!this->isInsideMap(coor_t(i,j)))
+                return;
+            this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->eraseBuilding();
+        }
+    }
+}
+
+void TerrainMap::eraseUnitFromMap(coor_t coor) {
+    this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->freeSpace(coor);
+}
+
 
 Building* TerrainMap::getBuilding(coor_t coor) {
     if (!this->isInsideMap(coor))

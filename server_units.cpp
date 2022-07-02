@@ -79,20 +79,32 @@ void Unit::attack(Building* attacked) {
 }
 
 void Unit::damage(uint16_t dam) {
-    if (this->actualLife < dam)
+    if (this->actualLife < dam) {
+        if (!this->isDead())
+            this->die();
         this->actualLife = 0;
-    else
+    } else {
         this->actualLife -= dam;
+    }
 }
 
 bool Unit::isDead() {
     return (this->actualLife == 0);
 }
 
+void Unit::die() {
+    this->moveAlgorithm.eraseUnitFromMap();
+}
 
-void Unit::processMove() {
+void Unit::kill() {
+    if (!this->isDead())
+        this->die();
+    this->actualLife = 0;
+}
+
+void Unit::processMove(bool attackingBuilding) {
     this->weapon->stopAttack();
-    bool ret = this->moveAlgorithm.processMove(this->actDest);
+    bool ret = this->moveAlgorithm.processMove(this->actDest, attackingBuilding);
     if (ret) {
         if (this->actDest == this->moveAlgorithm.getPosition())
             this->state = IDLE;
@@ -143,7 +155,7 @@ void Unit::processAttackBuilding() {
         if (this->weapon->attack(this->buildingObjv))
             ;// Se agrega a los eventos
     } else {
-        this->processMove();
+        this->processMove(true);
     }
 }
 
@@ -161,6 +173,7 @@ void Unit::processIdle() {
 
 
 void Unit::update() {
+    this->weapon->update();
     switch (this->state) {
         case IDLE:
             this->processIdle();
@@ -190,7 +203,9 @@ void Unit::stopWatching() {
 }
 
 bool Unit::canBeCleaned() {
-    return watchers == 0;
+    if (!this->isDead())
+        return false;
+    return (this->watchers == 0);
 }
 
 
@@ -223,11 +238,19 @@ int Infantry::getSpeedWeightForMount() {
     return SAND;
 }
 
+uint8_t Infantry::getType() {
+    return 7;
+}
+
 Infantry::~Infantry() {}
 
 
 
 int Vehicle::getSpeedWeightForMount() {
     return WALL;
+}
+
+uint8_t Vehicle::getType() {
+    return 0;
 }
 Vehicle::~Vehicle() {}

@@ -1,10 +1,11 @@
 #include "server_buildings.h"
 
 
-Building::Building(coor_t size, uint16_t totalLife):
+Building::Building(coor_t size, uint16_t totalLife, uint16_t buildingTime):
                    size(size),
                    actualLife(totalLife),
-                   totalLife(totalLife) {}
+                   totalLife(totalLife),
+                   buildingTime(buildingTime) {}
 
 coor_t Building::getPosition() {
     return this->position;
@@ -18,7 +19,38 @@ uint16_t Building::getID() {
     return this->buildingID;
 }
 
+uint32_t Building::getMoneyCapacity() {
+    return 0;
+}
+
+uint32_t Building::gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity) {
+    return 0;
+}
+
+Building* Building::newBuilding(uint8_t type) {
+    switch (type) {
+        case LIGHT_FACTORY:
+            return new LightFactory();
+        case HEAVY_FACTORY:
+            return new HeavyFactory();
+        case REFINERY:
+            return new Refinery();
+        case WINDTRAP:
+            return new WindTrap();
+        default:
+            return nullptr;
+    }
+}
+
 bool Building::isLightFactory() {
+    return false;
+}
+
+bool Building::isHeavyFactory() {
+    return false;
+}
+
+bool Building::isRefinery() {
     return false;
 }
 
@@ -30,18 +62,48 @@ uint16_t Building::getTotalLife() {
     return this->totalLife;
 }
 
+void Building::update(uint16_t constructionTime) {
+    if (this->buildingTime <= this->actualTime)
+        return;
+    this->actualTime += constructionTime;
+}
+
+uint8_t Building::getCompletion() {
+    return (uint8_t) ((this->actualTime * 100) / this->buildingTime);
+}
+
+
 bool Building::canBuild(TerrainMap& terr, coor_t position) {
+    if (this->buildingTime > this->actualTime)
+        return false;
     return terr.canBuild(position, this->size);
 }
 
 void Building::build(TerrainMap& terr, coor_t position, uint16_t id) {
     this->buildingID = id;
     this->position = position;
+    this->terrain = &terr;
     return terr.build(position, this);
 }
 
+void Building::eraseFromMap() {
+    this->terrain->eraseBuildingFromMap(this->position, this->size);
+}
+
 void Building::attack(uint16_t damage) {
-    this->actualLife = (damage < actualLife)? actualLife - damage : 0;
+    if (this->actualLife < damage) {
+        if (!this->destroyed())
+            this->eraseFromMap();
+        this->actualLife = 0;
+    } else {
+        this->actualLife -= damage;
+    }
+}
+
+void Building::destroy() {
+    if (!this->destroyed())
+        this->eraseFromMap();
+    this->actualLife = 0;
 }
     
 bool Building::destroyed() {
@@ -58,7 +120,13 @@ void Building::stopWatching() {
     this->watchers--;   
 }
 
+int32_t Building::getEnergy() {
+    return 0;
+}
+
 bool Building::canBeCleaned() {
+    if (!this->destroyed())
+        return false;
     return (this->watchers == 0);
 }
 
@@ -67,17 +135,92 @@ Building::~Building() {}
 
 
 
-Base::Base(coor_t position): Building(coor_t(3, 3), 3000) {
+Base::Base(coor_t position): Building(coor_t(3, 3), 3000, 0) {
     this->position = position;
+}
+
+uint16_t Base::getType() {
+    return BASE;
 }
 
 Base::~Base() {}
 
 
-LightFactory::LightFactory(): Building(coor_t(3, 3), 500) {} 
+LightFactory::LightFactory(): Building(coor_t(3, 3), 500, 1700) {} 
 
 bool LightFactory::isLightFactory() {
     return true;
 }
 
+uint16_t LightFactory::getType() {
+    return LIGHT_FACTORY;
+}
+
+int32_t LightFactory::getEnergy() {
+    return -500;
+}
+
 LightFactory::~LightFactory() {}
+
+HeavyFactory::HeavyFactory(): Building(coor_t(4, 4), 1500, 2000) {} 
+
+bool HeavyFactory::isHeavyFactory() {
+    return true;
+}
+
+uint16_t HeavyFactory::getType() {
+    return HEAVY_FACTORY;
+}
+
+int32_t HeavyFactory::getEnergy() {
+    return -800;
+}
+
+HeavyFactory::~HeavyFactory() {}
+
+
+
+Refinery::Refinery(): Building(coor_t(3, 3), 1000, 1400) {}
+
+bool Refinery::isRefinery() {
+    return true;
+}
+
+uint32_t Refinery::gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity) {
+    uint32_t ret = this->money;
+    this->money = 0;
+    if (ret + actualMoney > moneyCapacity) {
+        if (actualMoney < moneyCapacity)
+            return moneyCapacity - actualMoney;
+        else
+            return 0;
+        }
+    return ret;
+}
+
+void Refinery::rechargeMoney(uint32_t menage) {
+    this->money += menage;
+}
+
+int32_t Refinery::getEnergy() {
+    return 500;
+}
+
+uint16_t Refinery::getType() {
+    return REFINERY;
+}
+
+Refinery::~Refinery() {}
+
+
+WindTrap::WindTrap(): Building(coor_t(3, 3), 500, 1000) {}
+    
+int32_t WindTrap::getEnergy() {
+    return 500;
+}
+
+uint16_t WindTrap::getType() {
+    return WINDTRAP;
+}
+
+WindTrap::~WindTrap() {}

@@ -12,11 +12,10 @@ queues(queues),
 queueToKill(queueToKill) {}
 
 
-Command Broadcaster::getUnits() {
+Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units) {
     Command comm;
     comm.add8BytesMessage(UNIT_BROADCAST);
     comm.setType(UNIT_BROADCAST);
-    std::map<uint8_t, std::list<UnitData>> units = this->game.getUnits();
     int totalQuantity = units.size();
     comm.add16BytesMessage((uint16_t)totalQuantity);
     for (auto& playerUnits : units) {
@@ -34,11 +33,10 @@ Command Broadcaster::getUnits() {
 }
 
 
-Command Broadcaster::getUnitsBuilding() {
+Command Broadcaster::getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding) {
     Command comm;
     comm.add8BytesMessage(UNIT_WIP);
     comm.setType(UNIT_WIP);
-    std::list<UnitBuffer> unitsBuilding = this->game.receiveUnitBuffer();
     comm.add16BytesMessage(unitsBuilding.size());
     for (UnitBuffer& u : unitsBuilding) {
         comm.add8BytesMessage(u.getPlayerID());
@@ -50,7 +48,8 @@ Command Broadcaster::getUnitsBuilding() {
 
 int Broadcaster::broadcast(Command comm) {
     int countPlayers = 0;
-    if (comm.getType() == WON_GAME || comm.getType() == LOST_GAME) {
+    if (comm.getType() == WON_GAME || comm.getType() == LOST_GAME
+        || comm.getType() == BUILDING_WIP) {
         try {
             queues[comm.getSender()].push(comm);
             // Ya se que no es sender sino receiver,
@@ -80,14 +79,17 @@ void Broadcaster::run() {
     clock_t before, after;
     do {
         before = clock();
-        Command comm = this->getUnits();
-        countPlayers = this->broadcast(comm);
-        comm = this->getUnitsBuilding();
-        countPlayers = this->broadcast(comm);
-        std::list<Command> comms = this->game.receiveEvents();
-        for (Command c : comms) // Si hace falta, cambio broadcast para que reciba
+        Command comm;
+        broadcast_t broad = this->game.getBroadcast();
+        comm = this->getUnitsBuilding(std::get<3>(broad));
+        this->broadcast(comm);
+        for (Command b : std::get<4>(broad))
+            this->broadcast(b);
+        for (Command c : std::get<2>(broad)) // Si hace falta, cambio broadcast para que reciba
                                 // una lista y aprovecho localidad del cache
             this->broadcast(c);
+        comm = this->getUnits(std::get<0>(broad));
+        countPlayers = this->broadcast(comm);
         after = clock();
         if ((after - before) > DELTA) {
             std::cout << "WARNING: desincronizacion de reloj. Considere reducir su frecuencia."

@@ -6,6 +6,8 @@
 
 #include "server_units.h"
 
+
+
 class UnitBuffer {
     uint16_t totalCount;
     uint16_t count;
@@ -21,7 +23,7 @@ class UnitBuffer {
     bool willItEnd(uint16_t seconds);
     void process(uint16_t seconds);
     uint8_t getType();
-    uint16_t getTimeToEnd();
+    uint8_t getTimeToEnd();
     std::string getPlayerName();
     uint8_t getPlayerID();
     Unit* getResult(coor_t coor, uint16_t newID);

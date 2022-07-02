@@ -8,7 +8,6 @@ Player::Player(const int& house, const std::string& playerName,
 
 
 #define CHUNKSIZE 8
-#define TRIKE 0
 
 Player::Player(): playerName(""),
                  house(-1),
@@ -42,12 +41,67 @@ coor_t Player::getBaseCoords() {
     return this->base.getPosition();
 }
 
-uint8_t Player::getUnitFactor(uint8_t type) {
+uint32_t Player::getMoney() {
+    return this->money;
+}
+
+int32_t Player::getEnergy() {
+    return this->energy;
+}
+
+uint32_t Player::getPriceOfCreation(uint8_t type) {
+    // lo implementaria en static methods, pero asi no se podria
+    // usar el config...
     switch (type) {
         case TRIKE:
-            return this->cantLightFactories;
+            return 100;
+        case RAIDER:
+            return 100;
+        case TANK:
+            return 300;
+        case HARVESTER:
+            return 300;
+        case DEVIATOR:
+            return 400;
+        case DEVASTATOR:
+            return 400;
+        case SONIC_TANK:
+            return 300;
+        case LIGHT_INFANTRY:
+            return 50;
+        case HEAVY_INFANTRY:
+            return 70;
+        case SARDAUKAR:
+            return 100;
+        case FREMEN:
+            return 100;
+        case LIGHT_FACTORY:
+            return 800;
+        case HEAVY_FACTORY:
+            return 1500;
+        case PALACE:
+            return 2000;
+        case REFINERY:
+            return 500;
+        case SILO:
+            return 200;
+        case WINDTRAP:
+            return 800;
+        case BARRACK:
+            return 300;
     }
     return 0;
+}
+
+uint8_t Player::getUnitFactor(uint8_t type) {
+    uint8_t factoryMultiplier = 1;
+    switch (type) {
+        case TRIKE:
+            factoryMultiplier = this->cantLightFactories;
+        case HARVESTER:
+            factoryMultiplier = this->cantHeavyFactories;
+    }
+    return (5 + this->getEnergyPenalization()) * factoryMultiplier;
 }
 
 coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
@@ -59,13 +113,16 @@ coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
             case TRIKE:
                 if (!building->isLightFactory())
                     continue;
+            case HARVESTER:
+                if (!building->isHeavyFactory())
+                    continue;
         }
         coor_t buildingPos = building->getPosition();
         uint16_t i = buildingPos.first + building->getSize().first;
         for (uint16_t j = buildingPos.second;
              j < building->getSize().second; j++) {
             coor_t act(i, j);
-            if (terr.isOccupied(act))
+            if (terr.isOccupied(act) || terr.isBlocked(act))
                 continue;
             ret = act;
             ended = true;
@@ -78,13 +135,14 @@ coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
 }
 
 Unit* Player::getUnit(uint16_t unitID) {
-    if (!this->hasUnit(unitID))
+    if (!this->hasUnit(unitID) || this->units[unitID]->isDead())
         return nullptr;
     return this->units[unitID];
 }
 
 Building* Player::getBuilding(uint16_t buildingID) { 
-    if (!this->hasBuilding(buildingID))
+    if (!this->hasBuilding(buildingID) ||
+        !this->buildings[buildingID]->destroyed())
         return nullptr;
     if (buildingID == this->playerID)
         return &this->base;
@@ -92,34 +150,64 @@ Building* Player::getBuilding(uint16_t buildingID) {
 }
 
 
+bool Player::chargeMoney(uint8_t type) {
+    if (this->getPriceOfCreation(type) > this->money)
+        return false;
+    this->money -= this->getPriceOfCreation(type);
+    return true;
+}
+
 void Player::addUnit(Unit* unit) {
     this->units[unit->getID()] = unit;
 }
 
-enum buildingTypes {
-    BASE = 0,
-    LIGHT_FACTORY
-};
-
-Building* newBuilding(uint8_t type) {
-    switch (type) {
-        case LIGHT_FACTORY:
-            return new LightFactory();
-        default:
-            return NULL;
-    }
-}
 
 void Player::moveUnit(uint16_t unitID, coor_t coor) {
-    if (!this->hasUnit(unitID))
+    if (!this->hasUnit(unitID) || this->units[unitID]->isDead())
         return;
     this->units[unitID]->setDest(coor);
 }
 
 void Player::updateUnits() {
     for (auto& unit : this->units) {
-        unit.second->update();
+        if (!unit.second->isDead())
+            unit.second->update();
     } 
+}
+
+uint16_t Player::getEnergyPenalization() {
+    if (this->energy >= 0)
+        return 0;
+    if (this->energy < -2500)
+        return -5;
+    return this->energy / 500 - 1;
+}
+
+uint16_t Player::getConstructionDelta() {
+    return 5 + this->getEnergyPenalization();
+}
+
+void Player::updateBuildings() {
+    this->cantHeavyFactories = 0;
+    this->cantLightFactories = 0;
+    this->energy = 0;
+    this->moneyCapacity = 0;
+    for (auto& building : this->buildings) {
+        if (building.second->destroyed())
+            continue;
+        this->cantLightFactories += (int)building.second->isLightFactory();
+        this->cantHeavyFactories += (int)building.second->isHeavyFactory();
+        this->energy += building.second->getEnergy();
+        this->moneyCapacity += building.second->getMoneyCapacity();
+    } 
+    for (auto& building : this->buildings) {
+        if (building.second->destroyed())
+            continue;
+        this->money += building.second->gatherMoney(this->money,
+                                                    this->moneyCapacity);
+    }
+    if (this->buildingBirthing != nullptr)
+        this->buildingBirthing->update(this->getConstructionDelta());
 }
 
 uint16_t manhattanDistance(coor_t dest, coor_t other) {
@@ -164,38 +252,45 @@ bool Player::isBuildingInRange(Building* toBuild, uint16_t x, uint16_t y) {
     return false;
 }
 
-void Player::addSpecialBuilding(uint8_t type) {
-    switch (type) {
-        case LIGHT_FACTORY:
-            this->cantLightFactories++;
-            return;
-        default:
-            return;
-    }
+void Player::createBuilding(uint8_t type) {
+    if (this->buildingBirthing != nullptr)
+        return;
+    if (!chargeMoney(type))
+        return;
+    this->buildingBirthing = Building::newBuilding(type);
 }
 
-bool Player::addBuilding(uint8_t type, uint16_t x, uint16_t y, TerrainMap& terr,
+uint16_t Player::addBuilding(uint16_t x, uint16_t y, TerrainMap& terr,
                          uint16_t id) {
-    Building* toBuild = newBuilding(type);
-    if (!this->isBuildingInRange(toBuild, x, y) || !toBuild->canBuild(terr,
-                                                                coor_t(y, x))) {
-        delete toBuild;
-        return false;
+    uint16_t ret = 0xFFFF;
+    if (this->buildingBirthing != nullptr)
+        return ret;
+    if (!this->isBuildingInRange(this->buildingBirthing, x, y)
+        || !this->buildingBirthing->canBuild(terr, coor_t(y, x))) {
+        return ret;
     }
-    toBuild->build(terr, coor_t(y, x), id);
-    addSpecialBuilding(type);
-    this->buildings[id] = toBuild;
-    return true;
+    this->buildingBirthing->build(terr, coor_t(y, x), id);
+    ret = this->buildingBirthing->getType();
+    this->buildings[id] = this->buildingBirthing;
+    this->buildingBirthing = nullptr;
+    return ret;
 }
 
 std::list<UnitData> Player::getUnits() {
     std::list<UnitData> result;
     for (auto&  unit: this->units) {
         UnitData unitData(unit.second->getPosition(), (uint8_t)this->house,
-                          unit.second->getDir(), unit.first);
+                    unit.second->getDir(), unit.first, unit.second->getType());
         result.push_back(unitData);
     }
     return result;
+}
+
+std::pair<uint8_t, uint8_t> Player::getBuildingInfo() {
+    if (this->buildingBirthing == nullptr)
+        return std::pair<uint8_t, uint8_t>(0xFF, 0xFF);
+    return std::pair<uint8_t, uint8_t>(this->buildingBirthing->getType(),
+                                       this->buildingBirthing->getCompletion());
 }
 
 int Player::getHouse() {
@@ -209,6 +304,8 @@ Player::~Player() {
     for (auto& building: this->buildings) {
         delete building.second;
     }
+    if (this->buildingBirthing != nullptr)
+        delete buildingBirthing;
 }
 
 

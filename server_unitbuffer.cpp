@@ -12,7 +12,11 @@ UnitBuffer::UnitBuffer(uint8_t type, std::string playerName, TerrainMap& terr,
                                           terr(terr) {
     switch (type) {
         case TRIKE:
-            this->count = 1200; // 2m * 60 = 120, * 10 = 1200
+            this->count = 6000; // 2m * 60 = 120, * 10 = 1200, * 5 = 6000
+        case HARVESTER:
+            this->count = 9000;
+        default:
+            this->count = 69;
     }
     this->totalCount = this->count;
 }
@@ -42,8 +46,8 @@ uint8_t UnitBuffer::getType() {
     return this->type;
 }
 
-uint16_t UnitBuffer::getTimeToEnd() {
-    uint16_t ret = 100 - (uint16_t)(100 * (float)this->count / (float)this->totalCount);
+uint8_t UnitBuffer::getTimeToEnd() {
+    uint8_t ret = 100 - (uint8_t)(100 * (float)this->count / (float)this->totalCount);
     return (ret == 0)? 1 : ret;
 }
 

@@ -16,7 +16,8 @@ enum broadcastOpers {
     BUILDING_ATTACKED,
     LOST_GAME,
     WON_GAME,
-    UNIT_WIP
+    UNIT_WIP,
+    BUILDING_WIP
 };
 #endif
 
@@ -37,11 +38,6 @@ ActiveGame::ActiveGame(Game game): buildingIDCount(game.get_required()),
     // de tiles a cada tipo de terreno.
 }
 
-//int ActiveGame::getHouse(std::string playerName) {
-    //lock_t lock(this->m);
-    //return this->game.getHouse(playerName);
-//}
-
 bool ActiveGame::hasUnit(uint16_t unitID) {
     return (this->unitIDs.find(unitID) != this->unitIDs.end());
 }
@@ -60,20 +56,6 @@ std::list<PlayerData> ActiveGame::getPlayersData() {
         this->buildingIDs[id] = p.name;
         id ++;
     }
-    return ret;
-}
-
-std::list<Command> ActiveGame::receiveEvents() {
-    lock_t lock(this->m);
-    std::list<Command> ret(this->events); // Copy list
-    this->events.clear();
-    return ret;
-}
-
-
-std::list<UnitBuffer> ActiveGame::receiveUnitBuffer() {
-    lock_t lock(this->m);
-    std::list<UnitBuffer> ret(this->unitsBuilding); // Copy list
     return ret;
 }
 
@@ -130,35 +112,91 @@ void ActiveGame::updateUnitsBuffer() {
     }
 }
 
+std::map<uint8_t, std::list<UnitData>> ActiveGame::getUnits() {
+    return this->game.getUnits();
+}
+
+
+std::list<Command> ActiveGame::receiveEvents() {
+    std::list<Command> ret(this->events); // Copy list
+    this->events.clear();
+    return ret;
+}
+
+
+std::list<UnitBuffer> ActiveGame::receiveUnitBuffer() {
+    std::list<UnitBuffer> ret(this->unitsBuilding); // Copy list
+    return ret;
+}
+
+std::list<Command> ActiveGame::receiveBuildingsBuilding() {
+    std::list<Command> ret;
+    std::map<uint8_t, std::pair<uint8_t, uint8_t>> result;
+    this->game.getBuildingsBuilding(result);
+    for (auto& c : result) { 
+        Command comm;
+        comm.add8BytesMessage(BUILDING_WIP);
+        comm.setType(BUILDING_WIP);
+        comm.changeSender(this->buildingIDs[c.first]);
+        comm.add8BytesMessage(c.second.first);
+        comm.add8BytesMessage(c.second.second);
+        ret.push_back(comm);
+    }
+    return ret;
+}
+
+std::map<uint8_t, std::pair<uint32_t, int32_t>> ActiveGame::getPlayersResources() {
+    return this->game.getPlayersResources();
+}
+
+broadcast_t ActiveGame::getBroadcast() {
+    lock_t lock(this->m);
+    return broadcast_t(this->getUnits(),
+                       this->getPlayersResources(),
+                       this->receiveEvents(),
+                       this->receiveUnitBuffer(),
+                       this->receiveBuildingsBuilding());
+}
+
 void ActiveGame::update() {
     lock_t lock(this->m);
     this->updateUnitsBuffer();
     this->game.updateUnits();
+    this->game.updateBuildings();
+    //this->game.cleanCorpses();
 }
 
 void ActiveGame::addUnit(std::string playerName, uint8_t type) {
     lock_t lock(this->m);
-    this->unitsBuilding.push_back(UnitBuffer(type, playerName, this->gameMap,
+    bool ret = this->game.chargeMoney(playerName, type);
+    if (ret)
+        this->unitsBuilding.push_back(UnitBuffer(type, playerName, this->gameMap,
                                              this->game.getPlayerID(playerName)));
 }
 
-bool ActiveGame::addBuilding(std::string playerName, uint8_t type, uint16_t x, uint16_t y) {
+void ActiveGame::createBuilding(std::string playerName, uint8_t type) {
     lock_t lock(this->m);
-    bool ret = this->game.addBuilding(playerName, type,
-                              x, y, this->gameMap, this->buildingIDCount);
-    if (ret) {
+    this->game.createBuilding(playerName, type);
+}
+
+bool ActiveGame::addBuilding(std::string playerName, uint16_t x, uint16_t y) {
+    lock_t lock(this->m);
+    uint16_t ret = this->game.addBuilding(playerName, x, y,
+                                      this->gameMap, this->buildingIDCount);
+    if (ret != 0xFFFF) {
         Command newEvent;
         newEvent.add8BytesMessage(BUILDING_BUILT);
+        newEvent.setType(BUILDING_BUILT);
         newEvent.add8BytesMessage(this->game.getPlayerID(playerName));
         newEvent.add16BytesMessage(this->buildingIDCount);
-        newEvent.add8BytesMessage(type);
+        newEvent.add8BytesMessage(ret);
         newEvent.add16BytesMessage(x);
         newEvent.add16BytesMessage(x);
         this->events.push_back(newEvent);
         this->buildingIDs[this->buildingIDCount] = playerName;
         this->buildingIDCount++;
     }
-    return ret;
+    return (ret != 0xFFFF);
 }
 
 void ActiveGame::moveUnit(std::string playerName, uint16_t unitID, uint16_t x,
@@ -198,9 +236,5 @@ void ActiveGame::attackBuilding(uint16_t attacker, uint16_t attackedBuilding) {
     //return this->game.getPlayerNames(this->gameMap);
 //}
 
-std::map<uint8_t, std::list<UnitData>> ActiveGame::getUnits() {
-    lock_t lock(this->m);
-    return this->game.getUnits();
-}
 
 ActiveGame::~ActiveGame() {}

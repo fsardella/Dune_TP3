@@ -182,16 +182,19 @@ void Talker::handleGame(int operation) {
             protocol.recieve_msg_house();
             return; // IGNORE COMMAND!
         case NEW_UNIT:
-            bytes = 1; // CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE CHANGE
+            bytes = 1;
             break;
         case NEW_BUILDING:
-            bytes = 5;
+            bytes = 1;
             break;
         case ATTACK:
             bytes = 5;
             break;
         case MOVE:
             bytes = 6;
+            break;
+        case ADD_BUILDING:
+            bytes = 4;
             break;
         default:
             return;

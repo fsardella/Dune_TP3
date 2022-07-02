@@ -31,6 +31,8 @@ class TerrainMap {
     bool isBlocked(coor_t coord);
     bool canBuild(coor_t coor, coor_t size);
     void build(coor_t coor, Building* building);
+    void eraseBuildingFromMap(coor_t coor, coor_t size);
+    void eraseUnitFromMap(coor_t coor);
     Building* getBuilding(coor_t coor);
     Unit* getUnit(coor_t coor);
     std::list<Unit*> getAllUnits(coor_t coor);

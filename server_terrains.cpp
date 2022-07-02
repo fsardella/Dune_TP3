@@ -22,6 +22,10 @@ bool Terrain::canBuild() {
     return false;
 }
 
+uint16_t Terrain::harvestMenage(uint16_t freeSpace) {
+    return 0;
+}
+
 Unit* Terrain::getOccupant(coor_t coord) {
     if (!this->isOccupied(coord))
         return nullptr;
@@ -88,6 +92,10 @@ bool Rock::isBlocked() {
     return this->building == nullptr;
 }
 
+void Rock::eraseBuilding() {
+    this->building = nullptr;    
+}
+
 Building* Rock::getBuilding() {
     return this->building;
 }
@@ -107,6 +115,19 @@ int Spice::getSpeedWeight(Unit& unit, coor_t coord) {
         return 0;
     return unit.getSpeedWeightForSand();
 }
+
+uint16_t Spice::harvestMenage(uint16_t freeSpace) {
+    uint16_t ret;
+    if (this->quantity < freeSpace) {
+        ret = this->quantity;
+        this->quantity = 0;
+    } else {
+        ret = freeSpace;
+        this->quantity -= freeSpace;
+    }
+    return ret;
+}
+
 Spice::~Spice() {}
 
 

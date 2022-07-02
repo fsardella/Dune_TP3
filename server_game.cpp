@@ -116,11 +116,17 @@ bool Game::addUnit(std::string playerName, Unit* unit) {
     return true;
 }
 
-bool Game::addBuilding(std::string playerName, uint8_t type,
-                   uint16_t x, uint16_t y, TerrainMap& terr, uint16_t id) {
+void Game::createBuilding(std::string playerName, uint8_t type) {
     if (!this->isPlaying(playerName))
-        return false;
-    return this->participants[playerName].addBuilding(type, x, y, terr, id);
+        return;
+    this->participants[playerName].createBuilding(type);
+}
+
+uint16_t Game::addBuilding(std::string playerName, uint16_t x, uint16_t y,
+                       TerrainMap& terr, uint16_t id) {
+    if (!this->isPlaying(playerName))
+        return 0xFFFF;
+    return this->participants[playerName].addBuilding(x, y, terr, id);
 }
 
 void Game::moveUnit(std::string playerName, uint16_t unitID, coor_t coor) {
@@ -132,6 +138,17 @@ void Game::moveUnit(std::string playerName, uint16_t unitID, coor_t coor) {
 void Game::updateUnits() {
     for (auto& p : this->participants)
         p.second.updateUnits();
+}
+
+void Game::updateBuildings() {
+    for (auto& p : this->participants)
+        p.second.updateBuildings();
+}
+
+bool Game::chargeMoney(std::string playerName, uint8_t type) {
+    if (!this->isPlaying(playerName))
+        return false;
+    return this->participants[playerName].chargeMoney(type);
 }
 
 uint8_t Game::getPlayerID(std::string playerName) {
@@ -146,6 +163,24 @@ std::map<uint8_t, std::list<UnitData>> Game::getUnits() {
         result[it->second.getID()] = it->second.getUnits();
 	}
     return result;
+}
+
+std::map<uint8_t, std::pair<uint32_t, int32_t>> Game::getPlayersResources() {
+    std::map<uint8_t, std::pair<uint32_t, int32_t>> ret;
+    for (auto& p : this->participants) {
+        ret[p.second.getID()] = std::pair<uint32_t, int32_t>(p.second.getMoney(),
+                                                    p.second.getEnergy());
+    }
+    return ret;
+}
+
+void Game::getBuildingsBuilding(std::map<uint8_t,
+                                std::pair<uint8_t, uint8_t>>& buildingInfo) {
+    for (auto& p : this->participants) {
+        std::pair<uint8_t, uint8_t> data = p.second.getBuildingInfo();
+        if (data.first != 0xFF)
+            buildingInfo[p.second.getID()] = data;
+    }
 }
 
 std::list<PlayerData> Game::buildBases(TerrainMap& terr) {

@@ -38,16 +38,26 @@ class Game {
     Unit* getUnit(std::string playerName, uint16_t unitID);
     Building* getBuilding(std::string playerName, uint16_t buildingID);
     
+    
+    bool chargeMoney(std::string playerName, uint8_t type);
     bool isPlaying(std::string playerName);
     uint8_t getUnitFactor(std::string playerName, uint8_t type);
     coor_t getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr);
     bool addUnit(std::string playerName, Unit* unit);
     void moveUnit(std::string playerName, uint16_t unitID, coor_t coor);
+
     void updateUnits();
-    bool addBuilding(std::string playerName, uint8_t type,
+    void updateBuildings();
+
+    uint16_t addBuilding(std::string playerName,
                  uint16_t x, uint16_t y, TerrainMap& terr,
                  uint16_t id);
+    void createBuilding(std::string playerName, uint8_t type);
     std::map<uint8_t, std::list<UnitData>> getUnits();
+    std::map<uint8_t, std::pair<uint32_t, int32_t>> getPlayersResources();
+    void getBuildingsBuilding(std::map<
+                                uint8_t,
+                                std::pair<uint8_t, uint8_t>>& buildingInfo);
     std::list<PlayerData> buildBases(TerrainMap& terr);
 	void setPlayerID(std::string playerName, uint8_t id);
     ~Game();

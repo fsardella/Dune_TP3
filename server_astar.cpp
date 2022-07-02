@@ -27,6 +27,9 @@ uint8_t AStar::getDir() {
     return this->dir;
 }
 
+void AStar::eraseUnitFromMap() {
+    this->terr.eraseUnitFromMap(this->actPos);
+}
 
 void AStar::setDir(coor_t ant, coor_t actual) {
     int x = (int)actual.second - (int)ant.second + 1;

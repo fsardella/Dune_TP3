@@ -7,6 +7,24 @@
 #include "server_buildings.h"
 #include "server_weapons.h"
 
+#ifndef UNITTYPES
+#define UNITTYPES
+enum unitTypes {
+    TRIKE = 0,
+    RAIDER,
+    TANK,
+    HARVESTER,
+    DEVIATOR,
+    DEVASTATOR,
+    SONIC_TANK,
+    LIGHT_INFANTRY,
+    HEAVY_INFANTRY,
+    SARDAUKAR,
+    FREMEN
+};
+#endif
+
+
 #include <string>
 
 enum unitStates {
@@ -34,7 +52,7 @@ class Unit {
     uint16_t watchers = 0; // Para asegurarse de que, al destruir,
     // no queden dangling pointers... Es lo que se me ocurre... perdon
     
-    void processMove();
+    void processMove(bool attackingBuilding = false);
     void processAttackUnit();
     void processAttackBuilding();
     void processIdle();
@@ -52,14 +70,19 @@ class Unit {
     void update();
     void setDest(coor_t newDest);
     uint8_t getDir();
+    virtual uint8_t getType() = 0;
     void print();
     void attack(Unit* attacked);
     void attack(Building* attacked);
     void damage(uint16_t dam);
     bool isDead();
+    void die();
+    void kill();
+
     void watch();
     void stopWatching();
     bool canBeCleaned();
+
     virtual ~Unit();
 };
 
@@ -67,6 +90,7 @@ class Infantry : public Unit {
  public:
     Infantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner);
     int getSpeedWeightForMount();
+    uint8_t getType();
     virtual ~Infantry();
 };
 
@@ -74,6 +98,7 @@ class Vehicle : public Unit {
  public:
     Vehicle(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner);
     int getSpeedWeightForMount();
+    uint8_t getType();
     virtual ~Vehicle();
 };
 

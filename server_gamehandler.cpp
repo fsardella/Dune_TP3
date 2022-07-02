@@ -16,7 +16,8 @@ enum clientOpers {
     NEW_UNIT,
     NEW_BUILDING,
     ATTACK,
-    MOVE
+    MOVE,
+    ADD_BUILDING
 };
 #endif
 
@@ -44,7 +45,7 @@ void GameHandler::processCommand(Command comm) {
             break;
         case NEW_BUILDING:
             std::cout << "Recibi request de edificio de " << comm.getSender() << std::endl;
-            this->addNewBuilding(comm);
+            this->createNewBuilding(comm);
             break;
         case ATTACK:
             std::cout << "Recibi request de ataque de " << comm.getSender() << std::endl;
@@ -54,6 +55,11 @@ void GameHandler::processCommand(Command comm) {
             std::cout << "Recibi request de moverse de " << comm.getSender() << std::endl;
             this->moveUnit(comm);
             break;
+        case ADD_BUILDING:
+            std::cout << "Recibi request de posicionar edificio de " << comm.getSender() << std::endl;
+            this->addNewBuilding(comm);
+            break;
+            
     }
 }
 
@@ -70,11 +76,15 @@ void GameHandler::addNewUnit(Command comm) {
     this->game.addUnit(comm.getSender(), type);
 }
 
-void GameHandler::addNewBuilding(Command comm) {
+void GameHandler::createNewBuilding(Command comm) {
     uint8_t type = comm.pop8BytesMessage();
+    this->game.createBuilding(comm.getSender(), type);  
+}
+
+void GameHandler::addNewBuilding(Command comm) {
     uint16_t x = comm.pop16BytesMessage();
     uint16_t y = comm.pop16BytesMessage();
-    bool result = this->game.addBuilding(comm.getSender(), type, x, y);
+    bool result = this->game.addBuilding(comm.getSender(), x, y);
     if (!result)
         this->notifyError(comm);
     else
