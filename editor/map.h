@@ -25,6 +25,7 @@ class Map {
 
     void modifyMapAt(int row, int column, int id);
     void addConst(int row, int column);
+    void deleteConst(int row, int column);
 
     std::string getName();
     int getWidth();

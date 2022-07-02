@@ -6,6 +6,11 @@
 #include "create_map.h"
 #include "edit_map.h"
 
+/*
+ * Pre-condiciones: Constructor de la clase MainWindow (ventana inicial de qt).
+ * Post-condiciones: -
+ * */
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -19,9 +24,22 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setPalette(palette);
 }
 
+/*
+ * Pre-condiciones: Destructor de la clase MainWindow.
+ * Post-condiciones: -
+ * */
+
 MainWindow::~MainWindow() {
     delete ui;
 }
+
+/*
+ * Pre-condiciones: Manejador del click del usuario sobre el botón de edición.
+ * Chequea que haya mapas para editar. Si los hay cambia de ventana a una que
+ * solicitará  al usuario datos referidos a edición. En caso contrario, muestra
+ * un mensaje de error.
+ * Post-condiciones: -
+ * */
 
 void MainWindow::on_editButton_clicked() {
     try {
@@ -40,6 +58,12 @@ void MainWindow::on_editButton_clicked() {
     }
 }
 
+/*
+ * Pre-condiciones: Manejador del click del usuario sobre el botón de creación.
+ * Cambia de ventana a una que solicitará  al usuario datos referidos
+ * a la creación de mapas.
+ * Post-condiciones: -
+ * */
 
 void MainWindow::on_createButton_clicked() {
     hide();

@@ -30,7 +30,7 @@ class Editor : public QDialog {
     void setOptions();
     void tilesListClicked(QTreeWidgetItem* tile, int column);
     int getItemId(std::string parentType, std::string name);
-    void setSaveButton();
+    void setButtons();
     void handleSaveButton();
     void handleDeleteButton();
 

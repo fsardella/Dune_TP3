@@ -10,6 +10,12 @@
 #define MAX_HEIGHT 80
 #define MAX_PLAYERS 5
 
+/*
+ * Pre-condiciones: Constructor de la clase CreateMap (ventana de qt para la
+ * obtención de datos referidos a la creación de un nuevo mapa).
+ * Post-condiciones: -
+ * */
+
 CreateMap::CreateMap(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::create_map) {
@@ -23,9 +29,21 @@ CreateMap::CreateMap(QWidget *parent) :
     this->setPalette(palette);
 }
 
+/*
+ * Pre-condiciones: Destructor de la clase CreateMap
+ * Post-condiciones: -
+ * */
+
 CreateMap::~CreateMap() {
     delete ui;
 }
+
+/*
+ * Pre-condiciones: Chequea que el nombre del mapa ingresado por el usuario
+ * no este vacio y que no sea un nombre de mapa ya existente.
+ * Post-condiciones: Devuelve true si el nombre es correcto, false en caso
+ * contrario. En caso de que sea inválido setea un mensaje de error.
+ * */
 
 bool CreateMap::checkName() {
     QString name = ui->mapName->text();
@@ -53,6 +71,13 @@ bool CreateMap::checkName() {
     return true;
 }
 
+/*
+ * Pre-condiciones: Chequea que el ancho del mapa ingresado por el usuario
+ * no este vacio y que se encuentre dentro de los rangos válidos establecidos.
+ * Post-condiciones: Devuelve true si el ancho es correcto, false en caso
+ * contrario. Si era inválido setea un mensaje de error.
+ * */
+
 bool CreateMap::checkWidth() {
     QString width = ui->mapWidth->text();
     if (width.isEmpty()) {
@@ -78,6 +103,13 @@ bool CreateMap::checkWidth() {
     ui->widthIncorrect->clear();
     return true;
 }
+
+/*
+ * Pre-condiciones: Chequea que el largo del mapa ingresado por el usuario
+ * no este vacio y que se encuentre dentro de los rangos válidos establecidos.
+ * Post-condiciones: Devuelve true si el largo es correcto, false en caso
+ * contrario. Si era inválido setea un mensaje de error.
+ * */
 
 bool CreateMap::checkHeight() {
     QString height = ui->mapHeight->text();
@@ -105,6 +137,14 @@ bool CreateMap::checkHeight() {
     return true;
 }
 
+/*
+ * Pre-condiciones: Chequea que la cantidad de jugadores requeridos para
+ * la partida que ingresa el usuario no sea nulo y que se encuentre dentro
+ * de los rangos válidos establecidos.
+ * Post-condiciones: Devuelve true si la cantidad es correcta, false en caso
+ * contrario. Si era inválida setea un mensaje de error.
+ * */
+
 bool CreateMap::checkNPlayers() {
     QString n = ui->mapNPlayers->text();
     if (n.isEmpty()) {
@@ -129,6 +169,12 @@ bool CreateMap::checkNPlayers() {
     return true;
 }
 
+/*
+ * Pre-condiciones: Función asociada al click del botón. Chequea que los
+ * parámetros ingresados por el usuario sean válidos. En caso satisfactorio
+ * invisibiliza esta ventana y crea una nueva encargada de la edición.
+ * Post-condiciones: -
+ * */
 
 void CreateMap::on_pushButton_clicked() {
     bool correctName = checkName();

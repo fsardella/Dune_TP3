@@ -9,9 +9,26 @@
 #define CLIFF "cliff"
 #define CONSTRUCTION_YARD "construction yard"
 
+/*
+ * Pre-condiciones: Constructor por defecto de la clase YamlParser.
+ * Post-condiciones: -
+ * */
+
 YamlParser::YamlParser() {}
 
+/*
+ * Pre-condiciones: Constructor de la clase YamlParser a partir de
+ * un parh a un archivo que contiene la información de un mapa ya creado.
+ * Post-condiciones: -
+ * */
+
 YamlParser::YamlParser(const std::string& mapPath) : mapPath(mapPath) {}
+
+/*
+ * Pre-condiciones: Modifica un archivo con extensión .yaml para incorporar
+ * el nombre de un nuevo mapa.
+ * Post-condiciones: -
+ * */
 
 void YamlParser::addMapName(const std::string& mapName) {
     YAML::Node node;
@@ -30,6 +47,12 @@ void YamlParser::addMapName(const std::string& mapName) {
     file << node;
 }
 
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve un vector de strings con el nombre de los
+ * mapas creados. Lanza error en caso de que no haya ninguno.
+ * */
+
 std::vector<std::string> YamlParser::getMaps() {
     try {
         YAML::Node node = YAML::LoadFile(MAPS);
@@ -40,6 +63,12 @@ std::vector<std::string> YamlParser::getMaps() {
         throw(std::length_error("No map has been created"));
     }
 }
+
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve un diccionario de claves y valores strings
+ * con los tipos de tiles posibles.
+ * */
 
 std::map<std::string, std::string> YamlParser::getItems(
                                 const std::string& type) {
@@ -52,6 +81,13 @@ std::map<std::string, std::string> YamlParser::getItems(
     }
     return items;
 }
+
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve un diccionario de claves enteras
+ * y valores vector de strings que representa un traductor a partir
+ * del cual se puede obtener el nombre y path a una tile utilizando su id.
+ * */
 
 std::map<int, std::vector<std::string>> YamlParser::getTranslator() {
     YAML::Node node = YAML::LoadFile(ITEMS);
@@ -70,6 +106,12 @@ std::map<int, std::vector<std::string>> YamlParser::getTranslator() {
     return translator;
 }
 
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve un entero que representa el id de una tile.
+ * Lo hace a partir de un tipo de tile y su nombre.
+ * */
+
 int YamlParser::getItemId(const std::string& parentType,
                           const std::string& name) {
     YAML::Node node = YAML::LoadFile(ITEMS);
@@ -85,6 +127,13 @@ int YamlParser::getItemId(const std::string& parentType,
     return i;
 }
 
+/*
+ * Pre-condiciones: Recibe un objeto de la clase Map que contiene toda
+ * la información del mapa. En este caso, solo se modifica la matriz del
+ * archivo que representa al mapa.
+ * Post-condiciones: Edita un archivo con extensión .yaml ya existente.
+ * */
+
 void YamlParser::editMap(Map* map) {
     YAML::Node node = YAML::LoadFile(MAPS_ROUTE + mapPath);
 
@@ -94,6 +143,12 @@ void YamlParser::editMap(Map* map) {
     std::ofstream yaml_file(MAPS_ROUTE + mapPath,  std::ofstream::out);
     yaml_file << node;
 }
+
+/*
+ * Pre-condiciones: Carga en un archivo .yaml ya existente una nueva
+ * matriz que reemplazará a la existente.
+ * Post-condiciones: -
+ * */
 
 void YamlParser::loadMatrix(std::vector<std::vector<int>> matrix,
                             YAML::Node& node, const std::string& key) {
@@ -107,6 +162,14 @@ void YamlParser::loadMatrix(std::vector<std::vector<int>> matrix,
     }
     node[key] = new_matrix;
 }
+
+/*
+ * Pre-condiciones: Guarda en una archivo .yaml la información necesaria
+ * para describir al mapa editado. Esta información se encuentra en un objeto
+ * de la clase Map que se recibe por parámetro. Si la operación es de edición
+ * modifica un archivo ya existente, en caso constrario crea un archivo nuevo.
+ * Post-condiciones: -
+ * */
 
 void YamlParser::saveMap(Map* map) {
     try {  // es edición
@@ -129,6 +192,13 @@ void YamlParser::saveMap(Map* map) {
         this->addMapName(mapName);
     }
 }
+
+/*
+ * Pre-condiciones: Recibe un puntero a un objeto de clase Map y setea
+ * en el toda la información necesaria para describir a un mapa ya existente.
+ * Esta información la obtiene de un archivo con extensión .yaml.
+ * Post-condiciones: -
+ * */
 
 void YamlParser::getMap(Map* map) {
     try {

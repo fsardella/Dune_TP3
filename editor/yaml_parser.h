@@ -8,9 +8,9 @@
 #include <map>
 #include "map.h"
 
-#define MAPS "../editor/maps/maps.yaml"
+#define MAPS "../server/maps/maps.yaml"
 #define ITEMS "../editor/maps/map_items.yaml"
-#define MAPS_ROUTE "../editor/maps/"
+#define MAPS_ROUTE "../server/maps/"
 
 class YamlParser {
     std::string mapPath;

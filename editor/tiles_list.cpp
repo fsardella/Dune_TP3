@@ -11,12 +11,23 @@
 #define CLIFF "cliff"
 #define CONSTRUCTION_YARD "construction yard"
 
+/*
+ * Pre-condiciones: Constructor de la clase TilesList.
+ * Post-condiciones: -
+ * */
+
 TilesList::TilesList(QWidget *parent) :
     QTreeWidget(parent) {
     this->setHeaderLabel("Tile options");
     this->setTiles();
 }
 
+/*
+ * Pre-condiciones: Setea todas las tiles posibles en una lista.
+ * La misma tiene como raíz el tipo de tile y como hijos los posibles
+ * tiles de ese tipo.
+ * Post-condiciones: -
+ * */
 
 void TilesList::setTiles() {
     std::vector<std::string> types {SAND, DUNE, ROCK, SPICE, MONT,
@@ -40,6 +51,11 @@ void TilesList::setTiles() {
         }
     }
 }
+
+/*
+ * Pre-condiciones: Agrega un hijo a la raiz de cierto tipo de tile.
+ * Post-condiciones: -
+ * */
 
 void TilesList::add_child(QTreeWidgetItem* parent, std::string& name,
                           QIcon icon) {

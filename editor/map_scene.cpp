@@ -9,23 +9,45 @@
 #define ROCK_NAME "rock"
 #define SAND_NAME "sand"
 
+/*
+ * Pre-condiciones: Constructor de la clase MapScene a partir de un puntero
+ * a un objeto de la clase Map y un diccionario traductor. Dibuja la grilla
+ * el mapa inciial, la grilla y los centros de construcción (en caso de que
+ * existan).
+ * Post-condiciones: -
+ * */
+
 MapScene::MapScene(Map* map, std::map<int,
                    std::vector<std::string>>& translator) :
     map(map),
     translator(translator) {
     drawInitialMap();
     drawGrid();
-    drawUnits();
+    drawBuildings();
 
     if (!map->getIsNew()) {
         constYardAmount = map->getNPlayers();
     }
 }
 
+/*
+ * Pre-condiciones: Recibe dos puntos de clase QPointF.
+ * Post-condiciones: Devuelve un entero que representa la distancia
+ * en pixel entre los dos puntos.
+ * */
+
 int MapScene::distance(QPointF pos, QPointF newPos) {
     return std::sqrt(std::pow(pos.x() - newPos.x(), 2) +
                      std::pow(pos.y() - newPos.y(), 2));
 }
+
+/*
+ * Pre-condiciones: Recibe un punto de clase QPointF.
+ * Post-condiciones: Devuelve true si la distancia entre
+ * ese punto y los centros de cada centro de construcción creado
+ * supera el espacio de distanciamiento requerido. Devuelve
+ * false en caso contrario.
+ * */
 
 bool MapScene::isSpaced(QPointF newPos) {
     for (QPointF const& pos : constPixPositions) {
@@ -35,6 +57,13 @@ bool MapScene::isSpaced(QPointF newPos) {
     }
     return true;
 }
+
+/*
+ * Pre-condiciones: Recibe un punto de clase QPointF.
+ * Post-condiciones: Devuelve true si sobre el cuadrado donde se quiere
+ * construir un centro de construcción tiene roca debajo. False en caso
+ * contrario.
+ * */
 
 bool MapScene::isValidConstruction(QPointF pos) {
     int x = static_cast<int>(pos.x());
@@ -53,6 +82,11 @@ bool MapScene::isValidConstruction(QPointF pos) {
     return true;
 }
 
+/*
+ * Pre-condiciones: Dibuja el mapa inicial por pantalla.
+ * Post-condiciones: -
+ * */
+
 void MapScene::drawInitialMap() {
     std::vector<std::vector<int>> initialMap = map->getMap();
     for (int row = 0; row < map->getHeight(); row ++) {
@@ -69,6 +103,11 @@ void MapScene::drawInitialMap() {
     }
 }
 
+/*
+ * Pre-condiciones: Dibuja una grilla sobre el mapa dibujado.
+ * Post-condiciones: -
+ * */
+
 void MapScene::drawGrid() {
     for (int i = 0; i <= (map->getWidth() * SPACING); i += SPACING) {
         this->addLine(i, 0, i, map->getHeight() * SPACING, QPen(Qt::darkGray));
@@ -78,7 +117,12 @@ void MapScene::drawGrid() {
     }
 }
 
-void MapScene::drawUnits() {
+/*
+ * Pre-condiciones: Dibuja los centros de construcción creados (si existen).
+ * Post-condiciones: -
+ * */
+
+void MapScene::drawBuildings() {
     std::vector<std::vector<int>> constYards = map->getConstYards();
     for (std::vector<int>& construction : constYards) {
         std::string constPath = translator[CONST_YARD_ID][1];
@@ -89,22 +133,54 @@ void MapScene::drawUnits() {
     }
 }
 
+/*
+ * Pre-condiciones: Recibe el path a un archivo (imagen) y un número de id.
+ * Setea esos datos para representar el item actualmente seleccionado.
+ * Post-condiciones: -
+ * */
+
 void MapScene::setCurrentItem(std::string path, int id) {
     this->currentPath = path;
     this->currentId = id;
 }
 
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve un entero representando la cantidad de centros
+ * de construcción creados.
+ * */
+
 int MapScene::getConstYardAmount() {
     return constYardAmount;
 }
+
+/*
+ * Pre-condiciones: -
+ * Post-condiciones: Devuelve true si la escena se encuentra actualmente en
+ * modo delete, false en caso contrario.
+ * */
 
 bool MapScene::getDeleteMode() {
     return deleteMode;
 }
 
+/*
+ * Pre-condiciones: Recibe un booleano que con true representa que la escena
+ * se encuentra en modo delelte o con false que no. Lo setea en uno de sus
+ * atributos.
+ * Post-condiciones: -
+ * */
+
 void MapScene::setDeleteMode(bool mode) {
     deleteMode = mode;
 }
+
+/*
+ * Pre-condiciones: Función encargada de manejar el accionar cuando se quiere
+ * dibujar (insertar items) en el mapa. Valida el intento y si es correcto
+ * crea un nuevo item y lo asigna al mapa.
+ * Post-condiciones: -
+ * */
 
 void MapScene::handleDrawing(QPointF eventPos, MapItem* item) {
     std::string itemName = translator[item->getId()][0];
@@ -146,6 +222,12 @@ void MapScene::handleDrawing(QPointF eventPos, MapItem* item) {
     this->addItem(newItem);
 }
 
+/*
+ * Pre-condiciones: Elimina el centro de construcción cuyo centro se encontraba
+ * en la coordenada x e y recibida.
+ * Post-condiciones: -
+ * */
+
 void MapScene::removeConstYard(int x, int y) {
     int index = 0;
     for (size_t i = 0; i < constPixPositions.size(); i ++) {
@@ -157,9 +239,20 @@ void MapScene::removeConstYard(int x, int y) {
     constPixPositions.erase(constPixPositions.begin() + index);
 }
 
+/*
+ * Pre-condiciones: Función encargada de manejar el accionar cuando se quiere
+ * eliminar un item del mapa. Valida el intento y si es correcto
+ * elimina el item. En su reemplazo crea un item de tipo arena y lo agrega al
+ * mapa (si no es un centro de construcción lo que se intenta eliminar).
+ * Post-condiciones: -
+ * */
+
 void MapScene::handleDeletion(QGraphicsSceneMouseEvent *event, MapItem* item) {
     if (item->getId() == CONST_YARD_ID) {
         constYardAmount--;
+        int constX = static_cast<int>(event->scenePos().x() / SPACING);
+        int constY = static_cast<int>(event->scenePos().y() / SPACING);
+        map->deleteConst(constX, constY);
         this->removeConstYard(item->getCol() + CONST_MID_POINT,
                               item->getRow() + CONST_MID_POINT);
         this->removeItem(item);
@@ -188,6 +281,13 @@ void MapScene::handleDeletion(QGraphicsSceneMouseEvent *event, MapItem* item) {
     this->addItem(newItem);
 }
 
+/*
+ * Pre-condiciones: Función encargada de manejar el click del usuario sobre
+ * el mapa. Llama a los manejadores correspondientes dependiendo de si la
+ * escena se encuentra en modo delete o no.
+ * Post-condiciones: -
+ * */
+
 void MapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     MapItem* item = qgraphicsitem_cast<MapItem*>(this->itemAt(
                                                  event->scenePos(),
@@ -203,6 +303,14 @@ void MapScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         handleDrawing(event->scenePos(), item);
     }
 }
+
+/*
+ * Pre-condiciones: Función encargada de manejar el doble click del usuario
+ * sobre el mapa. Inserta tantos items como lugar haya en el area formada
+ * por dos puntos (esquina superior izquierda y esquina inferior derecha) que
+ * surgen de dos doble clicks consecutivos.
+ * Post-condiciones: -
+ * */
 
 void MapScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
     if (deleteMode || currentId == CONST_YARD_ID) return;

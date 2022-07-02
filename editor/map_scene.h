@@ -25,7 +25,7 @@ class MapScene : public QGraphicsScene {
  private slots:
     void drawGrid();
     void drawInitialMap();
-    void drawUnits();
+    void drawBuildings();
     int distance(QPointF pos, QPointF newPos);
     bool isSpaced(QPointF nePos);
     bool isValidConstruction(QPointF pos);
