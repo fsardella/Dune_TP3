@@ -8,21 +8,21 @@
 SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 : window(window),
   texture(nullptr) {
-	SDL_Surface* tmp = IMG_Load(filename.c_str());
-	if (!tmp) {
-		return;
-	}
+    SDL_Surface* tmp = IMG_Load(filename.c_str());
+    if (!tmp) {
+        return;
+    }
 
-	this->texture = window->createTexture(tmp);
+    this->texture = window->createTexture(tmp);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
-	width = tmp->w;
-	height = tmp->h;
+    width = tmp->w;
+    height = tmp->h;
 
-	SDL_FreeSurface(tmp);
+    SDL_FreeSurface(tmp);
 }
 
-SdlTexture::SdlTexture(const std::string &filename, 
+SdlTexture::SdlTexture(const std::string &filename,
                        SdlWindow* window, int r, int g, int b)
 : window(window),
   texture(nullptr) {
@@ -35,16 +35,16 @@ SdlTexture::SdlTexture(const std::string &filename,
 
     this->texture = window->createTexture(tmp);
 
-	width = tmp->w;
-	height = tmp->h;
+    width = tmp->w;
+    height = tmp->h;
 
     SDL_FreeSurface(tmp);
 }
 
-SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, SDL_BlendMode blending, uint8_t alpha)
+SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window,
+                       SDL_BlendMode blending, uint8_t alpha)
 : window(window),
   texture(nullptr) {
-
     SDL_Surface* tmp = IMG_Load(filename.c_str());
     if (!tmp) {
         return;
@@ -55,8 +55,8 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window, SDL_Blend
     SDL_SetTextureBlendMode(this->texture, blending);
     SDL_SetTextureAlphaMod(this->texture, alpha);
 
-	width = tmp->w;
-	height = tmp->h;
+    width = tmp->w;
+    height = tmp->h;
 
     SDL_FreeSurface(tmp);
 }
@@ -79,10 +79,10 @@ SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
     SDL_FreeSurface(surface);
 }
 
-int SdlTexture::render(const Area& src, const Area& dest) const{
-	const SDL_Rect srcRect = src.buildRectangle();
-	const SDL_Rect destRect = dest.buildRectangle();
-	return window->handleRender(texture, srcRect, destRect);
+int SdlTexture::render(const Area& src, const Area& dest) const {
+    const SDL_Rect srcRect = src.buildRectangle();
+    const SDL_Rect destRect = dest.buildRectangle();
+    return window->handleRender(texture, srcRect, destRect);
 }
 
 SdlTexture::~SdlTexture() {
@@ -93,7 +93,7 @@ SdlTexture::~SdlTexture() {
 
 SdlTexture::SdlTexture(SdlTexture&& other) :
     window(other.window),
-	texture(other.texture),
+    texture(other.texture),
     width(other.width),
-	height(other.height) 
+    height(other.height)
 {}

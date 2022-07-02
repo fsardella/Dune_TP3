@@ -2,7 +2,6 @@
 #include <QPixmap>
 #include <QBitmap>
 #include <cmath>
-#include <iostream>
 
 #define PIXELS 4
 #define SPACING 32
@@ -12,8 +11,7 @@ MapItem::MapItem(int pix_row, int pix_column, std::string& path, int id) :
     row(pix_row),
     column(pix_column),
     path(path),
-    id(id)
-{
+    id(id) {
     this->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     QPixmap pixmap(QString::fromStdString(path));
     height = (pixmap.height() / 8);
@@ -39,4 +37,12 @@ int MapItem::getHeight() {
 
 int MapItem::getWidth() {
     return width;
+}
+
+int MapItem::getRow() {
+    return row;
+}
+
+int MapItem::getCol() {
+    return column;
 }

@@ -17,7 +17,7 @@ class Socket {
 
     explicit Socket(int skt);
 
-    public:
+ public:
     /*
      * Construye el socket tanto para conectarse a un servidor
      * (primer constructor) como para inicializarlo para ser usado
@@ -33,7 +33,7 @@ class Socket {
      * Este codigo es un ejemplo de ello.
      *
      * */
-    //Socket(const char *hostname, const char *servicename);
+    // Socket(const char *hostname, const char *servicename);
     explicit Socket(const char *servicename);
 
     Socket();

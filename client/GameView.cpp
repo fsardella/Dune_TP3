@@ -1,6 +1,8 @@
 #include "GameView.h"
 #include <cstdint>
 #include <algorithm>
+#include <utility>
+
 #include <iostream>
 
 GameView::GameView(SdlWindow& window, int houseNumberClient)
@@ -11,41 +13,50 @@ GameView::GameView(SdlWindow& window, int houseNumberClient)
 GameView::~GameView() {
 }
 
-void GameView::buildMap(int height, int width, std::vector<std::vector<uint8_t>> mapMatrix) {
+void GameView::buildMap(int height, int width,
+                        std::vector<std::vector<uint8_t>> mapMatrix) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     camera.setMapSize(width, height);
-	map.createMap(height, width, std::move(mapMatrix));
+    map.createMap(height, width, std::move(mapMatrix));
 }
 
-void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property) {
-    std::lock_guard<std::mutex> lock(gameViewMutex); // BORRAR
+void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId,
+                         int animationId, bool property) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);  // BORRAR
     map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
-void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units) {
+void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int,
+                          bool>> units) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     for (const auto& [key, value] : units) {
         buildUnit(std::get<0>(value), std::get<1>(value),
                   key, std::get<2>(value), std::get<3>(value),
-                  std::get<4>(value), std::get<5>(value)); //segun un id de jugador podria tener un color identificador
+                  std::get<4>(value), std::get<5>(value));
     }
 }
 
-void GameView::buildConstruction(int x, int y, int playerId, int constructionId, int constType, bool property, int house) {
+void GameView::buildConstruction(int x, int y, int playerId,
+                                 int constructionId, int constType,
+                                 bool property, int house) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.createConstruction(x, y, playerId, constructionId, constType, property, house);
+    map.createConstruction(x, y, playerId, constructionId, constType, property,
+                           house);
 }
 
 void GameView::updateProgress(int menuId, int progress) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.updateProgress(menuId, progress);
 }
 
-void GameView::unitAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+void GameView::unitAttack(int attackerId, int attackedId, int currentLife,
+                          int totalLife) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.attackUnit(attackerId, attackedId, currentLife, totalLife);
 }
 
-void GameView::buildingAttack(int attackerId, int attackedId, int currentLife, int totalLife) {
+void GameView::buildingAttack(int attackerId, int attackedId, int currentLife,
+                              int totalLife) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.attackBuilding(attackerId, attackedId, currentLife, totalLife);
 }
@@ -58,16 +69,16 @@ void GameView::render() {
 
 void GameView::setSize(int newWidth, int newHeight) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-	this->window.setSize(newWidth, newHeight);
+    this->window.setSize(newWidth, newHeight);
 }
 
 bool GameView::isRunning() {
-	std::lock_guard<std::mutex> lock(gameViewMutex);
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     return running;
 }
 
 void GameView::shutdown() {
-	std::lock_guard<std::mutex> lock(gameViewMutex);
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     running = false;
     SDL_Event quit;
     quit.type = SDL_QUIT;
@@ -132,7 +143,7 @@ int GameView::isUnit(int posX, int posY, bool propiety) {
 bool GameView::isBlocked(int currentUnit) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isBlocked(currentUnit);
-} 
+}
 
 bool GameView::isBuildingUnderConstruction(int currentBuilding) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
@@ -154,10 +165,22 @@ void GameView::destroyBuilding(int id) {
     map.destroyBuilding(id);
 }
 
+void GameView::wormAttack(int x, int y, std::vector<int> deadId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.wormAttack(x, y, deadId);
+}
+
+void GameView::updateSpecie(int x, int y, int state) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.updateSpecie(x, y, state);
+}
+
 void GameView::touchedUnit(int unitId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.touchedUnit(unitId);
 }
 
 void GameView::untouchedUnit(int unitId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
     map.untouchedUnit(unitId);
 }

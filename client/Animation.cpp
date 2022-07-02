@@ -1,12 +1,18 @@
 #include "Animation.h"
+#include <utility>
 
 #include <iostream>
 
-Animation::Animation(std::vector<SdlTexture*> frames): 
+Animation::Animation(std::vector<SdlTexture*> frames):
     frames(frames),
     currentAnimation(0),
-    currentTime(0)
-{
+    currentTime(0) {
+    int animationSize = frames.size();
+    animationTime = animationSize * FRAME_DURATION;
+}
+
+void Animation::setTextures(std::vector<SdlTexture*> textures) {
+    this->frames = textures;
     int animationSize = frames.size();
     animationTime = animationSize * FRAME_DURATION;
 }
@@ -34,7 +40,7 @@ void Animation::reset() {
 }
 
 bool Animation::isLastFrame() {
-    if (currentAnimation == int(frames.size()) - 1) return true;
+    if (currentAnimation == static_cast<int>(frames.size()) - 1) return true;
     return false;
 }
 

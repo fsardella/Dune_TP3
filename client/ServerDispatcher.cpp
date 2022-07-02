@@ -1,4 +1,6 @@
 #include "ServerDispatcher.h"
+#include <utility>
+
 #include <iostream>
 
 #define CREATE_UNIT 5
@@ -9,41 +11,51 @@
 #define CHASE 10
 #define DESTRUCTION 11
 
-ServerDispatcher::ServerDispatcher(ProtocolClient* protocol, BlockingQueue<ClientInput>* blockingQueue): 
-protocolClient(protocol), blockingQueue(blockingQueue) {
+ServerDispatcher::ServerDispatcher(ProtocolClient* protocol,
+                                   BlockingQueue<ClientInput>* blockingQueue)
+: protocolClient(protocol),
+  blockingQueue(blockingQueue) {
 }
 
 void ServerDispatcher::run() {
-    while(true) {
+    while (true) {
         try {
             ClientInput clientInput(std::move(blockingQueue->pop()));
             int operation = clientInput.getOperation();
-            switch (operation)
-		    {
+            switch (operation) {
             case CREATE_UNIT:
-                protocolClient->sendConstructionPetition(operation, clientInput.getParam1());
+                protocolClient->sendConstructionPetition(operation,
+                                clientInput.getParam1());
                 break;
             case CREATE_BUILDING:
-                protocolClient->sendConstructionPetition(operation, clientInput.getParam1());
+                protocolClient->sendConstructionPetition(operation,
+                                clientInput.getParam1());
                 break;
             case ATTACK:
-                protocolClient->sendAttacknInfo(operation, clientInput.getParam1(),
-                                                clientInput.getParam2(), clientInput.getParam3());
+                protocolClient->sendAttacknInfo(operation,
+                                clientInput.getParam1(),
+                                clientInput.getParam2(),
+                                clientInput.getParam3());
                 break;
             case MOVEMENT:
-                protocolClient->sendMovementUnit(operation, clientInput.getParam1(),
-                                                 clientInput.getParam2(), clientInput.getParam3());
+                protocolClient->sendMovementUnit(operation,
+                                clientInput.getParam1(),
+                                clientInput.getParam2(),
+                                clientInput.getParam3());
                 break;
             case POSITION_BUILDING:
-                protocolClient->sendBuildingPosition(operation, clientInput.getParam1(),
-                                                     clientInput.getParam2());
+                protocolClient->sendBuildingPosition(operation,
+                                clientInput.getParam1(),
+                                clientInput.getParam2());
                 break;
             case CHASE:
-                protocolClient->sendChasingInfo(operation, clientInput.getParam1(),
-                                                clientInput.getParam2());
+                protocolClient->sendChasingInfo(operation,
+                                clientInput.getParam1(),
+                                clientInput.getParam2());
                 break;
             case DESTRUCTION:
-                protocolClient->sendBuildingDestruction(operation, clientInput.getParam1());
+                protocolClient->sendBuildingDestruction(operation,
+                                clientInput.getParam1());
                 break;
             }
         } catch (const ClosedQueueException& e) {

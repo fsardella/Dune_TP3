@@ -8,11 +8,8 @@
 #define MAX_EFFECTS 29
 #define VOLUME 50
 
-SoundManager::SoundManager(): musicIsPlaying(false)
-{
+SoundManager::SoundManager(): musicIsPlaying(false) {
 }
-
-//Primero pusheo con el sound id y el volumen que quiero de ese sonido, despues pongo play sounds. 
 
 void SoundManager::push(int soundId, int volume) {
     Mix_Chunk* sound = sounds[soundId];
@@ -23,18 +20,19 @@ void SoundManager::push(int soundId, int volume) {
 void SoundManager::loadSounds() {
     music = Mix_LoadMUS(MUSIC_PATH);
     for (int i = 0; i <= MAX_EFFECTS; i++) {
-        sounds.emplace_back(Mix_LoadWAV((SOUNDS_PATH + std::to_string(i) + EXTENTION).c_str()));
+        sounds.emplace_back(Mix_LoadWAV((SOUNDS_PATH + std::to_string(i)
+                                         + EXTENTION).c_str()));
     }
 }
 
 void SoundManager::playSounds() {
-    for (size_t i = 0; i < soundsToPlay.size() && i < 8; i++){
+    for (size_t i = 0; i < soundsToPlay.size() && i < 8; i++) {
         Mix_PlayChannel(-1, soundsToPlay[i], 0);
     }
 
     if (!musicIsPlaying) {
         Mix_VolumeMusic(VOLUME);
-        if(Mix_PlayMusic(music, -1) == -1) {
+        if (Mix_PlayMusic(music, -1) == -1) {
             std::cout << "Failed reproducing music" << std::endl;
         }
         musicIsPlaying = true;
@@ -43,7 +41,7 @@ void SoundManager::playSounds() {
     soundsToPlay.clear();
 }
 
-SoundManager::~SoundManager(){
+SoundManager::~SoundManager() {
     for (int i = 0; i < MAX_EFFECTS; i++) {
         Mix_FreeChunk(sounds[i]);
     }

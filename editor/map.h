@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-class Map
-{
+class Map {
     std::string name;
     int width = 0;
     int height = 0;
@@ -14,9 +13,9 @@ class Map
     std::vector<std::vector<int>> map;
     std::vector<std::vector<int>> constYards;
 
-public:
+ public:
     Map();
-    void setName(std::string& mapName);
+    void setName(const std::string& mapName);
     void setWidth(int mapWidth);
     void setHeight(int mapHeight);
     void setNPlayers(int mapNPlayers);
@@ -42,4 +41,4 @@ public:
     Map& operator=(Map&& other);
 };
 
-#endif // MAP_H
+#endif  // MAP_H

@@ -1,4 +1,6 @@
 #include "create_map.h"
+#include <vector>
+#include <string>
 #include "ui_create_map.h"
 #include "editor.h"
 
@@ -6,12 +8,11 @@
 #define MIN_HEIGHT 21
 #define MAX_WIDTH 110
 #define MAX_HEIGHT 80
-#define MAX_PLAYERS 10 // cambiar
+#define MAX_PLAYERS 5
 
 CreateMap::CreateMap(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::create_map)
-{
+    ui(new Ui::create_map) {
     ui->setupUi(this);
 
     QPixmap bkgr("../editor/images/wallpaper.jpg");
@@ -22,13 +23,12 @@ CreateMap::CreateMap(QWidget *parent) :
     this->setPalette(palette);
 }
 
-CreateMap::~CreateMap()
-{
+CreateMap::~CreateMap() {
     delete ui;
 }
 
 bool CreateMap::checkName() {
-    QString name=ui->mapName->text();
+    QString name = ui->mapName->text();
     if (name.isEmpty()) {
         ui->mapIncorrect->setText("No map name was entered");
         return false;
@@ -39,7 +39,8 @@ bool CreateMap::checkName() {
             std::vector<std::string> maps = parser.getMaps();
             for (std::string& mapName : maps) {
                 if (mapName.compare(inputName) == 0) {
-                    ui->mapIncorrect->setText("This name is already associated with a map");
+                    ui->mapIncorrect->setText(
+                        "This name is already associated with a map");
                     return false;
                 }
             }
@@ -53,7 +54,7 @@ bool CreateMap::checkName() {
 }
 
 bool CreateMap::checkWidth() {
-    QString width=ui->mapWidth->text();
+    QString width = ui->mapWidth->text();
     if (width.isEmpty()) {
         ui->widthIncorrect->setText("No width was entered");
         return false;
@@ -61,12 +62,14 @@ bool CreateMap::checkWidth() {
     if (map.getWidth() == 0) {
         int inputWidth = width.toInt();
         if (inputWidth == 0) {
-            ui->widthIncorrect->setText("Width was not an integer or it was zero");
+            ui->widthIncorrect->setText(
+                "Width was not an integer or it was zero");
             return false;
         }
         if (inputWidth > MAX_WIDTH || inputWidth < MIN_WIDTH) {
             ui->widthIncorrect->setText(QString("Width should be between " +
-                                                QString::number(MIN_WIDTH) + " and " +
+                                                QString::number(MIN_WIDTH) +
+                                                " and " +
                                                 QString::number(MAX_WIDTH)));
             return false;
         }
@@ -77,7 +80,7 @@ bool CreateMap::checkWidth() {
 }
 
 bool CreateMap::checkHeight() {
-    QString height=ui->mapHeight->text();
+    QString height = ui->mapHeight->text();
     if (height.isEmpty()) {
         ui->heightIncorrect->setText("No height was entered");
         return false;
@@ -85,12 +88,14 @@ bool CreateMap::checkHeight() {
     if (map.getHeight() == 0) {
         int inputHeight = height.toInt();
         if (inputHeight == 0) {
-            ui->heightIncorrect->setText("Height was not an integer or it was zero");
+            ui->heightIncorrect->setText(
+                "Height was not an integer or it was zero");
             return false;
         }
         if (inputHeight > MAX_HEIGHT || inputHeight < MIN_HEIGHT) {
             ui->heightIncorrect->setText(QString("Height should be between " +
-                                                 QString::number(MIN_HEIGHT) + " and " +
+                                                 QString::number(MIN_HEIGHT) +
+                                                 " and " +
                                                  QString::number(MAX_HEIGHT)));
             return false;
         }
@@ -99,8 +104,9 @@ bool CreateMap::checkHeight() {
     ui->heightIncorrect->clear();
     return true;
 }
+
 bool CreateMap::checkNPlayers() {
-    QString n=ui->mapNPlayers->text();
+    QString n = ui->mapNPlayers->text();
     if (n.isEmpty()) {
         ui->nroIncorrect->setText("The number of players was not entered");
         return false;
@@ -108,11 +114,13 @@ bool CreateMap::checkNPlayers() {
     if (map.getNPlayers() == 0) {
         int inputN = n.toInt();
         if (inputN == 0) {
-            ui->nroIncorrect->setText("Number of players was not an integer or it was zero");
+            ui->nroIncorrect->setText(
+                "Number of players was not an integer or it was zero");
             return false;
         }
         if (inputN > MAX_PLAYERS) {
-            ui->nroIncorrect->setText(QString("Number of players maximum is %1").arg(MAX_PLAYERS));
+            ui->nroIncorrect->setText(QString(
+                "Number of players maximum is %1").arg(MAX_PLAYERS));
             return false;
         }
         map.setNPlayers(inputN);
@@ -122,8 +130,7 @@ bool CreateMap::checkNPlayers() {
 }
 
 
-void CreateMap::on_pushButton_clicked()
-{
+void CreateMap::on_pushButton_clicked() {
     bool correctName = checkName();
     bool correctWidth = checkWidth();
     bool correctHeight = checkHeight();
@@ -137,4 +144,3 @@ void CreateMap::on_pushButton_clicked()
         editor.exec();
     }
 }
-

@@ -1,15 +1,14 @@
 #include "joingamewindow.h"
-#include "ui_joingamewindow.h"
 #include <QMessageBox>
+#include <list>
+#include <string>
 #include "../GameWaiter.h"
-
-#include <iostream>
+#include "ui_joingamewindow.h"
 
 JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     newClient(client),
-    ui(new Ui::JoinGameWindow)
-{
+    ui(new Ui::JoinGameWindow) {
     ui->setupUi(this);
     QPixmap bkgnd("../client/client_interface/images/DuneCreateGame.png");
     bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
@@ -20,20 +19,18 @@ JoinGameWindow::JoinGameWindow(QWidget *parent, Client* client) :
     newClient->sendListGamesOperation();
     newClient->recvListOfGames(list);
     int size = list.size();
-    for(int i = 0 ; i < size ; i++) {
+    for (int i = 0 ; i < size ; i++) {
         QString str = QString::fromStdString(list.back());
         this->ui->listWidget->addItem(str);
         list.pop_back();
     }
 }
 
-JoinGameWindow::~JoinGameWindow()
-{
+JoinGameWindow::~JoinGameWindow() {
     delete ui;
 }
 
-void JoinGameWindow::showWaitingWindow()
-{
+void JoinGameWindow::showWaitingWindow() {
     this->close();
     WaitingWindow waitingWindow(NULL, this->newClient);
     waitingWindow.setModal(true);
@@ -43,18 +40,18 @@ void JoinGameWindow::showWaitingWindow()
     waiter.join();
 }
 
-void JoinGameWindow::on_joinGameButton_clicked()
-{
+void JoinGameWindow::on_joinGameButton_clicked() {
     if (!(this->ui->listWidget->currentItem())) {
         QMessageBox::warning(this, tr("Configuration error"),
                              tr(" You have to choose a game!"),
                              QMessageBox::Close);
         return;
     }
-    newClient->chooseGameName(this->ui->listWidget->currentItem()->text().toStdString());
+    newClient->chooseGameName(this->ui->listWidget->currentItem()->text().
+                              toStdString());
     newClient->sendJoinGameOperation();
     int result = newClient->recvOperationResult();
-    if(result == 0) {
+    if (result == 0) {
         newClient->setReadyToRun();
     }
     this->showWaitingWindow();

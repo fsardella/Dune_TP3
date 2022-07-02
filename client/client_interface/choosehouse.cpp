@@ -1,24 +1,21 @@
 #include "choosehouse.h"
+#include <qt5/QtWidgets/qwidget.h>
 #include "ui_choosehouse.h"
 #include "maingame.h"
 #include "ui_maingame.h"
-#include <qt5/QtWidgets/qwidget.h>
 
 ChooseHouse::ChooseHouse(QWidget *parent, Client* client) :
     QDialog(parent),
     client(client),
-    ui(new Ui::ChooseHouse)
-{
+    ui(new Ui::ChooseHouse) {
     ui->setupUi(this);
 }
 
-ChooseHouse::~ChooseHouse()
-{
+ChooseHouse::~ChooseHouse() {
     delete ui;
 }
 
-void ChooseHouse::show_MainGameWindow()
-{
+void ChooseHouse::show_MainGameWindow() {
     this->close();
     MainGame mainGameWindow(NULL, this->client);
     mainGameWindow.setModal(true);
@@ -26,21 +23,17 @@ void ChooseHouse::show_MainGameWindow()
     mainGameWindow.exec();
 }
 
-void ChooseHouse::on_harkonnenButton_clicked()
-{
+void ChooseHouse::on_harkonnenButton_clicked() {
     client->chooseNumberHouse(HOUSE_HARKONNEN);
     show_MainGameWindow();
 }
 
-void ChooseHouse::on_atreidesButton_clicked()
-{
+void ChooseHouse::on_atreidesButton_clicked() {
     client->chooseNumberHouse(HOUSE_ATREIDES);
     show_MainGameWindow();
 }
 
-void ChooseHouse::on_ordosButton_clicked()
-{
+void ChooseHouse::on_ordosButton_clicked() {
     client->chooseNumberHouse(HOUSE_ORDOS);
     show_MainGameWindow();
 }
-

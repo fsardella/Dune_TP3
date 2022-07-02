@@ -1,5 +1,6 @@
 #include "BackGroundTile.h"
 #include "Camera.h"
+#include <utility>
 
 BackGroundTile::BackGroundTile(SdlTexture* texture,
            int sizeW,
@@ -13,6 +14,12 @@ BackGroundTile::BackGroundTile(SdlTexture* texture,
 void BackGroundTile::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSight(texture, src, posX, posY);
+}
+
+void BackGroundTile::changeTile(SdlTexture* texture, int x, int y) {
+    this->texture = texture;
+    this->posX = x;
+    this->posY = y;
 }
 
 int BackGroundTile::getX() {

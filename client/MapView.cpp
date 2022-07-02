@@ -1,11 +1,13 @@
-#include <yaml-cpp/node/node.h>
-#include <yaml-cpp/node/parse.h>
 #include "MapView.h"
 #include "Camera.h"
+#include <yaml-cpp/node/node.h>
+#include <yaml-cpp/node/parse.h>
+#include <utility>
 
 #include <iostream>
 
-// #define CONSTRUCTION_OFFSET 11 antes esto estaba en el at de buildConstruction va?
+// #define CONSTRUCTION_OFFSET 11
+// antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
 #define PROGRESS_COMPLETED 100
@@ -24,6 +26,11 @@
 #define EXPLOSION 11
 #define MISIL_SOUND 13
 #define GUN_SOUND 12
+#define WORM_WIDTH 62
+#define WORM_HEIGHT 36
+#define INITIAL_MONEY 1000
+#define INITIAL_ENERGY 100
+#define SPICE_OFFSET 88
 
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
@@ -31,8 +38,9 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
   columns(0),
   rows(0),
   actualMoney(0),
-  actualEnergy(0)
-  {
+  actualEnergy(0),
+  worm(std::move(wormEmptyTexturesInitializer()),
+       WORM_WIDTH, WORM_HEIGHT, 0, 0) {
     this->loadFontTitles();
     this->loadTileTranslator();
     this->loadMenuTranslator();
@@ -40,12 +48,16 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
     this->loadLifeTranslator();
     this->loadAttackTranslator();
     this->loadIdentifierTranslator();
+    this->loadWormTranslator();
     this->createMenu();
+    this->setEnergy(INITIAL_ENERGY);
+    this->setMoney(INITIAL_MONEY);
 }
 
 void MapView::loadFontTitles() {
     TTF_Init();
-    font = TTF_OpenFont("/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1", 22);
+    font = TTF_OpenFont("/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1",
+                        22);
 }
 
 void MapView::loadSpritesTranslator() {
@@ -53,16 +65,20 @@ void MapView::loadSpritesTranslator() {
     int amount = node["amount"].as<int>();
     for (int i = 0; i < amount; i++) {
         std::map<std::tuple<int, int>, SdlTexture> animations;
-        std::string animationAmountText(std::to_string(i) + "_animationAmount");
+        std::string animationAmountText(std::to_string(i) +
+                                        "_animationAmount");
         int animationAmount = node[animationAmountText].as<int>();
-        for(int j = 0; j < animationAmount; j++) {
-            std::string animationIndex(std::to_string(i) + "_" + std::to_string(j));
-            std::vector<std::string> spritesInfo = node[animationIndex].as<std::vector<std::string>>();
-            for (size_t k = 0; k < spritesInfo.size(); k ++ ) {
+        for (int j = 0; j < animationAmount; j++) {
+            std::string animationIndex(std::to_string(i) + "_" +
+                                       std::to_string(j));
+            std::vector<std::string> spritesInfo = node[animationIndex].as<
+                                                   std::vector<std::string>>();
+            for (size_t k = 0; k < spritesInfo.size(); k ++) {
                 std::string path = spritesInfo[k];
                 animations.emplace(std::piecewise_construct,
-                                    std::forward_as_tuple(std::make_tuple(j, k)),
-                                    std::forward_as_tuple(path, &window, 0, 0, 0));
+                                  std::forward_as_tuple(std::make_tuple(j, k)),
+                                  std::forward_as_tuple(path, &window,
+                                                        0, 0, 0));
             }
         }
         animationsRepository.insert({i, std::move(animations)});
@@ -73,7 +89,8 @@ void MapView::loadTileTranslator() {
     YAML::Node node = YAML::LoadFile("../client/tiles.yaml");
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
-        std::vector<std::string> tileInfo = node[i].as<std::vector<std::string>>();
+        std::vector<std::string> tileInfo = node[i].as<std::vector<
+                                                    std::string>>();
         tileInfoTranslator[i] = tileInfo;
 
         tileTextureTranslator.emplace(std::piecewise_construct,
@@ -86,7 +103,8 @@ void MapView::loadMenuTranslator() {
     YAML::Node node = YAML::LoadFile("../client/menu.yaml");
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
-        std::vector<std::string> menuImgInfo = node[i].as<std::vector<std::string>>();
+        std::vector<std::string> menuImgInfo = node[i].as<std::vector<
+                                                          std::string>>();
         std::string key(std::to_string(i) + "_houses");
         std::vector<int> menuImgHouses = node[key].as<std::vector<int>>();
         menuInfoHouses.insert(std::pair{i, std::move(menuImgHouses)});
@@ -101,17 +119,20 @@ void MapView::loadIdentifierTranslator() {
     YAML::Node node = YAML::LoadFile("../client/ident.yaml");
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
-        std::vector<std::string> identifierMgsInfo = node[i].as<std::vector<std::string>>();
+        std::vector<std::string> identifierMgsInfo = node[i].as<std::vector<
+                                                               std::string>>();
         identifierTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
-                                      std::forward_as_tuple(identifierMgsInfo[0],
+                                      std::forward_as_tuple(
+                                      identifierMgsInfo[0],
                                       &window));
     }
 }
 
 void MapView::loadLifeTranslator() {
     for (int i = 1; i <= 4; i ++) {
-        std::string path("../client/animations/vida" + std::to_string(i) + ".bmp");
+        std::string path("../client/animations/vida" + std::to_string(i) +
+                         ".bmp");
         lifeTextureTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
                                       std::forward_as_tuple(path,
@@ -124,14 +145,28 @@ void MapView::loadAttackTranslator() {
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
         if (i == 3) continue;
-        std::vector<std::string> attackInfo = node[i].as<std::vector<std::string>>();
+        std::vector<std::string> attackInfo = node[i].as<std::vector<
+                                                         std::string>>();
         for (size_t j = 0; j < attackInfo.size(); j++) {
                 attackTextureTranslator.emplace(std::piecewise_construct,
-                                      std::forward_as_tuple(std::make_tuple(i, j)),
+                                      std::forward_as_tuple(
+                                      std::make_tuple(i, j)),
                                       std::forward_as_tuple(attackInfo[j],
-                                      &window));
+                                                            &window));
         }
     }
+}
+
+void MapView::loadWormTranslator() {
+    for (int i = 0; i < 5; i ++) {
+        std::string path("../client/animations/Worm" + std::to_string(i + 1) +
+                         ".bmp");
+        wormTextureTranslator.emplace(std::piecewise_construct,
+                                      std::forward_as_tuple(i),
+                                      std::forward_as_tuple(path, &window,
+                                                            0, 0, 0));
+    }
+    this->wormTexturesInitializer();
 }
 
 void MapView::createMenu() {
@@ -155,24 +190,39 @@ void MapView::createMenu() {
                                     menuInfoHouses.at(i + j));
         }
     }
-
 }
 
-void MapView::createMap(int height, int width, std::vector<std::vector<uint8_t>> map) {
+void MapView::wormTexturesInitializer() {
+    std::vector<SdlTexture*> textures;
+    for (int i = 0; i < 5; i ++) {
+        textures.push_back(&(wormTextureTranslator.at(i)));
+    }
+    worm.setTextures(std::move(textures));
+}
+
+std::vector<SdlTexture*> MapView::wormEmptyTexturesInitializer() {
+    std::vector<SdlTexture*> textures;
+    return textures;
+}
+
+void MapView::createMap(int height, int width, std::vector<std::vector<
+                        uint8_t>> map) {
     columns = width;
     rows = height;
     for (size_t i = 0; i < rows; i ++) {
         for (size_t j = 0; j < columns; j++) {
             std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
             auto& backgroundTexture = tileTextureTranslator.at(map[i][j]);
-            backgroundTiles.emplace_back(&backgroundTexture, TILE_PIX_SIZE, TILE_PIX_SIZE, j, i);
+            backgroundTiles.emplace_back(&backgroundTexture, TILE_PIX_SIZE,
+                                         TILE_PIX_SIZE, j, i);
         }
     }
 }
 
-void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool propiety) {
-    float posX = float(x) / float(TILE_PIX_SIZE);
-    float posY = float(y) / float(TILE_PIX_SIZE);
+void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
+                         int animationId, bool propiety) {
+    float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
+    float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
 
     if (unitTiles.find(unitId) != unitTiles.end() &&
         unitTiles.at(unitId).getAnimationId() ==
@@ -195,7 +245,8 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, i
 
     std::vector<SdlTexture*> attackSprites;
     for (int i = 0; i < 3; i ++) {
-        attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(unitType, i))));
+        attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
+                                                             unitType, i))));
     }
 
     unitTiles.emplace(std::piecewise_construct,
@@ -203,7 +254,8 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId, i
                        std::forward_as_tuple(animationsRepository.at(unitType),
                                              lifeTextureTranslator,
                                              std::move(attackSprites),
-                                             &(identifierTranslator.at(playerId)),
+                                             &(identifierTranslator.at(
+                                               playerId)),
                                              UNIT_PIX_SIZE, UNIT_PIX_SIZE,
                                              posX, posY, propiety, unitType,
                                              playerId, animationId));
@@ -241,10 +293,11 @@ void MapView::getBuildingDimensions(int constType, int* width, int* height) {
     *height = 3 * TILE_PIX_SIZE;
 }
 
-void MapView::createConstruction(int x, int y, int playerId, int constructionId,
-                                 int constType, bool propiety, int house) {
-    float posX = float(x) / float(TILE_PIX_SIZE);
-    float posY = float(y) / float(TILE_PIX_SIZE);
+void MapView::createConstruction(int x, int y, int playerId,
+                                 int constructionId, int constType,
+                                 bool propiety, int house) {
+    float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
+    float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
 
     if (constType == BARRACK) {
         constType += house;
@@ -267,7 +320,7 @@ void MapView::updateProgress(int menuId, int progress) {
 
     int offset = getSoundOffset();
 
-    if(progress == PROGRESS_COMPLETED) {
+    if (progress == PROGRESS_COMPLETED) {
         window.playSound(offset + soundCreationType, VOLUME);
     }
     menuImages.at(menuId).updateProgress(progress);
@@ -283,55 +336,55 @@ void MapView::untouchedUnit(int unitId) {
 }
 
 int MapView::getSoundOffset() {
-    if(houseNumberClient == HOUSE_HARKONNEN) {
+    if (houseNumberClient == HOUSE_HARKONNEN) {
         return HARKONNEN_SOUND_OFFSET;
-    }
-    else if(houseNumberClient == HOUSE_ATREIDES) {
+    } else if (houseNumberClient == HOUSE_ATREIDES) {
         return ATREIDES_SOUND_OFFSET;
-    }
-    else {
+    } else {
         return ORDOS_SOUND_OFFSET;
     }
 }
 
-void MapView::attackUnit(int attackerId, int attackedId, int currentLife, int totalLife) {
-    if(unitTiles.at(attackedId).getPropiety()) {
+void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
+                         int totalLife) {
+    if (unitTiles.at(attackedId).getPropiety()) {
         window.playSound(UNIT_ATTACKED, VOLUME);
     }
 
     unitTiles.at(attackerId).startAttacking();
-    
-    if((unitTiles.at(attackerId).getUnitType() == 4) || 
-        ((unitTiles.at(attackerId).getUnitType() > 7) && 
+
+    if ((unitTiles.at(attackerId).getUnitType() == 4) ||
+        ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
-        window.playSound(MISIL_SOUND, VOLUME);
-    }
-    else if((unitTiles.at(attackerId).getUnitType() == 0 || 
+         window.playSound(MISIL_SOUND, VOLUME);
+    } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
         (unitTiles.at(attackerId).getUnitType() == 7))) {
         window.playSound(GUN_SOUND, VOLUME);
     }
 
     unitTiles.at(attackedId).updateLife(currentLife, totalLife);
-    if((currentLife == WITHOUT_LIFE) && (unitTiles.at(attackedId).getUnitType() > 6 
+    if ((currentLife == WITHOUT_LIFE) &&
+        (unitTiles.at(attackedId).getUnitType() > 6
         && unitTiles.at(attackedId).getUnitType() < 11)) {
         window.playSound(EXPLOSION, VOLUME);
     }
 }
 
-void MapView::attackBuilding(int attackerId, int attackedId, int currentLife, int totalLife) {
-    if((constructionTiles.at(attackedId).getConstType() == CONSTRUCTION_YARD_ID) && 
+void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
+                             int totalLife) {
+    if ((constructionTiles.at(attackedId).getConstType() ==
+        CONSTRUCTION_YARD_ID) &&
         (constructionTiles.at(attackedId).getPropiety())) {
         int offset = getSoundOffset();
         window.playSound(offset + CONSTRUCTION_YARD_ATTACKED, VOLUME);
     }
     unitTiles.at(attackerId).startAttacking();
 
-    if((unitTiles.at(attackerId).getUnitType() == 4) || 
-        ((unitTiles.at(attackerId).getUnitType() > 7) && 
+    if ((unitTiles.at(attackerId).getUnitType() == 4) ||
+        ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
         window.playSound(MISIL_SOUND, VOLUME);
-    }
-    else if((unitTiles.at(attackerId).getUnitType() == 0 || 
+    } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
         (unitTiles.at(attackerId).getUnitType() == 7))) {
         window.playSound(GUN_SOUND, VOLUME);
     }
@@ -340,7 +393,7 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife, in
         updateUnblockedUnits(constructionTiles.at(attackedId).getConstType());
     }
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
-    if(currentLife == WITHOUT_LIFE) {
+    if (currentLife == WITHOUT_LIFE) {
         window.playSound(EXPLOSION, VOLUME);
     }
 }
@@ -353,7 +406,8 @@ void MapView::setMoney(int money) {
                           std::forward_as_tuple(&window, font, text));
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("money"),
-                          std::forward_as_tuple(&menuTextsTranslator.at("money"), 200, 32, 0, 0));
+                          std::forward_as_tuple(&menuTextsTranslator.at
+                          ("money"), 200, 32, 0, 0));
 }
 
 void MapView::setEnergy(int energy) {
@@ -364,7 +418,8 @@ void MapView::setEnergy(int energy) {
                           std::forward_as_tuple(&window, font, text));
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("energy"),
-                          std::forward_as_tuple(&menuTextsTranslator.at("energy"), 200, 32, 0, 1));
+                          std::forward_as_tuple(&menuTextsTranslator.at
+                          ("energy"), 200, 32, 0, 1));
 }
 
 void MapView::renderMenu(Camera &cam) {
@@ -382,8 +437,12 @@ void MapView::renderMenu(Camera &cam) {
 
 void MapView::render(Camera &cam) {
     renderMenu(cam);
+
     for (BackGroundTile &tile : backgroundTiles) {
         cam.render(tile);
+    }
+    if (worm.isAttacking()) {
+        worm.render(cam, worm.getX(), worm.getY());
     }
     for (auto const& unit : unitTiles) {
         if (unitTiles.at(unit.first).getIsDead()) continue;
@@ -392,7 +451,7 @@ void MapView::render(Camera &cam) {
                                             unitTiles.at(unit.first).getY());
         if (surpasses) {
             renderMenu(cam);
-        }    
+        }
     }
     for (auto const& building : constructionTiles) {
         if (constructionTiles.at(building.first).getIsDead()) continue;
@@ -401,11 +460,14 @@ void MapView::render(Camera &cam) {
                                 constructionTiles.at(building.first).getY());
         if (surpasses) {
             renderMenu(cam);
-        }    
+        }
     }
 }
 
 void MapView::update(int delta) {
+    if (worm.isAttacking()) {
+        worm.update(delta);
+    }
     for (auto const& unit : unitTiles) {
         unitTiles.at(unit.first).update(delta);
     }
@@ -416,11 +478,15 @@ void MapView::update(int delta) {
 
 int MapView::isBuilding(int posX, int posY, bool propiety) {
     for (auto const& building : constructionTiles) {
-        if ((posX >= constructionTiles.at(building.first).getX() * TILE_PIX_SIZE &&
-            (posX <= (constructionTiles.at(building.first).getX() * TILE_PIX_SIZE +
+        if ((posX >= constructionTiles.at(building.first).getX() *
+             TILE_PIX_SIZE &&
+            (posX <= (constructionTiles.at(building.first).getX() *
+             TILE_PIX_SIZE +
             constructionTiles.at(building.first).getWidth()))) &&
-            (posY >= constructionTiles.at(building.first).getY() * TILE_PIX_SIZE &&
-            (posY <= (constructionTiles.at(building.first).getY() * TILE_PIX_SIZE +
+            (posY >= constructionTiles.at(building.first).getY() *
+             TILE_PIX_SIZE &&
+            (posY <= (constructionTiles.at(building.first).getY() *
+             TILE_PIX_SIZE +
             constructionTiles.at(building.first).getHeight()))) &&
             constructionTiles.at(building.first).getPropiety() == propiety) {
                 return building.first;
@@ -428,7 +494,7 @@ int MapView::isBuilding(int posX, int posY, bool propiety) {
     }
     return -1;
 }
-    
+
 int MapView::isUnit(int posX, int posY, bool propiety) {
     for (auto const& unit : unitTiles) {
         if ((posX >= unitTiles.at(unit.first).getX() * TILE_PIX_SIZE &&
@@ -461,7 +527,29 @@ void MapView::setNotReady(int currentBuilding) {
 }
 
 void MapView::destroyBuilding(int id) {
+    constructionTiles.at(id).kill();
     constructionTiles.erase(id);
+}
+
+void MapView::wormAttack(int x, int y, std::vector<int> deadId) {
+    float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
+    float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
+    for (int& id : deadId) {
+        unitTiles.at(id).kill();
+        // eliminarlos del arreglo o solo no renderizarlos?
+        // lo mismo cuando mueren en ataque
+        // lo mismo para muerte en ataque de edificio
+    }
+    worm.setNewPosition(posX, posY);
+    worm.startAttacking();
+}
+
+void MapView::updateSpecie(int x, int y, int state) {
+    // si lo que cris me manda es el numero de tile tipo matriz
+    int index = SPICE_OFFSET + state;
+    if (state == 0) index = 0;
+    backgroundTiles[y * columns + x].changeTile(&(tileTextureTranslator.at(
+                                                index)), x, y);
 }
 
 MapView::~MapView() {

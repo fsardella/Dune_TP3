@@ -1,5 +1,5 @@
-#ifndef AREA_H
-#define AREA_H
+#ifndef __AREA_H__
+#define __AREA_H__
 
 #include <SDL2/SDL.h>
 
@@ -9,13 +9,12 @@ class Area{
     int width;
     int height;
 
-public:
-	Area(int x, int y, int width, int height);
+ public:
+    Area(int x, int y, int width, int height);
 
-	SDL_Rect buildRectangle() const;
+    SDL_Rect buildRectangle() const;
 
-	~Area();
+    ~Area();
 };
 
-
-#endif
+#endif /*__AREA_H__*/

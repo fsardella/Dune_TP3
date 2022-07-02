@@ -1,15 +1,11 @@
 #include "edit_map.h"
+#include <vector>
 #include "ui_edit_map.h"
 #include "editor.h"
 
-#include <vector>
-
-#include <iostream>
-
 EditMap::EditMap(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::edit_map)
-{
+    ui(new Ui::edit_map) {
     ui->setupUi(this);
     QPixmap bkgr("../editor/images/wallpaper.jpg");
     bkgr = bkgr.scaled(this->size(), Qt::KeepAspectRatioByExpanding);
@@ -19,11 +15,10 @@ EditMap::EditMap(QWidget *parent) :
     this->setPalette(palette);
 }
 
-EditMap::EditMap(std::vector<std::string> maps, QWidget *parent) :
+EditMap::EditMap(std::vector<std::string>& maps, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::edit_map),
-    maps(maps)
-{
+    maps(maps) {
     ui->setupUi(this);
 
     QPixmap bkgr("../editor/images/wallpaper.jpg");
@@ -36,21 +31,18 @@ EditMap::EditMap(std::vector<std::string> maps, QWidget *parent) :
     showList();
 }
 
-EditMap::~EditMap()
-{
+EditMap::~EditMap() {
     delete ui;
 }
 
-void EditMap::showList()
-{
+void EditMap::showList() {
     for (const std::string& name : maps) {
         QString mapName = QString::fromStdString(name);
         ui->mapsList->addItem(mapName);
     }
 }
 
-void EditMap::on_continueBotton_clicked()
-{
+void EditMap::on_continueBotton_clicked() {
     if (ui->mapsList->currentItem()) {
         ui->noMapSelected->clear();
 
@@ -68,4 +60,3 @@ void EditMap::on_continueBotton_clicked()
         ui->noMapSelected->setText("No map was selected");
     }
 }
-

@@ -6,7 +6,7 @@
 class MenuText : public Renderizable {
     int rescaling;
 
-    public:
+ public:
     MenuText(SdlTexture* texture,
            int sizeW,
            int sizeH,
@@ -18,8 +18,8 @@ class MenuText : public Renderizable {
     MenuText(const MenuText& other) = delete;
     MenuText& operator=(const MenuText& other) = delete;
 
-    MenuText(MenuText&& other) ;
-    MenuText& operator=(MenuText&& other) ;
+    MenuText(MenuText&& other);
+    MenuText& operator=(MenuText&& other);
 
     int getX();
     int getY();

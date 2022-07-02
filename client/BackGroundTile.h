@@ -1,12 +1,12 @@
-#ifndef BACKGROUNDTILE_H
-#define BACKGROUNDTILE_H
+#ifndef __BACKGROUNDTILE_H__
+#define __BACKGROUNDTILE_H__
 
 #include "Renderizable.h"
 
 class BackGroundTile : public Renderizable {
     int rescaling;
-    
-    public:
+
+ public:
     BackGroundTile(SdlTexture* texture,
          int sizeW,
          int sizeH,
@@ -15,19 +15,20 @@ class BackGroundTile : public Renderizable {
 
     void render(Camera &camera) override;
 
+    void changeTile(SdlTexture* texture, int x, int y);
+
     BackGroundTile(const BackGroundTile& other) = delete;
     BackGroundTile& operator=(const BackGroundTile& other) = delete;
 
-    BackGroundTile(BackGroundTile&& other) ;
-    BackGroundTile& operator=(BackGroundTile&& other) ;
+    BackGroundTile(BackGroundTile&& other);
+    BackGroundTile& operator=(BackGroundTile&& other);
 
     int getX();
 
     int getY();
 
     ~BackGroundTile() override;
-
 };
 
 
-#endif
+#endif /*__BACKGROUNDTILE_H__*/

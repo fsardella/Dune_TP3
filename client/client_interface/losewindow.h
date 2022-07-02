@@ -7,16 +7,15 @@ namespace Ui {
 class LoseWindow;
 }
 
-class LoseWindow : public QDialog
-{
+class LoseWindow : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit LoseWindow(QWidget *parent = nullptr);
     ~LoseWindow();
 
-private:
+ private:
     Ui::LoseWindow *ui;
 };
 
-#endif // LOSEWINDOW_H
+#endif  // LOSEWINDOW_H

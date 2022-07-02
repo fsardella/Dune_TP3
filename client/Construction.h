@@ -3,6 +3,9 @@
 
 #include "Animation.h"
 #include "Camera.h"
+#include <tuple>
+#include <map>
+#include <vector>
 
 class Construction {
     std::vector<Animation> animations;
@@ -22,8 +25,9 @@ class Construction {
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
 
-    public:
-    Construction(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
+ public:
+    Construction(std::map<std::tuple<int, int>,
+                 SdlTexture> &newAnimationsRepository,
                  std::map<int, SdlTexture>& lifeTextures,
                  SdlTexture* identifierTexture,
                  int sizeW,
@@ -51,6 +55,7 @@ class Construction {
     int getWidth();
     int getHeight();
     bool getIsDead();
+    void kill();
 
     void updateLife(int currentLife, int totalLife);
 
@@ -58,6 +63,5 @@ class Construction {
 
     ~Construction();
 };
-
 
 #endif /*__CONSTRUCTION_H__*/

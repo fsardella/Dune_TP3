@@ -9,22 +9,21 @@ namespace Ui {
 class JoinGameWindow;
 }
 
-class JoinGameWindow : public QDialog
-{
+class JoinGameWindow : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit JoinGameWindow(QWidget *parent, Client* client);
     ~JoinGameWindow();
 
-private slots:
+ private slots:
 
     void on_joinGameButton_clicked();
     void showWaitingWindow();
 
-private:
+ private:
     Client* newClient;
     Ui::JoinGameWindow *ui;
 };
 
-#endif // JOINGAMEWINDOW_H
+#endif  // JOINGAMEWINDOW_H

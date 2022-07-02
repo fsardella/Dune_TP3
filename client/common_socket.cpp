@@ -208,7 +208,7 @@ int Socket::sendsome(const void *data, unsigned int sz) {
     int s = send(this->skt, (char*)data, sz, MSG_NOSIGNAL);
     if (s <= 0) {
         // Puede o no ser un error (vease el comentario en recvsome())
-        
+
         // Este es un caso especial: cuando enviamos algo pero en el medio
         // se detecta un cierre del socket no se sabe bien cuanto se logro
         // enviar (y fue recibido por el peer) y cuanto se perdio.
@@ -289,7 +289,7 @@ int Socket::close() {
 }
 
 Socket::~Socket() {
-    if (not this->closed) {
+    if (!this->closed) {
         ::shutdown(this->skt, 2);
         ::close(this->skt);
     }
@@ -324,7 +324,7 @@ Socket& Socket::operator=(Socket&& other) {
     // somos un objeto ya construido.
     // Antes de tomar el ownershipt del otro socket debemos
     // liberar nuestro propio recurso.
-    if (not this->closed) {
+    if (!this->closed) {
         ::shutdown(this->skt, 2);
         ::close(this->skt);
     }

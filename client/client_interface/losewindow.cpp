@@ -3,8 +3,7 @@
 
 LoseWindow::LoseWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LoseWindow)
-{
+    ui(new Ui::LoseWindow) {
     ui->setupUi(this);
     QPixmap bkgnd("../client/client_interface/images/loseScreen.jpg");
     bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
@@ -13,7 +12,6 @@ LoseWindow::LoseWindow(QWidget *parent) :
     this->setPalette(palette);
 }
 
-LoseWindow::~LoseWindow()
-{
+LoseWindow::~LoseWindow() {
     delete ui;
 }

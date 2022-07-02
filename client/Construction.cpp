@@ -1,15 +1,18 @@
 #include "Construction.h"
+#include <utility>
 
 #include <iostream>
+
 
 #define STILL_ANIMATION 0
 #define CREATE_ANIMATION 1
 #define DEAD_ANIMATION 2
-#define LIFE_BAR_WIDTH 12 // hacer que sea mas grande?
+#define LIFE_BAR_WIDTH 12
 #define LIFE_BAR_HEIGHT 4
 #define IDENTIFIER_DIMENSION 4
 
-Construction::Construction(std::map<std::tuple<int, int>, SdlTexture>& newAnimationsRepository,
+Construction::Construction(std::map<std::tuple<int, int>,
+                           SdlTexture>& newAnimationsRepository,
                            std::map<int, SdlTexture>& lifeTextures,
                            SdlTexture* identifierTexture,
                            int sizeW,
@@ -31,8 +34,7 @@ Construction::Construction(std::map<std::tuple<int, int>, SdlTexture>& newAnimat
   propiety(propiety),
   animationId(1),
   lifeId(4),
-  isDead(false)
-{
+  isDead(false) {
     int actualSprite = 0;
     std::vector<SdlTexture*> textures;
     for (const auto& [key, value] : animationsRepository) {
@@ -43,7 +45,8 @@ Construction::Construction(std::map<std::tuple<int, int>, SdlTexture>& newAnimat
         }
         int animationType = std::get<0>(key);
         int animationSprite = std::get<1>(key);
-        textures.push_back(&(animationsRepository.at(std::make_tuple(animationType, animationSprite))));
+        textures.push_back(&(animationsRepository.at(std::make_tuple(
+                             animationType, animationSprite))));
     }
     animations.emplace_back(std::move(textures));
     getTexture();
@@ -55,7 +58,8 @@ int Construction::render(Camera &camera, int posX, int posY) {
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
     camera.renderInSightForUnit(currentLifeTexture, srcLife, posX, posY - 0.2);
     Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
-    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6, posY - 0.2);
+    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6,
+                                posY - 0.2);
     Area src(0, 0, sizeW, sizeH);
     return camera.renderInSightForUnit(texture, src, posX, posY);
 }
@@ -69,7 +73,7 @@ float Construction::getY() {
 }
 
 bool Construction::getPropiety() {
-	return propiety;
+    return propiety;
 }
 
 int Construction::getConstType() {
@@ -96,8 +100,12 @@ bool Construction::getIsDead() {
     return isDead;
 }
 
+void Construction::kill() {
+    isDead = true;
+}
+
 void Construction::updateLife(int currentLife, int totalLife) {
-    lifeId = int(currentLife / (totalLife / 4));
+    lifeId = static_cast<int>(currentLife / (totalLife / 4));
     if (lifeId == 0) lifeId = 1;
     getLifeTexture();
     if (currentLife == 0) {
@@ -107,16 +115,18 @@ void Construction::updateLife(int currentLife, int totalLife) {
 
 void Construction::update(int delta) {
     if (isDead) return;
-    if (animationId == DEAD_ANIMATION && animations.at(animationId).isLastFrame()) {
+    if (animationId == DEAD_ANIMATION &&
+        animations.at(animationId).isLastFrame()) {
         isDead = true;
         return;
     }
-	if (animationId == STILL_ANIMATION) return;
+    if (animationId == STILL_ANIMATION) return;
     animations.at(animationId).update(delta);
     getTexture();
-	if (animations.at(animationId).isLastFrame() && animationId == CREATE_ANIMATION) {
-		animationId = STILL_ANIMATION;
-	}
+    if (animations.at(animationId).isLastFrame() &&
+        animationId == CREATE_ANIMATION) {
+        animationId = STILL_ANIMATION;
+    }
 }
 
 Construction::Construction(Construction &&other)
@@ -135,7 +145,7 @@ Construction::Construction(Construction &&other)
   lifeId(other.lifeId),
   isDead(other.isDead),
   texture(other.texture),
-  currentLifeTexture(other.currentLifeTexture) 
+  currentLifeTexture(other.currentLifeTexture)
 {}
 
 Construction::~Construction() {

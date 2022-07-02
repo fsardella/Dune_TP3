@@ -3,8 +3,7 @@
 
 WinWindow::WinWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::WinWindow)
-{
+    ui(new Ui::WinWindow) {
     ui->setupUi(this);
     QPixmap bkgnd("../client/client_interface/images/winScreen.jpeg");
     bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
@@ -13,7 +12,6 @@ WinWindow::WinWindow(QWidget *parent) :
     this->setPalette(palette);
 }
 
-WinWindow::~WinWindow()
-{
+WinWindow::~WinWindow() {
     delete ui;
 }

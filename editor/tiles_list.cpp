@@ -1,4 +1,6 @@
 #include "tiles_list.h"
+#include <map>
+#include <vector>
 #include "yaml_parser.h"
 
 #define SAND "sand"
@@ -10,15 +12,15 @@
 #define CONSTRUCTION_YARD "construction yard"
 
 TilesList::TilesList(QWidget *parent) :
-    QTreeWidget(parent)
-{
+    QTreeWidget(parent) {
     this->setHeaderLabel("Tile options");
     this->setTiles();
 }
 
 
 void TilesList::setTiles() {
-    std::vector<std::string> types {SAND, DUNE, ROCK, SPICE, MONT, CLIFF, CONSTRUCTION_YARD};
+    std::vector<std::string> types {SAND, DUNE, ROCK, SPICE, MONT,
+                                    CLIFF, CONSTRUCTION_YARD};
     YamlParser parser;
     for (std::string& type : types) {
         QTreeWidgetItem* root = new QTreeWidgetItem();
@@ -39,7 +41,8 @@ void TilesList::setTiles() {
     }
 }
 
-void TilesList::add_child(QTreeWidgetItem* parent, std::string& name, QIcon icon) {
+void TilesList::add_child(QTreeWidgetItem* parent, std::string& name,
+                          QIcon icon) {
     QTreeWidgetItem* child = new QTreeWidgetItem();
     child->setText(0, QString::fromStdString(name));
     child->setIcon(0, icon);

@@ -1,12 +1,11 @@
 #include "MenuImage.h"
 #include "Camera.h"
+#include <utility>
 
 #define BARRACK 18
 #define LIGHT_FACTORY 12
 #define HEAVY_FACTORY 13
 #define PALACE 14
-
-#include <iostream>
 
 MenuImage::MenuImage(SdlTexture* texture,
            int sizeW,
@@ -25,8 +24,7 @@ MenuImage::MenuImage(SdlTexture* texture,
   isUnderConstruction(false),
   progress(0),
   isReady(false),
-  houses(houses)
-{
+  houses(houses) {
     if (type < 11) blocked = true;
     rescaling = 1;
 }
@@ -38,7 +36,8 @@ void MenuImage::render(Camera &camera) {
         camera.renderBlockingFigure(posX, posY);
     }
     if (isUnderConstruction) {
-        Area shadowScr(0, 0, sizeW, sizeH - (sizeH * (float(progress) / float(100))));
+        Area shadowScr(0, 0, sizeW, sizeH - (sizeH * (static_cast<float>
+                       (progress) / static_cast<float>(100))));
         camera.renderShadowForMenu(shadowScr, posX, posY, progress);
     }
     if (isReady) {
@@ -61,11 +60,15 @@ bool MenuImage::isBlocked() {
 bool MenuImage::checkUnblockPosibility(int buildingType) {
     if (type < 2 && lightFactorys != 0) return true;
     if (type > 2 && type < 4 && heavyFactorys != 0) return true;
-    if (type > 3 && type < 7 && heavyFactorys != 0 && palaces != 0) return true;
-    if (type > 3 && type < 7 && palaces != 0 && heavyFactorys != 0) return true;
+    if (type > 3 && type < 7 && heavyFactorys != 0 && palaces != 0)
+        return true;
+    if (type > 3 && type < 7 && palaces != 0 && heavyFactorys != 0)
+        return true;
     if (type > 6 && type < 9 && barracks != 0) return true;
-    if (type > 8 && type < 11 && barracks != 0 && palaces != 0) return true;
-    if (type > 8 && type < 11 && palaces != 0 && barracks != 0) return true;
+    if (type > 8 && type < 11 && barracks != 0 && palaces != 0)
+        return true;
+    if (type > 8 && type < 11 && palaces != 0 && barracks != 0)
+        return true;
     return false;
 }
 
@@ -136,8 +139,7 @@ MenuImage::MenuImage(MenuImage &&other)
   isUnderConstruction(other.isUnderConstruction),
   progress(other.progress),
   isReady(other.isReady),
-  houses(other.houses)
-{
+  houses(other.houses) {
 }
 
 MenuImage::~MenuImage() {

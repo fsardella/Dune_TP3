@@ -20,9 +20,5 @@ Renderizable::Renderizable(Renderizable &&other)
   posY(other.posY) {
 }
 
-void Renderizable::setTexture(SdlTexture* texture) {
-    this->texture = texture;
-}
-
 Renderizable::~Renderizable() {
 }

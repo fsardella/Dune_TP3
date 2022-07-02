@@ -1,6 +1,9 @@
 #ifndef __UNIT_H__
 #define __UNIT_H__
 
+#include <tuple>
+#include <map>
+#include <vector>
 #include "Animation.h"
 #include "Camera.h"
 
@@ -26,7 +29,7 @@ class Unit {
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
 
-    public:
+ public:
     Unit(std::map<std::tuple<int, int>, SdlTexture> &newAnimationsRepository,
          std::map<int, SdlTexture>&  lifeTextures,
          std::vector<SdlTexture*> attackTextures,
@@ -58,12 +61,13 @@ class Unit {
     float getY();
     int getWidth();
     int getHeight();
-    
+
     bool getPropiety();
     int getAnimationId();
     void setAnimationId(int animationId);
     void setNewPosition(float x, float y);
     bool getIsDead();
+    void kill();
     int getUnitType();
     void setIsTouched(bool status);
 
@@ -75,6 +79,5 @@ class Unit {
 
     ~Unit();
 };
-
 
 #endif /*__UNIT_H__*/

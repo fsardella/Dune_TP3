@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Drawer.h"
 
-#define DRAWER_FRAME_DURATION 100
+#define DRAWER_FRAME_DURATION 500
 
 Drawer::Drawer(GameView* gameView): gameView(gameView) {
 }
@@ -18,7 +18,8 @@ void Drawer::run() {
         if (DRAWER_FRAME_DURATION > delta) {
             usleep(DRAWER_FRAME_DURATION - delta);
         } else {
-            std::cout << "Please increase the DRAWER_FRAME_DURATION" << std::endl;
+            std::cout << "Please increase the DRAWER_FRAME_DURATION" <<
+            std::endl;
         }
     }
 }

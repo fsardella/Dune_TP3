@@ -9,21 +9,20 @@ namespace Ui {
 class CreateGameWindow;
 }
 
-class CreateGameWindow : public QDialog
-{
+class CreateGameWindow : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit CreateGameWindow(QWidget *parent, Client* client);
     ~CreateGameWindow();
 
-private slots:
+ private slots:
     void on_createGameButton_clicked();
     void showWaitingWindow();
 
-private:
+ private:
     Client* newClient;
     Ui::CreateGameWindow *ui;
 };
 
-#endif // CREATEGAMEWINDOW_H
+#endif  // CREATEGAMEWINDOW_H

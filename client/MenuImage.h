@@ -2,6 +2,7 @@
 #define __MENUIMAGE_H__
 
 #include "Renderizable.h"
+#include <vector>
 
 class MenuImage : public Renderizable {
     int type;
@@ -16,17 +17,17 @@ class MenuImage : public Renderizable {
     bool isReady;
     std::vector<int>& houses;
 
-    public:
+ public:
     MenuImage(SdlTexture* texture,
            int sizeW,
            int sizeH,
            float posX,
-           float posY, 
+           float posY,
            int type,
            std::vector<int>& houses);
 
     void render(Camera &camera) override;
-    
+
     MenuImage(const MenuImage& other) = delete;
     MenuImage& operator=(const MenuImage& other) = delete;
 

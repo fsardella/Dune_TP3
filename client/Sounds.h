@@ -10,12 +10,13 @@ class SoundManager {
     bool musicIsPlaying;
     std::vector<Mix_Chunk*> sounds;
     std::vector<Mix_Chunk*> soundsToPlay;
-    public:
-        SoundManager();
-        void push(int soundId, int volume);
-        void loadSounds();
-        void playSounds();
-       ~SoundManager();
+
+ public:
+    SoundManager();
+    void push(int soundId, int volume);
+    void loadSounds();
+    void playSounds();
+    ~SoundManager();
 };
 
 

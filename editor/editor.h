@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QGraphicsView>
+#include <vector>
+#include <string>
+#include <map>
 #include "map.h"
 #include "yaml_parser.h"
 #include "tiles_list.h"
@@ -13,16 +16,15 @@ namespace Ui {
 class Editor;
 }
 
-class Editor : public QDialog
-{
+class Editor : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit Editor(Map* map, QWidget *parent = nullptr);
     ~Editor();
 
 
-private slots:
+ private slots:
     void configureInitialMap();
     void drawMap();
     void setOptions();
@@ -30,8 +32,9 @@ private slots:
     int getItemId(std::string parentType, std::string name);
     void setSaveButton();
     void handleSaveButton();
+    void handleDeleteButton();
 
-private:
+ private:
     Ui::Editor *ui;
     Map* map;
     YamlParser parser;
@@ -42,4 +45,4 @@ private:
     std::map<int, std::vector<std::string>> translator;
 };
 
-#endif // EDITOR_H
+#endif  // EDITOR_H

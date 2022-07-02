@@ -7,16 +7,15 @@ namespace Ui {
 class WinWindow;
 }
 
-class WinWindow : public QDialog
-{
+class WinWindow : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit WinWindow(QWidget *parent = nullptr);
     ~WinWindow();
 
-private:
+ private:
     Ui::WinWindow *ui;
 };
 
-#endif // WINWINDOW_H
+#endif  // WINWINDOW_H

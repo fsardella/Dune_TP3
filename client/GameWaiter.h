@@ -8,7 +8,7 @@
 class GameWaiter : public Thread {
     WaitingWindow& window;
 
-    public:
+ public:
     explicit GameWaiter(WaitingWindow& window);
     void run() override;
     ~GameWaiter() override;

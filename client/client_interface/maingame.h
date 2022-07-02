@@ -8,21 +8,20 @@ namespace Ui {
 class MainGame;
 }
 
-class MainGame : public QDialog
-{
+class MainGame : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     MainGame(QWidget *parent, Client* client);
     ~MainGame();
 
-private slots:
+ private slots:
     void on_createGameButton_clicked();
     void on_joinGameButton_clicked();
 
-private:
+ private:
     Client* newClient;
     Ui::MainGame *ui;
 };
 
-#endif // MAINGAME_H
+#endif  // MAINGAME_H

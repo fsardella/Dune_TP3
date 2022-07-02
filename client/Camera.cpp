@@ -13,7 +13,7 @@
 #define BLOCKED_PATH "../client/menuImgs/blocked.bmp"
 #define SHADOW_PATH "../client/menuImgs/sombra.bmp"
 #define READY_PATH "../client/menuImgs/ready.bmp"
-#define FRAME_PATH "../client/animations/images(1).bmp"
+#define FRAME_PATH "../client/animations/frame.bmp"
 #define MENU_WIDTH 100
 #define MENU_HEIGHT 75
 
@@ -21,8 +21,10 @@ Camera::Camera(SdlWindow& window)
 : window(window),
   offsetX(0),
   offsetY(0),
-  width(int((window.getCenter().x) * 1.5 / TILE_PIX_SIZE)),
-  height(int(2*window.getCenter().y / TILE_PIX_SIZE)),
+  mapWidth(0),
+  mapHeight(0),
+  width(static_cast<int>((window.getCenter().x) * 1.5 / TILE_PIX_SIZE)),
+  height(static_cast<int>(2*window.getCenter().y / TILE_PIX_SIZE)),
   blockedTexture(BLOCKED_PATH, &window, 255, 255, 255),
   menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, 180),
   readyTexture(READY_PATH, &window, 255, 255, 255),
@@ -38,7 +40,8 @@ void Camera::setMapSize(int width, int height) {
     this->mapHeight = height;
 }
 
-void Camera::renderInSight(SdlTexture* texture, Area& src, float posX, float posY) {
+void Camera::renderInSight(SdlTexture* texture, const Area& src, float posX,
+                           float posY) {
     if (!isVisible(posX, posY)) {
         return;
     }
@@ -49,7 +52,8 @@ void Camera::renderInSight(SdlTexture* texture, Area& src, float posX, float pos
     texture->render(src, dst);
 }
 
-int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, float posY) {
+int Camera::renderInSightForUnit(SdlTexture* texture, const Area& src, float posX,
+                                 float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return SUCCESS;
@@ -58,7 +62,8 @@ int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, flo
     int newX = (posX - offsetX) * TILE_PIX_SIZE;
     int newY = (posY - offsetY) * TILE_PIX_SIZE;
     int remainderX = (posX + (rect.w / TILE_PIX_SIZE)) - (width + offsetX + 1);
-    int remainderY = (posY + (rect.h / TILE_PIX_SIZE)) - (height + offsetY + 1);
+    int remainderY = (posY + (rect.h / TILE_PIX_SIZE)) -
+                     (height + offsetY + 1);
     int txtWidth = rect.w;
     int txtHeight = rect.h;
     if (remainderX > 0) {
@@ -72,7 +77,7 @@ int Camera::renderInSightForUnit(SdlTexture* texture, Area& src, float posX, flo
     return returnValue;
 }
 
-void Camera::renderUnitFrame(Area&src, float posX, float posY) {
+void Camera::renderUnitFrame(const Area&src, float posX, float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return;
@@ -95,21 +100,25 @@ void Camera::renderMenuRect() {
     window.renderRect(r);
 }
 
-void Camera::renderShadowForMenu(Area& src, float posX, float posY, int progress) {
+void Camera::renderShadowForMenu(Area& src, float posX, float posY,
+                                 int progress) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
-    int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * MENU_HEIGHT + MENU_HEIGHT * (float(progress) / float(100));
+    int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * MENU_HEIGHT +
+               MENU_HEIGHT * (static_cast<float>(progress) /
+               static_cast<float>(100));
 
     Area dst(newX, newY, rect.w, rect.h);
-    menuShadowTexture.render(src,dst);
+    menuShadowTexture.render(src, dst);
 }
 
-void Camera::renderInSightForMenu(SdlTexture* texture, Area& src, float posX, float posY) {
+void Camera::renderInSightForMenu(SdlTexture* texture, const Area& src,
+                                  float posX, float posY) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    texture->render(src,dst);
+    texture->render(src, dst);
 }
 
 void Camera::renderBlockingFigure(int posX, int posY) {
@@ -118,7 +127,7 @@ void Camera::renderBlockingFigure(int posX, int posY) {
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    blockedTexture.render(src,dst);
+    blockedTexture.render(src, dst);
 }
 
 void Camera::renderReadyFigure(int posX, int posY) {
@@ -127,15 +136,16 @@ void Camera::renderReadyFigure(int posX, int posY) {
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    readyTexture.render(src,dst);
+    readyTexture.render(src, dst);
 }
 
-void Camera::renderInSightForMenuTitles(SdlTexture* texture, Area& src, float posX, float posY) {
+void Camera::renderInSightForMenuTitles(SdlTexture* texture, const Area& src,
+                                        float posX, float posY) {
     auto rect = src.buildRectangle();
     int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
     int newY = (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
-    texture->render(src,dst);
+    texture->render(src, dst);
 }
 
 bool Camera::isVisibleInX(float x) {
@@ -190,7 +200,7 @@ void Camera::moveRight() {
 int Camera::getXOffset() {
     return offsetX;
 }
-    
+
 int Camera::getYOffset() {
     return offsetY;
 }

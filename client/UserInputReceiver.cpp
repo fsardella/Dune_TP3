@@ -30,11 +30,12 @@
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj,
                                      BlockingQueue<ClientInput>* blockingQueue)
 : gameView(gameViewObj),
-  blockingQueue(blockingQueue) 
+  blockingQueue(blockingQueue)
 {}
 
 int UserInputReceiver::findRow(int y) {
-    for (int i = MENU_IMAGE_OFFSET_Y; i < END_ROWS; i += (SPACING_Y + IMAGE_PIX_HEIGHT)) {
+    for (int i = MENU_IMAGE_OFFSET_Y; i < END_ROWS; i +=
+        (SPACING_Y + IMAGE_PIX_HEIGHT)) {
         if (i < y && y < (i + IMAGE_PIX_HEIGHT)) {
             if (i == MENU_IMAGE_OFFSET_Y) return 0;
             return (i - MENU_IMAGE_OFFSET_Y) / (SPACING_Y + IMAGE_PIX_HEIGHT);
@@ -44,7 +45,8 @@ int UserInputReceiver::findRow(int y) {
 }
 
 int UserInputReceiver::findCol(int x) {
-    for (int i = MENU_IMAGE_OFFSET_X; i < END_COLS; i += (SPACING_X + IMAGE_PIX_WIDTH)) {
+    for (int i = MENU_IMAGE_OFFSET_X; i < END_COLS; i +=
+        (SPACING_X + IMAGE_PIX_WIDTH)) {
         if (i < x && x < (i + IMAGE_PIX_WIDTH)) {
             if (i == MENU_IMAGE_OFFSET_X) return 0;
             return (i - MENU_IMAGE_OFFSET_X) / (SPACING_X + IMAGE_PIX_WIDTH);
@@ -76,7 +78,8 @@ void UserInputReceiver::handlePosition(int x, int y) {
             int unitId = gameView->isUnit(posX, posY, false);
             int buildingId = gameView->isBuilding(posX, posY, false);
 
-            if (gameView->isBuildingReady(currentMenuImage) && unitId == NONE_TYPE && buildingId == NONE_TYPE) {
+            if (gameView->isBuildingReady(currentMenuImage) &&
+                unitId == NONE_TYPE && buildingId == NONE_TYPE) {
                 // op 9
                 // quiero posicionar un edificio ya listo
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
@@ -92,10 +95,11 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 int attackedType = unitId != NONE_TYPE ? 0 : 1;
                 int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
                 // quiero atacar a un edificio/unidad
-                for (int& id : touchedUnits) {
-                    ClientInput clientInput(ATTACK, attackedType, id, attackedId);
+                for (int& touchedId : touchedUnits) {
+                    ClientInput clientInput(ATTACK, attackedType,
+                                            touchedId, attackedId);
                     blockingQueue->push(std::move(clientInput));
-                    gameView->untouchedUnit(id);
+                    gameView->untouchedUnit(touchedId);
                 }
                 touchedUnits.clear();
                 if (unitId != NONE_TYPE) {
@@ -186,27 +190,24 @@ void UserInputReceiver::run() {
     while (gameView->isRunning()) {
         SDL_Event event;
         bool selection;
-        while(SDL_PollEvent(&event)) {
-            if(event.type == SDL_QUIT) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
                 gameView->shutdown();
                 blockingQueue->close();
                 break;
-            }
-            else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+            } else if (event.type == SDL_MOUSEBUTTONDOWN &&
+                    event.button.button == SDL_BUTTON_LEFT) {
                 selection = true;
                 handlePosition(event.button.x, event.button.y);
-            }
-            else if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
+            } else if (event.type == SDL_MOUSEBUTTONDOWN &&
+                    event.button.button == SDL_BUTTON_RIGHT) {
                 handleRightClick(event.button.x, event.button.y);
-            }
-            else if (event.type == SDL_MOUSEMOTION && selection) {
+            } else if (event.type == SDL_MOUSEMOTION && selection) {
                 handlePosition(event.button.x, event.button.y);
-            }
-            else if (event.type == SDL_MOUSEBUTTONUP) {
+            } else if (event.type == SDL_MOUSEBUTTONUP) {
                 selection = false;
-            }
-            else if(event.type == SDL_KEYDOWN) {
-                switch(event.key.keysym.sym) {
+            } else if (event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
                     case SDLK_UP: gameView->moveUpwards(); break;
                     case SDLK_DOWN: gameView->moveDownwards(); break;
                     case SDLK_LEFT: gameView->moveLeft(); break;

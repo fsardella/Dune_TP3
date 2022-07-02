@@ -14,7 +14,8 @@
 #include <new>  // para el std::bad_alloc
 #include <stdexcept>
 
-Resolver::Resolver(const char* hostname, const char* servicename, bool passive) {
+Resolver::Resolver(const char* hostname, const char* servicename,
+                   bool passive) {
     struct addrinfo hints;
     this->result = this->next_ = nullptr;
 
@@ -28,7 +29,8 @@ Resolver::Resolver(const char* hostname, const char* servicename, bool passive) 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_INET;       /* IPv4 (or AF_INET6 for IPv6)     */
     hints.ai_socktype = SOCK_STREAM; /* TCP  (or SOCK_DGRAM for UDP)    */
-    hints.ai_flags = passive ? AI_PASSIVE : 0;  /* AI_PASSIVE for server; 0 for client */
+    hints.ai_flags = passive ? AI_PASSIVE : 0;  /* AI_PASSIVE for server; */
+                                                /* 0 for client */
 
 
     /* Obtengo la (o las) direcciones segun el nombre de host y servicio que

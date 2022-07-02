@@ -53,8 +53,6 @@ set(EDITOR_SOURCES
         editor/map_scene.h
         editor/map_item.cpp
         editor/map_item.h
-        editor/item_info.cpp
-        editor/item_info.h
 )
 
 set(CLIENT_SOURCES
@@ -135,6 +133,8 @@ set(CLIENT_SOURCES
         client/GameWaiter.h
         client/Sounds.cpp
         client/Sounds.h
+        client/Worm.cpp
+        client/Worm.h
 )
 
 set(SERVER_SOURCES

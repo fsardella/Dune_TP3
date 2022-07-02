@@ -11,23 +11,22 @@ namespace Ui {
 class edit_map;
 }
 
-class EditMap : public QDialog
-{
+class EditMap : public QDialog {
     Q_OBJECT
 
-public:
+ public:
     explicit EditMap(QWidget *parent = nullptr);
-    EditMap(std::vector<std::string> maps, QWidget *parent = nullptr);
+    explicit EditMap(std::vector<std::string>& maps, QWidget *parent = nullptr);
     ~EditMap();
 
-private slots:
+ private slots:
     void showList();
     void on_continueBotton_clicked();
 
-private:
+ private:
     Ui::edit_map *ui;
     Map map;
     std::vector<std::string> maps;
 };
 
-#endif // EDIT_MAP_H
+#endif  // EDIT_MAP_H

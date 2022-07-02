@@ -1,13 +1,10 @@
 #include "waitingWindow.h"
 #include "ui_waitingWindow.h"
 
-#include <iostream>
-
 WaitingWindow::WaitingWindow(QWidget *parent, Client* client) :
     QDialog(parent),
     newClient(client),
-    ui(new Ui::WaitingWindow)
-{
+    ui(new Ui::WaitingWindow) {
     ui->setupUi(this);
     QPixmap bkgnd("../client/client_interface/images/waitingScreen.jpg");
     bkgnd = bkgnd.scaled(width(), height(), Qt::KeepAspectRatioByExpanding);
@@ -16,8 +13,7 @@ WaitingWindow::WaitingWindow(QWidget *parent, Client* client) :
     this->setPalette(palette);
 }
 
-WaitingWindow::~WaitingWindow()
-{
+WaitingWindow::~WaitingWindow() {
     delete ui;
 }
 

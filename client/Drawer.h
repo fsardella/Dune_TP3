@@ -8,7 +8,7 @@
 
 class Drawer : public Thread {
     GameView* gameView;
-    public:
+ public:
     explicit Drawer(GameView* gameView);
     void handle_events(Unit unit);
     void update(float dt);
@@ -16,4 +16,4 @@ class Drawer : public Thread {
     ~Drawer() override;
 };
 
-#endif
+#endif /*__DRAWER_H__*/

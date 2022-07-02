@@ -1,16 +1,17 @@
 #ifndef __CLIENTE_H__
 #define __CLIENTE_H__
 
+#include <yaml-cpp/yaml.h>
+#include <QDialog>
 #include <string>
 #include <vector>
+#include <list>
 #include "client_protocol.h"
-#include <yaml-cpp/yaml.h>
 #include "yaml-cpp/node/node.h"
 #include "yaml-cpp/node/parse.h"
 #include "SdlWindow.h"
 #include "GameView.h"
 #include "ServerReceiver.h"
-#include <QDialog>
 
 #define HOUSE_ATREIDES "Atreides"
 #define HOUSE_HARKONNEN "Harkonnen"
@@ -26,37 +27,37 @@
 // #define LIST_MAPS 4
 
 class Client {
-	bool readyToRun;
-	int houseNumber;
-	std::string gameName;
-	std::string mapName;
-	std::string name;
-	int gameResult;
-	void operation_run(std::string& line);
+    bool readyToRun;
+    int houseNumber;
+    std::string gameName;
+    std::string mapName;
+    std::string name;
+    int gameResult;
+    void operation_run(std::string& line);
 
-	public:
-	ProtocolClient protocol; //get protocol despues
-	Client();
-	void setReadyToRun();
-	bool isReadyToRun();
-	int getGameResult();
-	void setConnection(const char* name_host, const char* service_port);
-	void client_run();
-	void chooseName(std::string name);
-	void chooseNumberHouse(std::string house);
-	void chooseGameName(std::string name);
-	void chooseMapName(std::string name);
-	void sendUserName();
-	void sendCreateGameOperation();
-	void sendCreateGameInfo();
-	void sendJoinGameOperation();
-	void sendListGamesOperation();
-	void sendListMapsOperation();
-	void recvListOfMaps(std::list <std::string>& list);
+ public:
+    ProtocolClient protocol;  // get protocol despues
+    Client();
+    void setReadyToRun();
+    bool isReadyToRun();
+    int getGameResult();
+    void setConnection(const char* name_host, const char* service_port);
+    void client_run();
+    void chooseName(std::string name);
+    void chooseNumberHouse(std::string house);
+    void chooseGameName(std::string name);
+    void chooseMapName(std::string name);
+    void sendUserName();
+    void sendCreateGameOperation();
+    void sendCreateGameInfo();
+    void sendJoinGameOperation();
+    void sendListGamesOperation();
+    void sendListMapsOperation();
+    void recvListOfMaps(std::list <std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
-	int recvStartGame();
-	int recvOperationResult();
-	~Client();
+    int recvStartGame();
+    int recvOperationResult();
+    ~Client();
 };
 
 #endif /*__CLIENTE_H__*/

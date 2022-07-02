@@ -1,9 +1,7 @@
 #include "editor.h"
-#include "ui_editor.h"
-
-#include <iostream>
-#include <QPushButton>
 #include <QMessageBox>
+#include <QPushButton>
+#include "ui_editor.h"
 
 #define DUNE_OFFSET 3
 #define ROCK_OFFSET 6
@@ -15,8 +13,7 @@
 Editor::Editor(Map* map, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Editor),
-    map(map)
-{
+    map(map) {
     ui->setupUi(this);
 
     std::string yamlPath(map->getName() + ".yaml");
@@ -35,15 +32,14 @@ Editor::Editor(Map* map, QWidget *parent) :
     this->setLayout(layout);
 }
 
-Editor::~Editor()
-{
+Editor::~Editor() {
     delete ui;
 }
 
 void Editor::configureInitialMap() {
     try {
         parser.getMap(map);
-    } catch(const std::ios_base::failure& e) { // creas uno nuevo con arena
+    } catch(const std::ios_base::failure& e) {
         std::vector<std::vector<int>> initialMap;
         for (int i = 0; i < map->getHeight(); i ++) {
             std::vector<int> row;
@@ -68,23 +64,31 @@ void Editor::drawMap() {
 void Editor::setOptions() {
     tilesList = new TilesList(nullptr);
     rightLayout->addWidget(tilesList);
-    connect(tilesList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(tilesListClicked(QTreeWidgetItem*,int)));
+    connect(tilesList, SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+            this, SLOT(tilesListClicked(QTreeWidgetItem*, int)));
 }
 
 void Editor::setSaveButton() {
+    QPushButton *deletePushButton = new QPushButton("Delete", this);
+    rightLayout->addWidget(deletePushButton, 2);
+
+    connect(deletePushButton, SIGNAL(released()), this,
+            SLOT(handleDeleteButton()));
+
     QPushButton *savePushButton = new QPushButton("Save", this);
     rightLayout->addWidget(savePushButton, 2);
 
-    connect(savePushButton, SIGNAL (released()), this, SLOT (handleSaveButton()));
+    connect(savePushButton, SIGNAL(released()), this,
+            SLOT(handleSaveButton()));
 }
 
 int Editor::getItemId(std::string parentType, std::string name) {
     int n = parser.getItemId(parentType, name);
     if (parentType.compare("sand") == 0) {
         return n;
-    } else if(parentType.compare("rock") == 0) {
+    } else if (parentType.compare("rock") == 0) {
         return n + ROCK_OFFSET;
-    } else if(parentType.compare("dune") == 0) {
+    } else if (parentType.compare("dune") == 0) {
         return n + DUNE_OFFSET;
     } else if (parentType.compare("spice") == 0) {
         return n + SPICE_OFFSET;
@@ -98,7 +102,7 @@ int Editor::getItemId(std::string parentType, std::string name) {
 }
 
 void Editor::tilesListClicked(QTreeWidgetItem* item, int column) {
-    if(item->childCount() == 0) { // si no soy root
+    if (item->childCount() == 0) {  // si no soy root
         std::string nameItem = item->text(0).toStdString();
         QTreeWidgetItem* parent = item->parent();
         std::string parentType = parent->text(0).toStdString();
@@ -106,16 +110,33 @@ void Editor::tilesListClicked(QTreeWidgetItem* item, int column) {
         int id = getItemId(parentType, nameItem);
         std::string path = translator[id][1];
         mapScene->setCurrentItem(path, id);
+    }
+}
 
+void Editor::handleDeleteButton() {
+    if (!mapScene->getDeleteMode()) {
+        mapScene->setDeleteMode(true);
+        std::string msg("Press again to exit delete mode");
+        QMessageBox::warning(this, tr("You entered delete mode"),
+                             tr(msg.c_str()), QMessageBox::Close);
+    } else {
+        std::string msg("You exited delete mode");
+        QMessageBox::warning(this, tr("Can´t delete"), tr(msg.c_str()),
+                             QMessageBox::Close);
+        mapScene->setDeleteMode(false);
     }
 }
 
 void Editor::handleSaveButton() {
     if (mapScene->getConstYardAmount() == map->getNPlayers()) {
         parser.saveMap(map);
-        QMessageBox::information(this, tr("Saved"), tr("Mas was saved correctly"));
+        QMessageBox::information(this, tr("Saved"),
+                                 tr("Mas was saved correctly"));
     } else {
-        std::string msg("Map should have " + std::to_string(map->getNPlayers()) + " construction yards");
-        QMessageBox::warning(this, tr("Can´t save"), tr(msg.c_str()), QMessageBox::Close);
+        std::string msg("Map should have " +
+                        std::to_string(map->getNPlayers()) +
+                        " construction yards");
+        QMessageBox::warning(this, tr("Can´t save"), tr(msg.c_str()),
+                             QMessageBox::Close);
     }
 }

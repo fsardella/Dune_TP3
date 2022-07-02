@@ -1,8 +1,6 @@
 #include "yaml_parser.h"
 #include <fstream>
 
-#include <iostream>
-
 #define SAND "sand"
 #define DUNE "dune"
 #define ROCK "rock"
@@ -13,37 +11,41 @@
 
 YamlParser::YamlParser() {}
 
-YamlParser::YamlParser(std::string& mapPath) : mapPath(mapPath) {}
+YamlParser::YamlParser(const std::string& mapPath) : mapPath(mapPath) {}
 
-void YamlParser::addMapName(std::string& mapName) {
+void YamlParser::addMapName(const std::string& mapName) {
     YAML::Node node;
     try {
         node = YAML::LoadFile(MAPS);
 
-        std::vector<std::string> maps = node["maps"].as<std::vector<std::string>>();
+        std::vector<std::string> maps = node["maps"].as<
+                                        std::vector<std::string>>();
         maps.push_back(mapName);
 
-        node["maps"] = maps; // lo modificas
+        node["maps"] = maps;
     } catch(YAML::BadFile& e) {
         node["maps"].push_back(mapName);
     }
-    std::ofstream file(MAPS,  std::ofstream::out); // lo creo
-    file << node; // lo cargas
+    std::ofstream file(MAPS,  std::ofstream::out);
+    file << node;
 }
 
 std::vector<std::string> YamlParser::getMaps() {
     try {
         YAML::Node node = YAML::LoadFile(MAPS);
-        std::vector<std::string> maps = node["maps"].as<std::vector<std::string>>();
+        std::vector<std::string> maps = node["maps"].as<
+                                        std::vector<std::string>>();
         return maps;
     } catch(YAML::BadFile& e) {
         throw(std::length_error("No map has been created"));
     }
 }
 
-std::map<std::string, std::string> YamlParser::getItems(std::string& type) {
+std::map<std::string, std::string> YamlParser::getItems(
+                                const std::string& type) {
     YAML::Node node = YAML::LoadFile(ITEMS);
-    std::vector<std::vector<std::string>> listItems = node[type].as<std::vector<std::vector<std::string>>>();
+    std::vector<std::vector<std::string>> listItems = node[type].as<
+                            std::vector<std::vector<std::string>>>();
     std::map<std::string, std::string> items;
     for (std::vector<std::string>& item : listItems) {
         items[item[0]] = item[1];
@@ -53,11 +55,13 @@ std::map<std::string, std::string> YamlParser::getItems(std::string& type) {
 
 std::map<int, std::vector<std::string>> YamlParser::getTranslator() {
     YAML::Node node = YAML::LoadFile(ITEMS);
-    std::vector<std::string> types {SAND, DUNE, ROCK, SPICE, MONT, CLIFF, CONSTRUCTION_YARD};
+    std::vector<std::string> types {SAND, DUNE, ROCK, SPICE, MONT,
+                                    CLIFF, CONSTRUCTION_YARD};
     std::map<int, std::vector<std::string>> translator;
     int count = 0;
     for (std::string& type : types) {
-        std::vector<std::vector<std::string>> listItems = node[type].as<std::vector<std::vector<std::string>>>();
+        std::vector<std::vector<std::string>> listItems = node[type].as<
+                                std::vector<std::vector<std::string>>>();
         for (std::vector<std::string>& item : listItems) {
             translator[count] = item;
             count++;
@@ -66,11 +70,13 @@ std::map<int, std::vector<std::string>> YamlParser::getTranslator() {
     return translator;
 }
 
-int YamlParser::getItemId(std::string parentType, std::string name) {
+int YamlParser::getItemId(const std::string& parentType,
+                          const std::string& name) {
     YAML::Node node = YAML::LoadFile(ITEMS);
-    std::vector<std::vector<std::string>> listItems = node[parentType].as<std::vector<std::vector<std::string>>>();
+    std::vector<std::vector<std::string>> listItems = node[parentType].as<
+                                  std::vector<std::vector<std::string>>>();
     int i;
-    for (i = 0; i < int(listItems.size()); i ++) {
+    for (i = 0; i < static_cast<int>(listItems.size()); i ++) {
         std::string itemName = listItems[i][0];
         if (itemName.compare(name) == 0) {
             break;
@@ -90,7 +96,7 @@ void YamlParser::editMap(Map* map) {
 }
 
 void YamlParser::loadMatrix(std::vector<std::vector<int>> matrix,
-                            YAML::Node& node, std::string& key) {
+                            YAML::Node& node, const std::string& key) {
     YAML::Node new_matrix;
     for (std::vector<int>& row : matrix) {
         YAML::Node yaml_row = YAML::Load("[]");
@@ -103,16 +109,17 @@ void YamlParser::loadMatrix(std::vector<std::vector<int>> matrix,
 }
 
 void YamlParser::saveMap(Map* map) {
-    try { // es edición
+    try {  // es edición
         this->editMap(map);
-    } catch(YAML::BadFile& e) { // es creación
+    } catch(YAML::BadFile& e) {  // es creación
         std::ofstream yaml_file(MAPS_ROUTE + mapPath,  std::ofstream::out);
         YAML::Node node = YAML::LoadFile(MAPS_ROUTE + mapPath);
 
         node["width"] = map->getWidth();
         node["height"] = map->getHeight();
         node["players"] = map->getNPlayers();
-        std::string matrix("matrix"); std::string constructions("constructions");
+        std::string matrix("matrix");
+        std::string constructions("constructions");
         this->loadMatrix(map->getMap(), node, matrix);
         this->loadMatrix(map->getConstYards(), node, constructions);
 
@@ -131,7 +138,8 @@ void YamlParser::getMap(Map* map) {
         map->setHeight(node["height"].as<int>());
         map->setNPlayers(node["players"].as<int>());
         map->setMap(node["matrix"].as<std::vector<std::vector<int>>>());
-        map->setConstYards(node["constructions"].as<std::vector<std::vector<int>>>());
+        map->setConstYards(node["constructions"].as<
+                                        std::vector<std::vector<int>>>());
     } catch(YAML::BadFile& e) {
         std::string msg("No map is associated with " + mapPath + "yaml");
         throw(std::ios_base::failure(msg));

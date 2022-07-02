@@ -3,28 +3,23 @@
 #include "creategamewindow.h"
 #include "joingamewindow.h"
 
-#include <iostream>
-
 MainGame::MainGame(QWidget *parent, Client* client):
     QDialog(parent),
-    ui(new Ui::MainGame)
-{
+    ui(new Ui::MainGame) {
     newClient = client;
     ui->setupUi(this);
     QPixmap bkgnd("../client/client_interface/images/DuneMainGameWindow.png");
-    bkgnd = bkgnd.scaled(width(),700, Qt::KeepAspectRatioByExpanding);
+    bkgnd = bkgnd.scaled(width(), 700, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
 }
 
-MainGame::~MainGame()
-{
+MainGame::~MainGame() {
     delete ui;
 }
 
-void MainGame::on_createGameButton_clicked()
-{
+void MainGame::on_createGameButton_clicked() {
     this->close();
     CreateGameWindow createGameWindow(NULL, newClient);
     createGameWindow.setModal(true);
@@ -33,12 +28,10 @@ void MainGame::on_createGameButton_clicked()
 }
 
 
-void MainGame::on_joinGameButton_clicked()
-{
+void MainGame::on_joinGameButton_clicked() {
     this->close();
     JoinGameWindow joinGameWindow(NULL, newClient);
     joinGameWindow.setModal(true);
     joinGameWindow.showMaximized();
     joinGameWindow.exec();
 }
-

@@ -1,7 +1,9 @@
-#ifndef GAMEVIEW_H
-#define GAMEVIEW_H
+#ifndef __GAMEVIEW_H__
+#define __GAMEVIEW_H__
 
 #include <vector>
+#include <map>
+#include <tuple>
 #include <mutex>
 #include "SdlWindow.h"
 #include "SdlTexture.h"
@@ -15,7 +17,8 @@ class GameView {
     MapView map;
     std::mutex gameViewMutex;
     bool running;
-    public:
+
+ public:
     GameView(SdlWindow& window, int houseNumberClient);
 
     GameView(const GameView& other) = delete;
@@ -25,10 +28,14 @@ class GameView {
     GameView& operator=(GameView&& other) = delete;
 
     void render();
-    void buildMap(int height, int width, std::vector<std::vector<uint8_t>> map);
-    void buildUnit(int x, int y, int unitId, int unitType, int playerId, int animationId, bool property);
-    void buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>> units);
-    void buildConstruction(int x, int y, int playerId, int constructionId, int constType, bool property, int house);
+    void buildMap(int height, int width,
+                  std::vector<std::vector<uint8_t>> map);
+    void buildUnit(int x, int y, int unitId, int unitType, int playerId,
+                   int animationId, bool property);
+    void buildUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>
+                    units);
+    void buildConstruction(int x, int y, int playerId, int constructionId,
+                           int constType, bool property, int house);
     void updateProgress(int menuId, int progress);
     void setSize(int newWidth, int newHeight);
     void shutdown();
@@ -37,9 +44,11 @@ class GameView {
     void moveDownwards();
     void moveLeft();
     void moveRight();
-    
-    void unitAttack(int attackerId, int attackedId, int currentLife, int totalLife);
-    void buildingAttack(int attackerId, int attackedId, int currentLife, int totalLife);
+
+    void unitAttack(int attackerId, int attackedId, int currentLife,
+                    int totalLife);
+    void buildingAttack(int attackerId, int attackedId, int currentLife,
+                        int totalLife);
 
     int getXOffset();
     int getYOffset();
@@ -52,6 +61,8 @@ class GameView {
     bool isBuildingReady(int currentBuilding);
     void setNotReady(int currentBuilding);
     void destroyBuilding(int id);
+    void wormAttack(int x, int y, std::vector<int> deadId);
+    void updateSpecie(int x, int y, int state);
 
     void setMoney(int actualMoney);
     void setEnergy(int actualEnergy);
@@ -62,7 +73,6 @@ class GameView {
     void untouchedUnit(int unitId);
 
     ~GameView();
-
 };
 
-#endif
+#endif /*__GAMEVIEW_H__*/

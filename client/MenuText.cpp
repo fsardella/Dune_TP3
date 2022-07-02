@@ -1,5 +1,6 @@
 #include "MenuText.h"
 #include "Camera.h"
+#include <utility>
 
 MenuText::MenuText(SdlTexture* texture,
            int sizeW,
@@ -29,7 +30,7 @@ MenuText::MenuText(MenuText &&other)
 }
 
 MenuText& MenuText::operator=(MenuText &&other) {
-    if(this == &other) return *this;
+    if (this == &other) return *this;
 
     this->rescaling = other.rescaling;
 

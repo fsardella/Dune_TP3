@@ -1,8 +1,9 @@
 #include "map.h"
+#include <utility>
 
 Map::Map() {}
 
-void Map::setName(std::string& mapName) {
+void Map::setName(const std::string& mapName) {
     this->name = mapName;
 }
 
@@ -72,9 +73,9 @@ Map::Map(Map &&other) {
     this->width = other.width;
     this->height = other.height;
     this->nPlayers = other.nPlayers;
-    this->map = other.map; // posiblemente haya que poner un std::move y asi no agregar lo del otro
+    this->map = std::move(other.map);
     this->constYards = other.constYards;
-    other.name = nullptr;
+
     other.width = 0;
     other.height = 0;
     other.nPlayers = 0;
@@ -85,15 +86,13 @@ Map &Map::operator=(Map &&other)  {
         return *this;
     }
 
-    // aca puede ir algo mas
-
     this->name = other.name;
     this->width = other.width;
     this->height = other.height;
     this->nPlayers = other.nPlayers;
-    this->map = other.map; // posiblemente haya que poner un std::move y asi no agregar lo del otro
+    this->map = std::move(other.map);
     this->constYards = other.constYards;
-    other.name = nullptr;
+
     other.width = 0;
     other.height = 0;
     other.nPlayers = 0;

@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <list>
-
+#include <map>
+#include <tuple>
 #include "common_socket.h"
 #include "Construction.h"
 
@@ -15,21 +16,26 @@
 class ProtocolClient {
     Socket socket;
     std::map<int, int> playerHouses;
-    public:
+
+ public:
     ProtocolClient();
     void setSktConnection(const char* name_host, const char* service_port);
-    int receiveTwoBytes();
     int receiveOneByte();
-    int convert_from_uint8(uint8_t number); 
+    int receiveTwoBytes();
+    int receiveFourBytes();
+    int convert_from_uint8(uint8_t number);
     int convert_from_uint16_with_endianess(uint16_t number);
-    uint16_t convert_to_uint16_with_endianess(int number);
+    int convert_from_uint32_with_endianess(uint32_t number);
     uint8_t convert_to_uint8(int number);
+    uint16_t convert_to_uint16_with_endianess(int number);
 
     void sendOperation(int operationNumber);
     void sendUserName(std::string userName);
     void sendCreateGameOperation(int operationNumber);
-    void sendCreateGameInfo(std::string gameName, std::string mapName, int houseNumber);
-    void sendJoinGameOperation(int operationNumber, std::string gameName, int houseNumber);
+    void sendCreateGameInfo(std::string gameName, std::string mapName,
+                            int houseNumber);
+    void sendJoinGameOperation(int operationNumber, std::string gameName,
+                               int houseNumber);
     void sendListGamesOperation(int operationNumber);
     void sendListMapsOperation(int operationNumber);
     void sendConstructionPetition(int operation, int type);
@@ -41,14 +47,18 @@ class ProtocolClient {
 
     void recvListOfMaps(std::list<std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
-    std::map<int, int> recvConstYards(std::map<int, std::tuple<int, int, int, int, bool>>& constYards,
-									  std::string& clientName, int& clientId);
-    void recvMap(int& width, int& height, std::vector<std::vector<uint8_t>>& map);
-    void recvUnits(std::map<int, std::tuple<int, int, int, int, int, bool>>& units,
-				   int& clientId, int& money, int& energy);
+    std::map<int, int> recvConstYards(std::map<int,
+                            std::tuple<int, int, int, int, bool>>& constYards,
+                            std::string& clientName, int& clientId);
+    void recvMap(int& width, int& height,
+                 std::vector<std::vector<uint8_t>>& map);
+    void recvUnits(std::map<int,
+                  std::tuple<int, int, int, int, int, bool>>& units,
+                  const int& clientId, int& money, int& energy);
     std::tuple<int, int, int, int, int, bool> recvBuildingInfo(int clientId);
     std::tuple<int, int, int, int> receiveAttackInfo();
-    void recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress, int clientId);
+    void recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress,
+                           int clientId);
     void recvBuildingProgress(std::vector<int>& buildingsProgress);
     int recvStartGame();
     int recvOperationResult();
