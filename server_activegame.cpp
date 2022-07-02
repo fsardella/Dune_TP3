@@ -5,6 +5,7 @@
 #include <vector>
 #include <utility>
 
+
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
 enum broadcastOpers {
@@ -17,7 +18,9 @@ enum broadcastOpers {
     LOST_GAME,
     WON_GAME,
     UNIT_WIP,
-    BUILDING_WIP
+    BUILDING_WIP,
+    WORM,
+    MENAGE
 };
 #endif
 
@@ -149,20 +152,27 @@ std::map<uint8_t, std::pair<uint32_t, int32_t>> ActiveGame::getPlayersResources(
     return this->game.getPlayersResources();
 }
 
+std::list<std::pair<coor_t, uint8_t>> ActiveGame::getMenageData() {
+    std::list<std::pair<coor_t, uint8_t>> ret;
+    this->gameMap.addMenageData(ret);
+    return ret;
+}
+
 broadcast_t ActiveGame::getBroadcast() {
     lock_t lock(this->m);
     return broadcast_t(this->getUnits(),
                        this->getPlayersResources(),
                        this->receiveEvents(),
                        this->receiveUnitBuffer(),
-                       this->receiveBuildingsBuilding());
+                       this->receiveBuildingsBuilding(),
+                       this->getMenageData());
 }
 
 
 void ActiveGame::update() {
     lock_t lock(this->m);
     this->updateUnitsBuffer();
-    this->game.updateUnits();
+    this->game.updateUnits(this->events);
     this->game.updateBuildings();
     this->game.cleanCorpses(this->unitIDs, this->buildingIDs, this->events);
 }
@@ -229,6 +239,11 @@ void ActiveGame::attackBuilding(uint16_t attacker, uint16_t attackedBuilding) {
     if (atta == nullptr || attad == nullptr)
         return;
     atta->attack(attad);
+}
+
+void ActiveGame::disconnect(std::string disconnected) {
+    lock_t lock(this->m);
+    this->game.disconnect(disconnected, this->events);
 }
                   
 

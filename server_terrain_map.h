@@ -31,6 +31,9 @@ class TerrainMap {
     bool isBlocked(coor_t coord);
     bool canBuild(coor_t coor, coor_t size);
     void build(coor_t coor, Building* building);
+    bool hasMenage(coor_t coor);
+    uint16_t harvestMenage(coor_t coor, uint16_t freeSpace);
+    bool isThereARefinery(coor_t coor);
     void eraseBuildingFromMap(coor_t coor, coor_t size);
     void eraseUnitFromMap(coor_t coor);
     Building* getBuilding(coor_t coor);
@@ -38,6 +41,8 @@ class TerrainMap {
     std::list<Unit*> getAllUnits(coor_t coor);
     void swapContent(coor_t source, coor_t destiny);
     int getSpeedWeight(coor_t coor, Unit& unit);
+    float getSpeedMod(coor_t coor);
+    void addMenageData(std::list<std::pair<coor_t, uint8_t>>& data);
     ~TerrainMap();
     
     TerrainMap(const TerrainMap&) = delete;

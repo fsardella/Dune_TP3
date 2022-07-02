@@ -49,6 +49,10 @@ int32_t Player::getEnergy() {
     return this->energy;
 }
 
+void Player::kill(std::list<Command>& events) {
+    this->base.destroy(events);
+}
+
 uint32_t Player::getPriceOfCreation(uint8_t type) {
     // lo implementaria en static methods, pero asi no se podria
     // usar el config...
@@ -170,10 +174,10 @@ void Player::moveUnit(uint16_t unitID, coor_t coor) {
     this->units[unitID]->setDest(coor);
 }
 
-void Player::updateUnits() {
+void Player::updateUnits(std::list<Command>& events) {
     for (auto& unit : this->units) {
         if (!unit.second->isDead())
-            unit.second->update();
+            unit.second->update(events);
     } 
 }
 

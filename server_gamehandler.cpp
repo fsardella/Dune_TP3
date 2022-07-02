@@ -65,6 +65,7 @@ void GameHandler::processCommand(Command comm) {
 
 void GameHandler::disconnect(Command comm) {
     this->playersQueue[comm.getSender()].close();
+    this->game.disconnect(comm.getSender());
 }
 
 bool GameHandler::endedRun() {

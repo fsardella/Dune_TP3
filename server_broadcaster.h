@@ -16,7 +16,8 @@ typedef std::tuple<
         std::map<uint8_t, std::pair<uint32_t, int32_t>>, // player, money, energy
         std::list<Command>, // events 
         std::list<UnitBuffer>, // units building
-        std::list<Command> // buildings building
+        std::list<Command>, // buildings building
+        std::list<std::pair<coor_t, uint8_t>> // Menage
         > broadcast_t;
 
 
@@ -32,7 +33,9 @@ enum broadcastOpers {
     LOST_GAME,
     WON_GAME,
     UNIT_WIP,
-    BUILDING_WIP
+    BUILDING_WIP,
+    WORM,
+    MENAGE
 };
 #endif
 
@@ -45,6 +48,7 @@ class Broadcaster: public Thread {
     int broadcast(Command comm);
     Command getUnits(std::map<uint8_t, std::list<UnitData>>& units);
     Command getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding);
+    Command getMenageBroadcast(std::list<std::pair<coor_t, uint8_t>> menageData);
  public:
     Broadcaster(ActiveGame& game, queueMap_t& queues, BlockingQueue<Command>& queueToKill);
     void run() override;

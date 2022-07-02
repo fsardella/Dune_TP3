@@ -46,6 +46,19 @@ Command Broadcaster::getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding) {
     return comm;   
 }
 
+Command Broadcaster::getMenageBroadcast(std::list<std::pair<coor_t, uint8_t>> menageData) {
+    Command comm;
+    comm.add8BytesMessage(MENAGE);
+    comm.setType(MENAGE);
+    comm.add16BytesMessage(menageData.size());
+    for (auto& m : menageData) {
+        comm.add16BytesMessage(m.first.second);
+        comm.add16BytesMessage(m.first.first);
+        comm.add8BytesMessage((m.second == 0)? 0: m.second / 160 + 1);
+    }
+    return comm;
+}
+
 int Broadcaster::broadcast(Command comm) {
     int countPlayers = 0;
     if (comm.getType() == WON_GAME || comm.getType() == LOST_GAME
@@ -88,6 +101,8 @@ void Broadcaster::run() {
         for (Command c : std::get<2>(broad)) // Si hace falta, cambio broadcast para que reciba
                                 // una lista y aprovecho localidad del cache
             this->broadcast(c);
+        comm = this->getMenageBroadcast(std::get<5>(broad));
+        this->broadcast(comm);
         comm = this->getUnits(std::get<0>(broad));
         countPlayers = this->broadcast(comm);
         after = clock();

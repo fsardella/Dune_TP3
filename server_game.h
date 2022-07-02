@@ -49,7 +49,7 @@ class Game {
     bool addUnit(std::string playerName, Unit* unit);
     void moveUnit(std::string playerName, uint16_t unitID, coor_t coor);
 
-    void updateUnits();
+    void updateUnits(std::list<Command>& events);
     void updateBuildings();
     void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
                       std::map<uint16_t, std::string>& buildingIDs,
@@ -66,6 +66,7 @@ class Game {
                                 std::pair<uint8_t, uint8_t>>& buildingInfo);
     std::list<PlayerData> buildBases(TerrainMap& terr);
 	void setPlayerID(std::string playerName, uint8_t id);
+    void disconnect(std::string disconnected, std::list<Command>& events);
     ~Game();
     
     Game(const Game&) = delete;

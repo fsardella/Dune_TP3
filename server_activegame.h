@@ -22,7 +22,8 @@ typedef std::tuple<
         std::map<uint8_t, std::pair<uint32_t, int32_t>>, // player, money, energy
         std::list<Command>, // events 
         std::list<UnitBuffer>, // units building
-        std::list<Command> // buildings building
+        std::list<Command>, // buildings building
+        std::list<std::pair<coor_t, uint8_t>> // Menage
         > broadcast_t;
 
 class ActiveGame {
@@ -48,6 +49,7 @@ class ActiveGame {
     std::list<Command> receiveEvents();
     std::list<UnitBuffer> receiveUnitBuffer();
     std::list<Command> receiveBuildingsBuilding();
+    std::list<std::pair<coor_t, uint8_t>> getMenageData();
  public:
     ActiveGame(Game game);
     sketch_t getMapSketch();
@@ -62,6 +64,7 @@ class ActiveGame {
                   uint16_t y);
     void attackUnit(uint16_t attacker, uint16_t attackedUnit);
     void attackBuilding(uint16_t attacker, uint16_t attackedBuilding);
+    void disconnect(std::string disconnected);
 
     broadcast_t getBroadcast();
     ~ActiveGame();

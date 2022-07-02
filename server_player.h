@@ -51,7 +51,7 @@ class Player {
     void createBuilding(uint8_t type);
                      
     void moveUnit(uint16_t unitID, coor_t coor);
-    void updateUnits();            
+    void updateUnits(std::list<Command>& events);            
     void updateBuildings();
     void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
                       std::map<uint16_t, std::string>& buildingIDs,
@@ -69,6 +69,7 @@ class Player {
     std::pair<uint8_t, uint8_t> getBuildingInfo();
     
     bool hasLost();
+    void kill(std::list<Command>& events);
     
     ~Player();
     

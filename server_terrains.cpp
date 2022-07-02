@@ -26,6 +26,18 @@ uint16_t Terrain::harvestMenage(uint16_t freeSpace) {
     return 0;
 }
 
+uint16_t Terrain::peekMenage() {
+    return 0;
+}
+
+bool Terrain::isThereARefinery() {
+     return false;
+}
+
+bool Terrain::hasMenage() {
+    return false;
+}
+
 Unit* Terrain::getOccupant(coor_t coord) {
     if (!this->isOccupied(coord))
         return nullptr;
@@ -40,6 +52,10 @@ void Terrain::getAllOccupants(std::list<Unit*>& ret) {
 
 Building* Terrain::getBuilding() {
     return nullptr;
+}
+
+float Terrain::getSpeedMod() {
+    return 1;
 }
 
 bool Terrain::isBlocked() {
@@ -100,6 +116,12 @@ Building* Rock::getBuilding() {
     return this->building;
 }
 
+bool Rock::isThereARefinery() {
+    if (this->building == nullptr)
+        return false;
+    return this->building->isRefinery();
+}
+
 int Rock::getSpeedWeight(Unit& unit, coor_t coord) {
     if (this->isOccupied(coord) || this->isBlocked())
         return 0;
@@ -128,6 +150,14 @@ uint16_t Spice::harvestMenage(uint16_t freeSpace) {
     return ret;
 }
 
+uint16_t Spice::peekMenage() {
+    return this->quantity;
+}
+
+bool Spice::hasMenage() {
+    return (this->quantity != 0);
+}
+
 Spice::~Spice() {}
 
 
@@ -138,6 +168,11 @@ int Dune::getSpeedWeight(Unit& unit, coor_t coord) {
         return 0;
     return unit.getSpeedWeightForDune();
 }
+
+float Dune::getSpeedMod() {
+    return 0.5;
+}
+
 Dune::~Dune() {}
 
 

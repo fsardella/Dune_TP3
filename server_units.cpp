@@ -7,6 +7,7 @@ enum TerrType {
     DUNE,
 };
 
+
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
 enum broadcastOpers {
@@ -19,28 +20,32 @@ enum broadcastOpers {
     LOST_GAME,
     WON_GAME,
     UNIT_WIP,
-    BUILDING_WIP
+    BUILDING_WIP,
+    WORM,
+    MENAGE
 };
 #endif
 
 #define CHUNKSIZE 8
 
 Unit::Unit(coor_t coor, TerrainMap& terr, uint16_t life,
-           Weapon* weapon, uint16_t id, std::string owner):
+           Weapon* weapon, uint16_t id, uint16_t speed, std::string owner):
                                 moveAlgorithm(AStar(*this, coor, terr)),
                                 actualLife(life),
                                 totalLife(life),
                                 weapon(weapon),
                                 id(id),
-                                owner(owner) {}
+                                owner(owner),
+                                speed(speed) {}
 
 Infantry::Infantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner):
-                                Unit(coor, terr, 50,
-                                     new AssaultRifle(terr, 3), id, owner) {}
+                            Unit(coor, terr, 50,
+                                 new AssaultRifle(terr, 3), id, 16, owner) {}
 
-Vehicle::Vehicle(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner):
-                                Unit(coor, terr, 80,
-                                     new AssaultRifle(terr, 4), id, owner) {}
+Vehicle::Vehicle(coor_t coor, TerrainMap& terr, uint16_t id,
+                std::string owner, uint16_t speed):
+                            Unit(coor, terr, 80,
+                                 new AssaultRifle(terr, 4), id, speed, owner) {}
 
 
 coor_t Unit::getPosition() {
@@ -57,6 +62,15 @@ uint16_t Unit::getID() {
 
 std::string Unit::getOwner() {
     return this->owner;
+}
+
+
+uint16_t Unit::getActualLife() {
+    return this->actualLife;
+}
+
+uint16_t Unit::getTotalLife() {
+    return this->totalLife;
 }
 
 bool Unit::isHarvester() {
@@ -132,17 +146,25 @@ void Unit::kill(std::list<Command>& events) {
 
 void Unit::processMove(bool attackingBuilding) {
     this->weapon->stopAttack();
-    bool ret = this->moveAlgorithm.processMove(this->actDest, attackingBuilding);
-    if (ret) {
-        if (this->actDest == this->moveAlgorithm.getPosition())
+    this->speedAcum += this->speed * this->moveAlgorithm.getSpeedMod();
+    uint8_t steps = this->speedAcum / 30;
+    this->speedAcum = this->speedAcum % 30;
+    for (uint8_t i = 0; i < steps; i++) {
+        bool ret = this->moveAlgorithm.processMove(this->actDest, attackingBuilding);
+        if (ret) {
+            if (this->actDest == this->moveAlgorithm.getPosition()) {
+                this->state = IDLE;
+                break;
+            }
+        } else {
+            this->actDest = this->moveAlgorithm.getPosition();
             this->state = IDLE;
-    } else {
-        this->actDest = this->moveAlgorithm.getPosition();
-        this->state = IDLE;
+            break;
+        }
     }
 }
 
-void Unit::processAttackUnit() {
+void Unit::processAttackUnit(std::list<Command>& events) {
     if (this->unitObjv == nullptr) {
         this->state = IDLE;
         this->weapon->stopAttack();
@@ -158,14 +180,22 @@ void Unit::processAttackUnit() {
     this->actDest = this->unitObjv->getPosition();
     if (this->weapon->isInRange(this, this->unitObjv)) {
         this->weapon->startAttack();
-        if (this->weapon->attack(this->unitObjv))
-            ;// Se agrega a los eventos
+        if (this->weapon->attack(this->unitObjv)) {
+            Command attack;
+            attack.add8BytesMessage(UNIT_ATTACKED);
+            attack.setType(UNIT_ATTACKED);
+            attack.add16BytesMessage(this->id);
+            attack.add16BytesMessage(this->unitObjv->getID());
+            attack.add16BytesMessage(this->unitObjv->getActualLife());
+            attack.add16BytesMessage(this->unitObjv->getTotalLife());
+            events.push_back(attack);
+    }
     } else {
         this->processMove();
     }
 }
 
-void Unit::processAttackBuilding() {
+void Unit::processAttackBuilding(std::list<Command>& events) {
     if (this->buildingObjv == nullptr) {
         this->state = IDLE;
         this->weapon->stopAttack();
@@ -181,40 +211,57 @@ void Unit::processAttackBuilding() {
     }
     if (this->weapon->isInRange(this, this->buildingObjv)) {
         this->weapon->startAttack();
-        if (this->weapon->attack(this->buildingObjv))
-            ;// Se agrega a los eventos
+        if (this->weapon->attack(this->buildingObjv)) {
+            Command attack;
+            attack.add8BytesMessage(BUILDING_ATTACKED);
+            attack.setType(BUILDING_ATTACKED);
+            attack.add16BytesMessage(this->id);
+            attack.add16BytesMessage(this->buildingObjv->getID());
+            attack.add16BytesMessage(this->buildingObjv->getActualLife());
+            attack.add16BytesMessage(this->buildingObjv->getTotalLife());
+            events.push_back(attack);
+        }
     } else {
         this->processMove(true);
     }
 }
 
-void Unit::processIdle() {
+void Unit::processIdle(std::list<Command>& events) {
     Unit* tempObjv = this->weapon->scout(this);
     if (tempObjv == nullptr) {
         this->weapon->stopAttack();
         return;
     }
     this->weapon->startAttack();
-    if (this->weapon->attack(tempObjv))
-        ;// Se agrega a los eventos
-
+    if (this->weapon->attack(tempObjv)) {
+        Command attack;
+        attack.add8BytesMessage(UNIT_ATTACKED);
+        attack.setType(UNIT_ATTACKED);
+        attack.add16BytesMessage(this->id);
+        attack.add16BytesMessage(tempObjv->getID());
+        attack.add16BytesMessage(tempObjv->getActualLife());
+        attack.add16BytesMessage(tempObjv->getTotalLife());
+        events.push_back(attack);
+    }
 }
 
 
-void Unit::update() {
+void Unit::update(std::list<Command>& events) {
     this->weapon->update();
     switch (this->state) {
         case IDLE:
-            this->processIdle();
+            this->processIdle(events);
             break;
         case ATTACKING_UNIT:
-            this->processAttackUnit();
+            this->processAttackUnit(events);
             break;
         case ATTACKING_BUILDING:
-            this->processAttackBuilding();
+            this->processAttackBuilding(events);
             break;
         case MOVING:
             this->processMove();
+            break;
+        default:
             break;
     }
 }
@@ -286,7 +333,7 @@ Vehicle::~Vehicle() {}
 
 
 Harvester::Harvester(coor_t coor, TerrainMap& terr, uint16_t id,
-                     std::string owner) : Vehicle(coor, terr, id, owner),
+                     std::string owner) : Vehicle(coor, terr, id, owner, 12),
                                           terr(terr) {}
 
 uint8_t Harvester::getType() {
@@ -297,7 +344,160 @@ bool Harvester::isHarvester() {
     return true;
 }
 
-void Harvester::update() {} // TODO TODO TODO TODO
+void Harvester::setDest(coor_t newDest) {
+    Vehicle::setDest(newDest);
+    if (!this->terr.hasMenage(newDest))
+        return;
+    this->actHarvestDest = newDest;
+    this->state = HARVESTING;
+}
+
+bool Harvester::checkRefineryIntegrity() {
+    coor_t newDest;
+    if (this->ref == nullptr || this->ref->destroyed()) {
+        if (this->ref != nullptr) {
+            this->ref->stopWatching();
+            this->ref = nullptr;
+        }
+        for (auto& b : *this->buildings) {
+            if (b.second->isRefinery()) {
+                this->ref = b.second;
+                this->ref->watch();
+                coor_t pos = b.second->getPosition();
+                coor_t dims = b.second->getSize();
+                newDest = coor_t(pos.first + dims.first * CHUNKSIZE / 2,
+                            pos.second + dims.second * CHUNKSIZE / 2);
+                Vehicle::setDest(newDest);
+                return true;
+            }
+        }
+        return false;
+    }
+    coor_t pos = this->ref->getPosition();
+    coor_t dims = this->ref->getSize();
+    newDest = coor_t(pos.first + dims.first * CHUNKSIZE / 2,
+                    pos.second + dims.second * CHUNKSIZE / 2);
+    Vehicle::setDest(newDest);
+    return true;
+}
+
+void Harvester::processHarvest() {
+    if (this->getPosition() != this->actHarvestDest) {
+        this->processMove();
+        return;
+    }
+    if (!this->terr.hasMenage(this->actHarvestDest)) {
+        this->harvestingTime = 0;
+        this->scoutForMenage();
+        return;
+    }
+    this->harvestingTime += 1;
+    if (this->harvestingTime >= 200) {
+        this->harvestingTime = 0;
+        this->actMenage += this->terr.harvestMenage(this->getPosition(),
+                                            this->menageCap - this->actMenage);
+        if (this->actMenage != this->menageCap)
+            return;
+        if (!this->checkRefineryIntegrity()) {
+            this->state = IDLE;
+            return;
+        }
+        this->state = GOING_TO_REFINERY;
+    }
+}
+
+void Harvester::scoutForMenage() {
+    coor_t pos = this->actHarvestDest;
+    for (int i = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
+        for (int j = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
+            if (abs(i) + abs(j) > 5)
+                continue;
+            if (this->terr.hasMenage(coor_t(pos.first + i,
+                                            pos.second + j))) {
+                this->actHarvestDest = coor_t(pos.first + i,
+                                            pos.second + j);
+                Vehicle::setDest(this->actHarvestDest);
+                this->state = HARVESTING;
+                return;
+            }
+        } 
+    }
+    this->state = GOING_TO_REFINERY;
+}
+
+bool Harvester::isNextToRefinery() {
+    coor_t pos = this->getPosition();
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (this->terr.isThereARefinery(coor_t(pos.first + i,
+                                                   pos.second + j)))
+                return true;
+        }
+    }
+    return false;
+}
+
+
+void Harvester::processComeback() {
+    if (!this->checkRefineryIntegrity()) {
+        this->state = IDLE;
+        return;
+    }
+    if (this->isNextToRefinery())
+        if (this->actMenage == 0)
+            this->state = IDLE;
+        else
+            this->state = CHARGING_REFINERY;
+    else 
+        this->processMove(true);
+}
+
+void Harvester::processCharging() {
+    Building* aux = this->ref;
+    if (!this->checkRefineryIntegrity()) {
+        this->chargingTime = 0;
+        this->state = IDLE;
+        return;
+    }
+    this->state = CHARGING_REFINERY;
+    if (aux != this->ref) {
+        this->chargingTime = 0;
+        this->state = GOING_TO_REFINERY;
+        return;
+    }
+    this->chargingTime += 1;
+    if (this->chargingTime >= 50) {
+        this->chargingTime = 0;
+        if (!this->terr.hasMenage(this->actHarvestDest)) {
+            this->scoutForMenage();
+            return;
+        }
+        Vehicle::setDest(this->actHarvestDest);
+        this->state = HARVESTING;
+    }
+}
+
+void Harvester::update(std::list<Command>& events) {
+    switch (this->state) {
+        case MOVING:
+            this->processMove();
+            break;
+        case HARVESTING:
+            this->processHarvest();
+            this->chargingTime = 0;
+            return;
+        case GOING_TO_REFINERY:
+            this->processComeback();
+            break;
+        case CHARGING_REFINERY:
+            this->harvestingTime = 0;
+            return;
+        default:
+            break;
+    this->harvestingTime = 0;
+    this->chargingTime = 0;
+    }    
+}
 
 
 void Harvester::addPointerToBuildings(std::map<uint16_t, Building*>* buildings) {

@@ -23,9 +23,13 @@ class Terrain {
     virtual bool canBuild();
     virtual bool isBlocked();
     virtual Building* getBuilding();
-    uint16_t virtual harvestMenage(uint16_t freeSpace);
+    virtual bool hasMenage();
+    virtual uint16_t peekMenage();
+    virtual uint16_t harvestMenage(uint16_t freeSpace);
+    virtual bool isThereARefinery();
     void printDebug();
     virtual int getSpeedWeight(Unit& unit, coor_t coord) = 0;
+    virtual float getSpeedMod();
     virtual void build(Building* newBuilding) {}
     virtual ~Terrain();
 };
@@ -45,6 +49,7 @@ class Rock : public Terrain {
     void build(Building* newBuilding);
     bool canBuild();
     bool isBlocked();
+    bool isThereARefinery();
     void eraseBuilding();
     Building* getBuilding();
     int getSpeedWeight(Unit& unit, coor_t coord);
@@ -55,7 +60,9 @@ class Spice : public Terrain {
     uint16_t quantity;
  public:
     Spice(uint16_t quantity);
+    uint16_t peekMenage();
     uint16_t harvestMenage(uint16_t freeSpace);
+    bool hasMenage();
     int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Spice();
 };
@@ -64,6 +71,7 @@ class Dune : public Terrain {
  public:
     Dune();
     int getSpeedWeight(Unit& unit, coor_t coord);
+    float getSpeedMod();
     void print();  // DEBUG
     virtual ~Dune();
 };

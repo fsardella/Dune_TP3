@@ -1,5 +1,6 @@
 #include "server_buildings.h"
 
+
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
 enum broadcastOpers {
@@ -12,7 +13,9 @@ enum broadcastOpers {
     LOST_GAME,
     WON_GAME,
     UNIT_WIP,
-    BUILDING_WIP
+    BUILDING_WIP,
+    WORM,
+    MENAGE
 };
 #endif
 

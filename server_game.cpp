@@ -1,6 +1,7 @@
 #include "server_game.h"
 #include <cstring>
 
+
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
 enum broadcastOpers {
@@ -13,7 +14,9 @@ enum broadcastOpers {
     LOST_GAME,
     WON_GAME,
     UNIT_WIP,
-    BUILDING_WIP
+    BUILDING_WIP,
+    WORM,
+    MENAGE
 };
 #endif
 
@@ -114,48 +117,54 @@ coor_t Game::getUnitDir(std::string playerName, uint8_t type, TerrainMap& terr) 
 }
 
 Unit* Game::getUnit(std::string playerName, uint16_t unitID) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return nullptr;
     return this->participants[playerName].getUnit(unitID);
 }
 
 
 Building* Game::getBuilding(std::string playerName, uint16_t buildingID) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return nullptr;
     return this->participants[playerName].getBuilding(buildingID);
 }
 
 
 bool Game::addUnit(std::string playerName, Unit* unit) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return false;
     this->participants[playerName].addUnit(unit);
     return true;
 }
 
 void Game::createBuilding(std::string playerName, uint8_t type) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return;
     this->participants[playerName].createBuilding(type);
 }
 
 uint16_t Game::addBuilding(std::string playerName, uint16_t x, uint16_t y,
                        TerrainMap& terr, uint16_t id) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return 0xFFFF;
     return this->participants[playerName].addBuilding(x, y, terr, id);
 }
 
 void Game::moveUnit(std::string playerName, uint16_t unitID, coor_t coor) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return;
     this->participants[playerName].moveUnit(unitID, coor);
 }
 
-void Game::updateUnits() {
+void Game::updateUnits(std::list<Command>& events) {
     for (auto& p : this->participants)
-        p.second.updateUnits();
+        p.second.updateUnits(events);
 }
 
 void Game::updateBuildings() {
@@ -164,7 +173,8 @@ void Game::updateBuildings() {
 }
 
 bool Game::chargeMoney(std::string playerName, uint8_t type) {
-    if (!this->isPlaying(playerName))
+    if (!this->isPlaying(playerName) 
+        || !this->participants[playerName].hasLost())
         return false;
     return this->participants[playerName].chargeMoney(type);
 }
@@ -241,6 +251,13 @@ void Game::cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
             p++;
         }
     }
+}
+
+void Game::disconnect(std::string disconnected, std::list<Command>& events) {
+    if (!this->isPlaying(disconnected) 
+        || !this->participants[disconnected].hasLost())
+        return;
+    this->participants[disconnected].kill(events);
 }
 
 

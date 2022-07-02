@@ -41,7 +41,7 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
                     row_res.push_back(new Cliff());
                     break;
                 case SPICE:
-                    row_res.push_back(new Spice(500));
+                    row_res.push_back(new Spice(1000));
                     break;
             }
         }
@@ -82,6 +82,35 @@ coor_t TerrainMap::getDims() {
     return coor_t(this->terr.size() * CHUNKSIZE, this->terr[0].size() * CHUNKSIZE);
 }
 
+void TerrainMap::addMenageData(std::list<std::pair<coor_t, uint8_t>>& data) {
+    coor_t dims = this->getDims();
+    for (uint16_t i = 0; i < dims.first / CHUNKSIZE; i++) {
+        for (uint16_t j = 0; j < dims.second / CHUNKSIZE; j++) {
+            Terrain* actChunk = this->terr[i][j];
+            if (actChunk->hasMenage()) {
+                data.push_back(std::pair(coor_t(i, j), actChunk->peekMenage()));
+            }
+        }
+    }
+}
+
+bool TerrainMap::hasMenage(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->hasMenage();
+}
+
+uint16_t TerrainMap::harvestMenage(coor_t coor, uint16_t freeSpace) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->harvestMenage(freeSpace);
+}
+
+bool TerrainMap::isThereARefinery(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->isThereARefinery();
+}
 
 bool TerrainMap::isInsideMap(coor_t place) {
     coor_t dims = this->getDims();
@@ -102,6 +131,13 @@ int TerrainMap::getSpeedWeight(coor_t coor, Unit& unit) {
         return 0;
     return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeedWeight(unit, coor);
 }
+
+float TerrainMap::getSpeedMod(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->getSpeedMod();
+}
+
 
 bool TerrainMap::canBuild(coor_t coor, coor_t size) {
     for (uint16_t i = 0; i < size.first; i++) {

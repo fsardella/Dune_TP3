@@ -41,6 +41,7 @@ class AStar {
     bool processMove(coor_t dest, bool attackingBuilding = false);
     uint8_t getDir();
     coor_t getPosition();
+    float getSpeedMod();
     void eraseUnitFromMap();
     void print();
 };

@@ -38,6 +38,10 @@ void AStar::setDir(coor_t ant, coor_t actual) {
     
 }
 
+float AStar::getSpeedMod() {
+    return this->terr.getSpeedMod(this->actPos);
+}
+
 // La solucion de agregar un booleano para saber cuando se esta atacando a un
 // edificio me parece personalmente horripilante... Pero no hay tiempo. Too bad!
 // https://youtu.be/k238XpMMn38
