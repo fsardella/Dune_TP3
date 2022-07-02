@@ -111,6 +111,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
             if (gameView->isBuildingReady(currentMenuImage) &&
                 unitId == NONE_TYPE && buildingId == NONE_TYPE) {
                 // op 9
+                std::cout << "op 9\n";
                 // quiero posicionar un edificio ya listo
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
                 blockingQueue->push(std::move(clientInput));
@@ -122,6 +123,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
 
             if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
                 // op 7
+                std::cout << "op 7\n";
                 int attackedType = unitId != NONE_TYPE ? 0 : 1;
                 int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
                 // quiero atacar a un edificio/unidad
@@ -152,6 +154,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
 
     if (currentMenuImage < CONSTRUCTION_OFFSET) {
         // op 5
+        std::cout << "op 5\n";
         int unitType = currentMenuImage;
         if (gameView->isUnderConstruction(unitType)) {
             return;
@@ -166,6 +169,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
     }
     if (currentMenuImage > UNIT_LIMIT) {
         // op 6
+        std::cout << "op 6\n";
         int buildingType = currentMenuImage;
         if (gameView->isBuildingReady(buildingType)) {
             return;
@@ -197,6 +201,7 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         int buildingId = gameView->isBuilding(posX, posY, false);
         if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
             // op 10
+            std::cout << "op 10\n";
             // quiero perseguir a una unidad/edificio
             int chasedId = (unitId == NONE_TYPE) ? buildingId : unitId;
             for (int& id : touchedUnits) {
@@ -209,6 +214,7 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         }
         // me quiero mover a una direccion vacia
         // op 8
+        std::cout << "op 8\n";
         for (int& id : touchedUnits) {
             ClientInput clientInput(MOVEMENT, id, posX / 4, posY / 4);
             blockingQueue->push(std::move(clientInput));
@@ -218,6 +224,7 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         return;
     }
     // op 11
+    std::cout << "op 11\n";
     // quiero destruir un edificio
     int buildingId = gameView->isBuilding(posX, posY, true);
     if (buildingId != NONE_TYPE) {
@@ -232,14 +239,17 @@ Post-Condiciones: -
 */
 
 void UserInputReceiver::run() {
+    bool close = false;
     while (gameView->isRunning()) {
         SDL_Event event;
         bool selection;
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT && !gameView->isRunning()) {
+            if (!gameView->isRunning()) {
+                close = true;
                 blockingQueue->close();
                 break;
             } else if (event.type == SDL_QUIT && gameView->isRunning()) {
+                close = true;
                 gameView->shutdown();
                 blockingQueue->close();
                 break;
@@ -263,6 +273,9 @@ void UserInputReceiver::run() {
                 }
             }
         }
+    }
+    if (!close) {
+        blockingQueue->close();
     }
 }
 

@@ -52,8 +52,8 @@ void ServerReceiver::run() {
 
         gameView->updateSpecie(0, 0, 5);
 
-        // gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
-        // gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
+        gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
+        gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
         // std::this_thread::sleep_for (std::chrono::seconds(3));
         // std::vector<int> deaths;
         // deaths.push_back(0);
@@ -186,10 +186,11 @@ Post-Condiciones: -
 */
 
 void ServerReceiver::gameLoop() {
-    //std::this_thread::sleep_for (std::chrono::seconds(3));
+    // std::this_thread::sleep_for (std::chrono::seconds(3));
+    // std::cout << "entro al loop de server receiver\n";
     while (gameView->isRunning()) {
-        //int operation = protocolClient->recvOperationNumber();
-        int operation = GAME_LOST;
+        int operation = protocolClient->recvOperationNumber();
+        // int operation = GAME_LOST;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
             // no utilizado evitando message responce
@@ -210,16 +211,15 @@ void ServerReceiver::gameLoop() {
             this->receiveBuildingAttack();
             break;
         case GAME_LOST:
-            //std::cout << "estoy en game lost" << std::endl;
             result = 0;
-            //gameView->playLostSound();
-            //std::this_thread::sleep_for (std::chrono::seconds(1));
+            gameView->playLostSound();
+            std::this_thread::sleep_for (std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case GAME_WON:
-            //std::cout << "Estoy en game win" << std::endl;
             result = 1;
             gameView->playWinSound();
+            std::this_thread::sleep_for (std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case UNIT_UNDER_CONSTRUCTION:

@@ -72,6 +72,7 @@ void ServerDispatcher::run() {
             return;
         } catch(const ClosedSocketException& e) {
             std::cout << "el socket se cerro inesperadamente 1\n";
+            return;
         }
     }
 }

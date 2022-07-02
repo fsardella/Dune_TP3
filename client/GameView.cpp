@@ -45,7 +45,7 @@ Post-Condiciones: -
 
 void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int,
                           bool>> units) {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
+    // std::lock_guard<std::mutex> lock(gameViewMutex); // PONER
     for (const auto& [key, value] : units) {
         buildUnit(std::get<0>(value), std::get<1>(value),
                   key, std::get<2>(value), std::get<3>(value),
@@ -137,12 +137,10 @@ Post-Condiciones: -
 
 void GameView::shutdown() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    std::cout << "Entre";
     running = false;
     SDL_Event quit;
     quit.type = SDL_QUIT;
     SDL_PushEvent(&quit);
-    std::cout << "Me fui";
 }
 
 /*

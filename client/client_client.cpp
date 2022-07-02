@@ -109,15 +109,15 @@ void Client::client_run() {
     drawer.start();
 
     BlockingQueue<ClientInput> blockingQueue;
-    UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
-    inputReceiver.start();
-
     ServerDispatcher serverDispatcher(&protocol, &blockingQueue);
     serverDispatcher.start();
 
-    drawer.join();
+    UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
+    inputReceiver.start();
+
     inputReceiver.join();
     serverDispatcher.join();
+    drawer.join();    
     receiver.join();
 
     gameResult = result;
