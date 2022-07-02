@@ -7,6 +7,22 @@ enum TerrType {
     DUNE,
 };
 
+#ifndef BROADCASTOPERS
+#define BROADCASTOPERS
+enum broadcastOpers {
+    SUCCESS = 0,
+    FAILURE,
+    UNIT_BROADCAST,
+    BUILDING_BUILT,
+    UNIT_ATTACKED,
+    BUILDING_ATTACKED,
+    LOST_GAME,
+    WON_GAME,
+    UNIT_WIP,
+    BUILDING_WIP
+};
+#endif
+
 #define CHUNKSIZE 8
 
 Unit::Unit(coor_t coor, TerrainMap& terr, uint16_t life,
@@ -41,6 +57,10 @@ uint16_t Unit::getID() {
 
 std::string Unit::getOwner() {
     return this->owner;
+}
+
+bool Unit::isHarvester() {
+    return false;
 }
 
 void Unit::setDest(coor_t newDest) {
@@ -96,9 +116,17 @@ void Unit::die() {
     this->moveAlgorithm.eraseUnitFromMap();
 }
 
-void Unit::kill() {
-    if (!this->isDead())
+void Unit::kill(std::list<Command>& events) {
+    if (!this->isDead()) {
         this->die();
+        Command dead;
+        dead.add8BytesMessage(UNIT_ATTACKED);
+        dead.add16BytesMessage(0xFFFF);
+        dead.add16BytesMessage(this->id);
+        dead.add16BytesMessage(0);
+        dead.add16BytesMessage(this->totalLife);
+        events.push_back(dead);
+    }
     this->actualLife = 0;
 }
 
@@ -120,7 +148,7 @@ void Unit::processAttackUnit() {
         this->weapon->stopAttack();
         return;
     }
-    if (this->unitObjv->isDead()) {
+    if (this->unitObjv->isDead() || this->unitObjv->getOwner() == this->owner) {
         this->unitObjv->stopWatching();
         this->unitObjv = nullptr;
         this->weapon->stopAttack();
@@ -143,7 +171,8 @@ void Unit::processAttackBuilding() {
         this->weapon->stopAttack();
         return;
     }
-    if (this->buildingObjv->destroyed()) {
+    if (this->buildingObjv->destroyed() ||
+        this->buildingObjv->getOwner() == this->owner) {
         this->buildingObjv->stopWatching();
         this->buildingObjv = nullptr;
         this->weapon->stopAttack();
@@ -254,3 +283,25 @@ uint8_t Vehicle::getType() {
     return 0;
 }
 Vehicle::~Vehicle() {}
+
+
+Harvester::Harvester(coor_t coor, TerrainMap& terr, uint16_t id,
+                     std::string owner) : Vehicle(coor, terr, id, owner),
+                                          terr(terr) {}
+
+uint8_t Harvester::getType() {
+    return HARVESTER;
+}   
+
+bool Harvester::isHarvester() {
+    return true;
+}
+
+void Harvester::update() {} // TODO TODO TODO TODO
+
+
+void Harvester::addPointerToBuildings(std::map<uint16_t, Building*>* buildings) {
+    this->buildings = buildings;
+}
+
+Harvester::~Harvester() {}

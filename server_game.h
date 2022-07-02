@@ -13,6 +13,7 @@
 #include "server_playerdata.h"
 #include "server_units.h"
 #include "server_buildings.h"
+#include "common_command.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
@@ -22,6 +23,8 @@ class Game {
 	std::map<std::string, Player> participants;
     std::string yamlMapPath;
     std::list<coor_t> basesCoordinates;
+    
+    bool decidedWinner = false;
  public:
 	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath);
     Game(); // Not intended for use
@@ -48,6 +51,9 @@ class Game {
 
     void updateUnits();
     void updateBuildings();
+    void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
+                      std::map<uint16_t, std::string>& buildingIDs,
+                      std::list<Command>& events);
 
     uint16_t addBuilding(std::string playerName,
                  uint16_t x, uint16_t y, TerrainMap& terr,

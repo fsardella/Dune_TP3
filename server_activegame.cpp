@@ -158,12 +158,13 @@ broadcast_t ActiveGame::getBroadcast() {
                        this->receiveBuildingsBuilding());
 }
 
+
 void ActiveGame::update() {
     lock_t lock(this->m);
     this->updateUnitsBuffer();
     this->game.updateUnits();
     this->game.updateBuildings();
-    //this->game.cleanCorpses();
+    this->game.cleanCorpses(this->unitIDs, this->buildingIDs, this->events);
 }
 
 void ActiveGame::addUnit(std::string playerName, uint8_t type) {

@@ -84,7 +84,7 @@ Unit* Weapon::scout(Unit* self) {
                 continue;
             std::list<Unit*> unitsInChunk = this->terr.getAllUnits(act);
             for (Unit*& unit : unitsInChunk) {
-                if (unit->getOwner() != self->getOwner())
+                if (!unit->isDead() && unit->getOwner() != self->getOwner())
                     return unit;
             }
         }

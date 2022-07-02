@@ -23,8 +23,10 @@ class Player {
     uint16_t cantHeavyFactories = 0;
     int32_t energy = 0;
     uint32_t moneyCapacity = 0;
-    uint32_t money = 4000; // 3500 de dinero inicial... sino no se puede jugar jajsajdj
+    uint32_t money = 4000; // 4000 de dinero inicial... sino no se puede jugar jajsajdj
     std::map<uint16_t, Building*> buildings;
+    bool alreadyLost = false;
+
 
     uint32_t getPriceOfCreation(uint8_t type);
     bool isBlockInRange(coor_t blockCoord);
@@ -51,7 +53,11 @@ class Player {
     void moveUnit(uint16_t unitID, coor_t coor);
     void updateUnits();            
     void updateBuildings();
-    
+    void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
+                      std::map<uint16_t, std::string>& buildingIDs,
+                      std::list<Command>& events);
+    bool canBeCleaned();
+
     void buildBase(TerrainMap& terr, uint16_t id);
     coor_t getBaseCoords();
     int getHouse();
@@ -61,6 +67,9 @@ class Player {
     int32_t getEnergy();
     std::list<UnitData> getUnits();
     std::pair<uint8_t, uint8_t> getBuildingInfo();
+    
+    bool hasLost();
+    
     ~Player();
     
     Player(const Player&) = delete;

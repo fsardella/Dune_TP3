@@ -1,11 +1,30 @@
 #include "server_buildings.h"
 
+#ifndef BROADCASTOPERS
+#define BROADCASTOPERS
+enum broadcastOpers {
+    SUCCESS = 0,
+    FAILURE,
+    UNIT_BROADCAST,
+    BUILDING_BUILT,
+    UNIT_ATTACKED,
+    BUILDING_ATTACKED,
+    LOST_GAME,
+    WON_GAME,
+    UNIT_WIP,
+    BUILDING_WIP
+};
+#endif
 
-Building::Building(coor_t size, uint16_t totalLife, uint16_t buildingTime):
+
+
+Building::Building(coor_t size, uint16_t totalLife, uint16_t buildingTime,
+                   std::string owner):
                    size(size),
                    actualLife(totalLife),
                    totalLife(totalLife),
-                   buildingTime(buildingTime) {}
+                   buildingTime(buildingTime),
+                   owner(owner) {}
 
 coor_t Building::getPosition() {
     return this->position;
@@ -19,6 +38,10 @@ uint16_t Building::getID() {
     return this->buildingID;
 }
 
+std::string Building::getOwner() {
+    return this->owner;   
+}
+
 uint32_t Building::getMoneyCapacity() {
     return 0;
 }
@@ -27,16 +50,16 @@ uint32_t Building::gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity) {
     return 0;
 }
 
-Building* Building::newBuilding(uint8_t type) {
+Building* Building::newBuilding(uint8_t type, std::string owner) {
     switch (type) {
         case LIGHT_FACTORY:
-            return new LightFactory();
+            return new LightFactory(owner);
         case HEAVY_FACTORY:
-            return new HeavyFactory();
+            return new HeavyFactory(owner);
         case REFINERY:
-            return new Refinery();
+            return new Refinery(owner);
         case WINDTRAP:
-            return new WindTrap();
+            return new WindTrap(owner);
         default:
             return nullptr;
     }
@@ -100,9 +123,17 @@ void Building::attack(uint16_t damage) {
     }
 }
 
-void Building::destroy() {
-    if (!this->destroyed())
+void Building::destroy(std::list<Command>& events) {
+    if (!this->destroyed()) {
         this->eraseFromMap();
+        Command dead;
+        dead.add8BytesMessage(BUILDING_ATTACKED);
+        dead.add16BytesMessage(0xFFFF);
+        dead.add16BytesMessage(this->buildingID);
+        dead.add16BytesMessage(0);
+        dead.add16BytesMessage(this->totalLife);
+        events.push_back(dead);
+    }
     this->actualLife = 0;
 }
     
@@ -135,7 +166,8 @@ Building::~Building() {}
 
 
 
-Base::Base(coor_t position): Building(coor_t(3, 3), 3000, 0) {
+Base::Base(coor_t position, std::string owner):
+        Building(coor_t(3, 3), 3000, 0, owner) {
     this->position = position;
 }
 
@@ -146,7 +178,8 @@ uint16_t Base::getType() {
 Base::~Base() {}
 
 
-LightFactory::LightFactory(): Building(coor_t(3, 3), 500, 1700) {} 
+LightFactory::LightFactory(std::string owner):
+                Building(coor_t(3, 3), 500, 1700, owner) {} 
 
 bool LightFactory::isLightFactory() {
     return true;
@@ -162,7 +195,8 @@ int32_t LightFactory::getEnergy() {
 
 LightFactory::~LightFactory() {}
 
-HeavyFactory::HeavyFactory(): Building(coor_t(4, 4), 1500, 2000) {} 
+HeavyFactory::HeavyFactory(std::string owner):
+                Building(coor_t(4, 4), 1500, 2000, owner) {} 
 
 bool HeavyFactory::isHeavyFactory() {
     return true;
@@ -180,7 +214,8 @@ HeavyFactory::~HeavyFactory() {}
 
 
 
-Refinery::Refinery(): Building(coor_t(3, 3), 1000, 1400) {}
+Refinery::Refinery(std::string owner):
+                        Building(coor_t(3, 3), 1000, 1400, owner) {}
 
 bool Refinery::isRefinery() {
     return true;
@@ -213,7 +248,8 @@ uint16_t Refinery::getType() {
 Refinery::~Refinery() {}
 
 
-WindTrap::WindTrap(): Building(coor_t(3, 3), 500, 1000) {}
+WindTrap::WindTrap(std::string owner):
+                        Building(coor_t(3, 3), 500, 1000, owner) {}
     
 int32_t WindTrap::getEnergy() {
     return 500;

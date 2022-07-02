@@ -41,6 +41,7 @@ class ActiveGame {
     bool hasUnit(uint16_t unitID);
     bool hasBuilding(uint16_t buildingID);
     void updateUnitsBuffer();
+
     //int getHouse(std::string playerName);
     std::map<uint8_t, std::list<UnitData>> getUnits();
     std::map<uint8_t, std::pair<uint32_t, int32_t>> getPlayersResources();

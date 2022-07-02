@@ -1,6 +1,24 @@
 #include "server_game.h"
 #include <cstring>
 
+#ifndef BROADCASTOPERS
+#define BROADCASTOPERS
+enum broadcastOpers {
+    SUCCESS = 0,
+    FAILURE,
+    UNIT_BROADCAST,
+    BUILDING_BUILT,
+    UNIT_ATTACKED,
+    BUILDING_ATTACKED,
+    LOST_GAME,
+    WON_GAME,
+    UNIT_WIP,
+    BUILDING_WIP
+};
+#endif
+
+
+
 
 Game::Game(): required(0) {}
 
@@ -194,6 +212,37 @@ std::list<PlayerData> Game::buildBases(TerrainMap& terr) {
     }
     return result;
 }
+
+
+
+void Game::cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
+                      std::map<uint16_t, std::string>& buildingIDs,
+                      std::list<Command>& events) {
+    auto p = this->participants.begin();
+    if (this->participants.size() == 1 && !this->decidedWinner) {
+        Command win;
+        win.changeSender(p->first);
+        win.setType(WON_GAME);
+        win.add8BytesMessage(WON_GAME);
+        this->decidedWinner = true;
+        events.push_back(win);
+        return;
+    }
+    while (p != this->participants.end()) {
+        if (p->second.canBeCleaned()) {
+            Command lost;
+            lost.changeSender(p->first);
+            lost.setType(LOST_GAME);
+            lost.add8BytesMessage(LOST_GAME);
+            events.push_back(lost);
+            p = this->participants.erase(p);
+        } else {
+            p->second.cleanCorpses(unitIDs, buildingIDs, events);
+            p++;
+        }
+    }
+}
+
 
 void Game::setPlayerID(std::string playerName, uint8_t id) {
     this->participants[playerName].setID(id);

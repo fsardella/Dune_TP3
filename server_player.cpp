@@ -3,7 +3,7 @@
 Player::Player(const int& house, const std::string& playerName,
                coor_t baseCoords): playerName(playerName),
                                    house(house),
-                                   base(Base(baseCoords)){}
+                                   base(Base(baseCoords, playerName)){}
 
 
 
@@ -11,7 +11,7 @@ Player::Player(const int& house, const std::string& playerName,
 
 Player::Player(): playerName(""),
                  house(-1),
-                 base(Base(coor_t(0,0))) {
+                 base(Base(coor_t(0,0), "")) {
 }
 
 
@@ -159,6 +159,8 @@ bool Player::chargeMoney(uint8_t type) {
 
 void Player::addUnit(Unit* unit) {
     this->units[unit->getID()] = unit;
+    if (unit->isHarvester())
+        unit->addPointerToBuildings(&this->buildings);
 }
 
 
@@ -257,7 +259,7 @@ void Player::createBuilding(uint8_t type) {
         return;
     if (!chargeMoney(type))
         return;
-    this->buildingBirthing = Building::newBuilding(type);
+    this->buildingBirthing = Building::newBuilding(type, this->playerName);
 }
 
 uint16_t Player::addBuilding(uint16_t x, uint16_t y, TerrainMap& terr,
@@ -295,6 +297,48 @@ std::pair<uint8_t, uint8_t> Player::getBuildingInfo() {
 
 int Player::getHouse() {
     return this->house;
+}
+
+
+bool Player::hasLost() {
+    return this->base.destroyed();
+}
+
+void Player::cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
+                      std::map<uint16_t, std::string>& buildingIDs,
+                      std::list<Command>& events) {
+    if (this->hasLost() && !this->alreadyLost) {
+        this->alreadyLost = true;
+        for (auto& u : this->units)
+            u.second->kill(events);
+        for (auto& b : this->buildings)
+            b.second->destroy(events);
+    }
+    auto unitIT = this->units.begin();
+    while (unitIT != this->units.end()) {
+        if (unitIT->second->canBeCleaned()) {
+            unitIDs.erase(unitIT->second->getID());
+            delete unitIT->second;
+            unitIT = this->units.erase(unitIT);
+        } else {
+            unitIT++;
+        }
+    }
+    auto buildingIT = this->buildings.begin();
+    while (buildingIT != this->buildings.end()) {
+        if (buildingIT->second->canBeCleaned()) {
+            buildingIDs.erase(buildingIT->second->getID());
+            delete buildingIT->second;
+            buildingIT = this->buildings.erase(buildingIT);
+        } else {
+            buildingIT++;
+        }
+    }
+}
+
+
+bool Player::canBeCleaned() {
+    return (this->hasLost() && this->units.size() == 0 && this->buildings.size() == 0);
 }
 
 Player::~Player() {
