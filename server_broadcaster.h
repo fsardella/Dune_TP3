@@ -46,7 +46,8 @@ class Broadcaster: public Thread {
     // cerrar todos los hilos de forma elegante
 
     int broadcast(Command comm);
-    Command getUnits(std::map<uint8_t, std::list<UnitData>>& units);
+    Command getUnits(std::map<uint8_t, std::list<UnitData>>& units,
+                     std::map<uint8_t, std::pair<uint32_t, int32_t>>& pData);
     Command getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding);
     Command getMenageBroadcast(std::list<std::pair<coor_t, uint8_t>> menageData);
  public:

@@ -4,15 +4,12 @@
 
 #include "server_units.h"
 
-
-enum sketchElements {
-    CLIFF = 0,
-    SAND,
-    DUNE,
-    MOUNT,
-    ROCK,
-    SPICE,
-};
+#define DUNE_OFFSET 3
+#define ROCK_OFFSET 6
+#define SPICE_OFFSET 22
+#define MONT_OFFSET 29
+#define CLIFF_OFFSET 63
+#define CY_OFFSET 95
 
 #define CHUNKSIZE 8
 
@@ -22,27 +19,19 @@ TerrainMap::TerrainMap(sketch_t mapSketch) {
     for (std::vector<int> row : mapSketch) {
         std::vector<Terrain*> row_res;
         for (int elem : row) {
-            // Usar case es mas facil, esto solo se ejecuta una vez en todo el
-            // programa, asi que no me preocupa la velocidad
-            switch (elem) {
-                case SAND:
-                    row_res.push_back(new Sand());
-                    break;
-                case DUNE:
-                    row_res.push_back(new Dune());
-                    break;
-                case ROCK:
-                    row_res.push_back(new Rock());
-                    break;
-                case MOUNT:
-                    row_res.push_back(new Mount());
-                    break;
-                case CLIFF:
-                    row_res.push_back(new Cliff());
-                    break;
-                case SPICE:
-                    row_res.push_back(new Spice(1000));
-                    break;
+            if (elem < DUNE_OFFSET) {
+                row_res.push_back(new Sand());
+            } else if (elem < ROCK_OFFSET) {
+                row_res.push_back(new Dune());
+            } else if (elem < SPICE_OFFSET) {
+                row_res.push_back(new Rock());
+            } else if (elem < MONT_OFFSET) {
+                int type = elem - SPICE_OFFSET + 1;
+                row_res.push_back(new Spice(142 * type));
+            } else if (elem < CLIFF_OFFSET) {
+                row_res.push_back(new Mount());
+            } else { 
+                row_res.push_back(new Cliff());
             }
         }
         this->terr.push_back(row_res);

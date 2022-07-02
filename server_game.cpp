@@ -2,6 +2,11 @@
 #include <cstring>
 
 
+
+#include <yaml-cpp/yaml.h>
+#include <yaml-cpp/node/node.h>
+#define MAPS_ROUTE "../server/maps/"
+
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
 enum broadcastOpers {
@@ -32,9 +37,12 @@ Post-Condiciones: Constructor de una Game.
 
 Game::Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath):
 required(num_required),game_name(name), yamlMapPath(yamlMapPath) {
-    //this->basesCoordinates <= yamlMapPath.COORDENADAS_DE_BASES
-    this->basesCoordinates.push_back(coor_t(16, 16));
-    this->basesCoordinates.push_back(coor_t((41 - 8) * 8, (41 - 8) * 8));
+    YAML::Node node = YAML::LoadFile(MAPS_ROUTE + this->yamlMapPath);
+    std::vector<std::vector<int>> bases = node["constructions"].as<std::vector<
+                                                std::vector<int>>>();
+    for (auto& row : bases) {
+        this->basesCoordinates.push_back(coor_t(row[1], row[0]));
+    }
 }
 
 /*
@@ -46,6 +54,10 @@ void Game::add_participant(const int& ID_house, const std::string& playerName) {
 	this->participants[playerName] = std::move(Player(ID_house, playerName,
                                      basesCoordinates.front()));
     basesCoordinates.pop_front();
+}
+
+std::string Game::getMapPath() {
+    return this->yamlMapPath;
 }
 
 /*

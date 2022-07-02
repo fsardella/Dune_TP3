@@ -30,6 +30,7 @@ class Game {
     Game(); // Not intended for use
 	void add_participant(const int& ID_house, const std::string& playerName);
 	std::string get_name() const;
+    std::string getMapPath();
 	int get_num_bytes() const;
 	int get_participants() const;
 	int get_required() const;

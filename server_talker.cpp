@@ -19,6 +19,13 @@
 #include <exception>
 #include <stdexcept>
 
+#include <yaml-cpp/yaml.h>
+#include <yaml-cpp/node/node.h>
+
+#define MAPS "../server/maps/maps.yaml"
+#define MAPS_ROUTE "../server/maps/"
+
+
 typedef std::vector<std::vector<int>> sketch_t;
 
 /*
@@ -82,12 +89,17 @@ void Talker::list_games() {
 }
 
 void Talker::list_maps() {
-    std::vector<std::string> map_names;
-    map_names.push_back("DEBUG_YAML_PATH");
-    int size = (int)map_names.size();
-	protocol.send_msg_num_list(size);
-	for (const std::string& s : map_names)
-        protocol.sendString(s);
+    try {
+        YAML::Node node = YAML::LoadFile(MAPS);
+        std::vector<std::string> map_names = node["maps"].as<
+                                        std::vector<std::string>>();
+        int size = (int)map_names.size();
+        protocol.send_msg_num_list(size);
+	    for (const std::string& s : map_names)
+            protocol.sendString(s);
+    } catch(YAML::BadFile& e) {
+        throw(std::runtime_error("No map has been created"));
+    }
 }
 
 /*
@@ -153,10 +165,10 @@ void Talker::handleLobby(int operation) {
             std::string game_name = protocol.recieve_msg_game_name(bytes);
             bytes = protocol.recieve_msg_bytes();
             std::string yamlPath = protocol.recieve_msg_game_name(bytes);
-            yamlPath = "DEBUG_YAML_PATH"; // DEBUG
             house = protocol.recieve_msg_house();
-            //int required = readYaml(required);
-            int required = 2;
+            YAML::Node node = YAML::LoadFile(MAPS_ROUTE + yamlPath);
+            int required = node["constructions"].as<std::vector<
+                           std::vector<int>>>().size();
             result = create_game(house,required,game_name, yamlPath);
             protocol.send_msg_result(result);
             break;

@@ -12,7 +12,8 @@ queues(queues),
 queueToKill(queueToKill) {}
 
 
-Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units) {
+Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units,
+                       std::map<uint8_t, std::pair<uint32_t, int32_t>>& pData) {
     Command comm;
     comm.add8BytesMessage(UNIT_BROADCAST);
     comm.setType(UNIT_BROADCAST);
@@ -20,6 +21,8 @@ Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units) {
     comm.add16BytesMessage((uint16_t)totalQuantity);
     for (auto& playerUnits : units) {
         comm.add8BytesMessage(playerUnits.first);
+        comm.add32BytesMessage((uint32_t) pData[playerUnits.first].second);
+        comm.add32BytesMessage(pData[playerUnits.first].first);
         comm.add16BytesMessage(playerUnits.second.size());
         for (UnitData& unit : playerUnits.second) {
             comm.add16BytesMessage(unit.pos.second);
@@ -103,7 +106,7 @@ void Broadcaster::run() {
             this->broadcast(c);
         comm = this->getMenageBroadcast(std::get<5>(broad));
         this->broadcast(comm);
-        comm = this->getUnits(std::get<0>(broad));
+        comm = this->getUnits(std::get<0>(broad), std::get<1>(broad));
         countPlayers = this->broadcast(comm);
         after = clock();
         if ((after - before) > DELTA) {

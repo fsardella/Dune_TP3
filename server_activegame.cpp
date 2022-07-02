@@ -5,6 +5,9 @@
 #include <vector>
 #include <utility>
 
+#include <yaml-cpp/yaml.h>
+#include <yaml-cpp/node/node.h>
+#define MAPS_ROUTE "../server/maps/"
 
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
@@ -27,18 +30,9 @@ enum broadcastOpers {
 
 ActiveGame::ActiveGame(Game game): buildingIDCount(game.get_required()), 
                                    game(std::move(game)) {
-    sketch_t fours;
-    for (int i = 0; i < 40; i++) {
-        std::vector<int> row;
-        for (int j = 0; j < 40; j++) {
-            row.push_back(4);
-        }
-        fours.push_back(row);
-    }
-    this->gameMapSketch = fours;
-    this->gameMap = TerrainMap(this->gameMapSketch); // DEBUG, use YAML
-    // TerrainMap va a ser mas inteligente y traducir los id
-    // de tiles a cada tipo de terreno.
+    YAML::Node node = YAML::LoadFile(MAPS_ROUTE + this->game.getMapPath());
+    this->gameMapSketch = node["matrix"].as<std::vector<std::vector<int>>>();
+    this->gameMap = TerrainMap(this->gameMapSketch);
 }
 
 bool ActiveGame::hasUnit(uint16_t unitID) {
@@ -63,16 +57,7 @@ std::list<PlayerData> ActiveGame::getPlayersData() {
 }
 
 sketch_t ActiveGame::getMapSketch() {
-    sketch_t rocks;
-    for (int i = 0; i < 40; i++) {
-        std::vector<int> row;
-        for (int j = 0; j < 40; j++) {
-            row.push_back(6);
-        }
-        rocks.push_back(row);
-    }
-    return rocks;
-    // return this->gameMapSketch
+    return this->gameMapSketch;
     // No tiene mutex porque gameMapSketch solo cambia en
     // el constructor.
 }
