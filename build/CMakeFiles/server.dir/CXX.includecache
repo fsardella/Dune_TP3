@@ -1,0 +1,96 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/crist/Documentos/Repos/taller I/Dune/server/common_command.h
+string
+-
+vector
+-
+stdint.h
+-
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_astar.h
+stdint.h
+-
+vector
+-
+list
+-
+utility
+-
+map
+-
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_buildings.h
+stdint.h
+-
+utility
+-
+string
+-
+server_terrain_map.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrain_map.h
+common_command.h
+/home/crist/Documentos/Repos/taller I/Dune/server/common_command.h
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrain_map.h
+list
+-
+vector
+-
+stdint.h
+-
+server_terrains.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrains.h
+server_units.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_units.h
+server_buildings.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_buildings.h
+list
+-
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrains.cpp
+server_terrains.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrains.h
+iostream
+-
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrains.h
+stdint.h
+-
+map
+-
+server_units.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_units.h
+server_buildings.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_buildings.h
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_units.h
+server_astar.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_astar.h
+server_terrain_map.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_terrain_map.h
+server_buildings.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_buildings.h
+server_weapons.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_weapons.h
+common_command.h
+/home/crist/Documentos/Repos/taller I/Dune/server/common_command.h
+string
+-
+
+/home/crist/Documentos/Repos/taller I/Dune/server/server_weapons.h
+stdint.h
+-
+list
+-
+server_buildings.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_buildings.h
+server_units.h
+/home/crist/Documentos/Repos/taller I/Dune/server/server_units.h
+

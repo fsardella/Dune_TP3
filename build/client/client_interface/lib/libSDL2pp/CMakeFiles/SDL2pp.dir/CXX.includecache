@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/crist/Documentos/Repos/taller I/Dune/build/client/client_interface/lib/libSDL2pp/SDL2pp_autogen/mocs_compilation.cpp
+
