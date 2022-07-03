@@ -190,7 +190,10 @@ void ProtocolServer::send_map_row(std::vector<int>& row) {
 }
 
 void ProtocolServer::sendCommand(Command command) {
-    this->socket.sendall(command.getPointer(), command.size());    
+    int size = command.size();
+    uint16_t newSize = convert_to_uint16_with_endianess(size);
+    this->socket.sendall(&newSize, 2);
+    this->socket.sendall(command.getPointer(), size);    
 }
 
 Command ProtocolServer::recvCommand(int size) {

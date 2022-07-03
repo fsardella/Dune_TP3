@@ -6,8 +6,9 @@
 #include <iostream>
 
 #define WALL 0
-#define CHUNKSIZE 4
+#define CHUNKSIZE 8
 
+#define IDLE 4 // direccion
 
 coor_t getChunk(const coor_t& coor) {
     return coor_t((coor.first / CHUNKSIZE) * CHUNKSIZE, 
@@ -18,40 +19,78 @@ coor_t getChunk(const coor_t& coor) {
 AStar::AStar(Unit& unit, coor_t origin, TerrainMap& terrain): unit(unit),
                                                     terr(terrain),
                                                     actPos(origin),
-                                                    actDest(coor_t(0, 0)) {}
+                                                    actDest(coor_t(0, 0)),
+                                                    dir(IDLE) {}
 
-bool AStar::pathIsClear() {
-    for (coor_t mov : this->movs) {
-        if (this->terr.getSpeed(mov, this->unit) == WALL)
-            return false;
-    }
-    return true;
+
+uint8_t AStar::getDir() {
+    return this->dir;
 }
 
-void AStar::processMove(coor_t dest) {
-    if (this->actPos == dest || this->terr.getSpeed(dest, this->unit) == WALL) {
-        return;
-    } else if (!this->movs.empty() && this->actDest == dest
-               && (this->pathIsClear() || this->movs.back() == this->actPos)) {
+void AStar::eraseUnitFromMap() {
+    this->terr.eraseUnitFromMap(this->actPos);
+}
+
+void AStar::setDir(coor_t ant, coor_t actual) {
+    int x = (int)actual.second - (int)ant.second + 1;
+    int y = (int)actual.first - (int)ant.first + 1;
+    this->dir = (uint16_t) x + 3 * y;
+    
+}
+
+float AStar::getSpeedMod() {
+    return this->terr.getSpeedMod(this->actPos);
+}
+
+// La solucion de agregar un booleano para saber cuando se esta atacando a un
+// edificio me parece personalmente horripilante... Pero no hay tiempo. Too bad!
+// https://youtu.be/k238XpMMn38
+
+bool AStar::processMove(coor_t dest, bool attackingBuilding) {
+    std::cout << "EMPIEZA\n";
+    if (this->actPos == dest || (this->terr.isBlocked(dest) && !attackingBuilding)) {
+        this->dir = IDLE;
+        std::cout << "llego a destino\n";
+        return true;
+    } else if (!this->movs.empty() && this->actDest == dest) {
         coor_t ret = this->movs.back();
+        if (this->terr.isOccupied(ret)) {
+            this->dir = IDLE; // Esperar hasta que la posicion siguiente
+            std::cout << "posicion siguiente ocupada\n";
+            return true;           // este desocupada
+        } else if (this->terr.isBlocked(ret)) {
+            this->movs.clear();   // Si justo en frente construyeron,
+            this->chunks.clear(); // volver a calcular todo de vuelta
+            std::cout << "me bloquearon el camino\n";
+            return this->processMove(this->actDest);
+        }
         this->movs.pop_back();
         this->terr.swapContent(this->actPos, ret);
+        this->setDir(this->actPos, ret);
         this->actPos = ret;
+        std::cout << "me muevo\n";
+        return true;
     } else if (this->movs.empty() && !this->chunks.empty()) { 
         this->execSubAlgorithm();
+        std::cout << "se ejecuta el subalgoritmo\n";
         if (!this->movs.empty()) {
+            std::cout << "los movimeintos no estaban vacios\n";
             if (dest != this->chunks.front())
                 this->chunks.push_front(dest);
-            this->processMove(this->actDest);
+            std::cout << "llego bien\n";
+            return this->processMove(this->actDest);
         }
     } else {
         this->movs.clear();
         this->chunks.clear();
         this->actDest = dest;
         this->execAlgorithm();
+        std::cout << "se ejecuta el algoritmo\n";
         if (!this->chunks.empty())
-            this->processMove(this->actDest);
+            return this->processMove(this->actDest);
     }
+    std::cout << "devuelvo false\n";
+    return false;
 }
 
 
@@ -114,7 +153,7 @@ std::map<coor_t, coor_t> AStar::_execAlgorithm() {
         seen[u] = true;
         for (coor_t adj : getAdjacents(u)) {
             if (seen.find(adj) == seen.end()) {
-                float ter_speed = this->terr.getSpeed(adj, this->unit); 
+                float ter_speed = this->terr.getSpeedWeight(adj, this->unit); 
                 if (ter_speed == WALL) {
                     distance[adj] = INFINITY;
                 } else if (get_distance(distance, adj) >
@@ -130,6 +169,10 @@ std::map<coor_t, coor_t> AStar::_execAlgorithm() {
     return parent;
 }
 
+coor_t AStar::addOffset(coor_t chunk) {
+    return coor_t(chunk.first + this->actPos.first % CHUNKSIZE,
+                  chunk.second + this->actPos.second % CHUNKSIZE);
+}
 
 void AStar::execAlgorithm() {
     std::map<coor_t, coor_t> parents = this->_execAlgorithm();
@@ -137,17 +180,17 @@ void AStar::execAlgorithm() {
     coor_t destChunk = getChunk(this->actDest);
     coor_t u = destChunk;
     while (u != actChunk) {
-        //for (float trav_turns = 0;
-             //trav_turns < this->terr.getSpeed(u, this->unit);
-             //trav_turns++)
-        this->chunks.push_back(u);
+        this->chunks.push_back(addOffset(u));
         u = parents[u];
         if (u == destChunk) {
             this->chunks.clear();
             return;
         }
     }
+    this->chunks.pop_back();
+    this->chunks.push_back(this->actDest);
 }
+
 
 std::list<coor_t> AStar::getSubAdjacents(const coor_t& coor) {
     std::list<coor_t> adjacents;
@@ -170,7 +213,7 @@ std::list<coor_t> AStar::getSubAdjacents(const coor_t& coor) {
 
 
 float subChevychev(const coor_t& coord, const coor_t& dest) {
-    float dist_x = abs(coord.first - dest.first);
+    float dist_x = abs(coord.first - dest.first); // posible bug por no castear???
     float dist_y = abs(coord.second - dest.second);
     return (dist_x > dist_y)? dist_x : dist_y;
 }
@@ -193,7 +236,7 @@ std::map<coor_t, coor_t> AStar::_execSubAlgorithm(const coor_t& dest) {
         seen[u] = true;
         for (coor_t adj : getSubAdjacents(u)) {
             if (seen.find(adj) == seen.end()) {
-                float ter_speed = this->terr.getSpeed(adj, this->unit); 
+                float ter_speed = this->terr.getSpeedWeight(adj, this->unit); 
                 if (ter_speed == WALL) {
                     distance[adj] = INFINITY;
                 } else if (get_distance(distance, adj) >
@@ -215,9 +258,6 @@ void AStar::execSubAlgorithm() {
     std::map<coor_t, coor_t> parents = this->_execSubAlgorithm(dest);
     coor_t u = dest;
     while (u != this->actPos) {
-        //for (int trav_turns = 0;
-             //trav_turns < this->terr.getSpeed(u, this->unit);
-             //trav_turns++)
             this->movs.push_back(u);
         u = parents[u];
         if (u == dest) {

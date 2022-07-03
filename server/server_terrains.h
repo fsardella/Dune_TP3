@@ -4,37 +4,55 @@
 
 
 #include <stdint.h>
-#include <set>
+#include <map>
 #include "server_units.h"
+#include "server_buildings.h"
 
 class Terrain {
  protected:
-    std::set<coor_t> occupied;
+    std::map<coor_t, Unit*> occupiedUnits;
  public:
     Terrain();
-    void occupySpace(coor_t coord);
+    void occupySpace(coor_t coord, Unit* unit);
+    Unit* getOccupant(coor_t coord);
+    void getAllOccupants(std::list<Unit*>& ret);
     void freeSpace(coor_t coord);
+    virtual void eraseBuilding() {}
     bool isOccupied(coor_t coord);
     virtual void print();
+    virtual bool canBuild();
+    virtual bool isBlocked();
+    virtual Building* getBuilding();
+    virtual bool hasMenage();
+    virtual uint16_t peekMenage();
+    virtual uint16_t harvestMenage(uint16_t freeSpace);
+    virtual bool isThereARefinery();
     void printDebug();
-    virtual int getSpeed(Unit& unit, coor_t coord) = 0;
+    virtual int getSpeedWeight(Unit& unit, coor_t coord) = 0;
+    virtual float getSpeedMod();
+    virtual void build(Building* newBuilding) {}
     virtual ~Terrain();
 };
 
 class Sand : public Terrain {
  public:
     Sand();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     //void print(); // DEBUG
     virtual ~Sand();
 };
 
 class Rock : public Terrain {
-    char Building; // TODO CLASE BUILDING
+    Building* building = nullptr;
  public:
     Rock();
-    void build(char building);
-    int getSpeed(Unit& unit, coor_t coord);
+    void build(Building* newBuilding);
+    bool canBuild();
+    bool isBlocked();
+    bool isThereARefinery();
+    void eraseBuilding();
+    Building* getBuilding();
+    int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Rock();
 };
 
@@ -42,14 +60,18 @@ class Spice : public Terrain {
     uint16_t quantity;
  public:
     Spice(uint16_t quantity);
-    int getSpeed(Unit& unit, coor_t coord);
+    uint16_t peekMenage();
+    uint16_t harvestMenage(uint16_t freeSpace);
+    bool hasMenage();
+    int getSpeedWeight(Unit& unit, coor_t coord);
     virtual ~Spice();
 };
 
 class Dune : public Terrain {
  public:
     Dune();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
+    float getSpeedMod();
     void print();  // DEBUG
     virtual ~Dune();
 };
@@ -57,7 +79,7 @@ class Dune : public Terrain {
 class Mount : public Terrain {
  public:
     Mount();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
     void print();  // DEBUG
     virtual ~Mount();
 };
@@ -65,9 +87,12 @@ class Mount : public Terrain {
 class Cliff : public Terrain {
  public:
     Cliff();
-    int getSpeed(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord);
+    bool isBlocked();
     void print();  // DEBUG
     virtual ~Cliff();
 };
 
 #endif
+
+

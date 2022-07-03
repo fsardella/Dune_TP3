@@ -271,7 +271,7 @@ Post: La camara se mueve para abajo.
 */
 
 void Camera::moveDownwards() {
-    if (offsetY + 1 > mapWidth - offsetY) {
+    if (offsetY + 1 > mapHeight - height) {
         return;
     }
     offsetY += 1;
@@ -295,7 +295,7 @@ Post: La camara se mueve para la derecha.
 */
 
 void Camera::moveRight() {
-    if (offsetX + 1 > mapWidth - offsetX) {
+    if (offsetX + 1 > mapWidth - width) {
         return;
     }
     offsetX += 1;

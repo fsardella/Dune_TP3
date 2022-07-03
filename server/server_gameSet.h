@@ -12,8 +12,8 @@
 #include <utility>
 #include "common_blockingqueue.h"
 
-#define SUCCESS 0
-#define ERROR 1
+#define GSSUCCESS 0
+#define GSERROR 1
 
 class GameSet {
 	std::map<std::string, Game> games;

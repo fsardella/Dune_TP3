@@ -4,11 +4,12 @@
 #include "common_thread.h"
 #include "server_game.h"
 #include "server_activegame.h"
-#include "server_command.h"
+#include "common_command.h"
 #include "common_blockingqueue.h"
 #include "server_talker.h"
 #include "server_broadcaster.h"
 #include "server_timewizard.h"
+#include "server_playerdata.h"
 #include <map>
 
 typedef std::map<std::string, Talker*> talkerMap_t;
@@ -23,6 +24,10 @@ class GameHandler: public Thread {
     void processCommand(Command comm);
     void disconnect(Command comm);
     void addNewUnit(Command comm);
+    void createNewBuilding(Command comm);
+    void addNewBuilding(Command comm);
+    void processAttack(Command comm);
+    void moveUnit(Command comm);
     void notifyError(Command comm);
     void notifySuccess(Command comm);
     

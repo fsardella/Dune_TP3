@@ -5,12 +5,6 @@
 
 #include <vector>
 #include <stdint.h>
-//typedef struct command {
- //public:
-    //std::string playerName;
-    //int x;
-    //int y;
-//} Command;
 
 class Command {
     std::vector<uint8_t> command;
@@ -30,8 +24,12 @@ class Command {
     std::string getSender();
     void add8BytesMessage(const uint8_t message);
     void add16BytesMessage(const uint16_t message);
+    void add32BytesMessage(const uint32_t message);
+    void addString(const std::string& sent);
     uint8_t pop8BytesMessage();
     uint16_t pop16BytesMessage();
+    uint32_t pop32BytesMessage();
+    std::string popString(const size_t length);
     ~Command();
 };
 

@@ -24,10 +24,12 @@ class AStar {
     TerrainMap& terr;
     coor_t actPos;
     coor_t actDest;
+    uint8_t dir;
 
-    bool pathIsClear();
     std::list<coor_t> getAdjacents(const coor_t& coor);
     std::list<coor_t> getSubAdjacents(const coor_t& coor);
+    void setDir(coor_t ant, coor_t actual);
+    coor_t addOffset(coor_t chunk);
     void execAlgorithm();
     std::map<coor_t, coor_t> _execAlgorithm();
     float chevychev(const coor_t& coord);
@@ -36,10 +38,14 @@ class AStar {
     
  public:
     AStar(Unit& unit, coor_t origin, TerrainMap& terrain);
-    void processMove(coor_t dest);
+    bool processMove(coor_t dest, bool attackingBuilding = false);
+    uint8_t getDir();
     coor_t getPosition();
+    float getSpeedMod();
+    void eraseUnitFromMap();
     void print();
 };
 
 
 #endif
+

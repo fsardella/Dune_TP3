@@ -13,6 +13,7 @@
 
 #define ONE_BYTE 1
 #define TWO_BYTES 2
+#define FOUR_BYTES 4
 
 /*
 Pre-Condiciones: -
@@ -126,7 +127,7 @@ Post-Condiciones: -
 
 int ProtocolClient::receiveFourBytes() {
     uint32_t result = 0;
-    socket.recvall(&result, TWO_BYTES);
+    socket.recvall(&result, FOUR_BYTES);
     int result_convert = convert_from_uint32_with_endianess(result);
     return result_convert;
 }
@@ -380,6 +381,7 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int,
                         std::string& clientName, int& clientId) {
     std::map<int, int> clientHouses;
     int playersAmount = receiveOneByte();
+    std::cout << "players amount " << playersAmount << std::endl;
     for (int i = 0; i < playersAmount; i ++) {
         bool property = false;
         int nameSize = receiveTwoBytes();
@@ -394,7 +396,7 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int,
             property = true;
         }
         clientHouses[i] = house;
-        constYards[i] = std::make_tuple(x, y, i, house, property);
+        constYards[i] = std::make_tuple(x * 4, y * 4, i, house, property);
         playerHouses[i] = house;
     }
     return clientHouses;
@@ -426,6 +428,7 @@ void ProtocolClient::recvUnits(std::map<int,
         if (clientId == playerId) propiety = true;
 
         for (int j = 0; j < unitsAmount; j ++) {
+            std::cout << "entro al for porque habia al menos una unidad\n";
             int x = receiveTwoBytes() * 4;
             int y = receiveTwoBytes() * 4;
             int type = receiveOneByte();
@@ -452,7 +455,7 @@ std::tuple<int, int, int, int, int, bool> ProtocolClient::recvBuildingInfo(
     int y = receiveTwoBytes();
     bool property = false;
     if (playerId == clientId) property = true;
-    return std::make_tuple(x, y, playerId, buildingId, buildingType, property);
+    return std::make_tuple(x * 4, y * 4, playerId, buildingId, buildingType, property);
 }
 
 /*
@@ -481,6 +484,7 @@ void ProtocolClient::recvUnitsProgress(std::vector<std::tuple<int, int>>&
         int playerId = receiveOneByte();
         int unitType = receiveOneByte();
         int percentage = receiveOneByte();
+        std::cout << "unit percentage " << percentage << std::endl;
         if (playerId == clientId) {
             unitsProgress.push_back(std::make_tuple(unitType, percentage));
         }

@@ -45,7 +45,7 @@ int GameSet::add_game(int house, int required, const std::string& game_name,
                       const std::string& playerName, const std::string& mapPath) {
 	lock_t lock(this->m);
 	if (this->game_exists(game_name)) {
-		return ERROR;
+		return GSERROR;
 	} else {
 		Game newGame(required, game_name, mapPath);
 		newGame.add_participant(house, playerName);
@@ -55,7 +55,7 @@ int GameSet::add_game(int house, int required, const std::string& game_name,
             this->games.erase(game_name);
 			//std::cout << "Comenzando Game " << game_name << "..." << std::endl;
 		}
-		return SUCCESS;
+		return GSSUCCESS;
 	}
 }
 
@@ -101,9 +101,9 @@ int GameSet::game_join(int house, const std::string& game_name, const std::strin
             this->games.erase(game_name);
 			//std::cout << "Comenzando Game " << game_name << "..." << std::endl;
 		}
-		return SUCCESS;
+		return GSSUCCESS;
 	}
-	return ERROR;
+	return GSERROR;
 }
 
 /*
@@ -117,7 +117,7 @@ Post-Condiciones: Obtiene una Game especifica del vector de Games.
 			//return games[i];
 		//}
 	//}
-	//throw(std::invalid_argument("error al obtener la Game"));
+	//throw(std::invalid_argument("GSERROR al obtener la Game"));
 //}
 
 /*

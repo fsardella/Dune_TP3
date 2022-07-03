@@ -32,7 +32,7 @@
 #define WORM_HEIGHT 36
 #define INITIAL_MONEY 1000
 #define INITIAL_ENERGY 100
-#define SPICE_OFFSET 88
+#define SPICE_OFFSET 22
 #define SIZE_FONT 22
 #define BARRACK_OFFSET 18
 #define FONT_PATH "/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1"
@@ -410,6 +410,9 @@ void MapView::createConstruction(int x, int y, int playerId,
     int width, height;
     getBuildingDimensions(constType, &width, &height);
 
+    std::cout << "const Type " << constType << std::endl;
+    std::cout << "player Id " << playerId << std::endl;
+
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
                     std::forward_as_tuple(animationsRepository.at(constType),
@@ -427,12 +430,15 @@ Post-Condiciones: -
 */
 
 void MapView::updateProgress(int menuId, int progress) {
-    int soundCreationType = menuId > 10 ? BUILDING_CREATED : UNIT_CREATED;
-
     int offset = getSoundOffset();
 
-    if (progress == PROGRESS_COMPLETED) {
-        window.playSound(offset + soundCreationType, VOLUME);
+    if (menuId > 10 && progress == PROGRESS_COMPLETED &&
+        !menuImages.at(menuId).isBuildingReady()) {
+        window.playSound(offset + BUILDING_CREATED, VOLUME);
+    }
+
+    if (progress == PROGRESS_COMPLETED && menuId < 11) {
+        window.playSound(offset + UNIT_CREATED, VOLUME);
     }
     menuImages.at(menuId).updateProgress(progress);
 }
@@ -568,7 +574,10 @@ Post-Condiciones: -
 */
 
 void MapView::setMoney(int money) {
-    if (actualMoney == money) return;
+    if (actualMoney == money) {
+        return;
+    }
+    menuTextsTranslator.erase("money");
     std::string text("Money: $" + std::to_string(money));
     menuTextsTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple("money"),
@@ -577,6 +586,7 @@ void MapView::setMoney(int money) {
                           std::forward_as_tuple("money"),
                           std::forward_as_tuple(&menuTextsTranslator.at
                           ("money"), 200, 32, 0, 0));
+    actualMoney = money;
 }
 
 /*
@@ -587,6 +597,7 @@ Post-Condiciones: -
 
 void MapView::setEnergy(int energy) {
     if (actualEnergy == energy) return;
+    menuTextsTranslator.erase("energy");
     std::string text("Energy: " + std::to_string(energy) + "%");
     menuTextsTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple("energy"),
@@ -595,6 +606,7 @@ void MapView::setEnergy(int energy) {
                           std::forward_as_tuple("energy"),
                           std::forward_as_tuple(&menuTextsTranslator.at
                           ("energy"), 200, 32, 0, 1));
+    actualEnergy = energy;
 }
 
 /*
@@ -775,8 +787,10 @@ Post-Condiciones: -
 
 void MapView::updateSpecie(int x, int y, int state) {
     // si lo que cris me manda es el numero de tile tipo matriz
-    int index = SPICE_OFFSET + state;
+    int index = SPICE_OFFSET + state - 1;
     if (state == 0) index = 0;
+    // int posX = x / 8;
+    // int posY = y / 8;
     backgroundTiles[y * columns + x].changeTile(&(tileTextureTranslator.at(
                                                 index)), x, y);
 }

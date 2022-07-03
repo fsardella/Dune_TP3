@@ -2,7 +2,7 @@
 #define __PROTOCOLSERVER_H__
 
 #include "common_socket.h"
-#include "server_command.h"
+#include "common_command.h"
 #include <string>
 #include "server_gamedata.h"
 

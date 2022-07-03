@@ -113,6 +113,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 // op 9
                 std::cout << "op 9\n";
                 // quiero posicionar un edificio ya listo
+                std::cout << "estoy enviando " << posX << " y " << posY << std::endl;
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
                 blockingQueue->push(std::move(clientInput));
                 gameView->setNotReady(currentMenuImage);
@@ -157,6 +158,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
         std::cout << "op 5\n";
         int unitType = currentMenuImage;
         if (gameView->isUnderConstruction(unitType)) {
+            currentMenuImage = NONE_TYPE;
             return;
         }
         if (!gameView->isBlocked(currentMenuImage)) {

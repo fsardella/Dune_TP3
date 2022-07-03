@@ -141,53 +141,59 @@ set(CLIENT_SOURCES
 )
 
 set(SERVER_SOURCES
-        server/common_blockingqueue.h
-        server/common_resolver.cpp
-        server/common_resolver.h
-        server/common_socket.cpp
-        server/common_socket.h
-        server/common_thread.cpp
-        server/common_thread.h
-        server/server_activegame.cpp
-        server/server_activegame.h
-        server/server_astar.cpp
-        server/server_astar.h
-        server/server_broadcaster.cpp
-        server/server_broadcaster.h
-        server/server_command.cpp
-        server/server_command.h
-        server/server_game.cpp
-        server/server_game.h
-        server/server_gamedata.cpp
-        server/server_gamedata.h
-        server/server_gamehandler.cpp
-        server/server_gamehandler.h
-        server/server_gameSet.cpp
-        server/server_gameSet.h
-        server/server_inputguy.cpp
-        server/server_inputguy.h
-        server/server_listener.cpp
-        server/server_listener.h
-        server/server_player.cpp
-        server/server_player.h
-        server/server_protocol.cpp
-        server/server_protocol.h
-        server/server_sender.cpp
-        server/server_sender.h
-        server/server_server.cpp
-        server/server_server.h
-        server/server_talker.cpp
-        server/server_talker.h
-        server/server_terrain_map.cpp
-        server/server_terrain_map.h
-        server/server_terrains.cpp
-        server/server_terrains.h
-        server/server_timewizard.cpp
-        server/server_timewizard.h
-        server/server_unitdata.cpp
-        server/server_unitdata.h
-        server/server_units.cpp
-        server/server_units.h
+    server/common_blockingqueue.h
+    server/common_command.cpp
+    server/common_command.h
+    server/common_resolver.cpp
+    server/common_resolver.h
+    server/common_socket.cpp
+    server/common_socket.h
+    server/common_thread.cpp
+    server/common_thread.h
+    server/server_activegame.cpp
+    server/server_activegame.h
+    server/server_astar.cpp
+    server/server_astar.h
+    server/server_broadcaster.cpp
+    server/server_broadcaster.h
+    server/server_buildings.cpp
+    server/server_buildings.h
+    server/server_game.cpp
+    server/server_gamedata.cpp
+    server/server_gamedata.h
+    server/server_game.h
+    server/server_gamehandler.cpp
+    server/server_gamehandler.h
+    server/server_gameSet.cpp
+    server/server_gameSet.h
+    server/server_inputguy.cpp
+    server/server_inputguy.h
+    server/server_listener.cpp
+    server/server_listener.h
+    server/server_player.cpp
+    server/server_playerdata.h
+    server/server_player.h
+    server/server_protocol.cpp
+    server/server_protocol.h
+    server/server_sender.cpp
+    server/server_sender.h
+    server/server_server.cpp
+    server/server_server.h
+    server/server_talker.cpp
+    server/server_talker.h
+    server/server_terrain_map.cpp
+    server/server_terrain_map.h
+    server/server_terrains.cpp
+    server/server_terrains.h
+    server/server_timewizard.cpp
+    server/server_timewizard.h
+    server/server_unitbuffer.cpp
+    server/server_unitbuffer.h
+    server/server_unitdata.h
+    server/server_units.cpp
+    server/server_units.h
+    server/server_weapons.cpp
+    server/server_weapons.h
 )
 
 SET(SDL2PP_WITH_IMAGE YES)
@@ -229,7 +235,7 @@ else()
     endif()
 endif()
 
-add_executable(server ${SERVER_SOURCES} server/main.cpp)
+add_executable(server ${SERVER_SOURCES} server/server_main.cpp)
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS})
 

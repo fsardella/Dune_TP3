@@ -20,7 +20,6 @@
 #define BUILDING_UNDER_CONSTRUCTION 9
 #define WORM 10
 #define REFINEMENT 11
-#define BUILDING_DESTROYED 12
 
 /*
 Pre-Condiciones: Constructor de Server Receiver.
@@ -46,14 +45,16 @@ Post-Condiciones: -
 void ServerReceiver::run() {
     try {
         this->receiveBackground();
+        std::cout << "termine de recibir el backgroung\n";
         this->buildConstructionYards();
-        gameView->setEnergy(0);  // iria energy
-        gameView->setMoney(0);  // iria money
+        std::cout << "termine de recibir las units\n";
+        // gameView->setEnergy(0);  // iria energy
+        // gameView->setMoney(0);  // iria money
 
-        gameView->updateSpecie(0, 0, 5);
+        // gameView->updateSpecie(0, 0, 5);
 
-        gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
-        gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
+        // gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
+        // gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
         // std::this_thread::sleep_for (std::chrono::seconds(3));
         // std::vector<int> deaths;
         // deaths.push_back(0);
@@ -189,7 +190,9 @@ void ServerReceiver::gameLoop() {
     // std::this_thread::sleep_for (std::chrono::seconds(3));
     // std::cout << "entro al loop de server receiver\n";
     while (gameView->isRunning()) {
+        int length = protocolClient->receiveTwoBytes();
         int operation = protocolClient->recvOperationNumber();
+        std::cout << "operacion " << operation << std::endl;
         // int operation = GAME_LOST;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
@@ -261,6 +264,7 @@ Post-Condiciones: -
 void ServerReceiver::receiveBuilding() {
     std::tuple<int, int, int, int, int, bool> buildingInfo =
                 protocolClient->recvBuildingInfo(clientId);
+    std::cout << "estoy recibiendo " << std::get<0>(buildingInfo) << " y " << std::get<1>(buildingInfo) << std::endl;
     gameView->buildConstruction(std::get<0>(buildingInfo),
                                 std::get<1>(buildingInfo),
                                 std::get<2>(buildingInfo),
