@@ -883,18 +883,18 @@ amount: 21
 
 #Quieto
 13_0:
-  - "../client/animations/FabericaPesada.bmp"
+  - "../client/animations/FabricaPesada.bmp"
 
 #Crear
 13_1:
   - "../client/animations/Destruction1.bmp"
   - "../client/animations/FabericaPesadaDestruida.bmp"
-  - "../client/animations/FabericaPesada.bmp"
+  - "../client/animations/FabricaPesada.bmp"
 
 #Morir
 13_2:
-  - "../client/animations/FabericaPesada.bmp"
-  - "../client/animations/FabericaPesadaDestruida.bmp"
+  - "../client/animations/FabricaPesada.bmp"
+  - "../client/animations/FabricaPesadaDestruida.bmp"
   - "../client/animations/Destruction1.bmp"
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
