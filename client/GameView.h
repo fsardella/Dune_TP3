@@ -70,6 +70,7 @@ class GameView {
 
     void touchedUnit(int unitId);
     void untouchedUnit(int unitId);
+    int getType(int unitId);
 
     void playWinSound();
     void playLostSound();

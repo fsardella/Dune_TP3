@@ -98,7 +98,8 @@ class MapView {
 
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
-    void setNotReady(int currentBuilding);
+    void setNotReady(int currentBuilding); // eliminar
+    void updateUnready(int constructionId, int property);
 
     void wormAttack(int x, int y, std::vector<int> deadId);
 
@@ -109,6 +110,7 @@ class MapView {
 
     void touchedUnit(int unitId);
     void untouchedUnit(int unitId);
+    int getType(int unitId);
 
     void update(int delta);
 

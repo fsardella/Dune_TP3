@@ -20,6 +20,7 @@
 #define BUILDING_UNDER_CONSTRUCTION 9
 #define WORM 10
 #define REFINEMENT 11
+#define CONST_YARD_ID 11
 
 /*
 Pre-Condiciones: Constructor de Server Receiver.
@@ -53,7 +54,6 @@ void ServerReceiver::run() {
 
         // gameView->updateSpecie(0, 0, 5);
 
-        // gameView->buildUnit(100, 100, 0, 0, 0, 5, true); // BORRAR
         // gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
         // std::this_thread::sleep_for (std::chrono::seconds(3));
         // std::vector<int> deaths;
@@ -176,7 +176,7 @@ void ServerReceiver::buildConstructionYards() {
     for (const auto& [key, value] : constYards) {
         // x y id type house property
         gameView->buildConstruction(std::get<0>(value), std::get<1>(value),
-                                    std::get<2>(value), key, 11,
+                                    std::get<2>(value), key, CONST_YARD_ID,
                                     std::get<4>(value), std::get<3>(value));
     }
 }
@@ -192,7 +192,7 @@ void ServerReceiver::gameLoop() {
     while (gameView->isRunning()) {
         int length = protocolClient->receiveTwoBytes();
         int operation = protocolClient->recvOperationNumber();
-        std::cout << "operacion " << operation << std::endl;
+        // std::cout << "operacion " << operation << std::endl;
         // int operation = GAME_LOST;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
@@ -208,9 +208,11 @@ void ServerReceiver::gameLoop() {
             this->receiveBuilding();
             break;
         case UNIT_ATTACKED:
+            std::cout << "recibo operacion de unidad bajo ataque\n";
             this->receiveUnitAttack();
             break;
         case BUILDING_ATTACKED:
+            std::cout << "recibo operacion de construccion bajo ataque\n";
             this->receiveBuildingAttack();
             break;
         case GAME_LOST:
@@ -265,6 +267,7 @@ void ServerReceiver::receiveBuilding() {
     std::tuple<int, int, int, int, int, bool> buildingInfo =
                 protocolClient->recvBuildingInfo(clientId);
     std::cout << "estoy recibiendo " << std::get<0>(buildingInfo) << " y " << std::get<1>(buildingInfo) << std::endl;
+    std::cout << "era mio " << std::get<5>(buildingInfo) << std::endl;
     gameView->buildConstruction(std::get<0>(buildingInfo),
                                 std::get<1>(buildingInfo),
                                 std::get<2>(buildingInfo),

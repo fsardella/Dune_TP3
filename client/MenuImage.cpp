@@ -9,6 +9,7 @@
 #define CONSTRUCTIONS_OFFSET 11
 #define UNIT_LIMIT 10
 #define COMPLETE 100
+#define PROGRESS_COMPLETED 100
 
 /*
 Pre-Condiciones: Constructor del MenuImage.
@@ -40,8 +41,12 @@ MenuImage::MenuImage(SdlTexture* texture,
 void MenuImage::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSightForMenu(texture, src, posX, posY);
-    if (blocked) {
+    if (blocked && type < CONSTRUCTIONS_OFFSET) {
         camera.renderBlockingFigure(posX, posY);
+    }
+    if (blocked && type > UNIT_LIMIT) {
+        Area shadowScrBlocked(0, 0, sizeW, sizeH);
+        camera.renderShadowForMenu(shadowScrBlocked, posX, posY, 0);
     }
     if (isUnderConstruction) {
         Area shadowScr(0, 0, sizeW, sizeH - (sizeH * (static_cast<float>
@@ -157,6 +162,14 @@ void MenuImage::updateBlocking(int buildingType) {
     if (type < CONSTRUCTIONS_OFFSET) {
         blocked = !checkUnblockPosibility(buildingType);
     }
+}
+
+void MenuImage::block() {
+    blocked = true;
+}
+
+void MenuImage::unblock() {
+    blocked = false;
 }
 
 /*

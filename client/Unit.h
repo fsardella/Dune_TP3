@@ -25,6 +25,7 @@ class Unit {
     int lifeId;
     bool isCurrentlyAttacking;
     bool isDead;
+    bool isDying;
     bool isTouched;
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
@@ -55,7 +56,7 @@ class Unit {
     void getLifeTexture();
     void getIdentificatorTexture();
 
-    int findAnimationId(int animationType);
+    void calculateBulletPosition(float& direcX, float& direcY, int animationId);
     void updateAnimationId(int oldAnimationId, int newAnimationId);
     float getX();
     float getY();
@@ -67,6 +68,7 @@ class Unit {
     void setAnimationId(int animationId);
     void setNewPosition(float x, float y);
     bool getIsDead();
+    bool getIsDying();
     void kill();
     int getUnitType();
     void setIsTouched(bool status);

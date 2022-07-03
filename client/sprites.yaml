@@ -4,33 +4,53 @@ amount: 21
 
 #######TRIKE#######
 
-0_animationAmount: 8
+0_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 0_0:
+  - "../client/animations/trike8.bmp"
+
+# Norte
+0_1:
   - "../client/animations/trike11.bmp"
 
-# Oeste 3
-0_1:
+# Noreste
+0_2:
+  - "../client/animations/trike12.bmp"
+
+# Oeste
+0_3:
   - "../client/animations/trike6.bmp"
   
-# Este 4 5
-0_2:
+# Este (quieto)
+0_4:
   - "../client/animations/trike16.bmp"
 
-# Sur 6 7 8
-0_3:
+# Este
+0_5:
+  - "../client/animations/trike16.bmp"
+
+# Suroeste
+0_6:
+  - "../client/animations/trike3.bmp"
+
+# Sur
+0_7:
   - "../client/animations/trike1.bmp"
 
+# Sureste
+0_8:
+  - "../client/animations/trike18.bmp"
+
 # De centro a sur
-0_4:
+0_9:
   - "../client/animations/trike16.bmp"
   - "../client/animations/trike17.bmp"
   - "../client/animations/trike18.bmp"
   - "../client/animations/trike1.bmp"
 
 # De centro a oeste
-0_5:
+0_10:
   - "../client/animations/trike16.bmp"
   - "../client/animations/trike17.bmp"
   - "../client/animations/trike18.bmp"
@@ -42,7 +62,7 @@ amount: 21
   - "../client/animations/trike6.bmp"
 
 # De centro a norte
-0_6:
+0_11:
   - "../client/animations/trike16.bmp"
   - "../client/animations/trike17.bmp"
   - "../client/animations/trike18.bmp"
@@ -59,7 +79,7 @@ amount: 21
   - "../client/animations/trike11.bmp"
 
 # Muerte
-0_7:
+0_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -68,33 +88,53 @@ amount: 21
 
 #######RAIDER#######
 
-1_animationAmount: 8
+1_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 1_0:
+  - "../client/animations/Raider7.bmp"
+
+# Norte
+1_1:
   - "../client/animations/Raider8.bmp"
 
+# Noreste
+1_2:
+  - "../client/animations/Raider9.bmp"
+
 # Oeste 3
-1_1:
+1_3:
   - "../client/animations/Raider6.bmp"
   
-# Este 4 5
-1_2:
+# Este (quieto)
+1_4:
   - "../client/animations/Raider1.bmp"
 
-# Sur 6 7 8
-1_3:
+# Este
+1_5:
+  - "../client/animations/Raider1.bmp"
+
+# Suroeste
+1_6:
+  - "../client/animations/Raider5.bmp"
+
+# Sur
+1_7:
   - "../client/animations/Raider4.bmp"
 
+# Sureste
+1_8:
+  - "../client/animations/Raider3.bmp"
+
 #De centro a sur
-1_4:
+1_9:
   - "../client/animations/Raider1.bmp"
   - "../client/animations/Raider2.bmp"
   - "../client/animations/Raider3.bmp"
   - "../client/animations/Raider4.bmp"
 
 #De centro a oeste
-1_5:
+1_10:
   - "../client/animations/Raider1.bmp"
   - "../client/animations/Raider2.bmp"
   - "../client/animations/Raider3.bmp"
@@ -103,7 +143,7 @@ amount: 21
   - "../client/animations/Raider6.bmp"
 
 #De centro a norte
-1_6:
+1_11:
   - "../client/animations/Raider1.bmp"
   - "../client/animations/Raider2.bmp"
   - "../client/animations/Raider3.bmp"
@@ -114,7 +154,7 @@ amount: 21
   - "../client/animations/Raider8.bmp"
 
 # Muerte
-1_7:
+1_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -123,33 +163,53 @@ amount: 21
 
 #######TANQUE#######
 
-2_animationAmount: 8
+2_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 2_0:
+  - "../client/animations/Tanque2.bmp"
+  
+# Norte
+2_1:
   - "../client/animations/Tanque8.bmp"
 
-# Oeste 3
-2_1:
+# Noreste
+2_2:
+  - "../client/animations/Tanque5.bmp"
+
+# Oeste
+2_3:
   - "../client/animations/Tanque6.bmp"
   
-# Este 4 5
-2_2:
+# Este
+2_4:
   - "../client/animations/Tanque1.bmp"
 
-# Sur 6 7 8
-2_3:
+# Este
+2_5:
+  - "../client/animations/Tanque1.bmp"
+
+# Suroeste
+2_6:
+  - "../client/animations/Tanque9.bmp"
+
+# Sur
+2_7:
   - "../client/animations/Tanque4.bmp"
 
+# Sureste
+2_8:
+  - "../client/animations/Tanque7.bmp"
+
 #De centro a sur
-2_4:
+2_9:
   - "../client/animations/Tanque1.bmp"
   - "../client/animations/Tanque2.bmp"
   - "../client/animations/Tanque3.bmp"
   - "../client/animations/Tanque4.bmp"
 
 #De centro a oeste
-2_5:
+2_10:
   - "../client/animations/Tanque1.bmp"
   - "../client/animations/Tanque2.bmp"
   - "../client/animations/Tanque3.bmp"
@@ -158,7 +218,7 @@ amount: 21
   - "../client/animations/Tanque6.bmp"
 
 #De centro a norte
-2_6:
+2_11:
   - "../client/animations/Tanque1.bmp"
   - "../client/animations/Tanque2.bmp"
   - "../client/animations/Tanque3.bmp"
@@ -169,7 +229,7 @@ amount: 21
   - "../client/animations/Tanque8.bmp"
 
 # Muerte
-2_7:
+2_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -178,33 +238,53 @@ amount: 21
 
 #######COSECHADORA#######
 
-3_animationAmount: 8
+3_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 3_0:
   - "../client/animations/Cosechadora7.bmp"
 
-# Oeste 3
+# Norte
 3_1:
+  - "../client/animations/Cosechadora5.bmp"
+
+# Noreste
+3_2:
+  - "../client/animations/Cosechadora2.bmp"
+
+# Oeste
+3_3:
   - "../client/animations/Cosechadora11.bmp"
   
-# Este 4 5
-3_2:
+# Este
+3_4:
   - "../client/animations/Cosechadora1.bmp"
 
-# Sur 6 7 8
-3_3:
+# Este
+3_5:
+  - "../client/animations/Cosechadora1.bmp"
+
+# Suroeste
+3_6:
+  - "../client/animations/Cosechadora12.bmp"
+
+# Sur
+3_7:
   - "../client/animations/Cosechadora16.bmp"
 
+# Sureste
+3_8:
+  - "../client/animations/Cosechadora17.bmp"
+
 #De centro a sur
-3_4:
+3_9:
   - "../client/animations/Cosechadora1.bmp"
   - "../client/animations/Cosechadora18.bmp"
   - "../client/animations/Cosechadora17.bmp"
   - "../client/animations/Cosechadora16.bmp"
 
 #De centro a oeste
-3_5:
+3_10:
   - "../client/animations/Cosechadora1.bmp"
   - "../client/animations/Cosechadora18.bmp"
   - "../client/animations/Cosechadora17.bmp"
@@ -216,7 +296,7 @@ amount: 21
   - "../client/animations/Cosechadora11.bmp"
 
 #De centro a norte
-3_6:
+3_11:
   - "../client/animations/Cosechadora1.bmp"
   - "../client/animations/Cosechadora18.bmp"
   - "../client/animations/Cosechadora17.bmp"
@@ -232,7 +312,7 @@ amount: 21
   - "../client/animations/Cosechadora7.bmp"
 
 # Muerte
-3_7:
+3_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -242,26 +322,46 @@ amount: 21
 
 #######DESVIADOR#######
 
-4_animationAmount: 8
+4_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 4_0:
+  - "../client/animations/Desviador23.bmp"
+
+# Norte
+4_1:
   - "../client/animations/Desviador24.bmp"
 
-# Oeste 3
-4_1:
+# Noreste
+4_2:
+  - "../client/animations/Desviador26.bmp"
+
+# Oeste
+4_3:
   - "../client/animations/Desviador17.bmp"
   
-# Este 4 5
-4_2:
+# Este
+4_4:
   - "../client/animations/Desviador1.bmp"
 
-# Sur 6 7 8
-4_3:
+# Este
+4_5:
+  - "../client/animations/Desviador1.bmp"
+
+# Suroeste
+4_6:
+  - "../client/animations/Desviador14.bmp"
+
+# Sur
+4_7:
   - "../client/animations/Desviador10.bmp"
 
+# Sureste
+4_8:
+  - "../client/animations/Desviador7.bmp"
+
 #De centro a sur
-4_4:
+4_9:
   - "../client/animations/Desviador1.bmp"
   - "../client/animations/Desviador2.bmp"
   - "../client/animations/Desviador3.bmp"
@@ -274,7 +374,7 @@ amount: 21
   - "../client/animations/Desviador10.bmp"
 
 #De centro a oeste
-4_5:
+4_10:
   - "../client/animations/Desviador1.bmp"
   - "../client/animations/Desviador2.bmp"
   - "../client/animations/Desviador3.bmp"
@@ -294,7 +394,7 @@ amount: 21
   - "../client/animations/Desviador17.bmp"
 
 #De centro a norte
-4_6:
+4_11:
   - "../client/animations/Desviador1.bmp"
   - "../client/animations/Desviador2.bmp"
   - "../client/animations/Desviador3.bmp"
@@ -321,7 +421,7 @@ amount: 21
   - "../client/animations/Desviador24.bmp"
 
 # Muerte
-4_7:
+4_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -330,26 +430,46 @@ amount: 21
 
 #######DEVASTADOR#######
 
-5_animationAmount: 8
+5_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 5_0:
   - "../client/animations/Devastador8.bmp"
 
-# Oeste 3
+# Norte
 5_1:
+  - "../client/animations/Devastador9.bmp"
+
+# Noreste
+5_2:
+  - "../client/animations/Devastador10.bmp"
+
+# Oeste
+5_3:
   - "../client/animations/Devastador7.bmp"
   
-# Este 4 5
-5_2:
+# Este
+5_4:
   - "../client/animations/Devastador1.bmp"
 
-# Sur 6 7 8
-5_3:
+# Este
+5_5:
+  - "../client/animations/Devastador1.bmp"
+
+# Suroeste
+5_6:
+  - "../client/animations/Devastador6.bmp"
+
+# Sur
+5_7:
   - "../client/animations/Devastador5.bmp"
 
+# Sureste
+5_8:
+  - "../client/animations/Devastador4.bmp"
+
 #De centro a sur
-5_4:
+5_9:
   - "../client/animations/Devastador1.bmp"
   - "../client/animations/Devastador2.bmp"
   - "../client/animations/Devastador3.bmp"
@@ -357,7 +477,7 @@ amount: 21
   - "../client/animations/Devastador5.bmp"
 
 #De centro a oeste
-5_5:
+5_10:
   - "../client/animations/Devastador1.bmp"
   - "../client/animations/Devastador2.bmp"
   - "../client/animations/Devastador3.bmp"
@@ -367,7 +487,7 @@ amount: 21
   - "../client/animations/Devastador7.bmp"
 
 #De centro a norte
-5_6:
+5_11:
   - "../client/animations/Devastador1.bmp"
   - "../client/animations/Devastador2.bmp"
   - "../client/animations/Devastador3.bmp"
@@ -379,7 +499,7 @@ amount: 21
   - "../client/animations/Devastador8.bmp"
 
 # Muerte
-5_7:
+5_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -389,26 +509,46 @@ amount: 21
 
 #######SONIC TANK#######
 
-6_animationAmount: 8
+6_animationAmount: 13
 
-# Norte 0 1 2
+# Noroeste
 6_0:
+  - "../client/animations/SonicTank16.bmp"
+
+# Norte
+6_1:
   - "../client/animations/SonicTank21.bmp"
 
-# Oeste 3
-6_1:
+# Noreste
+6_2:
+  - "../client/animations/SonicTank22.bmp"
+
+# Oeste
+6_3:
   - "../client/animations/SonicTank18.bmp"
   
-# Este 4 5
-6_2:
+# Este
+6_4:
   - "../client/animations/SonicTank1.bmp"
 
-# Sur 6 7 8
-6_3:
+# Este
+6_5:
+  - "../client/animations/SonicTank1.bmp"
+
+# Suroeste
+6_6:
+  - "../client/animations/SonicTank7.bmp"
+
+# Sur
+6_7:
   - "../client/animations/SonicTank6.bmp"
 
+# Sureste
+6_8:
+  - "../client/animations/SonicTank3.bmp"
+
 #De centro a sur
-6_4:
+6_9:
   - "../client/animations/SonicTank1.bmp"
   - "../client/animations/SonicTank2.bmp"
   - "../client/animations/SonicTank3.bmp"
@@ -417,7 +557,7 @@ amount: 21
   - "../client/animations/SonicTank6.bmp"
 
 #De centro a oeste
-6_5:
+6_10:
   - "../client/animations/SonicTank1.bmp"
   - "../client/animations/SonicTank2.bmp"
   - "../client/animations/SonicTank3.bmp"
@@ -438,7 +578,7 @@ amount: 21
   - "../client/animations/SonicTank18.bmp"
 
 #De centro a norte
-6_6:
+6_11:
   - "../client/animations/SonicTank1.bmp"
   - "../client/animations/SonicTank2.bmp"
   - "../client/animations/SonicTank3.bmp"
@@ -462,7 +602,7 @@ amount: 21
   - "../client/animations/SonicTank21.bmp"
 
 # Muerte
-6_7:
+6_12:
   - "../client/animations/DestructionUnit1.bmp"
   - "../client/animations/DestructionUnit2.bmp"
   - "../client/animations/DestructionUnit3.bmp"
@@ -471,34 +611,54 @@ amount: 21
 
 #######INFANTERIA LIGERA#######
 
-7_animationAmount: 6
+7_animationAmount: 10
 
-# Moviendose al norte 0 1 2
+# Moviendose al noroeste
 7_0:
+  - "../client/animations/InfanteriaLigera11.bmp"
+  - "../client/animations/InfanteriaLigera12.bmp"
+
+# Moviendose al norte
+7_1:
   - "../client/animations/InfanteriaLigera9.bmp"
   - "../client/animations/InfanteriaLigera10.bmp"
 
-#Moviendose al oeste 3
-7_1:
+# Moviendose al noreste
+7_2:
+  - "../client/animations/InfanteriaLigera13.bmp"
+  - "../client/animations/InfanteriaLigera14.bmp"
+
+#Moviendose al oeste
+7_3:
   - "../client/animations/InfanteriaLigera4.bmp"
   - "../client/animations/InfanteriaLigera6.bmp"
 
-#Moviendose al este 5
-7_2:
-  - "../client/animations/InfanteriaLigera2.bmp"
-  - "../client/animations/InfanteriaLigera5.bmp"
-
-# Moviendose al sur 6 7 8
-7_3:
-  - "../client/animations/InfanteriaLigera7.bmp"
-  - "../client/animations/InfanteriaLigera8.bmp"
-
-#Quieto (mirando al este) 4
+#Quieto
 7_4:
   - "../client/animations/InfanteriaLigera2.bmp"
 
-# Muerte
+#Moviendose al este
 7_5:
+  - "../client/animations/InfanteriaLigera2.bmp"
+  - "../client/animations/InfanteriaLigera5.bmp"
+
+# Moviendose al suroeste
+7_6:
+  - "../client/animations/InfanteriaLigera17.bmp"
+  - "../client/animations/InfanteriaLigera18.bmp"
+
+# Moviendose al sur
+7_7:
+  - "../client/animations/InfanteriaLigera7.bmp"
+  - "../client/animations/InfanteriaLigera8.bmp"
+
+# Moviendose al sureste
+7_8:
+  - "../client/animations/InfanteriaLigera15.bmp"
+  - "../client/animations/InfanteriaLigera16.bmp"
+
+# Muerte
+7_9:
   - "../client/animations/InfanteryDead1.bmp"
   - "../client/animations/InfanteryDead2.bmp"
   - "../client/animations/InfanteryDead3.bmp"
@@ -506,34 +666,54 @@ amount: 21
 
 #######INFANTERIA PESADA#######
 
-8_animationAmount: 6
+8_animationAmount: 10
 
-# Moviendose al norte 0 1 2
+# Moviendose al noroeste
 8_0:
+  - "../client/animations/InfanteriaPesada17.bmp"
+  - "../client/animations/InfanteriaPesada18.bmp"
+
+# Moviendose al norte
+8_1:
   - "../client/animations/InfanteriaPesada7.bmp"
   - "../client/animations/InfanteriaPesada8.bmp"
 
-#Moviendose al oeste 3
-8_1:
+# Moviendose al noreste
+8_2:
+  - "../client/animations/InfanteriaPesada11.bmp"
+  - "../client/animations/InfanteriaPesada12.bmp"
+
+#Moviendose al oeste
+8_3:
   - "../client/animations/InfanteriaPesada4.bmp"
   - "../client/animations/InfanteriaPesada6.bmp"
 
-#Moviendose al este 5
-8_2:
-  - "../client/animations/InfanteriaPesada2.bmp"
-  - "../client/animations/InfanteriaPesada5.bmp"
-
-#Moviendose al sur 6 7 8
-8_3:
-  - "../client/animations/InfanteriaPesada9.bmp"
-  - "../client/animations/InfanteriaPesada10.bmp"
-
-#Quieto (mirando al este)
+#Quieto
 8_4:
   - "../client/animations/InfanteriaPesada2.bmp"
 
-# Muerte
+#Moviendose al este
 8_5:
+  - "../client/animations/InfanteriaPesada2.bmp"
+  - "../client/animations/InfanteriaPesada5.bmp"
+
+#Moviendose al suroeste
+8_6:
+  - "../client/animations/InfanteriaPesada15.bmp"
+  - "../client/animations/InfanteriaPesada16.bmp"
+
+#Moviendose al sur
+8_7:
+  - "../client/animations/InfanteriaPesada9.bmp"
+  - "../client/animations/InfanteriaPesada10.bmp"
+
+#Moviendose al sureste
+8_8:
+  - "../client/animations/InfanteriaPesada13.bmp"
+  - "../client/animations/InfanteriaPesada14.bmp"
+
+# Muerte
+8_9:
   - "../client/animations/InfanteryDead1.bmp"
   - "../client/animations/InfanteryDead2.bmp"
   - "../client/animations/InfanteryDead3.bmp"
@@ -541,34 +721,54 @@ amount: 21
 
 #######FREMEN#######
 
-9_animationAmount: 6
+9_animationAmount: 10
 
-# Moviendose al norte 0 1 2
+# Moviendose al noroeste
 9_0:
+  - "../client/animations/Fremen17.bmp"
+  - "../client/animations/Fremen18.bmp"
+
+# Moviendose al norte
+9_1:
   - "../client/animations/Fremen8.bmp"
   - "../client/animations/Fremen10.bmp"
 
-#Moviendose al oeste 3
-9_1:
+# Moviendose al noreste
+9_2:
+  - "../client/animations/Fremen11.bmp"
+  - "../client/animations/Fremen12.bmp"
+
+#Moviendose al oeste
+9_3:
   - "../client/animations/Fremen4.bmp"
   - "../client/animations/Fremen6.bmp"
-
-#Moviendose al este 5
-9_2:
-  - "../client/animations/Fremen2.bmp"
-  - "../client/animations/Fremen5.bmp"
-
-# Moviendose al sur 6 7 8
-9_3:
-  - "../client/animations/Fremen7.bmp"
-  - "../client/animations/Fremen9.bmp"
 
 #Quieto (mirando al este)
 9_4:
   - "../client/animations/Fremen2.bmp"
 
-# Muerte
+#Moviendose al este
 9_5:
+  - "../client/animations/Fremen2.bmp"
+  - "../client/animations/Fremen5.bmp"
+
+# Moviendose al suroeste
+9_6:
+  - "../client/animations/Fremen15.bmp"
+  - "../client/animations/Fremen16.bmp"
+
+# Moviendose al sur
+9_7:
+  - "../client/animations/Fremen7.bmp"
+  - "../client/animations/Fremen9.bmp"
+
+# Moviendose al sureste
+9_8:
+  - "../client/animations/Fremen13.bmp"
+  - "../client/animations/Fremen14.bmp"
+
+# Muerte
+9_9:
   - "../client/animations/InfanteryDead1.bmp"
   - "../client/animations/InfanteryDead2.bmp"
   - "../client/animations/InfanteryDead3.bmp"
@@ -577,35 +777,55 @@ amount: 21
 
 #######SARDUKAR#######
 
-10_animationAmount: 6
+10_animationAmount: 10
 
-# Moviendose al norte 0 1 2
+# Moviendose al noroeste
 10_0:
+  - "../client/animations/Sardukar12.bmp"
+  - "../client/animations/Sardukar13.bmp"
+
+# Moviendose al norte
+10_1:
   - "../client/animations/Sardukar10.bmp"
   - "../client/animations/Sardukar11.bmp"
 
-# Moviendose al oeste 3
-10_1:
+# Moviendose al noreste
+10_2:
+  - "../client/animations/Sardukar15.bmp"
+  - "../client/animations/Sardukar16.bmp"
+
+# Moviendose al oeste
+10_3:
   - "../client/animations/Sardukar4.bmp"
   - "../client/animations/Sardukar7.bmp"
-
-# Moviendose al este 5
-10_2:
-  - "../client/animations/Sardukar2.bmp"
-  - "../client/animations/Sardukar5.bmp"
-  - "../client/animations/Sardukar6.bmp"
-
-# Moviedose al sur 6 7 8
-10_3:
-  - "../client/animations/Sardukar8.bmp"
-  - "../client/animations/Sardukar9.bmp"
 
 #Quieto (mirando al este)
 10_4:
   - "../client/animations/Sardukar2.bmp"
 
-# Muerte
+# Moviendose al este
 10_5:
+  - "../client/animations/Sardukar2.bmp"
+  - "../client/animations/Sardukar5.bmp"
+  - "../client/animations/Sardukar6.bmp"
+
+# Moviedose al suroeste
+10_6:
+  - "../client/animations/Sardukar17.bmp"
+  - "../client/animations/Sardukar18.bmp"
+
+# Moviedose al sur
+10_7:
+  - "../client/animations/Sardukar8.bmp"
+  - "../client/animations/Sardukar9.bmp"
+
+# Moviedose al sureste
+10_8:
+  - "../client/animations/Sardukar19.bmp"
+  - "../client/animations/Sardukar20.bmp"
+
+# Muerte
+10_9:
   - "../client/animations/InfanteryDead1.bmp"
   - "../client/animations/InfanteryDead2.bmp"
   - "../client/animations/InfanteryDead3.bmp"

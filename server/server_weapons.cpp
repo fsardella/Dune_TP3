@@ -41,7 +41,7 @@ void Weapon::update() {
 
 uint16_t Weapon::manhattanDistance(coor_t dest, coor_t other) {
     return (uint16_t)(abs((int)dest.first - (int)other.first)
-                    + abs((int)other.second - (int)other.second)) / CHUNKSIZE;
+                    + abs((int)dest.second - (int)other.second)) / CHUNKSIZE;
 }
 
 bool Weapon::isInRange(Unit* self, Unit* objective) {

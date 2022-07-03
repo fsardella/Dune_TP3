@@ -23,6 +23,7 @@
 #define HOUSE_ATREIDES 1
 #define HOUSE_ORDOS 2
 #define CONSTRUCTION_YARD_ID 11
+#define HARVESTER_ID 3
 #define CONSTRUCTION_YARD_ATTACKED 3
 #define WITHOUT_LIFE 0
 #define EXPLOSION 11
@@ -140,6 +141,7 @@ void MapView::loadMenuTranslator() {
     YAML::Node node = YAML::LoadFile(MENU_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
+        if (i == CONSTRUCTION_YARD_ID) continue;
         std::vector<std::string> menuImgInfo = node[i].as<std::vector<
                                                           std::string>>();
         std::string key(std::to_string(i) + "_houses");
@@ -236,20 +238,24 @@ void MapView::createMenu() {
     for (size_t i = 0; i <= 18; i += 3) {
         for (size_t j = 0; j < 3; j++) {
             size_t row = i / 3;
+            if (i == 9 && j == 2) continue;
             if (i == 18 && j == 0) {
                 auto image = menuTextureTranslator.find(houseNumberClient +
                                                         BARRACK_OFFSET);
                 menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH,
-                                        IMAGE_PIX_HEIGHT, j, row, BARRACK_OFFSET,
+                                        IMAGE_PIX_HEIGHT, 2, row - 1, BARRACK_OFFSET,
                                         menuInfoHouses.at(houseNumberClient
                                         + BARRACK_OFFSET));
                 continue;
             }
             if (i == 18 && j > 0) continue;
             if (i == 0) row = i;
+            if (i > 9 && j == 0) row =  (i / 3) - 1;
+            int col = j;
+            if (i > 9) col = j == 0 ? 2 : j - 1;
             auto image = menuTextureTranslator.find(i + j);
             menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH,
-                                    IMAGE_PIX_HEIGHT, j, row, i + j,
+                                    IMAGE_PIX_HEIGHT, col, row, i + j,
                                     menuInfoHouses.at(i + j));
         }
     }
@@ -305,16 +311,25 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
     float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
 
+    if (unitTiles.find(unitId) == unitTiles.end() && propiety) {
+        int offset = getSoundOffset();
+        window.playSound(offset + UNIT_CREATED, VOLUME);
+        menuImages[unitType].updateProgress(PROGRESS_COMPLETED);
+    }
+
     if (unitTiles.find(unitId) != unitTiles.end() &&
-        unitTiles.at(unitId).getAnimationId() ==
-        unitTiles.at(unitId).findAnimationId(animationId) &&
+        unitTiles.at(unitId).getIsDying()) {
+            return;
+    }
+
+    if (unitTiles.find(unitId) != unitTiles.end() &&
+        unitTiles.at(unitId).getAnimationId() == animationId &&
         unitTiles.at(unitId).getX() == posX &&
         unitTiles.at(unitId).getY() == posY) {
             return;
     }
     if (unitTiles.find(unitId) != unitTiles.end()) {
-        if (unitTiles.at(unitId).getAnimationId() !=
-        unitTiles.at(unitId).findAnimationId(animationId)) {
+        if (unitTiles.at(unitId).getAnimationId() != animationId) {
             unitTiles.at(unitId).setAnimationId(animationId);
         }
         if (unitTiles.at(unitId).getX() != posX ||
@@ -325,9 +340,11 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
     }
 
     std::vector<SdlTexture*> attackSprites;
-    for (int i = 0; i < 3; i ++) {
-        attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                             unitType, i))));
+    if (unitType != HARVESTER_ID) {
+        for (int i = 0; i < 3; i ++) {
+            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
+                                                                unitType, i))));
+        }
     }
 
     unitTiles.emplace(std::piecewise_construct,
@@ -420,7 +437,9 @@ void MapView::createConstruction(int x, int y, int playerId,
                                           &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,
                                           constType, playerId, propiety));
-    updateBlockedUnits(constType, house);
+    if (propiety) {
+        updateBlockedUnits(constType, house);
+    }
 }
 
 /*
@@ -433,14 +452,19 @@ void MapView::updateProgress(int menuId, int progress) {
     int offset = getSoundOffset();
 
     if (menuId > 10 && progress == PROGRESS_COMPLETED &&
-        !menuImages.at(menuId).isBuildingReady()) {
+        !menuImages.at(menuId - 1).isBuildingReady()) {
         window.playSound(offset + BUILDING_CREATED, VOLUME);
     }
 
-    if (progress == PROGRESS_COMPLETED && menuId < 11) {
-        window.playSound(offset + UNIT_CREATED, VOLUME);
+    if (menuId > 10) {
+        menuImages.at(menuId - 1).updateProgress(progress);
+        for (int i = 11; i < 18; i ++) {
+            if (i == menuId - 1) continue;
+            menuImages.at(i).block();
+        }
+    } else {
+        menuImages.at(menuId).updateProgress(progress);
     }
-    menuImages.at(menuId).updateProgress(progress);
 }
 
 /*
@@ -499,6 +523,8 @@ Post-Condiciones: -
 */
 
 void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalLife) {
+    std::cout << "llega el attacked id " << attackedId << std::endl;
+    std::cout << "llega con currentLife " << currentLife << std::endl;
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
     if (currentLife == WITHOUT_LIFE) {
         window.playSound(EXPLOSION, VOLUME);
@@ -512,14 +538,19 @@ Post-Condiciones: -
 
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
                          int totalLife) {
+    std::cout << "current life " << currentLife << std::endl;
+    std::cout << "attacker id " << attackerId << std::endl;
     if (attackerId == -1) {
+        std::cout << "entro a este if\n";
         attackUnitReaction(attackedId, currentLife, totalLife);
         return;
     }
+    std::cout << "playeo sonido si me atacan\n";
     if (unitTiles.at(attackedId).getPropiety()) {
         window.playSound(UNIT_ATTACKED, VOLUME);
     }
 
+    std::cout << "el atacador empieza a atacar\n";
     unitTiles.at(attackerId).startAttacking();
 
     if ((unitTiles.at(attackerId).getUnitType() == 4) ||
@@ -530,6 +561,7 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         (unitTiles.at(attackerId).getUnitType() == 7))) {
         window.playSound(GUN_SOUND, VOLUME);
     }
+    std::cout << "llamo a la función que debería imprimir\n";
     attackUnitReaction(attackedId, currentLife, totalLife);
 }
 
@@ -540,6 +572,7 @@ Post-Condiciones: -
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
                              int totalLife) {
+    std::cout << "edificio atacado\n";
     if (attackerId == -1) {
         attackBuildingReaction(attackedId, currentLife, totalLife);
         return;
@@ -698,6 +731,7 @@ int MapView::isBuilding(int posX, int posY, bool propiety) {
              TILE_PIX_SIZE +
             constructionTiles.at(building.first).getHeight()))) &&
             constructionTiles.at(building.first).getPropiety() == propiety) {
+                if (constructionTiles.at(building.first).getIsDead()) return -1;
                 return building.first;
         }
     }
@@ -719,6 +753,7 @@ int MapView::isUnit(int posX, int posY, bool propiety) {
             (posY <= (unitTiles.at(unit.first).getY() * TILE_PIX_SIZE +
             unitTiles.at(unit.first).getHeight()))) &&
             unitTiles.at(unit.first).getPropiety() == propiety) {
+            if (unitTiles.at(unit.first).getIsDead() || unitTiles.at(unit.first).getIsDying()) return -1;
             return unit.first;
         }
     }
@@ -762,6 +797,19 @@ void MapView::setNotReady(int currentBuilding) {
     menuImages[currentBuilding].setNotReady();
 }
 
+
+void MapView::updateUnready(int constructionType, int property) {
+    if (property) {
+        std::cout << "entro a este if\n";
+        std::cout << "le cambio el ready a (tendria que ser 11) " << constructionType - 1 << std::endl;
+        menuImages[constructionType - 1].setNotReady();
+        for (int i = 11; i < 18; i ++) {
+            if (i == constructionType - 1) continue;
+            menuImages[i].unblock();
+        }
+    }
+}
+
 /*
 Pre-Condiciones: Maneja el ataque del gusano de arena. 
 Post-Condiciones: -
@@ -793,6 +841,10 @@ void MapView::updateSpecie(int x, int y, int state) {
     // int posY = y / 8;
     backgroundTiles[y * columns + x].changeTile(&(tileTextureTranslator.at(
                                                 index)), x, y);
+}
+
+int MapView::getType(int unitId) {
+    return unitTiles.at(unitId).getUnitType();
 }
 
 /*

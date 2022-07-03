@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+#define CONST_YARD_ID 11
+
 /*
 Pre-Condiciones: Constructor del GameView.
 Post-Condiciones: -
@@ -34,7 +36,7 @@ Post-Condiciones: -
 
 void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId,
                          int animationId, bool property) {
-    std::lock_guard<std::mutex> lock(gameViewMutex);  // BORRAR
+    // std::lock_guard<std::mutex> lock(gameViewMutex);  // BORRAR
     map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
@@ -45,7 +47,7 @@ Post-Condiciones: -
 
 void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int,
                           bool>> units) {
-    // std::lock_guard<std::mutex> lock(gameViewMutex); // PONER
+    std::lock_guard<std::mutex> lock(gameViewMutex); // PONER
     for (const auto& [key, value] : units) {
         buildUnit(std::get<0>(value), std::get<1>(value),
                   key, std::get<2>(value), std::get<3>(value),
@@ -62,6 +64,7 @@ void GameView::buildConstruction(int x, int y, int playerId,
                                  int constructionId, int constType,
                                  bool property, int house) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.updateUnready(constType, property);
     map.createConstruction(x, y, playerId, constructionId, constType, property,
                            house);
 }
@@ -337,6 +340,11 @@ Post-Condiciones: -
 void GameView::untouchedUnit(int unitId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.untouchedUnit(unitId);
+}
+
+int GameView::getType(int unitId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    return map.getType(unitId);
 }
 
 /*

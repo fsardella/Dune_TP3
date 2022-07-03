@@ -7,10 +7,21 @@
 #define LIFE_BAR_HEIGHT 4
 #define FRAME_DIMENSION 25
 #define ATTACK_DIMENSION 6
-#define VEHICLE_DEAD_ANIMATION 7
-#define SOLDIER_DEAD_ANIMATION 5
+#define VEHICLE_DEAD_ANIMATION 12
+#define SOLDIER_DEAD_ANIMATION 9
 #define IDENTIFIER_DIMENSION 4
 #define LIFE_COMPLETE 4
+#define NOROESTE 0
+#define NORTE 1
+#define NORESTE 2
+#define OESTE 3
+#define STILL 4
+#define ESTE 5
+#define SUROESTE 6
+#define SUR 7
+#define SURESTE 8
+#define UNIT_OFFSET 0.5
+#define BULLET_MOVEMENT 0.2
 
 /*
 Pre-Condiciones: Constructor de Unit.
@@ -42,10 +53,11 @@ Unit::Unit(std::map<std::tuple<int, int>,
   propiety(propiety),
   unitType(unitType),
   playerId(playerId),
-  animationId(findAnimationId(newAnimationId)),
+  animationId(newAnimationId),
   lifeId(LIFE_COMPLETE),
   isCurrentlyAttacking(false),
   isDead(false),
+  isDying(false),
   isTouched(false) {
     int actualSprite = 0;
     std::vector<SdlTexture*> textures;
@@ -66,38 +78,75 @@ Unit::Unit(std::map<std::tuple<int, int>,
 }
 
 /*
-Pre-Condiciones: Obtiene el id de animación según el tipo de .
-Post-Condiciones: -
-*/
-
-int Unit::findAnimationId(int animationType) {
-    if (animationType >= 0 && animationType < 3) return 0;
-    if (animationType == 3) {
-        return 1;
-    }
-    if (animationType == 5) {
-        return 2;
-    }
-    if (animationType >= 6 && animationType < 9) return 3;
-    if (unitType < 7) {
-        if (animationType == 4) return 2;
-    }
-    return 4;
-}
-
-/*
 Pre-Condiciones: Actualiza el animation id.
 Post-Condiciones: -
 */
 
 void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
     // solo si soy vehiculo
-    if ((oldAnimationId == 2)) {
-        if (newAnimationId >= 0 && newAnimationId < 3) animationId = 6;
-        if (newAnimationId == 3) animationId = 5;
-        if (newAnimationId >= 6 && newAnimationId < 9) animationId = 4;
+    if ((oldAnimationId == 4)) {
+        if (newAnimationId == SUR) animationId = 9;
+        if (newAnimationId == OESTE) animationId = 10;
+        if (newAnimationId == NORTE) animationId = 11;
     }
+    // era noroeste, noreste, suroeste, sur
+    animationId = newAnimationId;
 }
+
+void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
+        switch (animationId) {
+        case NOROESTE:
+            direcX = posX  - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        case NORTE:
+            direcX = posX;
+            direcY = posY - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        case NORESTE:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        case OESTE:
+            direcX = posX - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY;
+            break;
+        case STILL:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY;
+            break;
+        case ESTE:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY;
+            break;
+        case SUROESTE:
+            direcX = posX - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcY = posY + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        case SUR:
+            direcX = posX;
+            direcY = posY + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        case SURESTE:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());;
+            direcY = posY + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            break;
+        }
+}
+
 
 /*
 Pre-Condiciones: Renderiza la unidad
@@ -113,24 +162,7 @@ int Unit::render(Camera &camera, float posX, float posY) {
     if (isCurrentlyAttacking) {
         Area srcAttack(0, 0, ATTACK_DIMENSION, ATTACK_DIMENSION);
         float direcX, direcY;
-        if (animationId == 0) {  // mirando al norte
-            direcX = posX;
-            direcY = posY - static_cast<float>(0.5) -
-                     static_cast<float>(0.2 * attackAnimation.getFrame());
-        } else if (animationId == 1) {  // mirando al oeste
-            direcX = posX - static_cast<float>(0.5) -
-                     static_cast<float>(0.2 * attackAnimation.getFrame());
-            direcY = posY;
-        } else if ((unitType < 7 && animationId == 2) ||
-              (unitType > 6 && animationId == 4)) {  // mirando al este
-            direcX = posX + static_cast<float>(0.5) +
-                     static_cast<float>(0.2 * attackAnimation.getFrame());
-            direcY = posY;
-        } else {  // mirando al sur
-            direcX = posX;
-            direcY = posY + static_cast<float>(0.5) +
-                     static_cast<float>(0.2 * attackAnimation.getFrame());
-        }
+        calculateBulletPosition(direcX, direcY, animationId);
         camera.renderInSightForUnit(attackAnimation.getTexture(),
                                     srcAttack, direcX, direcY);
     }
@@ -204,12 +236,14 @@ Post-Condiciones: -
 */
 
 void Unit::setAnimationId(int newAnimationId) {
-    if (unitType < 7 && animationId == 2) {
+    // std::cout << "recibi la animacion " << newAnimationId << " y tengo propiety " << propiety << std::endl; 
+    if (unitType < 7 && animationId == STILL) {
         // si era vehiculo y estaba quieto, cualq direc es rotacion
         updateAnimationId(animationId, newAnimationId);
     } else {
-        animationId = findAnimationId(newAnimationId);
+        animationId = newAnimationId;
     }
+    getTexture();
 }
 
 /*
@@ -308,10 +342,16 @@ void Unit::updateLife(int currentLife, int totalLife) {
     if (currentLife == 0) {
         if (unitType < 7) {
             animationId = VEHICLE_DEAD_ANIMATION;
+            isDying = true;
         } else {
             animationId = SOLDIER_DEAD_ANIMATION;
+            isDying = true;
         }
     }
+}
+
+bool Unit::getIsDying() {
+    return isDying;
 }
 
 /*
@@ -321,8 +361,10 @@ Post-Condiciones: -
 
 void Unit::update(int delta) {
     if (isDead) return;
+    // std::cout << "tengo el la propiety " << propiety << " y tengo la animacion " << animationId << std::endl;
     if (unitType < 7 && animationId == VEHICLE_DEAD_ANIMATION
         && animations.at(animationId).isLastFrame()) {
+            // std::cout << "termino de mostrar la animacion\n";
             isDead = true;
             return;
     }
@@ -338,21 +380,25 @@ void Unit::update(int delta) {
             attackAnimation.update(delta);
         }
     }
-    // quieto para vehiculo
-    if (unitType < 7 && !(animationId >= 4 && animationId < 8)) return;
+    // quieto para vehiculo (no rotacion ni muerte)
+    if (unitType < 7 && !(animationId >= 9 && animationId < 13)) {
+        // std::cout << "retorne aca\n";
+        return;
+    }
     // quieto para soldado
-    if (unitType > 6 && animationId == 4) return;
+    if (unitType > 6 && animationId == STILL) return;
+    // std::cout << "lo updateo\n";
     animations.at(animationId).update(delta);
     getTexture();
-    // soy vehiculo estoy en ultimo frame
+    // soy vehiculo estoy en ultimo frame de rotacion
     if (unitType < 7 && animations.at(animationId).isLastFrame()
         && animationId != VEHICLE_DEAD_ANIMATION) {
-        if (animationId == 4) {
+        if (animationId == 9) {  // rotacion a sur
+            animationId = 7;
+        } else if (animationId == 10) {  // rotacion a oeste
             animationId = 3;
-        } else if (animationId == 5) {
+        } else {  // rotacion a norte
             animationId = 1;
-        } else {
-            animationId = 0;
         }
     }
 }
@@ -380,6 +426,7 @@ Unit::Unit(Unit &&other)
   lifeId(other.lifeId),
   isCurrentlyAttacking(other.isCurrentlyAttacking),
   isDead(other.isDead),
+  isDying(other.isDying),
   isTouched(other.isTouched),
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture) {

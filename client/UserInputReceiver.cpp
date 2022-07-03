@@ -28,6 +28,8 @@
 #define CONSTRUCTION_OFFSET 11
 #define UNIT_LIMIT 10
 
+#define HARVESTER_TYPE 3
+
 /*
 Pre-Condiciones: Constructor de UserInputReceiver.
 Post-Condiciones: -
@@ -108,7 +110,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
             int unitId = gameView->isUnit(posX, posY, false);
             int buildingId = gameView->isBuilding(posX, posY, false);
 
-            if (gameView->isBuildingReady(currentMenuImage) &&
+            if (gameView->isBuildingReady(currentMenuImage - 1) &&
                 unitId == NONE_TYPE && buildingId == NONE_TYPE) {
                 // op 9
                 std::cout << "op 9\n";
@@ -116,7 +118,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 std::cout << "estoy enviando " << posX << " y " << posY << std::endl;
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
                 blockingQueue->push(std::move(clientInput));
-                gameView->setNotReady(currentMenuImage);
+                // gameView->setNotReady(currentMenuImage);
                 currentMenuImage = NONE_TYPE;
                 return;
             }
@@ -129,6 +131,8 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
                 // quiero atacar a un edificio/unidad
                 for (int& touchedId : touchedUnits) {
+                    if (gameView->getType(touchedId) == HARVESTER_TYPE) continue;
+                    std::cout << "mando op 7 con un 0 si ataco a otra unidad " << attackedType << " con el id " << touchedId << " al " << attackedId << std::endl;; 
                     ClientInput clientInput(ATTACK, attackedType,
                                             touchedId, attackedId);
                     blockingQueue->push(std::move(clientInput));
@@ -146,6 +150,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
             return;
         }
     }
+
     int col = findCol(x);
     if (col == ERROR) return;
     int row = findRow(y);
@@ -172,11 +177,12 @@ void UserInputReceiver::handlePosition(int x, int y) {
     if (currentMenuImage > UNIT_LIMIT) {
         // op 6
         std::cout << "op 6\n";
-        int buildingType = currentMenuImage;
-        if (gameView->isBuildingReady(buildingType)) {
+        int buildingType = currentMenuImage + 1;
+        if (gameView->isBuildingReady(buildingType - 1)) {
+            currentMenuImage ++;
             return;
         }
-        if (!gameView->isUnderConstruction(buildingType)) {
+        if (!gameView->isUnderConstruction(buildingType) && !gameView->isBlocked(buildingType)) {
             // quiero construir un edificio
             ClientInput clientInput(CREATE_BUILDING, buildingType);
             blockingQueue->push(std::move(clientInput));

@@ -86,14 +86,14 @@ amount: 20
 10_houses:
   - 1
 
-11:
-  - "construction yard"
-  - "../client/menuImgs/centro_de_construccion.bmp"
+# 11:
+#   - "construction yard"
+#   - "../client/menuImgs/centro_de_construccion.bmp"
 
-11_houses:
-  - 0
-  - 1
-  - 2
+# 11_houses:
+#   - 0
+#   - 1
+#   - 2
 
 12:
   - "light factory"

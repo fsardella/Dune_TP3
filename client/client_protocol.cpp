@@ -424,11 +424,9 @@ void ProtocolClient::recvUnits(std::map<int,
         }
 
         int unitsAmount = receiveTwoBytes();
-
         if (clientId == playerId) propiety = true;
 
         for (int j = 0; j < unitsAmount; j ++) {
-            std::cout << "entro al for porque habia al menos una unidad\n";
             int x = receiveTwoBytes() * 4;
             int y = receiveTwoBytes() * 4;
             int type = receiveOneByte();
@@ -484,7 +482,6 @@ void ProtocolClient::recvUnitsProgress(std::vector<std::tuple<int, int>>&
         int playerId = receiveOneByte();
         int unitType = receiveOneByte();
         int percentage = receiveOneByte();
-        std::cout << "unit percentage " << percentage << std::endl;
         if (playerId == clientId) {
             unitsProgress.push_back(std::make_tuple(unitType, percentage));
         }

@@ -38,6 +38,9 @@ class MenuImage : public Renderizable {
     int getY();
 
     bool isBlocked();
+
+    void block();
+    void unblock();
     void updateUnblocking(int buildingType, int house);
     void updateBuildings(int buildingType);
     void updateBlocking(int buildingType);
