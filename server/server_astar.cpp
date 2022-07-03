@@ -251,6 +251,11 @@ void AStar::execSubAlgorithm() {
             return;
         }
     }
+    if (this->chunks.empty()) {
+        if (this->movs.empty())
+            this->movs.pop_front();
+        this->movs.push_front(this->actDest);
+    }
 }
 
 

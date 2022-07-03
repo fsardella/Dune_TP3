@@ -151,8 +151,6 @@ void TerrainMap::eraseBuildingFromMap(coor_t coor, coor_t size) {
             if (!this->isInsideMap(coor_t(coor.first + CHUNKSIZE * i,
                                           coor.second + CHUNKSIZE * j)))
                 continue;
-            std::cout << "ERASED BUILDING AT: " << coor.first + CHUNKSIZE * i
-                    << " ," << coor.second + CHUNKSIZE * j << std::endl;
             this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->eraseBuilding();
         }
     }
@@ -186,8 +184,6 @@ std::list<Unit*> TerrainMap::getAllUnits(coor_t coor) {
 void TerrainMap::build(coor_t coor, Building* building) {
     for (uint16_t i = 0; i < building->getSize().first; i++) {
         for (uint16_t j = 0; j < building->getSize().second; j++) {
-            std::cout << "BUILT BUILDING AT: " << coor.first + CHUNKSIZE * i
-                    << " ," << coor.second + CHUNKSIZE * j << std::endl;
             this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->build(building);
         }
     }   

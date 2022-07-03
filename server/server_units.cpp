@@ -390,19 +390,28 @@ bool Harvester::checkRefineryIntegrity() {
 
 void Harvester::processHarvest() {
     if (this->getPosition() != this->actHarvestDest) {
+        std::cout << "NOT IN POSITION YET:\n";
+        std::cout << "    ACT: " << this->getPosition().first << ", "
+        << this->getPosition().second << std::endl;
+        std::cout << "    HARV: " << this->actHarvestDest.first << ", "
+        << this->actHarvestDest.second << std::endl;  
         this->processMove();
         return;
     }
     if (!this->terr.hasMenage(this->actHarvestDest)) {
+        std::cout << "DIDNT FIND MENAGE\n";
         this->harvestingTime = 0;
         this->scoutForMenage();
         return;
     }
     this->harvestingTime += 1;
+    std::cout << "ADDED TO HARVEST TIME: " << this->harvestingTime << std::endl;
     if (this->harvestingTime >= 200) {
+        std::cout << "HARVESTING READY" << std::endl;
         this->harvestingTime = 0;
         this->actMenage += this->terr.harvestMenage(this->getPosition(),
                                             this->menageCap - this->actMenage);
+        std::cout << "NOW MY MENAGE IS " << this->actMenage << std::endl;
         if (this->actMenage != this->menageCap)
             return;
         if (!this->checkRefineryIntegrity()) {
@@ -414,6 +423,7 @@ void Harvester::processHarvest() {
 }
 
 void Harvester::scoutForMenage() {
+    std::cout << "STARTED SCOUTING FOR MENAGE\n";
     coor_t pos = this->actHarvestDest;
     for (int i = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
         for (int j = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
@@ -487,16 +497,20 @@ void Harvester::processCharging() {
 void Harvester::update(std::list<Command>& events) {
     switch (this->state) {
         case MOVING:
+            //std::cout << "I'm scmooving\n";
             this->processMove();
             break;
         case HARVESTING:
+            //std::cout << "I'm HARVESTING\n";
             this->processHarvest();
             this->chargingTime = 0;
             return;
         case GOING_TO_REFINERY:
+            std::cout << "THE BOYS ARE COMING TO TOWN\n";
             this->processComeback();
             break;
         case CHARGING_REFINERY:
+            std::cout << "RECHARGING\n";
             this->harvestingTime = 0;
             return;
         default:

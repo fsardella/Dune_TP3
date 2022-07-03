@@ -101,9 +101,8 @@ uint8_t Building::getCompletion() {
 
 
 bool Building::canBuild(TerrainMap& terr, coor_t position) {
-    if (this->buildingTime > this->actualTime) {
-        std::cout << "building unfinished\n";
-        return false;}
+    if (this->buildingTime > this->actualTime)
+        return false;
     return terr.canBuild(position, this->size);
 }
 

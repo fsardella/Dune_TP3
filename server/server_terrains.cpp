@@ -69,8 +69,6 @@ bool Terrain::isOccupied(coor_t coord) {
 
 Sand::Sand(): Terrain() {}
 int Sand::getSpeedWeight(Unit& unit, coor_t coord) {
-    if (this->isOccupied(coord))
-        return 0;
     return unit.getSpeedWeightForSand();
 }
 Sand::~Sand() {}
@@ -123,7 +121,7 @@ bool Rock::isThereARefinery() {
 }
 
 int Rock::getSpeedWeight(Unit& unit, coor_t coord) {
-    if (this->isOccupied(coord) || this->isBlocked())
+    if (this->isBlocked())
         return 0;
     return unit.getSpeedWeightForSand();
 }
@@ -133,8 +131,6 @@ Rock::~Rock() {}
 
 Spice::Spice(u_int16_t quantity): Terrain(), quantity(quantity) {} 
 int Spice::getSpeedWeight(Unit& unit, coor_t coord) {
-    if (this->isOccupied(coord))
-        return 0;
     return unit.getSpeedWeightForSand();
 }
 
@@ -164,8 +160,6 @@ Spice::~Spice() {}
 
 Dune::Dune(): Terrain() {}
 int Dune::getSpeedWeight(Unit& unit, coor_t coord) {
-    if (this->isOccupied(coord))
-        return 0;
     return unit.getSpeedWeightForDune();
 }
 
@@ -178,8 +172,6 @@ Dune::~Dune() {}
 
 Mount::Mount(): Terrain() {}
 int Mount::getSpeedWeight(Unit& unit, coor_t coord) {
-    if (this->isOccupied(coord))
-        return 0;
     return unit.getSpeedWeightForMount();
 }
 Mount::~Mount() {}
