@@ -315,6 +315,8 @@ uint16_t Player::addBuilding(uint16_t x, uint16_t y, TerrainMap& terr,
 std::list<UnitData> Player::getUnits() {
     std::list<UnitData> result;
     for (auto&  unit: this->units) {
+        if (unit.second->isDead())
+            continue;
         UnitData unitData(unit.second->getPosition(), (uint8_t)this->house,
                     unit.second->getDir(), unit.first, unit.second->getType());
         result.push_back(unitData);
@@ -389,10 +391,10 @@ Player::~Player() {
 
 
 Player::Player(Player&& other) : playerName(std::move(other.playerName)),
+                                 playerID(other.playerID),
                                  house(other.house),
                                  units(std::move(other.units)),
                                  base(std::move(other.base)),
-                                 playerID(other.playerID),
                                  buildingBirthing(other.buildingBirthing),
                                  cantLightFactories(other.cantLightFactories),
                                  cantHeavyFactories(other.cantHeavyFactories),
