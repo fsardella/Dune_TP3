@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <utility>
+#include <iostream>
 
 #include <yaml-cpp/yaml.h>
 #include <yaml-cpp/node/node.h>
@@ -162,9 +163,13 @@ broadcast_t ActiveGame::getBroadcast() {
 
 void ActiveGame::update() {
     lock_t lock(this->m);
+    //std::cout << "Updating units buffer\n";
     this->updateUnitsBuffer();
+    //std::cout << "Updating units\n";
     this->game.updateUnits(this->events);
+    //std::cout << "Updating buildings\n";
     this->game.updateBuildings();
+    //std::cout << "Cleaning corpses\n";
     this->game.cleanCorpses(this->unitIDs, this->buildingIDs, this->events);
 }
 

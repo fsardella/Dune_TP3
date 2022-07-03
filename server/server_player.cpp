@@ -158,11 +158,11 @@ Unit* Player::getUnit(uint16_t unitID) {
 }
 
 Building* Player::getBuilding(uint16_t buildingID) { 
-    if (!this->hasBuilding(buildingID) ||
-        !this->buildings[buildingID]->destroyed())
-        return nullptr;
     if (buildingID == this->playerID)
         return &this->base;
+    if (!this->hasBuilding(buildingID) ||
+        this->buildings[buildingID]->destroyed())
+        return nullptr;
     return this->buildings[buildingID];
 }
 

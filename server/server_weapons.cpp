@@ -1,5 +1,5 @@
 #include "server_weapons.h"
-
+#include <iostream>
 
 Weapon::Weapon(uint16_t damage, uint16_t rechargeTime, uint16_t type,
                TerrainMap& terr, uint16_t range):
@@ -83,7 +83,7 @@ Unit* Weapon::scout(Unit* self) {
             if (this->manhattanDistance(act, coor_t(selfY, selfX)) > this->range)
                 continue;
             std::list<Unit*> unitsInChunk = this->terr.getAllUnits(act);
-            for (Unit*& unit : unitsInChunk) {
+            for (Unit* unit : unitsInChunk) {
                 if (!unit->isDead() && unit->getOwner() != self->getOwner())
                     return unit;
             }

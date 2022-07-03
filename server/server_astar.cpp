@@ -34,7 +34,7 @@ void AStar::eraseUnitFromMap() {
 void AStar::setDir(coor_t ant, coor_t actual) {
     int x = (int)actual.second - (int)ant.second + 1;
     int y = (int)actual.first - (int)ant.first + 1;
-    this->dir = (uint16_t) x + 3 * y;
+    this->dir = (uint8_t) x + 3 * y;
     
 }
 
@@ -42,42 +42,29 @@ float AStar::getSpeedMod() {
     return this->terr.getSpeedMod(this->actPos);
 }
 
-// La solucion de agregar un booleano para saber cuando se esta atacando a un
-// edificio me parece personalmente horripilante... Pero no hay tiempo. Too bad!
-// https://youtu.be/k238XpMMn38
 
-bool AStar::processMove(coor_t dest, bool attackingBuilding) {
-    std::cout << "EMPIEZA\n";
-    if (this->actPos == dest || (this->terr.isBlocked(dest) && !attackingBuilding)) {
+bool AStar::processMove(coor_t dest) {
+    if (this->actPos == dest || this->terr.isBlocked(dest)) {
         this->dir = IDLE;
-        std::cout << "llego a destino\n";
         return true;
     } else if (!this->movs.empty() && this->actDest == dest) {
         coor_t ret = this->movs.back();
         if (this->terr.isOccupied(ret)) {
             this->dir = IDLE; // Esperar hasta que la posicion siguiente
-            std::cout << "posicion siguiente ocupada\n";
             return true;           // este desocupada
         } else if (this->terr.isBlocked(ret)) {
             this->movs.clear();   // Si justo en frente construyeron,
             this->chunks.clear(); // volver a calcular todo de vuelta
-            std::cout << "me bloquearon el camino\n";
             return this->processMove(this->actDest);
         }
         this->movs.pop_back();
         this->terr.swapContent(this->actPos, ret);
         this->setDir(this->actPos, ret);
         this->actPos = ret;
-        std::cout << "me muevo\n";
         return true;
     } else if (this->movs.empty() && !this->chunks.empty()) { 
         this->execSubAlgorithm();
-        std::cout << "se ejecuta el subalgoritmo\n";
         if (!this->movs.empty()) {
-            std::cout << "los movimeintos no estaban vacios\n";
-            if (dest != this->chunks.front())
-                this->chunks.push_front(dest);
-            std::cout << "llego bien\n";
             return this->processMove(this->actDest);
         }
     } else {
@@ -85,11 +72,9 @@ bool AStar::processMove(coor_t dest, bool attackingBuilding) {
         this->chunks.clear();
         this->actDest = dest;
         this->execAlgorithm();
-        std::cout << "se ejecuta el algoritmo\n";
         if (!this->chunks.empty())
             return this->processMove(this->actDest);
     }
-    std::cout << "devuelvo false\n";
     return false;
 }
 
@@ -187,8 +172,9 @@ void AStar::execAlgorithm() {
             return;
         }
     }
-    this->chunks.pop_back();
-    this->chunks.push_back(this->actDest);
+    if (!this->chunks.empty())
+        this->chunks.pop_front();
+    this->chunks.push_front(this->actDest);
 }
 
 

@@ -114,6 +114,10 @@ void TerrainMap::swapContent(coor_t source, coor_t destiny) {
     this->terr[destiny.first / CHUNKSIZE][destiny.second / CHUNKSIZE]->occupySpace(destiny, id);
 }
 
+void TerrainMap::addUnit(coor_t coor, Unit* unit) {
+    this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->occupySpace(coor, unit);
+}
+
 
 int TerrainMap::getSpeedWeight(coor_t coor, Unit& unit) {
     if (!this->isInsideMap(coor))
@@ -131,9 +135,9 @@ float TerrainMap::getSpeedMod(coor_t coor) {
 bool TerrainMap::canBuild(coor_t coor, coor_t size) {
     for (uint16_t i = 0; i < size.first; i++) {
         for (uint16_t j = 0; j < size.second; j++) {
-            if (!this->isInsideMap(coor_t(i,j))) {
-                std::cout << "outside map\n";
-                return false; }
+            if (!this->isInsideMap(coor_t(coor.first + CHUNKSIZE * i,
+                                          coor.second + CHUNKSIZE *j)))
+                return false;
             if (!this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->canBuild())
                 return false;
         }
@@ -144,8 +148,11 @@ bool TerrainMap::canBuild(coor_t coor, coor_t size) {
 void TerrainMap::eraseBuildingFromMap(coor_t coor, coor_t size) {
     for (uint16_t i = 0; i < size.first; i++) {
         for (uint16_t j = 0; j < size.second; j++) {
-            if (!this->isInsideMap(coor_t(i,j)))
-                return;
+            if (!this->isInsideMap(coor_t(coor.first + CHUNKSIZE * i,
+                                          coor.second + CHUNKSIZE * j)))
+                continue;
+            std::cout << "ERASED BUILDING AT: " << coor.first + CHUNKSIZE * i
+                    << " ," << coor.second + CHUNKSIZE * j << std::endl;
             this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->eraseBuilding();
         }
     }
@@ -179,6 +186,8 @@ std::list<Unit*> TerrainMap::getAllUnits(coor_t coor) {
 void TerrainMap::build(coor_t coor, Building* building) {
     for (uint16_t i = 0; i < building->getSize().first; i++) {
         for (uint16_t j = 0; j < building->getSize().second; j++) {
+            std::cout << "BUILT BUILDING AT: " << coor.first + CHUNKSIZE * i
+                    << " ," << coor.second + CHUNKSIZE * j << std::endl;
             this->terr[coor.first / CHUNKSIZE + i][coor.second / CHUNKSIZE + j]->build(building);
         }
     }   

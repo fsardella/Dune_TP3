@@ -119,7 +119,7 @@ void Building::eraseFromMap() {
 }
 
 void Building::attack(uint16_t damage) {
-    if (this->actualLife < damage) {
+    if (this->actualLife <= damage) {
         if (!this->destroyed())
             this->eraseFromMap();
         this->actualLife = 0;

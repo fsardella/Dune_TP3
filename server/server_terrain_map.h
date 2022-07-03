@@ -30,6 +30,7 @@ class TerrainMap {
     bool isOccupied(coor_t coord);
     bool isBlocked(coor_t coord);
     bool canBuild(coor_t coor, coor_t size);
+    void addUnit(coor_t coor, Unit* unit);
     void build(coor_t coor, Building* building);
     bool hasMenage(coor_t coor);
     uint16_t harvestMenage(coor_t coor, uint16_t freeSpace);

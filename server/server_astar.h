@@ -38,7 +38,7 @@ class AStar {
     
  public:
     AStar(Unit& unit, coor_t origin, TerrainMap& terrain);
-    bool processMove(coor_t dest, bool attackingBuilding = false);
+    bool processMove(coor_t dest);
     uint8_t getDir();
     coor_t getPosition();
     float getSpeedMod();

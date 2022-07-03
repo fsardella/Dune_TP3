@@ -99,20 +99,20 @@ void Broadcaster::run() {
         broadcast_t broad = this->game.getBroadcast();
         comm = this->getUnitsBuilding(std::get<3>(broad));
         this->broadcast(comm);
-        std::cout << "broadcasted new units\n";
-        for (Command b : std::get<4>(broad)) {
+        //std::cout << "broadcasted new units\n";
+        for (Command b : std::get<4>(broad)) //{
             this->broadcast(b);
-            std::cout << "broadcasted a new building\n"; }
-        for (Command c : std::get<2>(broad)) {// Si hace falta, cambio broadcast para que reciba
+            //std::cout << "broadcasted a new building\n"; }
+        for (Command c : std::get<2>(broad)) //{// Si hace falta, cambio broadcast para que reciba
                                 // una lista y aprovecho localidad del cache
             this->broadcast(c);
-            std::cout << "broadcasted an event\n"; }
+            //std::cout << "broadcasted an event\n"; }
         comm = this->getMenageBroadcast(std::get<5>(broad));
         this->broadcast(comm);
-        std::cout << "broadcasted menage\n";
+        //std::cout << "broadcasted menage\n";
         comm = this->getUnits(std::get<0>(broad), std::get<1>(broad));
         countPlayers = this->broadcast(comm);
-        std::cout << "broadcasted units\n";
+        //std::cout << "broadcasted units\n";
         after = clock();
         if ((after - before) > DELTA) {
             std::cout << "WARNING: desincronizacion de reloj. Considere reducir su frecuencia."

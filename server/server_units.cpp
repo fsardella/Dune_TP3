@@ -36,7 +36,9 @@ Unit::Unit(coor_t coor, TerrainMap& terr, uint16_t life,
                                 weapon(weapon),
                                 id(id),
                                 owner(owner),
-                                speed(speed) {}
+                                speed(speed) {
+    terr.addUnit(coor, this);                                   
+}
 
 Infantry::Infantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner):
                             Unit(coor, terr, 50,
@@ -108,12 +110,12 @@ void Unit::attack(Building* attacked) {
     this->state = ATTACKING_BUILDING;
     coor_t attackedPos = attacked->getPosition();
     coor_t attackedDims = attacked->getSize();
-    this->actDest = coor_t(attackedPos.first + attackedDims.first * CHUNKSIZE / 2,
+    this->actDest = coor_t(attackedPos.first + attackedDims.first * CHUNKSIZE + 1,
                            attackedPos.second + attackedDims.second * CHUNKSIZE / 2);
 }
 
 void Unit::damage(uint16_t dam) {
-    if (this->actualLife < dam) {
+    if (this->actualLife <= dam) {
         if (!this->isDead())
             this->die();
         this->actualLife = 0;
@@ -144,14 +146,14 @@ void Unit::kill(std::list<Command>& events) {
     this->actualLife = 0;
 }
 
-void Unit::processMove(bool attackingBuilding) {
-    this->moveAlgorithm.print();
+void Unit::processMove() {
+    //this->moveAlgorithm.print();
     this->weapon->stopAttack();
     this->speedAcum += this->speed * this->moveAlgorithm.getSpeedMod();
     uint8_t steps = this->speedAcum / 30;
     this->speedAcum = this->speedAcum % 30;
     for (uint8_t i = 0; i < steps; i++) {
-        bool ret = this->moveAlgorithm.processMove(this->actDest, attackingBuilding);
+        bool ret = this->moveAlgorithm.processMove(this->actDest);
         if (ret) {
             if (this->actDest == this->moveAlgorithm.getPosition()) {
                 this->state = IDLE;
@@ -166,12 +168,14 @@ void Unit::processMove(bool attackingBuilding) {
 }
 
 void Unit::processAttackUnit(std::list<Command>& events) {
+    std::cout << "SELF = " << this << ": Intento atacar\n";
     if (this->unitObjv == nullptr) {
         this->state = IDLE;
         this->weapon->stopAttack();
         return;
     }
     if (this->unitObjv->isDead() || this->unitObjv->getOwner() == this->owner) {
+        std::cout << "SE MURIO LA UNIDAD\n";
         this->unitObjv->stopWatching();
         this->unitObjv = nullptr;
         this->weapon->stopAttack();
@@ -181,6 +185,7 @@ void Unit::processAttackUnit(std::list<Command>& events) {
     this->actDest = this->unitObjv->getPosition();
     if (this->weapon->isInRange(this, this->unitObjv)) {
         this->weapon->startAttack();
+        std::cout << "ATTACK\n";
         if (this->weapon->attack(this->unitObjv)) {
             Command attack;
             attack.add8BytesMessage(UNIT_ATTACKED);
@@ -192,6 +197,7 @@ void Unit::processAttackUnit(std::list<Command>& events) {
             events.push_back(attack);
     }
     } else {
+        std::cout << "Me muevo\n";
         this->processMove();
     }
 }
@@ -223,7 +229,7 @@ void Unit::processAttackBuilding(std::list<Command>& events) {
             events.push_back(attack);
         }
     } else {
-        this->processMove(true);
+        this->processMove();
     }
 }
 
@@ -260,9 +266,7 @@ void Unit::update(std::list<Command>& events) {
             this->processAttackBuilding(events);
             break;
         case MOVING:
-            std::cout << "empezo el movimiento\n";
             this->processMove();
-            std::cout << "termino el movimiento\n";
             break;
         default:
             break;
@@ -368,7 +372,7 @@ bool Harvester::checkRefineryIntegrity() {
                 this->ref->watch();
                 coor_t pos = b.second->getPosition();
                 coor_t dims = b.second->getSize();
-                newDest = coor_t(pos.first + dims.first * CHUNKSIZE / 2,
+                newDest = coor_t(pos.first + dims.first * CHUNKSIZE,
                             pos.second + dims.second * CHUNKSIZE / 2);
                 Vehicle::setDest(newDest);
                 return true;
@@ -452,7 +456,7 @@ void Harvester::processComeback() {
         else
             this->state = CHARGING_REFINERY;
     else 
-        this->processMove(true);
+        this->processMove();
 }
 
 void Harvester::processCharging() {

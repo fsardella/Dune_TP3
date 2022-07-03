@@ -62,7 +62,7 @@ class Unit {
     void processAttackBuilding(std::list<Command>& events);
     void processIdle(std::list<Command>& events);
  protected:
-    void processMove(bool attackingBuilding = false);
+    void processMove();
     unitStates state = IDLE;
  public:
     Unit(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon,
