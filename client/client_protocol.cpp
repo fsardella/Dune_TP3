@@ -538,14 +538,9 @@ del gusano de arena.
 Post-Condiciones: -
 */
 
-void ProtocolClient::recvWormAttack(int& x, int& y, std::vector<int>& ids) {
-    x = receiveTwoBytes();
-    y = receiveTwoBytes();
-    int nDeaths = receiveTwoBytes();
-    for (int i = 0; i < nDeaths; i ++) {
-        int id = receiveTwoBytes();
-        ids.push_back(id);
-    }
+void ProtocolClient::recvWormAttack(int& x, int& y) {
+    x = receiveTwoBytes() * 4;
+    y = receiveTwoBytes() * 4;
 }
 
 /*

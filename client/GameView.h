@@ -60,7 +60,7 @@ class GameView {
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
     void setNotReady(int currentBuilding);
-    void wormAttack(int x, int y, std::vector<int> deadId);
+    void wormAttack(int x, int y);
     void updateSpecie(int x, int y, int state);
 
     void setMoney(int actualMoney);

@@ -29,8 +29,8 @@
 #define EXPLOSION 11
 #define MISIL_SOUND 13
 #define GUN_SOUND 12
-#define WORM_WIDTH 62
-#define WORM_HEIGHT 36
+#define WORM_WIDTH 32
+#define WORM_HEIGHT 32
 #define INITIAL_MONEY 1000
 #define INITIAL_ENERGY 100
 #define SPICE_OFFSET 22
@@ -308,8 +308,8 @@ Post-Condiciones: -
 
 void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
                          int animationId, bool propiety) {
-    float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
-    float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
+    float posX = static_cast<float>(x + 15) / static_cast<float>(TILE_PIX_SIZE);
+    float posY = static_cast<float>(y + 10) / static_cast<float>(TILE_PIX_SIZE);
 
     if (unitTiles.find(unitId) == unitTiles.end() && propiety) {
         int offset = getSoundOffset();
@@ -840,15 +840,15 @@ Pre-Condiciones: Maneja el ataque del gusano de arena.
 Post-Condiciones: -
 */
 
-void MapView::wormAttack(int x, int y, std::vector<int> deadId) {
+void MapView::wormAttack(int x, int y) {
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
     float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
-    for (int& id : deadId) {
-        unitTiles.at(id).kill();
-        // eliminarlos del arreglo o solo no renderizarlos?
-        // lo mismo cuando mueren en ataque
-        // lo mismo para muerte en ataque de edificio
-    }
+    // for (int& id : deadId) {
+    //     unitTiles.at(id).kill();
+    //     // eliminarlos del arreglo o solo no renderizarlos?
+    //     // lo mismo cuando mueren en ataque
+    //     // lo mismo para muerte en ataque de edificio
+    // }
     worm.setNewPosition(posX, posY);
     worm.startAttacking();
 }

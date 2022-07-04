@@ -85,6 +85,7 @@ Post-Condiciones: Determina la textura del gusano de arena del gusano de arena.
 
 void Worm::setTextures(std::vector<SdlTexture*> textures) {
     attackAnimation.setTextures(std::move(textures));
+    attackAnimation.setFrameDuration(5000);
     getTexture();
 }
 

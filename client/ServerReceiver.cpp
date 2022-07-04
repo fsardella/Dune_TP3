@@ -56,9 +56,14 @@ void ServerReceiver::run() {
 
         // std::this_thread::sleep_for (std::chrono::seconds(3));
 
-        // gameView->buildUnit(110, 100, 16, 9, 0, 8, false); // BORRAR
+        // // std::cout << "creo unidades\n";
+        // gameView->buildUnit(110, 100, 16, 6, 0, 8, false); // BORRAR
         // gameView->buildUnit(200, 150, 17, 7, 0, 3, true); // BORRAR
+        // std::this_thread::sleep_for (std::chrono::seconds(2));
+        // gameView->wormAttack(200, 150);
+        // gameView->unitAttack(-1, 17, 0, 80);
 
+        // std::cout << "termino de crear unidades\n";
         // gameView->unitAttack(16, 17, 80, 80);
         // std::cout << "empieza el segundo\n";
         // std::this_thread::sleep_for (std::chrono::seconds(1));
@@ -221,7 +226,7 @@ void ServerReceiver::gameLoop() {
     // std::this_thread::sleep_for (std::chrono::seconds(3));
     // std::cout << "entro al loop de server receiver\n";
     while (gameView->isRunning()) {
-        int length = protocolClient->receiveTwoBytes();
+        protocolClient->receiveTwoBytes();
         int operation = protocolClient->recvOperationNumber();
         // std::cout << "operacion " << operation << std::endl;
         // int operation = GAME_LOST;
@@ -367,9 +372,9 @@ Post-Condiciones: -
 
 void ServerReceiver::receiveWormInfo() {
     int x, y;
-    std::vector<int> deadId;
-    protocolClient->recvWormAttack(x, y, deadId);
-    gameView->wormAttack(x, y, deadId);
+    // std::vector<int> deadId;
+    protocolClient->recvWormAttack(x, y);
+    gameView->wormAttack(x, y);
 }
 
 /*

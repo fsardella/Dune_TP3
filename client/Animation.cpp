@@ -11,9 +11,10 @@ Post: Todos los atributos están inicializados.
 Animation::Animation(std::vector<SdlTexture*> frames):
     frames(frames),
     currentAnimation(0),
-    currentTime(0) {
+    currentTime(0),
+    frameDuration(FRAME_DURATION) {
     int animationSize = frames.size();
-    animationTime = animationSize * FRAME_DURATION;
+    animationTime = animationSize * frameDuration;
 }
 
 /*
@@ -24,7 +25,18 @@ Post: -
 void Animation::setTextures(std::vector<SdlTexture*> textures) {
     this->frames = textures;
     int animationSize = frames.size();
-    animationTime = animationSize * FRAME_DURATION;
+    animationTime = animationSize * frameDuration;
+}
+
+/*
+Pre: Se setea una duración de frame. 
+Post: -
+*/
+
+void Animation::setFrameDuration(int duration) {
+    this->frameDuration = duration;
+    int animationSize = this->frames.size();
+    animationTime = animationSize * frameDuration;
 }
 
 /*
@@ -43,11 +55,11 @@ Post: -
 */
 
 void Animation::update(int delta) {
-    animationTime = frames.size() * FRAME_DURATION;
+    animationTime = frames.size() * frameDuration;
 
     currentTime += delta;
     currentTime %= animationTime;
-    currentAnimation = std::floor(currentTime / FRAME_DURATION);
+    currentAnimation = std::floor(currentTime / frameDuration);
 }
 
 /*
@@ -57,6 +69,15 @@ Post: -
 
 int Animation::getFrame() {
     return currentAnimation;
+}
+
+/*
+Pre: Se obtienen la cantidad de frames.
+Post: -
+*/
+
+int Animation::getFramesSize() {
+    return this->frames.size();
 }
 
 /*
@@ -86,7 +107,10 @@ Post: -
 
 Animation::Animation(Animation &&other)
 : frames(std::move(other.frames)),
-currentAnimation(other.currentAnimation) {
+currentAnimation(other.currentAnimation),
+currentTime(other.currentTime),
+animationTime(other.animationTime),
+frameDuration(other.frameDuration) {
 }
 
 /*

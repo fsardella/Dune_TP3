@@ -102,7 +102,7 @@ class MapView {
     void setNotReady(int currentBuilding); // eliminar
     void updateUnready(int constructionId, int property);
 
-    void wormAttack(int x, int y, std::vector<int> deadId);
+    void wormAttack(int x, int y);
 
     void updateProgress(int menuId, int progress);
 

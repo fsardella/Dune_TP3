@@ -11,7 +11,7 @@ class Animation {
     int currentAnimation;
     int currentTime;
     int animationTime;
-    // int frameDuration;
+    int frameDuration;
 
  public:
     explicit Animation(std::vector<SdlTexture*> frames);
@@ -19,9 +19,11 @@ class Animation {
     void update(int delta);
     bool isLastFrame();
     int getFrame();
+    int getFramesSize();
     void reset();
 
     void setTextures(std::vector<SdlTexture*> textures);
+    void setFrameDuration(int duration);
 
     Animation(const Animation& other) = delete;
     Animation& operator=(const Animation& other) = delete;

@@ -306,9 +306,9 @@ Pre-Condiciones: Ataque de gusano de arena.
 Post-Condiciones: -
 */
 
-void GameView::wormAttack(int x, int y, std::vector<int> deadId) {
+void GameView::wormAttack(int x, int y) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.wormAttack(x, y, deadId);
+    map.wormAttack(x, y);
 }
 
 /*
