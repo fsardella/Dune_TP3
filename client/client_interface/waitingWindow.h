@@ -16,6 +16,9 @@ class WaitingWindow : public QDialog {
     ~WaitingWindow();
     void wait();
 
+ private slots:
+    void handleExitButton();
+
  private:
     Client* newClient;
     Ui::WaitingWindow *ui;

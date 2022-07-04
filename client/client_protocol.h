@@ -20,6 +20,7 @@ class ProtocolClient {
  public:
     ProtocolClient();
     void setSktConnection(const char* name_host, const char* service_port);
+    void closeCommunication();
     int receiveOneByte();
     int receiveTwoBytes();
     int receiveFourBytes();

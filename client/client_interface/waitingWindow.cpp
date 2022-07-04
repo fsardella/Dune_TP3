@@ -1,6 +1,8 @@
 #include "waitingWindow.h"
 #include "ui_waitingWindow.h"
 
+#include <iostream>
+
 #define PATH_WAITING "../client/client_interface/images/waitingScreen.jpg"
 #define START_GAME_SIGNAL 5
 /*
@@ -18,7 +20,15 @@ WaitingWindow::WaitingWindow(QWidget *parent, Client* client) :
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
+    
+    connect(ui->ExitGame, SIGNAL(released()), this, SLOT(handleExitButton()));
 }
+
+void WaitingWindow::handleExitButton() {
+    newClient->closeCommunication();
+    this->close();
+}
+
 
 /*
 Pre: Destructor de la ventana de espera.
@@ -36,8 +46,12 @@ Post: -
 */
 
 void WaitingWindow::wait() {
-    int res = newClient->recvStartGame();
-    if (res == START_GAME_SIGNAL) {
-        this->close();
+    try {
+        int res = newClient->recvStartGame();
+        if (res == START_GAME_SIGNAL) {
+            this->close();
+        }
+    } catch(ClosedSocketException& e) {
+        newClient->closeGame();
     }
 }

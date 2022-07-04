@@ -56,6 +56,15 @@ void Client::chooseName(std::string name) {
 }
 
 /*
+Pre-Condiciones: Cierra el socket.
+Post-Condiciones: -
+*/
+
+void Client::closeCommunication() {
+    this->protocol.closeCommunication();
+}
+
+/*
 Pre-Condiciones: -
 Post-Condiciones: Determina el numero de la casa elegida por el Cliente segun
 el nombre de la casa.
@@ -126,7 +135,6 @@ void Client::client_run() {
     std::cout << "ya lo espere al receiver\n";
 
     gameResult = result;
-    
 }
 
 /*
@@ -136,6 +144,17 @@ Post-Condiciones: Se obtiene el resultado del juego para un jugador.
 
 int Client::getGameResult() {
     return gameResult;
+}
+
+/*
+Pre-Condiciones: Setea el resultado del juego con -1 y se setea que no esta
+listo para correr.
+Post-Condiciones: -
+*/
+
+void Client::closeGame() {
+    readyToRun = false;
+    gameResult = -1;
 }
 
 /*

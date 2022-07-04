@@ -37,7 +37,9 @@ Post-Condiciones: -
 UserInputReceiver::UserInputReceiver(GameView* gameViewObj,
                                      BlockingQueue<ClientInput>* blockingQueue)
 : gameView(gameViewObj),
-  blockingQueue(blockingQueue)
+  blockingQueue(blockingQueue),
+  selection(false),
+  adding(false)
 {}
 
 /*
@@ -73,6 +75,25 @@ int UserInputReceiver::findCol(int x) {
     return ERROR;
 }
 
+void UserInputReceiver::deleteTouchedUnit(int id) {
+    int index = 0;
+    for (size_t i = 0; i < touchedUnits.size(); i ++) {
+        if (touchedUnits.at(i) == id) index = i;
+    }
+    std::cout << std::endl;
+    std::cout << "prim\n";
+    for (int& i : touchedUnits) {
+        std::cout << i << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << "sec\n";
+    touchedUnits.erase(touchedUnits.begin() + index);
+    for (int& i : touchedUnits) {
+        std::cout << i << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Devuelve true en caso de que las unidades se dejan de
@@ -100,7 +121,11 @@ void UserInputReceiver::handlePosition(int x, int y) {
         try {
             int id = gameView->isUnit(posX, posY, true);
             if (currentMenuImage == NONE_TYPE && id != NONE_TYPE) {
-                if (!wasUntouched(id)) return;
+                if (!wasUntouched(id) && !adding) {
+                    gameView->untouchedUnit(id);
+                    this->deleteTouchedUnit(id);
+                    return;
+                } else if (!wasUntouched(id)) return;
                 touchedUnits.push_back(id);
                 gameView->touchedUnit(id);
                 return;
@@ -209,6 +234,7 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         // op 8
         std::cout << "op 8\n";
         for (int& id : touchedUnits) {
+            std::cout << "entro\n";
             ClientInput clientInput(MOVEMENT, id, posX / 4, posY / 4);
             blockingQueue->push(std::move(clientInput));
             gameView->untouchedUnit(id);
@@ -235,7 +261,6 @@ void UserInputReceiver::run() {
     bool close = false;
     while (gameView->isRunning()) {
         SDL_Event event;
-        bool selection;
         while (SDL_PollEvent(&event)) {
             if (!gameView->isRunning()) {
                 close = true;
@@ -254,9 +279,11 @@ void UserInputReceiver::run() {
                     event.button.button == SDL_BUTTON_RIGHT) {
                 handleRightClick(event.button.x, event.button.y);
             } else if (event.type == SDL_MOUSEMOTION && selection) {
+                adding = true;
                 handlePosition(event.button.x, event.button.y);
             } else if (event.type == SDL_MOUSEBUTTONUP) {
                 selection = false;
+                adding = false;
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDLK_UP: gameView->moveUpwards(); break;

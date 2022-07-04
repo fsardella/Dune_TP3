@@ -34,6 +34,15 @@ void ProtocolClient::setSktConnection(const char* name_host,
 }
 
 /*
+Pre-Condiciones: Cierra el socket.
+Post-Condiciones: -
+*/
+
+void ProtocolClient::closeCommunication() {
+    this->socket.shutdown(2);
+}
+
+/*
 Pre-Condiciones: -
 Post-Condiciones: (Serializacion) Pasa de un int a un uint16_t, pasandolo a BE.
 */

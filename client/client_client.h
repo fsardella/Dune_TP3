@@ -42,6 +42,8 @@ class Client {
     bool isReadyToRun();
     int getGameResult();
     void setConnection(const char* name_host, const char* service_port);
+    void closeCommunication();
+    void closeGame();
     void client_run();
     void chooseName(std::string name);
     void chooseNumberHouse(std::string house);

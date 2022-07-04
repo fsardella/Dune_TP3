@@ -780,7 +780,6 @@ en caso de que no se haya clickeado ninguna unidad.
 */
 
 int MapView::isUnit(int posX, int posY, bool propiety) {
-    std::cout << "is unit recibe las posiciones " << posX << " y " << posY << std::endl;
     for (auto const& unit : unitTiles) {
         if ((posX >= unitTiles.at(unit.first).getX() * TILE_PIX_SIZE &&
             (posX <= (unitTiles.at(unit.first).getX() * TILE_PIX_SIZE +

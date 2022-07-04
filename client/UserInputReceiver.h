@@ -13,6 +13,8 @@ class UserInputReceiver: public Thread {
     GameView* gameView;
     BlockingQueue<ClientInput>* blockingQueue;
 
+    bool selection;
+    bool adding;
     int currentMenuImage = NONE_TYPE;
     std::vector<int> touchedUnits;
 
@@ -21,6 +23,7 @@ class UserInputReceiver: public Thread {
     void handlePosition(int x, int y);
     void handleRightClick(int x, int y);
     bool wasUntouched(int id);
+    void deleteTouchedUnit(int id);
 
  public:
     UserInputReceiver(GameView* gameViewObj,

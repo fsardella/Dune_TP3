@@ -409,6 +409,7 @@ Post-Condiciones: -
 */
 
 void Unit::setIsTouched(bool status) {
+    std::cout << "deja de estar tocado\n";
     isTouched = status;
 }
 
