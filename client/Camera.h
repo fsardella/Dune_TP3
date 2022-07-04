@@ -4,6 +4,7 @@
 #include "SdlWindow.h"
 #include "SdlTexture.h"
 #include "Renderizable.h"
+#include <map>
 
 #define TILE_PIX_SIZE 32
 
@@ -26,12 +27,16 @@ class Camera{
     SdlTexture readyTexture;
     SdlTexture frameTexture;
 
+    std::map<int, SdlTexture> housesTextures;
+
     bool isVisibleInX(float x);
     bool isVisibleInY(float y);
     bool isUnitVisible(float x, float y, float txtWidth, float txtHeight);
 
  public:
     explicit Camera(SdlWindow& window);
+
+    void loadHouseTextures();
 
     void setMapSize(int width, int height);
     void moveUpwards();
@@ -56,6 +61,8 @@ class Camera{
                                     float posX, float posY);
     void renderMenuRect();
     void renderShadowForMenu(Area& src, float posX, float posY, int progress);
+    void renderColor(SdlTexture* colorTexture);
+    void renderHouse(int houseNumber);
     bool isVisible(float x, float y);
     ~Camera();
 };

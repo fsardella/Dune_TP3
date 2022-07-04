@@ -6,6 +6,7 @@
 #define WINDOW_HEIGHT 700
 #define MENU_OFFSET_X 991
 #define MENU_OFFSET_Y 100
+#define END_MENU_Y 620
 #define SPACING_X 2
 #define SPACING_Y 10
 #define SUCCESS 0
@@ -16,6 +17,9 @@
 #define FRAME_PATH "../client/animations/frame.bmp"
 #define MENU_WIDTH 100
 #define MENU_HEIGHT 75
+#define COLOR_WIDTH 50
+#define COLOR_HEIGHT 50
+#define COLOR_OFFSET_X 230
 
 #define WHITE_COLOR 255
 #define OPACITY 180
@@ -37,7 +41,24 @@ Camera::Camera(SdlWindow& window)
   menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, OPACITY),
   readyTexture(READY_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
   frameTexture(FRAME_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR)
-{}
+{
+    this->loadHouseTextures();
+}
+
+/*
+Pre: Carga las texturas de las distintas casas.
+Post: -
+*/
+
+void Camera::loadHouseTextures() {
+    for (int i = 0; i < 3; i ++) {
+        std::string path("../client/menuImgs/house" + std::to_string(i) + ".bmp");
+        housesTextures.emplace(std::piecewise_construct,
+                               std::forward_as_tuple(i),
+                               std::forward_as_tuple(path, &window,
+                               WHITE_COLOR, WHITE_COLOR, WHITE_COLOR));
+    }
+}
 
 /*
 Pre: Renderizador para la camara.
@@ -209,6 +230,34 @@ void Camera::renderInSightForMenuTitles(SdlTexture* texture, const Area& src,
     int newY = (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
     texture->render(src, dst);
+}
+
+/*
+Pre: Renderizador del color del jugador para la camara.
+Post: -
+*/
+
+void Camera::renderColor(SdlTexture* colorTexture) {
+    Area src(0, 0, COLOR_WIDTH, COLOR_HEIGHT);
+    auto rect = src.buildRectangle();
+    int newX = MENU_OFFSET_X + COLOR_OFFSET_X;
+    int newY = END_MENU_Y + SPACING_Y;
+    Area dst(newX, newY, rect.w, rect.h);
+    colorTexture->render(src, dst);
+}
+
+/*
+Pre: Renderizador de la casa del jugador para la camara.
+Post: -
+*/
+
+void Camera::renderHouse(int houseNumber) {
+    Area src(0, 0, MENU_WIDTH, MENU_HEIGHT);
+    auto rect = src.buildRectangle();
+    int newX = MENU_OFFSET_X + 3 * SPACING_X + MENU_WIDTH;
+    int newY = END_MENU_Y;
+    Area dst(newX, newY, rect.w, rect.h);
+    housesTextures.at(houseNumber).render(src, dst);
 }
 
 /*

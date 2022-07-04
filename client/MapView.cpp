@@ -36,6 +36,7 @@
 #define SPICE_OFFSET 22
 #define SIZE_FONT 22
 #define BARRACK_OFFSET 18
+#define NONE_TYPE -1
 #define FONT_PATH "/usr/share/fonts/type1/urw-base35/URWBookman-Demi.t1"
 #define SPRITES_PATH "../client/sprites.yaml"
 #define TILES_PATH "../client/tiles.yaml"
@@ -54,6 +55,7 @@ Post-Condiciones: -
 MapView::MapView(SdlWindow& window, int houseNumberClient)
 : window(window),
   houseNumberClient(houseNumberClient),
+  identifier(NONE_TYPE),
   columns(0),
   rows(0),
   actualMoney(0),
@@ -428,6 +430,10 @@ void MapView::createConstruction(int x, int y, int playerId,
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
     float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
 
+    if (identifier == NONE_TYPE && propiety) {
+        identifier = playerId;
+    }
+
     if (constType == BARRACK) {
         constType += house;
     }
@@ -681,6 +687,11 @@ void MapView::renderMenu(Camera &cam) {
     for (MenuImage &image : menuImages) {
         cam.render(image);
     }
+
+    if (identifier != NONE_TYPE) {
+        cam.renderColor(&(identifierTranslator.at(identifier)));
+    }
+    cam.renderHouse(houseNumberClient);
 }
 
 /*

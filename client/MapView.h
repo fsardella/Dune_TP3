@@ -27,6 +27,7 @@ class MapView {
     SdlWindow& window;
 
     int houseNumberClient;
+    int identifier;
     size_t columns;
     size_t rows;
 
