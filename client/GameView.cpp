@@ -342,10 +342,26 @@ void GameView::untouchedUnit(int unitId) {
     map.untouchedUnit(unitId);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el tipo de unidad a partir de un id.
+*/
+
 int GameView::getType(int unitId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.getType(unitId);
 }
+
+/*
+Pre-Condiciones: Setea si una imagen del menu esta seleccionada o no.
+Post-Condiciones: -
+*/
+
+void GameView::touchedMenuImage(int currentMenuImage, bool state) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    map.touchedMenuImage(currentMenuImage, state);
+}
+
 
 /*
 Pre-Condiciones: Reproduce música en caso de que el jugador gane.
@@ -366,6 +382,11 @@ void GameView::playLostSound() {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     map.playLostSound();
 }
+
+/*
+Pre-Condiciones: Reproduce todos los sonidos pendientes.
+Post-Condiciones: -
+*/
 
 void GameView::playSounds() {
     std::lock_guard<std::mutex> lock(gameViewMutex);

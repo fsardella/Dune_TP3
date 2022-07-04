@@ -26,6 +26,7 @@ class Camera{
     SdlTexture menuShadowTexture;
     SdlTexture readyTexture;
     SdlTexture frameTexture;
+    SdlTexture constFrameTexture;
 
     std::map<int, SdlTexture> housesTextures;
 
@@ -57,6 +58,7 @@ class Camera{
                               float posX, float posY);
     void renderBlockingFigure(int posX, int posY);
     void renderReadyFigure(int posX, int posY);
+    void renderMenuFrame(int posX, int posY);
     void renderInSightForMenuTitles(SdlTexture* texture, const Area& src,
                                     float posX, float posY);
     void renderMenuRect();

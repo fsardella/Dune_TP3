@@ -878,8 +878,25 @@ void MapView::updateSpecie(int x, int y, int state) {
                                                 index)), x, y, index);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el tipo de una unidad a partir de un id.
+*/
+
 int MapView::getType(int unitId) {
     return unitTiles.at(unitId).getUnitType();
+}
+
+/*
+Pre-Condiciones: Setea si una imagen del menu esta seleccionada o no.
+Post-Condiciones: -
+*/
+
+void MapView::touchedMenuImage(int currentMenuImage, bool state) {
+    if (currentMenuImage >= 11) {
+        currentMenuImage--;
+    }
+    menuImages.at(currentMenuImage).setTouched(state);
 }
 
 /*

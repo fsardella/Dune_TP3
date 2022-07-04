@@ -33,6 +33,7 @@ MenuImage::MenuImage(SdlTexture* texture,
   isUnderConstruction(false),
   progress(0),
   isReady(false),
+  isTouched(false),
   houses(houses) {
     if (type < CONSTRUCTIONS_OFFSET) blocked = true;
     rescaling = 1;
@@ -56,13 +57,15 @@ void MenuImage::render(Camera &camera) {
     if (isReady) {
         camera.renderReadyFigure(posX, posY);
     }
+    if (isTouched) {
+        camera.renderMenuFrame(posX, posY);
+    }
 }
 
 /*
 Pre-Condiciones: -
 Post-Condiciones: Devuelve la posición x.
 */
-
 
 int MenuImage::getX() {
     return posX;
@@ -76,6 +79,16 @@ Post-Condiciones: Devuelve la posición y.
 int MenuImage::getY() {
     return posY;
 }
+
+/*
+Pre-Condiciones: Setea al atributo isTouched con el booleano recibido.
+Post-Condiciones: -
+*/
+
+void MenuImage::setTouched(bool state) {
+    isTouched = state;
+}
+
 
 /*
 Pre-Condiciones: -
@@ -235,6 +248,7 @@ MenuImage::MenuImage(MenuImage &&other)
   isUnderConstruction(other.isUnderConstruction),
   progress(other.progress),
   isReady(other.isReady),
+  isTouched(other.isTouched),
   houses(other.houses) {
 }
 

@@ -114,6 +114,7 @@ class MapView {
     void touchedUnit(int unitId);
     void untouchedUnit(int unitId);
     int getType(int unitId);
+    void touchedMenuImage(int currentMenuImage, bool state);
 
     void update(int delta);
 

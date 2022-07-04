@@ -15,6 +15,7 @@ class MenuImage : public Renderizable {
     bool isUnderConstruction;
     int progress;
     bool isReady;
+    bool isTouched;
     std::vector<int>& houses;
 
  public:
@@ -47,6 +48,8 @@ class MenuImage : public Renderizable {
     void updateUnblocking(int buildingType);
     bool checkUnblockPosibility(int buildingType);
     bool checkHouse(int house);
+
+    void setTouched(bool state);
 
     void updateProgress(int progress);
 

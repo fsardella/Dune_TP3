@@ -15,6 +15,7 @@
 #define SHADOW_PATH "../client/menuImgs/sombra.bmp"
 #define READY_PATH "../client/menuImgs/ready.bmp"
 #define FRAME_PATH "../client/animations/frame.bmp"
+#define CONST_FRAME_PATH "../client/menuImgs/marco.bmp"
 #define MENU_WIDTH 100
 #define MENU_HEIGHT 75
 #define COLOR_WIDTH 50
@@ -22,6 +23,7 @@
 #define COLOR_OFFSET_X 230
 
 #define WHITE_COLOR 255
+#define BLACK_COLOR 0
 #define OPACITY 180
 
 /*
@@ -40,8 +42,8 @@ Camera::Camera(SdlWindow& window)
   blockedTexture(BLOCKED_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
   menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, OPACITY),
   readyTexture(READY_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
-  frameTexture(FRAME_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR)
-{
+  frameTexture(FRAME_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
+  constFrameTexture(CONST_FRAME_PATH, &window, BLACK_COLOR, BLACK_COLOR, BLACK_COLOR) {
     this->loadHouseTextures();
 }
 
@@ -215,6 +217,21 @@ void Camera::renderReadyFigure(int posX, int posY) {
     int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
     Area dst(newX, newY, rect.w, rect.h);
     readyTexture.render(src, dst);
+}
+
+/*
+Pre: Renderizador un marco para representar cuando una imagen del
+menu fue seleccionada.
+Post: -
+*/
+
+void Camera::renderMenuFrame(int posX, int posY) {
+    Area src(0, 0, MENU_WIDTH, MENU_HEIGHT);
+    auto rect = src.buildRectangle();
+    int newX = MENU_OFFSET_X + (posX + 1) * SPACING_X + posX * rect.w;
+    int newY = MENU_OFFSET_Y + (posY + 1) * SPACING_Y + posY * rect.h;
+    Area dst(newX, newY, rect.w, rect.h);
+    constFrameTexture.render(src, dst);
 }
 
 /*

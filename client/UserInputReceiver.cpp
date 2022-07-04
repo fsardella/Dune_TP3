@@ -96,7 +96,6 @@ Post-Condiciones: -
 void UserInputReceiver::handlePosition(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
     int posY = y + gameView->getYOffset() * TILE_SIZE;
-    std::cout << "toco en el mapa en " << posX << " y " << posY << std::endl;
     if (0 < posX && posX < MENU_OFFSET_X + gameView->getXOffset() * TILE_SIZE) {
         try {
             int id = gameView->isUnit(posX, posY, true);
@@ -107,14 +106,15 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 return;
             }
 
-            if (gameView->isBuildingReady(currentMenuImage - 1)) {
+            if (gameView->isBuildingReady(currentMenuImage - 1) && currentMenuImage != NONE_TYPE) {
                 // op 9
                 std::cout << "op 9\n";
                 // quiero posicionar un edificio ya listo
-                std::cout << "estoy enviando " << posX << " y " << posY << std::endl;
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
                 blockingQueue->push(std::move(clientInput));
                 // gameView->setNotReady(currentMenuImage);
+                std::cout << currentMenuImage << std::endl;
+                gameView->touchedMenuImage(currentMenuImage, false);
                 currentMenuImage = NONE_TYPE;
                 return;
             }
@@ -139,10 +139,12 @@ void UserInputReceiver::handlePosition(int x, int y) {
             return;
         }
         if (!gameView->isBlocked(currentMenuImage)) {
+            gameView->touchedMenuImage(currentMenuImage, true);
             // quiero construir una unidad
             ClientInput clientInput(CREATE_UNIT, unitType);
             blockingQueue->push(std::move(clientInput));
         }
+        gameView->touchedMenuImage(currentMenuImage, false);
         currentMenuImage = NONE_TYPE;
         return;
     }
@@ -152,13 +154,17 @@ void UserInputReceiver::handlePosition(int x, int y) {
         int buildingType = currentMenuImage + 1;
         if (gameView->isBuildingReady(buildingType - 1)) {
             currentMenuImage ++;
+            std::cout << currentMenuImage << std::endl;
+            gameView->touchedMenuImage(currentMenuImage, true);
             return;
         }
         if (!gameView->isUnderConstruction(buildingType) && !gameView->isBlocked(buildingType)) {
             // quiero construir un edificio
+            gameView->touchedMenuImage(buildingType, true);
             ClientInput clientInput(CREATE_BUILDING, buildingType);
             blockingQueue->push(std::move(clientInput));
         }
+        gameView->touchedMenuImage(buildingType, false);
         currentMenuImage = NONE_TYPE;
         return;
     }
@@ -174,8 +180,6 @@ Post-Condiciones: -
 void UserInputReceiver::handleRightClick(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
     int posY = y + gameView->getYOffset() * TILE_SIZE;
-    // int borderX = posX - (posX % TILE_SIZE);
-    // int borderY = posY - (posY % TILE_SIZE);
     if (touchedUnits.size() != 0) {
         int unitId = gameView->isUnit(posX, posY, false);
         int buildingId = gameView->isBuilding(posX, posY, false);
