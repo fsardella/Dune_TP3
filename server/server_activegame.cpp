@@ -8,7 +8,6 @@
 
 #include <yaml-cpp/yaml.h>
 #include <yaml-cpp/node/node.h>
-#define MAPS_ROUTE "../server/maps/"
 
 #ifndef BROADCASTOPERS
 #define BROADCASTOPERS
@@ -29,9 +28,10 @@ enum broadcastOpers {
 #endif
 
 
-ActiveGame::ActiveGame(Game game): buildingIDCount(game.get_required()), 
+ActiveGame::ActiveGame(Game game, Config* c): c(c),
+                                   buildingIDCount(game.get_required()), 
                                    game(std::move(game)) {
-    YAML::Node node = YAML::LoadFile(MAPS_ROUTE + this->game.getMapPath() + ".yaml");
+    YAML::Node node = YAML::LoadFile(c->MAP_PATHS + this->game.getMapPath() + ".yaml");
     this->gameMapSketch = node["matrix"].as<std::vector<std::vector<int>>>();
     this->gameMap = TerrainMap(this->gameMapSketch);
 }
@@ -178,7 +178,8 @@ void ActiveGame::addUnit(std::string playerName, uint8_t type) {
     bool ret = this->game.chargeMoney(playerName, type);
     if (ret)
         this->unitsBuilding.push_back(UnitBuffer(type, playerName, this->gameMap,
-                                             this->game.getPlayerID(playerName)));
+                                             this->game.getPlayerID(playerName), 
+                                             c, this->events));
 }
 
 void ActiveGame::createBuilding(std::string playerName, uint8_t type) {

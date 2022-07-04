@@ -122,8 +122,11 @@ void Weapon::stopAttack() {
 Weapon::~Weapon() {}
 
 
-AssaultRifle::AssaultRifle(TerrainMap& ter, uint16_t range):
-                                                Weapon(2, 50, 0, ter, range) {}
+AssaultRifle::AssaultRifle(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->ASSAULT_RIFLE_DAMAGE,
+                                c->ASSAULT_RIFLE_COOLDOWN, 0,
+                                ter, range),
+                                bonus(c->ASSAULT_RIFLE_BONUS) {}
 
 
 

@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <list>
 #include "server_buildings.h"
+#include "server_config.h"
+
 class Unit;
 class Building;
 
@@ -39,8 +41,9 @@ class Weapon {
 };
 
 class AssaultRifle: public Weapon {
+    uint16_t bonus;
  public:
-    AssaultRifle(TerrainMap& terr, uint16_t range);
+    AssaultRifle(TerrainMap& terr, uint16_t range, Config* c);
     virtual ~AssaultRifle();
 };
 

@@ -3,12 +3,15 @@
 
 #include <stdint.h>
 #include <string>
-
+#include <list>
+#include "common_command.h"
 #include "server_units.h"
+#include "server_config.h"
 
 
 
 class UnitBuffer {
+    Config* c;
     uint16_t totalCount;
     uint16_t count;
     uint8_t type;
@@ -16,10 +19,12 @@ class UnitBuffer {
     uint8_t playerID;
     coor_t coor;
     TerrainMap& terr;
+    std::list<Command>& events; // Para la explosion del Destructor
 
  public:
     UnitBuffer(uint8_t type, std::string playerName,
-               TerrainMap& terr, uint8_t playerID);
+               TerrainMap& terr, uint8_t playerID, Config* c,
+               std::list<Command>& events);
     bool willItEnd(uint16_t seconds);
     void process(uint16_t seconds);
     uint8_t getType();

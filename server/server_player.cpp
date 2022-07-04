@@ -3,18 +3,20 @@
 #include <iostream>
 
 Player::Player(const int& house, const std::string& playerName,
-               coor_t baseCoords): playerName(playerName),
+               coor_t baseCoords, Config* c):
+                                   c(c), 
+                                   playerName(playerName),
                                    house(house),
-                                   base(Base(baseCoords, playerName)){}
+                                   base(Base(baseCoords, playerName, c)){
+
+}
 
 
 
 #define CHUNKSIZE 8
 
 Player::Player(): playerName(""),
-                 house(-1),
-                 base(Base(coor_t(0,0), "")) {
-}
+                 house(-1) {}
 
 
 void Player::buildBase(TerrainMap& terr, uint16_t id) {
@@ -60,19 +62,19 @@ uint32_t Player::getPriceOfCreation(uint8_t type) {
     // usar el config...
     switch (type) {
         case TRIKE:
-            return 100;
+            return c->TRIKE_PRICE;
         case RAIDER:
-            return 100;
+            return c->RAIDER_PRICE;
         case TANK:
-            return 300;
+            return c->TANK_PRICE;
         case HARVESTER:
-            return 300;
+            return c->HARVESTER_PRICE;
         case DEVIATOR:
-            return 400;
+            return c->DEVIATOR_PRICE;
         case DEVASTATOR:
-            return 400;
+            return c->DEVASTATOR_PRICE;
         case SONIC_TANK:
-            return 300;
+            return c->SONIC_TANK_PRICE;
         case LIGHT_INFANTRY:
             return 50;
         case HEAVY_INFANTRY:
@@ -82,19 +84,20 @@ uint32_t Player::getPriceOfCreation(uint8_t type) {
         case FREMEN:
             return 100;
         case LIGHT_FACTORY:
-            return 800;
+            return c->LIGHT_FACTORY_PRICE;
         case HEAVY_FACTORY:
-            return 1500;
+            return c->HEAVY_FACTORY_PRICE;
         case PALACE:
-            return 2000;
+            return c->PALACE_PRICE;
         case REFINERY:
-            return 500;
+            return c->REFINERY_PRICE;
         case SILO:
-            return 200;
+            return c->SILO_PRICE;
         case WINDTRAP:
-            return 800;
+            std::cout << "price is " << c->AIR_TRAP_PRICE <<std::endl;
+            return c->AIR_TRAP_PRICE;
         case BARRACK:
-            return 300;
+            return c->BARRACK_PRICE;
     }
     return 0;
 }
@@ -296,7 +299,7 @@ void Player::createBuilding(uint8_t type) {
         return;
     if (!chargeMoney(type))
         return;
-    this->buildingBirthing = Building::newBuilding(type, this->playerName);
+    this->buildingBirthing = Building::newBuilding(type, this->playerName, c);
 }
 
 uint16_t Player::addBuilding(uint16_t x, uint16_t y, TerrainMap& terr,
@@ -393,7 +396,8 @@ Player::~Player() {
 
 
 
-Player::Player(Player&& other) : playerName(std::move(other.playerName)),
+Player::Player(Player&& other) : c(other.c),
+                                 playerName(std::move(other.playerName)),
                                  playerID(other.playerID),
                                  house(other.house),
                                  units(std::move(other.units)),
@@ -410,6 +414,7 @@ Player::Player(Player&& other) : playerName(std::move(other.playerName)),
 Player& Player::operator=(Player&& other) {
     if (this == &other)
         return *this;
+    this->c = other.c;
     this->house = other.house;
     this->playerID = other.playerID;
     this->playerName = std::move(other.playerName);

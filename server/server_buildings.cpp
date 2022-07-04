@@ -23,11 +23,12 @@ enum broadcastOpers {
 
 
 Building::Building(coor_t size, uint16_t totalLife, uint16_t buildingTime,
-                   std::string owner):
+                   int32_t energy, std::string owner):
                    size(size),
                    actualLife(totalLife),
                    totalLife(totalLife),
                    buildingTime(buildingTime),
+                   energy(energy),
                    owner(owner) {}
 
 coor_t Building::getPosition() {
@@ -54,16 +55,16 @@ uint32_t Building::gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity) {
     return 0;
 }
 
-Building* Building::newBuilding(uint8_t type, std::string owner) {
+Building* Building::newBuilding(uint8_t type, std::string owner, Config* c) {
     switch (type) {
         case LIGHT_FACTORY:
-            return new LightFactory(owner);
+            return new LightFactory(owner, c);
         case HEAVY_FACTORY:
-            return new HeavyFactory(owner);
+            return new HeavyFactory(owner, c);
         case REFINERY:
-            return new Refinery(owner);
+            return new Refinery(owner, c);
         case WINDTRAP:
-            return new WindTrap(owner);
+            return new WindTrap(owner, c);
         default:
             return nullptr;
     }
@@ -96,6 +97,8 @@ void Building::update(uint16_t constructionTime) {
 }
 
 uint8_t Building::getCompletion() {
+    if (this->actualTime >= this->buildingTime)
+        return 100;
     return (uint8_t) ((this->actualTime * 100) / this->buildingTime);
 }
 
@@ -155,7 +158,7 @@ void Building::stopWatching() {
 }
 
 int32_t Building::getEnergy() {
-    return 0;
+    return this->energy;
 }
 
 bool Building::canBeCleaned() {
@@ -169,10 +172,13 @@ Building::~Building() {}
 
 
 
-Base::Base(coor_t position, std::string owner):
-        Building(coor_t(3, 3), 3000, 0, owner) {
+Base::Base(coor_t position, std::string owner, Config* c):
+        Building(coor_t(3, 3), c->BASE_LIFE, 0, 0, owner) {
     this->position = position;
 }
+
+
+Base::Base(): Building(coor_t(0, 0), 0, 0, 0, "") {}
 
 uint16_t Base::getType() {
     return BASE;
@@ -181,8 +187,10 @@ uint16_t Base::getType() {
 Base::~Base() {}
 
 
-LightFactory::LightFactory(std::string owner):
-                Building(coor_t(3, 3), 500, 120, owner) {} 
+LightFactory::LightFactory(std::string owner, Config* c):
+                Building(coor_t(3, 3), c->LIGHT_FACTORY_LIFE,
+                        c->LIGHT_FACTORY_CTIME, c->LIGHT_FACTORY_ENERGY,
+                        owner) {} 
 
 bool LightFactory::isLightFactory() {
     return true;
@@ -192,14 +200,11 @@ uint16_t LightFactory::getType() {
     return LIGHT_FACTORY;
 }
 
-int32_t LightFactory::getEnergy() {
-    return -500;
-}
-
 LightFactory::~LightFactory() {}
 
-HeavyFactory::HeavyFactory(std::string owner):
-                Building(coor_t(4, 4), 1500, 120, owner) {} 
+HeavyFactory::HeavyFactory(std::string owner, Config* c):
+                Building(coor_t(4, 4), c->HEAVY_FACTORY_LIFE,
+                c->HEAVY_FACTORY_CTIME, c->HEAVY_FACTORY_ENERGY, owner) {} 
 
 bool HeavyFactory::isHeavyFactory() {
     return true;
@@ -209,16 +214,15 @@ uint16_t HeavyFactory::getType() {
     return HEAVY_FACTORY;
 }
 
-int32_t HeavyFactory::getEnergy() {
-    return -800;
-}
 
 HeavyFactory::~HeavyFactory() {}
 
 
 
-Refinery::Refinery(std::string owner):
-                        Building(coor_t(3, 3), 1000, 120, owner) {}
+Refinery::Refinery(std::string owner, Config* c):
+                        Building(coor_t(3, 3), c->REFINERY_LIFE,
+                        c->REFINERY_CTIME, c->REFINERY_ENERGY, owner),
+                        moneyCap(c->REFINERY_CAPACITY) {}
 
 bool Refinery::isRefinery() {
     return true;
@@ -240,28 +244,23 @@ void Refinery::rechargeMoney(uint32_t menage) {
     this->money += menage;
 }
 
-int32_t Refinery::getEnergy() {
-    return 500;
-}
 
 uint16_t Refinery::getType() {
     return REFINERY;
 }
 
 uint32_t Refinery::getMoneyCapacity() {
-    return 5000;
+    return this->moneyCap;
 }
 
 
 Refinery::~Refinery() {}
 
 
-WindTrap::WindTrap(std::string owner):
-                        Building(coor_t(3, 3), 500, 120, owner) {}
-    
-int32_t WindTrap::getEnergy() {
-    return 500;
-}
+WindTrap::WindTrap(std::string owner, Config* c):
+                        Building(coor_t(3, 3), c->AIR_TRAP_LIFE,
+                        c->AIR_TRAP_CTIME, c->AIR_TRAP_ENERGY, owner) {}
+
 
 uint16_t WindTrap::getType() {
     return WINDTRAP;

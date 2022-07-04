@@ -7,6 +7,7 @@
 #include "server_buildings.h"
 #include "server_weapons.h"
 #include "common_command.h"
+#include "server_config.h"
 
 #ifndef UNITTYPES
 #define UNITTYPES
@@ -87,7 +88,7 @@ class Unit {
     void attack(Building* attacked);
     void damage(uint16_t dam);
     bool isDead();
-    void die();
+    virtual void die();
     void kill(std::list<Command>& events);
 
     void watch();
@@ -99,7 +100,8 @@ class Unit {
 
 class Infantry : public Unit {
  public:
-    Infantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner);
+    Infantry(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon,
+             uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
     virtual uint8_t getType();
     virtual ~Infantry();
@@ -107,11 +109,19 @@ class Infantry : public Unit {
 
 class Vehicle : public Unit {
  public:
-    Vehicle(coor_t coor, TerrainMap& terr, uint16_t id,
-            std::string owner, uint16_t speed = 64);
+    Vehicle(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon, 
+            uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
-    virtual uint8_t getType();
+    virtual uint8_t getType() = 0;
     virtual ~Vehicle();
+};
+
+class Trike : public Vehicle {
+ public:
+    Trike(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Trike();
 };
 
 class Harvester : public Vehicle {
@@ -119,11 +129,14 @@ class Harvester : public Vehicle {
     coor_t actHarvestDest;
     Building* ref = nullptr;
     uint32_t actMenage = 0;
-    uint32_t menageCap = 200;
+    uint32_t menageCap;
     uint16_t harvestingTime = 0;
     uint16_t chargingTime = 0;
+    uint16_t harvestTimeLimit;
+    uint16_t chargingTimeLimit;
+    uint16_t range;
     TerrainMap& terr;
-    
+
     void processHarvest();
     void processComeback();
     void processCharging();
@@ -132,12 +145,14 @@ class Harvester : public Vehicle {
     bool isNextToRefinery();
     bool checkRefineryIntegrity();
  public:
-    Harvester(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner);
+    Harvester(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+              Config* c);
     uint8_t getType();
     bool isHarvester();
     void setDest(coor_t newDest);
     void update(std::list<Command>& events);
     void addPointerToBuildings(std::map<uint16_t, Building*>* buildings);
+    void die();
     virtual ~Harvester();
     
 };

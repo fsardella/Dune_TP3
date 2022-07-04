@@ -14,10 +14,11 @@ Post-Condiciones: Constructor del escuchador de Clientes.
 */
 
 Listener::Listener(const char* service_port, GameSet *gameSet,
-                   talkerMap_t& clientTalkers): socket_original(service_port),
-                                               clientTalkers(clientTalkers),
-                                               listening(true) {
-	this->gameSet = gameSet;
+    talkerMap_t& clientTalkers, Config* c): c(c),
+                                                  socket_original(service_port),
+                                                  clientTalkers(clientTalkers),
+                                                  listening(true) {
+    this->gameSet = gameSet;
 }
 
 /*
@@ -32,7 +33,7 @@ void Listener::run() {
 	while(true) {
 		try {
 			Socket accept = this->socket_original.accept();
-			Talker *client_talker = new Talker(std::move(accept), gameSet);
+			Talker *client_talker = new Talker(std::move(accept), gameSet, c);
 			clientTalkers[client_talker->getPlayerName()] = client_talker;
 			client_talker->start();
 			cleanFinishedHandlers();

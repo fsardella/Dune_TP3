@@ -42,12 +42,13 @@ Post-Condiciones: Agrega una Game al conjunto de Games y suma un participante
 */
 
 int GameSet::add_game(int house, int required, const std::string& game_name,
-                      const std::string& playerName, const std::string& mapPath) {
+                      const std::string& playerName, const std::string& mapPath,
+                      Config* c) {
 	lock_t lock(this->m);
 	if (this->game_exists(game_name)) {
 		return GSERROR;
 	} else {
-		Game newGame(required, game_name, mapPath);
+		Game newGame(required, game_name, mapPath, c);
 		newGame.add_participant(house, playerName);
 		this->games[game_name] = std::move(newGame);
 		if (this->game_complete(game_name)) {

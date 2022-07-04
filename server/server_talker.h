@@ -11,6 +11,7 @@
 #include "common_command.h"
 #include "server_sender.h"
 #include "server_playerdata.h"
+#include "server_config.h"
 #include <atomic>
 
 #ifndef CLIENTOPERS
@@ -31,6 +32,7 @@ enum clientOpers {
 #endif
 
 class Talker: public Thread {
+    Config* c;
     ProtocolServer protocol;
     BlockingQueue<Command>* commandQueue;
     Sender* sender;
@@ -52,7 +54,7 @@ class Talker: public Thread {
     void startPlaying(BlockingQueue<Command>* newGameQueue,
                       sketch_t gameMap, std::list<PlayerData> players,
                       BlockingQueue<Command>& sendingQueue);
-	explicit Talker(Socket&& socket, GameSet* game_set);
+	explicit Talker(Socket&& socket, GameSet* game_set, Config* c);
 	void run() override;
 	~Talker() override;
 };

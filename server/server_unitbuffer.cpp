@@ -6,18 +6,23 @@
 
 
 UnitBuffer::UnitBuffer(uint8_t type, std::string playerName, TerrainMap& terr,
-                       uint8_t playerID): type(type),
+                       uint8_t playerID, Config* c, std::list<Command>& events):
+                                          c(c),
+                                          type(type),
                                           playerName(playerName),
                                           playerID(playerID),
-                                          terr(terr) {
+                                          terr(terr),
+                                          events(events) {
     switch (type) {
         case TRIKE:
-            // this->count = 6000; // 2m * 60 = 120, * 10 = 1200, * 5 = 6000
-            this->count = 120; // 2m * 60 = 120, * 10 = 1200, * 5 = 6000
+            this->count = c->TRIKE_CTIME;
+            break;
         case HARVESTER:
-            this->count = 9000;
+            this->count = c->HARVESTER_CTIME;
+            break;
         default:
-            this->count = 69;
+            this->count = 1000;
+            break;
     }
     this->totalCount = this->count;
 }
@@ -30,6 +35,10 @@ bool UnitBuffer::willItEnd(uint16_t seconds) {
 }
 
 void UnitBuffer::process(uint16_t seconds) {
+    if (seconds >= this->count) {
+        this->count = 0;
+        return;
+    }
     this->count -= seconds;
     if (seconds == 0)
         this->count = this->totalCount;
@@ -56,9 +65,9 @@ uint8_t UnitBuffer::getTimeToEnd() {
 Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
     switch (this->type) {
         case TRIKE:
-            return new Vehicle(coor, this->terr, newID, this->playerName);
+            return new Trike(coor, this->terr, newID, this->playerName, c);
         case HARVESTER:
-            return new Harvester(coor, this->terr, newID, this->playerName);
+            return new Harvester(coor, this->terr, newID, this->playerName, c);
         default:
             return nullptr;
     }

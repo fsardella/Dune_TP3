@@ -12,13 +12,14 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor de Servidor.
 */
 
-Server::Server(const char* service_port): gameSet(this->playableGames),
-                                          talkers(),
-                                          activeGames(),
-                                          listener(service_port, &gameSet,
-                                                   this->talkers),
-                                          inputGuy(this->listener,
-                                                   this->playableGames) {
+Server::Server(Config* c): c(c),
+                           gameSet(this->playableGames),
+                           talkers(),
+                           activeGames(),
+                           listener(c->PORT.c_str(), &gameSet,
+                                    this->talkers, c),
+                           inputGuy(this->listener,
+                                    this->playableGames) {
 	this->listener.start();
 }
 
@@ -46,7 +47,7 @@ void Server::server_run() {
         while(true) {
             Game newGame = std::move(this->playableGames.pop());
             std::cout << "Comenzando Game " << newGame.get_name() << "..." << std::endl;
-            GameHandler* newGameThread = new GameHandler(std::move(newGame), this->talkers);
+            GameHandler* newGameThread = new GameHandler(std::move(newGame), this->talkers, c);
             newGameThread->start();
             this->activeGames.push_back(newGameThread);
             this->cleanGames();

@@ -158,6 +158,8 @@ set(SERVER_SOURCES
     server/server_broadcaster.h
     server/server_buildings.cpp
     server/server_buildings.h
+    server/server_config.cpp
+    server/server_config.h
     server/server_game.cpp
     server/server_gamedata.cpp
     server/server_gamedata.h

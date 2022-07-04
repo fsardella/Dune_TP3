@@ -6,10 +6,11 @@
 #include "server_unitbuffer.h"
 
 Broadcaster::Broadcaster(ActiveGame& game, queueMap_t& queues,
-                         BlockingQueue<Command>& queueToKill)
-: game(game),
-queues(queues),
-queueToKill(queueToKill) {}
+                         BlockingQueue<Command>& queueToKill,  Config* c)
+:   delta(c->CLOCK_DELTA),
+    game(game),
+    queues(queues),
+    queueToKill(queueToKill) {}
 
 
 Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units,
@@ -86,9 +87,6 @@ int Broadcaster::broadcast(Command comm) {
     return countPlayers;
 }
 
-#define DELTA 100000
-// POSIX: 1s == 1M ticks, 100K ticks -> 1/10 seg
-
 
 void Broadcaster::run() {
     int countPlayers;
@@ -114,12 +112,12 @@ void Broadcaster::run() {
         countPlayers = this->broadcast(comm);
         //std::cout << "broadcasted units\n";
         after = clock();
-        if ((after - before) > DELTA) {
+        if ((after - before) > this->delta) {
             std::cout << "WARNING: desincronizacion de reloj. Considere reducir su frecuencia."
                       << std::endl;
             continue;
         }
-        usleep(DELTA - (after - before));
+        usleep(this->delta - (after - before));
     } while (countPlayers > 0);
     this->game.endGame();
     this->queueToKill.close();

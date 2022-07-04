@@ -16,6 +16,7 @@ typedef std::map<std::string, Talker*> talkerMap_t;
 typedef std::map<std::string, BlockingQueue<Command>> queueMap_t;
 
 class GameHandler: public Thread {
+    Config* c;
     ActiveGame game;
     BlockingQueue<Command> commandQueue;
     queueMap_t playersQueue;
@@ -32,7 +33,7 @@ class GameHandler: public Thread {
     void notifySuccess(Command comm);
     
  public:
-    GameHandler(Game newGame, talkerMap_t& talkerThreads);
+    GameHandler(Game newGame, talkerMap_t& talkerThreads, Config* c);
     void run() override;
     bool endedRun();
 	~GameHandler() override;

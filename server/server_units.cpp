@@ -40,14 +40,15 @@ Unit::Unit(coor_t coor, TerrainMap& terr, uint16_t life,
     terr.addUnit(coor, this);                                   
 }
 
-Infantry::Infantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner):
-                            Unit(coor, terr, 50,
-                                 new AssaultRifle(terr, 3), id, 16, owner) {}
+Infantry::Infantry(coor_t coor, TerrainMap& terr, uint16_t life,
+           Weapon* weapon, uint16_t id, uint16_t speed, std::string owner):
+                            Unit(coor, terr, life,
+                                 weapon, id, speed, owner) {}
 
-Vehicle::Vehicle(coor_t coor, TerrainMap& terr, uint16_t id,
-                std::string owner, uint16_t speed):
-                            Unit(coor, terr, 80,
-                                 new AssaultRifle(terr, 4), id, speed, owner) {}
+Vehicle::Vehicle(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon, 
+                 uint16_t id, uint16_t speed, std::string owner):
+                            Unit(coor, terr, life,
+                                 weapon, id, speed, owner) {}
 
 
 coor_t Unit::getPosition() {
@@ -129,6 +130,10 @@ bool Unit::isDead() {
 }
 
 void Unit::die() {
+    if (this->buildingObjv != nullptr)
+        this->buildingObjv->stopWatching();
+    if (this->unitObjv != nullptr)
+        this->unitObjv->stopWatching();
     this->moveAlgorithm.eraseUnitFromMap();
 }
 
@@ -329,14 +334,35 @@ int Vehicle::getSpeedWeightForMount() {
     return WALL;
 }
 
-uint8_t Vehicle::getType() {
-    return 0;
-}
 Vehicle::~Vehicle() {}
 
 
+
+Trike::Trike(coor_t coor, TerrainMap& terr, uint16_t id,
+                     std::string owner, Config* c) :
+                                        Vehicle(coor, terr, c->TRIKE_LIFE, 
+                                                new AssaultRifle(terr,
+                                                c->TRIKE_RANGE, c),
+                                                id, c->TRIKE_SPEED, owner) {}
+
+
+uint8_t Trike::getType() {
+    return TRIKE;
+}
+
+Trike::~Trike() {}
+
+
+
 Harvester::Harvester(coor_t coor, TerrainMap& terr, uint16_t id,
-                     std::string owner) : Vehicle(coor, terr, id, owner, 40),
+                     std::string owner, Config* c): 
+                                          Vehicle(coor, terr, c->HARVESTER_LIFE,
+/*Tiene un arma dummy */                  new AssaultRifle(terr, 0, c),
+/* para evitar segfault*/                 id, c->HARVESTER_SPEED, owner),
+                                          menageCap(c->HARVESTER_HARVEST_LIMIT),
+                                          harvestTimeLimit(c->HARVESTER_HARVESTTIME),
+                                          chargingTimeLimit(c->HARVESTER_RECHARGETIME),
+                                          range(c->HARVESTER_RANGE),
                                           terr(terr) {}
 
 uint8_t Harvester::getType() {
@@ -349,8 +375,6 @@ bool Harvester::isHarvester() {
 
 void Harvester::setDest(coor_t newDest) {
     Vehicle::setDest(newDest);
-    std::cout << "DESTINY SET: " << newDest.first << ", "
-                << newDest.second << std::endl;
     if (!this->terr.hasMenage(newDest))
         return;
     this->actHarvestDest = newDest;
@@ -373,8 +397,6 @@ bool Harvester::checkRefineryIntegrity() {
                 newDest = coor_t(pos.first + dims.first * CHUNKSIZE,
                             pos.second + dims.second * CHUNKSIZE / 2);
                 Vehicle::setDest(newDest);
-                std::cout << "NEW REFINERY DESTINY SET: " << newDest.first << ", "
-                << newDest.second << std::endl;
                 return true;
             }
         }
@@ -385,36 +407,25 @@ bool Harvester::checkRefineryIntegrity() {
     newDest = coor_t(pos.first + dims.first * CHUNKSIZE,
                     pos.second + dims.second * CHUNKSIZE / 2);
     Vehicle::setDest(newDest);
-    std::cout << "NEW REFINERY DESTINY SET: " << newDest.first << ", "
-    << newDest.second << std::endl;
     return true;
 }
 
 void Harvester::processHarvest() {
     if (this->getPosition() != this->actHarvestDest) {
-        std::cout << "NOT IN POSITION YET:\n";
-        std::cout << "    ACT: " << this->getPosition().first << ", "
-        << this->getPosition().second << std::endl;
-        std::cout << "    HARV: " << this->actHarvestDest.first << ", "
-        << this->actHarvestDest.second << std::endl;  
         this->processMove();
         this->state = HARVESTING;
         return;
     }
     if (!this->terr.hasMenage(this->actHarvestDest)) {
-        std::cout << "DIDNT FIND MENAGE\n";
         this->harvestingTime = 0;
         this->scoutForMenage();
         return;
     }
     this->harvestingTime += 1;
-    std::cout << "ADDED TO HARVEST TIME: " << this->harvestingTime << std::endl;
-    if (this->harvestingTime >= 20) {
-        std::cout << "HARVESTING READY" << std::endl;
+    if (this->harvestingTime >= this->harvestTimeLimit) {
         this->harvestingTime = 0;
         this->actMenage += this->terr.harvestMenage(this->getPosition(),
                                             this->menageCap - this->actMenage);
-        std::cout << "NOW MY MENAGE IS " << this->actMenage << std::endl;
         if (this->actMenage != this->menageCap)
             return;
         if (!this->checkRefineryIntegrity()) {
@@ -426,11 +437,10 @@ void Harvester::processHarvest() {
 }
 
 void Harvester::scoutForMenage() {
-    std::cout << "STARTED SCOUTING FOR MENAGE\n";
     coor_t pos = this->actHarvestDest;
-    for (int i = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
-        for (int j = -CHUNKSIZE * 5; j <= CHUNKSIZE * 5; j += CHUNKSIZE) {
-            if (abs(i / CHUNKSIZE) + abs(j / CHUNKSIZE) > 5) {
+    for (int i = -CHUNKSIZE * this->range; i <= CHUNKSIZE * this->range; i += CHUNKSIZE) {
+        for (int j = -CHUNKSIZE * this->range; j <= CHUNKSIZE * this->range; j += CHUNKSIZE) {
+            if (abs(i / CHUNKSIZE) + abs(j / CHUNKSIZE) > this->range) {
                 continue;
             }
             if (this->terr.hasMenage(coor_t(pos.first + i,
@@ -443,7 +453,6 @@ void Harvester::scoutForMenage() {
             }
         } 
     }
-    std::cout << "DIDN'T FIND SHIT\n";
     this->state = GOING_TO_REFINERY;
 }
 
@@ -471,11 +480,6 @@ void Harvester::processComeback() {
         else
             this->state = CHARGING_REFINERY;
     } else {
-        std::cout << "GOING TO: " << this->ref->getPosition().first +
-        this->ref->getSize().first * CHUNKSIZE << ", " <<
-        this->ref->getPosition().second + this->ref->getSize().second * CHUNKSIZE << std::endl;
-        std::cout << "WHILE I AM IN: " << this->getPosition().first << ", "
-        << this->getPosition().second << std::endl;
         this->processMove();
         this->state = GOING_TO_REFINERY;
     }
@@ -490,16 +494,13 @@ void Harvester::processCharging() {
     }
     this->state = CHARGING_REFINERY;
     if (aux != this->ref) {
-        std::cout << "WTF\n";
         this->chargingTime = 0;
         this->state = GOING_TO_REFINERY;
         return;
     }
     this->chargingTime += 1;
-    std::cout << "CHARGING BAYBEEE: " << this->chargingTime <<"\n";
-    if (this->chargingTime >= 10) {
+    if (this->chargingTime >= this->chargingTimeLimit) {
         this->chargingTime = 0;
-        std::cout << "ENDED BAYBE\n";
         this->ref->rechargeMoney(this->actMenage);
         this->actMenage = 0;
         if (!this->terr.hasMenage(this->actHarvestDest)) {
@@ -514,20 +515,16 @@ void Harvester::processCharging() {
 void Harvester::update(std::list<Command>& events) {
     switch (this->state) {
         case MOVING:
-            //std::cout << "I'm scmooving\n";
             this->processMove();
             break;
         case HARVESTING:
-            //std::cout << "I'm HARVESTING\n";
             this->processHarvest();
             this->chargingTime = 0;
             return;
         case GOING_TO_REFINERY:
-            std::cout << "THE BOYS ARE COMING TO TOWN\n";
             this->processComeback();
             break;
         case CHARGING_REFINERY:
-            std::cout << "RECHARGING\n";
             this->processCharging();
             this->harvestingTime = 0;
             return;
@@ -538,6 +535,11 @@ void Harvester::update(std::list<Command>& events) {
     }    
 }
 
+void Harvester::die() {
+    if (this->ref != nullptr)
+        this->ref->stopWatching();
+    Vehicle::die();
+}
 
 void Harvester::addPointerToBuildings(std::map<uint16_t, Building*>* buildings) {
     this->buildings = buildings;

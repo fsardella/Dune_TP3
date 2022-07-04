@@ -13,6 +13,7 @@
 #include "server_playerdata.h"
 #include "common_command.h"
 #include "server_unitbuffer.h"
+#include "server_config.h"
 
 typedef std::lock_guard<std::mutex> lock_t;
 typedef std::vector<std::vector<int>> sketch_t;
@@ -27,6 +28,7 @@ typedef std::tuple<
         > broadcast_t;
 
 class ActiveGame {
+    Config* c;
     uint16_t unitIDCount = 0;
     uint16_t buildingIDCount;
     Game game;
@@ -51,7 +53,7 @@ class ActiveGame {
     std::list<Command> receiveBuildingsBuilding();
     std::list<std::pair<coor_t, uint16_t>> getMenageData();
  public:
-    ActiveGame(Game game);
+    ActiveGame(Game game, Config* c);
     sketch_t getMapSketch();
     std::list<PlayerData> getPlayersData(); // ONLY CALL ONCE
     void update();

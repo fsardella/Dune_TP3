@@ -13,10 +13,12 @@
 #include "server_inputguy.h"
 #include "common_blockingqueue.h"
 #include "server_game.h"
+#include "server_config.h"
 
 typedef std::map<std::string, Talker*> talkerMap_t;
 
 class Server {
+    Config* c;
 	GameSet gameSet;
     talkerMap_t talkers;
     std::list<GameHandler*> activeGames;
@@ -26,7 +28,7 @@ class Server {
     
     void cleanGames();
  public:
-	explicit Server(const char* service_port);
+	explicit Server(Config* c);
 	void server_run();
 	~Server();
 };

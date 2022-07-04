@@ -14,10 +14,12 @@
 #include "server_units.h"
 #include "server_buildings.h"
 #include "common_command.h"
+#include "server_config.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Game {
+    Config* c;
 	unsigned int required;
 	std::string game_name;
 	std::map<std::string, Player> participants;
@@ -26,7 +28,8 @@ class Game {
     
     bool decidedWinner = false;
  public:
-	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath);
+	Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath,
+         Config* c);
     Game(); // Not intended for use
 	void add_participant(const int& ID_house, const std::string& playerName);
 	std::string get_name() const;

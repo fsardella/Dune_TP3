@@ -22,8 +22,6 @@
 #include <yaml-cpp/yaml.h>
 #include <yaml-cpp/node/node.h>
 
-#define MAPS "../server/maps/maps.yaml"
-#define MAPS_ROUTE "../server/maps/"
 
 
 typedef std::vector<std::vector<int>> sketch_t;
@@ -33,9 +31,10 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor del hablador de Clientes.
 */
 
-Talker::Talker(Socket&& socket, GameSet* game_set): protocol(std::move(socket)),
-                                                    commandQueue(nullptr),
-                                                    sender(nullptr) {
+Talker::Talker(Socket&& socket, GameSet* game_set,
+               Config* c): c(c), protocol(std::move(socket)),
+                                       commandQueue(nullptr),
+                                       sender(nullptr) {
 	try {
         this->gameSet = game_set;
         int bytes = this->protocol.recieve_msg_bytes();
@@ -62,7 +61,8 @@ Post-Condiciones: Crea una Game.
 
 int Talker::create_game(int house, int required, const std::string& game_name,
                         const std::string& mapPath) {
-	int result = gameSet->add_game(house,required,game_name, this->playerName, mapPath);
+	int result = gameSet->add_game(house,required,game_name, this->playerName,
+                                   mapPath, c);
 	return result;
 }
 
@@ -90,7 +90,7 @@ void Talker::list_games() {
 
 void Talker::list_maps() {
     try {
-        YAML::Node node = YAML::LoadFile(MAPS);
+        YAML::Node node = YAML::LoadFile(c->MAP_NAMES_PATH);
         std::vector<std::string> map_names = node["maps"].as<
                                         std::vector<std::string>>();
         int size = (int)map_names.size();
@@ -166,7 +166,7 @@ void Talker::handleLobby(int operation) {
             bytes = protocol.recieve_msg_bytes();
             std::string yamlPath = protocol.recieve_msg_game_name(bytes);
             house = protocol.recieve_msg_house();
-            YAML::Node node = YAML::LoadFile(MAPS_ROUTE + yamlPath + ".yaml");
+            YAML::Node node = YAML::LoadFile(c->MAP_PATHS + yamlPath + ".yaml");
             int required = node["constructions"].as<std::vector<
                            std::vector<int>>>().size();
             result = create_game(house,required,game_name, yamlPath);

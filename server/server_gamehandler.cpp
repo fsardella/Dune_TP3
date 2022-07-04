@@ -21,8 +21,9 @@ enum clientOpers {
 };
 #endif
 
-GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads):
-                                        game(ActiveGame(std::move(newGame))) {
+GameHandler::GameHandler(Game newGame, talkerMap_t& talkerThreads,  
+                         Config* c): c(c),
+                                        game(ActiveGame(std::move(newGame), c)) {
     std::list<PlayerData> playersData = this->game.getPlayersData();
     sketch_t gameMapSketch = this->game.getMapSketch();
     for (PlayerData& player : playersData) {
@@ -140,9 +141,9 @@ void GameHandler::notifySuccess(Command comm) {
 
 void GameHandler::run() {
     Command comm;
-    Broadcaster broad(this->game, this->playersQueue, this->commandQueue);
+    Broadcaster broad(this->game, this->playersQueue, this->commandQueue, c);
     broad.start();
-    TimeWizard wizard(this->game);
+    TimeWizard wizard(this->game, c);
     wizard.start();
     try {
         while (this->game.isAlive()) {

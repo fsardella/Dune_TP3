@@ -9,10 +9,12 @@
 #include "server_terrain_map.h"
 #include "server_unitdata.h"
 #include "server_buildings.h"
+#include "server_config.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
 class Player {
+    Config* c;
     std::string playerName;
     uint8_t playerID = 0xFF;
     int house;
@@ -36,7 +38,8 @@ class Player {
     uint16_t getConstructionDelta();
     uint16_t getEnergyPenalization();
  public:
-    Player(const int& house, const std::string& playerName, coor_t baseCoords);
+    Player(const int& house, const std::string& playerName, coor_t baseCoords,
+           Config* c);
     Player();
     
     uint8_t getUnitFactor(uint8_t type);

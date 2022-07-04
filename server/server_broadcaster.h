@@ -6,6 +6,7 @@
 #include "common_command.h"
 #include "common_blockingqueue.h"
 #include "server_unitbuffer.h"
+#include "server_config.h"
 #include <list>
 #include <tuple>
 #include <map>
@@ -40,6 +41,7 @@ enum broadcastOpers {
 #endif
 
 class Broadcaster: public Thread {
+    int delta;
     ActiveGame& game;
     queueMap_t& queues;
     BlockingQueue<Command>& queueToKill; // Horripilante, pero viene joya para
@@ -51,7 +53,8 @@ class Broadcaster: public Thread {
     Command getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding);
     Command getMenageBroadcast(std::list<std::pair<coor_t, uint16_t>> menageData);
  public:
-    Broadcaster(ActiveGame& game, queueMap_t& queues, BlockingQueue<Command>& queueToKill);
+    Broadcaster(ActiveGame& game, queueMap_t& queues,
+                BlockingQueue<Command>& queueToKill, Config* c);
     void run() override;
 	~Broadcaster() override;
 };

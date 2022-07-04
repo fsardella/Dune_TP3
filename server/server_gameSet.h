@@ -11,6 +11,7 @@
 #include <mutex>
 #include <utility>
 #include "common_blockingqueue.h"
+#include "server_config.h"
 
 #define GSSUCCESS 0
 #define GSERROR 1
@@ -26,7 +27,8 @@ class GameSet {
  public:
 	GameSet(BlockingQueue<Game>& readyGames);
 	int add_game(int house, int required, const std::string& game_name,
-                 const std::string& playerName, const std::string& mapPath);
+                 const std::string& playerName, const std::string& mapPath,
+                 Config* c);
 	int game_join(int house, const std::string& game_name,
                   const std::string& playerName);
 	//void get_games_names(std::vector<std::string> *games_names);

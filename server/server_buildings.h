@@ -6,6 +6,7 @@
 #include <string>
 #include "server_terrain_map.h"
 #include "common_command.h"
+#include "server_config.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
@@ -30,6 +31,7 @@ class Building {
     uint16_t buildingID = 0xFFFF;
     uint16_t buildingTime;
     uint16_t actualTime = 0;
+    int32_t energy;
     int watchers = 0;
     TerrainMap* terrain;
     std::string owner;
@@ -39,8 +41,8 @@ class Building {
     coor_t position = coor_t(0xFFFF, 0xFFFF);
  public:
     Building(coor_t size, uint16_t totalLife, uint16_t buildingTime,
-             std::string owner);
-    static Building* newBuilding(uint8_t type, std::string owner);
+             int32_t energy, std::string owner);
+    static Building* newBuilding(uint8_t type, std::string owner, Config* c);
 
     coor_t getPosition();
     coor_t getSize();
@@ -69,21 +71,22 @@ class Building {
     void stopWatching();
     bool canBeCleaned();
 
-    virtual int32_t getEnergy();
+    int32_t getEnergy();
     virtual ~Building();
 };
 
 
 class Base: public Building {
  public:
-    Base(coor_t position, std::string owner);
+    Base(coor_t position, std::string owner, Config* c);
+    Base(); // TE ODIO STD:: POR QUE NECESITAS PORQUERIAS VACIAS
     uint16_t getType();
     virtual ~Base();
 };
 
 class LightFactory : public Building {
  public:
-    LightFactory(std::string owner);
+    LightFactory(std::string owner, Config* c);
     bool isLightFactory() override;
     int32_t getEnergy();
     uint16_t getType();
@@ -92,7 +95,7 @@ class LightFactory : public Building {
 
 class HeavyFactory : public Building {
  public:
-    HeavyFactory(std::string owner);
+    HeavyFactory(std::string owner, Config* c);
     bool isHeavyFactory();
     int32_t getEnergy();
     uint16_t getType();
@@ -100,9 +103,10 @@ class HeavyFactory : public Building {
 };
 
 class Refinery : public Building {
+    uint32_t moneyCap;
     uint32_t money = 0;
  public:
-    Refinery(std::string owner);
+    Refinery(std::string owner, Config* c);
     bool isRefinery();
     uint32_t gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity);
     uint32_t getMoneyCapacity();
@@ -114,7 +118,7 @@ class Refinery : public Building {
 
 class WindTrap : public Building {
  public:
-    WindTrap(std::string owner);
+    WindTrap(std::string owner, Config* c);
     int32_t getEnergy();
     uint16_t getType();
     virtual ~WindTrap();

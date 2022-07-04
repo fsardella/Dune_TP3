@@ -1,0 +1,151 @@
+#######         GENERAL          #######
+
+port: "8080"
+
+maps: "../server/maps/"
+
+maps_names: "../server/maps/maps.yaml"
+
+clock: 100000
+# POSIX: 1s == 1M ticks, 100K ticks -> 1/10 seg
+
+worm: 1200
+
+
+#######        BUILDINGS         #######
+
+base:
+    life: 3000
+
+air_trap: 
+    energy: 500
+    price: 800
+    life: 500
+    ctime: 100
+
+light_factory:
+    energy: -500 
+    price: 800
+    life: 500
+    ctime: 120
+
+
+heavy_factory:
+    energy: -800
+    price: 1500
+    life: 1500
+    ctime: 150
+
+
+refinery:
+    energy: -400
+    price: 500
+    life: 1000
+    ctime: 120
+    capacity: 5000
+
+
+silo:
+    energy: -100
+    price: 200
+    life: 200
+    ctime: 100
+    capacity: 1000
+
+barrack:
+    energy: -100
+    price: 300
+    life: 300
+    ctime: 100
+
+palace:
+    energy: -800
+    price: 2000
+    life: 1000
+    ctime: 150
+
+
+#######             WEAPONS           #######
+### COOLDOWN: ES UN VALOR QUE RECIBE +300 POR SEGUNDO 
+
+assault_rifle:
+    cooldown: 50
+    damage: 2
+    bonus: 1
+
+cannon:
+    cooldown: 300
+    damage: 7
+
+rocket_launcher:
+    cooldown: 300
+    damage: 8
+
+sound_waves:
+    cooldown: 300
+    damage: 4
+    bonus: 4
+
+ttcannon:
+    cooldown: 50  
+    damage: 6
+    bonus: 2
+
+plasma:
+    cooldown: 300
+    damage: 8
+    bonus: 2
+
+#######              VEHICLES              #######
+trike: 
+    range: 4
+    speed: 64
+    ctime: 120
+    price: 100
+    life: 80
+
+raider:
+    range: 4
+    speed: 84
+    ctime: 120
+    price: 100
+    life: 80
+
+sonic_tank:
+    range: 4
+    speed: 12
+    ctime: 240
+    price: 300
+    life: 300
+
+tank:
+    range: 4
+    speed: 40
+    ctime: 240
+    price: 300
+    life: 30
+
+deviator:
+    range: 5
+    speed: 12
+    ctime: 240
+    price: 400
+    life: 300
+
+devastator:
+    range: 4
+    speed: 12
+    ctime: 300
+    price: 400
+    life: 400
+
+
+harvester:
+    range: 5
+    speed: 12
+    ctime: 180
+    price: 300
+    life: 600
+    harvestlimit: 200
+    harvesttime: 200
+    rechargetime: 50

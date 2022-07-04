@@ -3,11 +3,9 @@
 #include <unistd.h>
 #include <iostream>
 
-TimeWizard::TimeWizard(ActiveGame& game): game(game) {}
+TimeWizard::TimeWizard(ActiveGame& game, Config* c): delta(c->CLOCK_DELTA),
+                                                           game(game) {}
 
-
-#define DELTA 100000
-// POSIX: 1s == 1M ticks, 100K ticks -> 1/10 seg
 
 void TimeWizard::run() {
     clock_t before, after;
@@ -15,12 +13,12 @@ void TimeWizard::run() {
         before = clock();
         this->game.update();
         after = clock();
-        if ((after - before) > DELTA) {
+        if ((after - before) > this->delta) {
             std::cout << "WARNING: desincronizacion de reloj. Considere reducir su frecuencia."
                       << std::endl;
             continue;
         }
-        usleep(DELTA - (after - before));
+        usleep(this->delta - (after - before));
     }
 }
 

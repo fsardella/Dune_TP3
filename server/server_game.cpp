@@ -36,7 +36,8 @@ Pre-Condiciones: -
 Post-Condiciones: Constructor de una Game.
 */
 
-Game::Game(unsigned int num_required, const std::string& name, const std::string& yamlMapPath):
+Game::Game(unsigned int num_required, const std::string& name,
+           const std::string& yamlMapPath, Config* c): c(c),
 required(num_required),game_name(name), yamlMapPath(yamlMapPath) {
     YAML::Node node = YAML::LoadFile(MAPS_ROUTE + this->yamlMapPath + ".yaml");
     std::vector<std::vector<int>> bases = node["constructions"].as<std::vector<
@@ -53,7 +54,7 @@ Post-Condiciones: Agrega un participante a la Game actual.
 
 void Game::add_participant(const int& ID_house, const std::string& playerName) {
 	this->participants[playerName] = std::move(Player(ID_house, playerName,
-                                     basesCoordinates.front()));
+                                     basesCoordinates.front(), c));
     basesCoordinates.pop_front();
 }
 
@@ -147,10 +148,11 @@ Building* Game::getBuilding(std::string playerName, uint16_t buildingID) {
 
 bool Game::addUnit(std::string playerName, Unit* unit) {
     if (!this->isPlaying(playerName) 
-        || this->participants[playerName].hasLost())
+        || this->participants[playerName].hasLost()) {
+        delete unit;
         return false;
+    }
     this->participants[playerName].addUnit(unit);
-    std::cout << "unit added to player\n";
     return true;
 }
 
@@ -283,7 +285,8 @@ int Game::getHouse(std::string playerName) {
     return (this->participants[playerName].getHouse());
 }
 
-Game::Game(Game&& other) : required(other.required),
+Game::Game(Game&& other) : c(other.c),
+                           required(other.required),
                            game_name(std::move(other.game_name)),
                            participants(std::move(other.participants)),
                            yamlMapPath(std::move(other.yamlMapPath)),
@@ -293,6 +296,7 @@ Game::Game(Game&& other) : required(other.required),
 Game& Game::operator=(Game&& other) {
     if (this == &other)
         return *this;
+    this->c = other.c;
     this->game_name = std::move(other.game_name);
     this->participants = std::move(other.participants);
     this->yamlMapPath = std::move(other.yamlMapPath);
