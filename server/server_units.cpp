@@ -156,10 +156,12 @@ void Unit::processMove() {
         bool ret = this->moveAlgorithm.processMove(this->actDest);
         if (ret) {
             if (this->actDest == this->moveAlgorithm.getPosition()) {
+                std::cout << "ENDED MOVE!";
                 this->state = IDLE;
                 break;
             }
         } else {
+            std::cout << "COULDNT FIND PATH\n";
             this->actDest = this->moveAlgorithm.getPosition();
             this->state = IDLE;
             break;
@@ -168,14 +170,12 @@ void Unit::processMove() {
 }
 
 void Unit::processAttackUnit(std::list<Command>& events) {
-    std::cout << "SELF = " << this << ": Intento atacar\n";
     if (this->unitObjv == nullptr) {
         this->state = IDLE;
         this->weapon->stopAttack();
         return;
     }
     if (this->unitObjv->isDead() || this->unitObjv->getOwner() == this->owner) {
-        std::cout << "SE MURIO LA UNIDAD\n";
         this->unitObjv->stopWatching();
         this->unitObjv = nullptr;
         this->weapon->stopAttack();
@@ -185,7 +185,6 @@ void Unit::processAttackUnit(std::list<Command>& events) {
     this->actDest = this->unitObjv->getPosition();
     if (this->weapon->isInRange(this, this->unitObjv)) {
         this->weapon->startAttack();
-        std::cout << "ATTACK\n";
         if (this->weapon->attack(this->unitObjv)) {
             Command attack;
             attack.add8BytesMessage(UNIT_ATTACKED);
@@ -197,7 +196,6 @@ void Unit::processAttackUnit(std::list<Command>& events) {
             events.push_back(attack);
     }
     } else {
-        std::cout << "Me muevo\n";
         this->processMove();
     }
 }
@@ -235,7 +233,7 @@ void Unit::processAttackBuilding(std::list<Command>& events) {
 
 void Unit::processIdle(std::list<Command>& events) {
     Unit* tempObjv = this->weapon->scout(this);
-    if (tempObjv == nullptr) {
+    if (tempObjv == nullptr || tempObjv->isDead()) {
         this->weapon->stopAttack();
         return;
     }
@@ -280,8 +278,6 @@ void Unit::watch() {
 
 
 void Unit::stopWatching() {
-    if (this->canBeCleaned())
-        return;
     this->watchers--;
 }
 
@@ -340,7 +336,7 @@ Vehicle::~Vehicle() {}
 
 
 Harvester::Harvester(coor_t coor, TerrainMap& terr, uint16_t id,
-                     std::string owner) : Vehicle(coor, terr, id, owner, 12),
+                     std::string owner) : Vehicle(coor, terr, id, owner, 40),
                                           terr(terr) {}
 
 uint8_t Harvester::getType() {
@@ -353,6 +349,8 @@ bool Harvester::isHarvester() {
 
 void Harvester::setDest(coor_t newDest) {
     Vehicle::setDest(newDest);
+    std::cout << "DESTINY SET: " << newDest.first << ", "
+                << newDest.second << std::endl;
     if (!this->terr.hasMenage(newDest))
         return;
     this->actHarvestDest = newDest;
@@ -375,6 +373,8 @@ bool Harvester::checkRefineryIntegrity() {
                 newDest = coor_t(pos.first + dims.first * CHUNKSIZE,
                             pos.second + dims.second * CHUNKSIZE / 2);
                 Vehicle::setDest(newDest);
+                std::cout << "NEW REFINERY DESTINY SET: " << newDest.first << ", "
+                << newDest.second << std::endl;
                 return true;
             }
         }
@@ -382,9 +382,11 @@ bool Harvester::checkRefineryIntegrity() {
     }
     coor_t pos = this->ref->getPosition();
     coor_t dims = this->ref->getSize();
-    newDest = coor_t(pos.first + dims.first * CHUNKSIZE / 2,
+    newDest = coor_t(pos.first + dims.first * CHUNKSIZE,
                     pos.second + dims.second * CHUNKSIZE / 2);
     Vehicle::setDest(newDest);
+    std::cout << "NEW REFINERY DESTINY SET: " << newDest.first << ", "
+    << newDest.second << std::endl;
     return true;
 }
 
@@ -396,6 +398,7 @@ void Harvester::processHarvest() {
         std::cout << "    HARV: " << this->actHarvestDest.first << ", "
         << this->actHarvestDest.second << std::endl;  
         this->processMove();
+        this->state = HARVESTING;
         return;
     }
     if (!this->terr.hasMenage(this->actHarvestDest)) {
@@ -406,7 +409,7 @@ void Harvester::processHarvest() {
     }
     this->harvestingTime += 1;
     std::cout << "ADDED TO HARVEST TIME: " << this->harvestingTime << std::endl;
-    if (this->harvestingTime >= 200) {
+    if (this->harvestingTime >= 20) {
         std::cout << "HARVESTING READY" << std::endl;
         this->harvestingTime = 0;
         this->actMenage += this->terr.harvestMenage(this->getPosition(),
@@ -426,9 +429,10 @@ void Harvester::scoutForMenage() {
     std::cout << "STARTED SCOUTING FOR MENAGE\n";
     coor_t pos = this->actHarvestDest;
     for (int i = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
-        for (int j = -CHUNKSIZE * 5; i <= CHUNKSIZE * 5; i += CHUNKSIZE) {
-            if (abs(i) + abs(j) > 5)
+        for (int j = -CHUNKSIZE * 5; j <= CHUNKSIZE * 5; j += CHUNKSIZE) {
+            if (abs(i / CHUNKSIZE) + abs(j / CHUNKSIZE) > 5) {
                 continue;
+            }
             if (this->terr.hasMenage(coor_t(pos.first + i,
                                             pos.second + j))) {
                 this->actHarvestDest = coor_t(pos.first + i,
@@ -439,6 +443,7 @@ void Harvester::scoutForMenage() {
             }
         } 
     }
+    std::cout << "DIDN'T FIND SHIT\n";
     this->state = GOING_TO_REFINERY;
 }
 
@@ -460,13 +465,20 @@ void Harvester::processComeback() {
         this->state = IDLE;
         return;
     }
-    if (this->isNextToRefinery())
+    if (this->isNextToRefinery()) {
         if (this->actMenage == 0)
             this->state = IDLE;
         else
             this->state = CHARGING_REFINERY;
-    else 
+    } else {
+        std::cout << "GOING TO: " << this->ref->getPosition().first +
+        this->ref->getSize().first * CHUNKSIZE << ", " <<
+        this->ref->getPosition().second + this->ref->getSize().second * CHUNKSIZE << std::endl;
+        std::cout << "WHILE I AM IN: " << this->getPosition().first << ", "
+        << this->getPosition().second << std::endl;
         this->processMove();
+        this->state = GOING_TO_REFINERY;
+    }
 }
 
 void Harvester::processCharging() {
@@ -478,13 +490,18 @@ void Harvester::processCharging() {
     }
     this->state = CHARGING_REFINERY;
     if (aux != this->ref) {
+        std::cout << "WTF\n";
         this->chargingTime = 0;
         this->state = GOING_TO_REFINERY;
         return;
     }
     this->chargingTime += 1;
-    if (this->chargingTime >= 50) {
+    std::cout << "CHARGING BAYBEEE: " << this->chargingTime <<"\n";
+    if (this->chargingTime >= 10) {
         this->chargingTime = 0;
+        std::cout << "ENDED BAYBE\n";
+        this->ref->rechargeMoney(this->actMenage);
+        this->actMenage = 0;
         if (!this->terr.hasMenage(this->actHarvestDest)) {
             this->scoutForMenage();
             return;
@@ -511,6 +528,7 @@ void Harvester::update(std::list<Command>& events) {
             break;
         case CHARGING_REFINERY:
             std::cout << "RECHARGING\n";
+            this->processCharging();
             this->harvestingTime = 0;
             return;
         default:

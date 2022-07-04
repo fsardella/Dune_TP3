@@ -222,8 +222,11 @@ void Player::updateBuildings() {
     for (auto& building : this->buildings) {
         if (building.second->destroyed())
             continue;
+        uint32_t aux = this->money;
         this->money += building.second->gatherMoney(this->money,
                                                     this->moneyCapacity);
+        if (aux != this->money)
+            std::cout << "GOT PAYED: $" << this->money - aux << "\n"; 
     }
     if (this->buildingBirthing != nullptr)
         this->buildingBirthing->update(this->getConstructionDelta());

@@ -54,7 +54,7 @@ class Unit {
     uint16_t speed;
     uint16_t speedAcum = 0;
     
-    uint16_t watchers = 0; // Para asegurarse de que, al destruir,
+    int watchers = 0; // Para asegurarse de que, al destruir,
     // no queden dangling pointers... Es lo que se me ocurre... perdon
     // NOTA DEL FUTURO: YA ES MUY TARDE PARA METER STD::SHARED_POINTERS
     

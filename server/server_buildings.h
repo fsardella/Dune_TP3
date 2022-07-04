@@ -30,7 +30,7 @@ class Building {
     uint16_t buildingID = 0xFFFF;
     uint16_t buildingTime;
     uint16_t actualTime = 0;
-    uint16_t watchers = 0;
+    int watchers = 0;
     TerrainMap* terrain;
     std::string owner;
     
@@ -105,6 +105,7 @@ class Refinery : public Building {
     Refinery(std::string owner);
     bool isRefinery();
     uint32_t gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity);
+    uint32_t getMoneyCapacity();
     void rechargeMoney(uint32_t menage);
     int32_t getEnergy();
     uint16_t getType();

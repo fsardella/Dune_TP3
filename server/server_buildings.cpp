@@ -108,9 +108,10 @@ bool Building::canBuild(TerrainMap& terr, coor_t position) {
 
 void Building::build(TerrainMap& terr, coor_t position, uint16_t id) {
     this->buildingID = id;
-    this->position = position;
+    this->position = coor_t(position.first / CHUNKSIZE * CHUNKSIZE,
+                            position.second / CHUNKSIZE * CHUNKSIZE);
     this->terrain = &terr;
-    return terr.build(position, this);
+    return terr.build(this->position, this);
 }
 
 void Building::eraseFromMap() {
@@ -150,9 +151,7 @@ void Building::watch() {
 }
 
 void Building::stopWatching() {
-    if (this->canBeCleaned())
-        return;
-    this->watchers--;   
+    this->watchers--;
 }
 
 int32_t Building::getEnergy() {
@@ -162,7 +161,7 @@ int32_t Building::getEnergy() {
 bool Building::canBeCleaned() {
     if (!this->destroyed())
         return false;
-    return (this->watchers == 0);
+    return (this->watchers <= 0);
 }
 
 
@@ -248,6 +247,11 @@ int32_t Refinery::getEnergy() {
 uint16_t Refinery::getType() {
     return REFINERY;
 }
+
+uint32_t Refinery::getMoneyCapacity() {
+    return 5000;
+}
+
 
 Refinery::~Refinery() {}
 
