@@ -50,7 +50,8 @@ class MapView {
     std::map<int, SdlTexture> menuTextureTranslator;
     std::map<int, SdlTexture> wormTextureTranslator;
     std::map<std::string, SdlTexture> menuTextsTranslator;
-    std::map<int, SdlTexture> lifeTextureTranslator;
+    std::map<int, SdlTexture> lifeTextureTranslatorForUnit;
+    std::map<int, SdlTexture> lifeTextureTranslatorForConstruction;
     std::map<std::tuple<int, int>, SdlTexture> attackTextureTranslator;
 
     std::map<int, SdlTexture> identifierTranslator;

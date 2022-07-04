@@ -7,7 +7,7 @@
 #define CREATE_ANIMATION 1
 #define DEAD_ANIMATION 2
 #define EXPLOSION_ANIMATION 3
-#define LIFE_BAR_WIDTH 12
+#define LIFE_BAR_WIDTH 32
 #define LIFE_BAR_HEIGHT 4
 #define IDENTIFIER_DIMENSION 4
 
@@ -69,7 +69,7 @@ int Construction::render(Camera &camera, int posX, int posY) {
     Area srcLife(0, 0, LIFE_BAR_WIDTH, LIFE_BAR_HEIGHT);
     camera.renderInSightForUnit(currentLifeTexture, srcLife, posX, posY - 0.2);
     Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
-    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 0.6,
+    camera.renderInSightForUnit(identifierTexture, srcIdentifier, posX + 1.2,
                                 posY - 0.2);
     Area src(0, 0, sizeW, sizeH);
     return camera.renderInSightForUnit(texture, src, posX, posY);

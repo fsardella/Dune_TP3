@@ -259,6 +259,10 @@ void UserInputReceiver::run() {
                     case SDLK_DOWN: gameView->moveDownwards(); break;
                     case SDLK_LEFT: gameView->moveLeft(); break;
                     case SDLK_RIGHT: gameView->moveRight(); break;
+                    case SDLK_a: gameView->moveLeft(); break;
+                    case SDLK_d: gameView->moveRight(); break;
+                    case SDLK_s: gameView->moveDownwards(); break;
+                    case SDLK_w: gameView->moveUpwards(); break;
                 }
             }
         }

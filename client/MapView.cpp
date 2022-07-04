@@ -43,6 +43,7 @@
 #define MENU_PATH "../client/menu.yaml"
 #define IDENT_PATH "../client/ident.yaml"
 #define LIFE_PATH "../client/animations/vida"
+#define LIFE_PATH_FOR_CONST "../client/animations/vidaConst"
 #define ARMAMENT_PATH "../client/armament.yaml"
 #define WORM_PATH "../client/animations/Worm"
 
@@ -184,10 +185,17 @@ Post-Condiciones: -
 void MapView::loadLifeTranslator() {
     for (int i = 1; i <= 4; i ++) {
         std::string path(LIFE_PATH + std::to_string(i) + ".bmp");
-        lifeTextureTranslator.emplace(std::piecewise_construct,
-                                      std::forward_as_tuple(i),
-                                      std::forward_as_tuple(path,
-                                      &window));
+        lifeTextureTranslatorForUnit.emplace(std::piecewise_construct,
+                                             std::forward_as_tuple(i),
+                                             std::forward_as_tuple(path,
+                                             &window));
+    }
+    for (int i = 1; i <= 4; i ++) {
+        std::string path(LIFE_PATH_FOR_CONST + std::to_string(i) + ".bmp");
+        lifeTextureTranslatorForConstruction.emplace(std::piecewise_construct,
+                                                     std::forward_as_tuple(i),
+                                                    std::forward_as_tuple(path,
+                                                     &window));
     }
 }
 
@@ -359,7 +367,7 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
     unitTiles.emplace(std::piecewise_construct,
                        std::forward_as_tuple(unitId),
                        std::forward_as_tuple(animationsRepository.at(unitType),
-                                             lifeTextureTranslator,
+                                             lifeTextureTranslatorForUnit,
                                              std::move(attackSprites),
                                              &(identifierTranslator.at(
                                                playerId)),
@@ -440,14 +448,10 @@ void MapView::createConstruction(int x, int y, int playerId,
     int width, height;
     getBuildingDimensions(constType, &width, &height);
 
-    std::cout << "const Type " << constType << std::endl;
-    std::cout << "player Id " << playerId << std::endl;
-
-    std::cout << "meto la const id " << constructionId << std::endl;
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
                     std::forward_as_tuple(animationsRepository.at(constType),
-                                          lifeTextureTranslator,
+                                          lifeTextureTranslatorForConstruction,
                                           &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,
                                           constType, playerId, propiety));
@@ -537,8 +541,6 @@ Post-Condiciones: -
 */
 
 void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalLife) {
-    std::cout << "llega el attacked id " << attackedId << std::endl;
-    std::cout << "llega con currentLife " << currentLife << std::endl;
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
     if (currentLife == WITHOUT_LIFE) {
         window.push(EXPLOSION, ATTACK_VOLUME);
@@ -833,11 +835,14 @@ void MapView::setNotReady(int currentBuilding) {
     menuImages[currentBuilding].setNotReady();
 }
 
+/*
+Pre-Condiciones: Actualiza si un edificio deja de estar listo ya que se
+posicionó.
+Post-Condiciones: -
+*/
 
 void MapView::updateUnready(int constructionType, int property) {
     if (property) {
-        std::cout << "entro a este if\n";
-        std::cout << "le cambio el ready a (tendria que ser 11) " << constructionType - 1 << std::endl;
         menuImages[constructionType - 1].setNotReady();
         for (int i = 11; i < 18; i ++) {
             if (i == constructionType - 1) continue;
@@ -854,12 +859,6 @@ Post-Condiciones: -
 void MapView::wormAttack(int x, int y) {
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
     float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
-    // for (int& id : deadId) {
-    //     unitTiles.at(id).kill();
-    //     // eliminarlos del arreglo o solo no renderizarlos?
-    //     // lo mismo cuando mueren en ataque
-    //     // lo mismo para muerte en ataque de edificio
-    // }
     worm.setNewPosition(posX, posY);
     worm.startAttacking();
 }
