@@ -53,6 +53,8 @@ class Game {
     bool addUnit(std::string playerName, Unit* unit);
     void moveUnit(std::string playerName, uint16_t unitID, coor_t coor);
 
+    void destroyBuilding(std::string playerName, uint16_t id,
+                         std::list<Command>& events);
     void updateUnits(std::list<Command>& events);
     void updateBuildings();
     void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,

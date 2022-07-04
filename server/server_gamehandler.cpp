@@ -10,14 +10,15 @@
 enum clientOpers {
     XXXX = 0,
     UNIRSE,
-    LISTAR,
+    LISTAR, // https://youtu.be/k238XpMMn38
     CREAR, // Estan en espaniol porque asi era el tp de threads. Too bad!
     DISCONNECT,
     NEW_UNIT,
     NEW_BUILDING,
     ATTACK,
     MOVE,
-    ADD_BUILDING
+    ADD_BUILDING,
+    DESTROY_BUILDING
 };
 #endif
 
@@ -60,7 +61,10 @@ void GameHandler::processCommand(Command comm) {
             std::cout << "Recibi request de posicionar edificio de " << comm.getSender() << std::endl;
             this->addNewBuilding(comm);
             break;
-            
+        case DESTROY_BUILDING:
+            std::cout << "Recibi request de destruir edificio de " << comm.getSender() << std::endl;
+            this->destroyBuilding(comm);
+            break;
     }
 }
 
@@ -91,6 +95,11 @@ void GameHandler::addNewBuilding(Command comm) {
         this->notifyError(comm);
     else
         this->notifySuccess(comm);
+}
+
+void GameHandler::destroyBuilding(Command comm) {
+    uint16_t id = comm.pop16BytesMessage();
+    this->game.destroyBuilding(comm.getSender(), id);
 }
 
 #define ATTACK_UNIT 0

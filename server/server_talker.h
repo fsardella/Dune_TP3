@@ -26,8 +26,8 @@ enum clientOpers {
     NEW_BUILDING,
     ATTACK,
     MOVE,
-    ADD_BUILDING
-    
+    ADD_BUILDING,
+    DESTROY_BUILDING
 };
 #endif
 

@@ -171,6 +171,14 @@ uint16_t Game::addBuilding(std::string playerName, uint16_t x, uint16_t y,
     return this->participants[playerName].addBuilding(x, y, terr, id);
 }
 
+void Game::destroyBuilding(std::string playerName, uint16_t id,
+                         std::list<Command>& events) {
+    if (!this->isPlaying(playerName) 
+        || this->participants[playerName].hasLost())
+        return;
+    this->participants[playerName].destroyBuilding(id, events);
+}
+
 void Game::moveUnit(std::string playerName, uint16_t unitID, coor_t coor) {
     if (!this->isPlaying(playerName) 
         || this->participants[playerName].hasLost())

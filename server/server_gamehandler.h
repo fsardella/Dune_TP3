@@ -29,6 +29,7 @@ class GameHandler: public Thread {
     void addNewBuilding(Command comm);
     void processAttack(Command comm);
     void moveUnit(Command comm);
+    void destroyBuilding(Command comm);
     void notifyError(Command comm);
     void notifySuccess(Command comm);
     

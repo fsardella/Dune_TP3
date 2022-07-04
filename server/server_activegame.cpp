@@ -175,6 +175,10 @@ void ActiveGame::update() {
 
 void ActiveGame::addUnit(std::string playerName, uint8_t type) {
     lock_t lock(this->m);
+    for (UnitBuffer& un : this->unitsBuilding) {
+        if (playerName == un.getPlayerName() && type == un.getType()) 
+            return;
+    }
     bool ret = this->game.chargeMoney(playerName, type);
     if (ret)
         this->unitsBuilding.push_back(UnitBuffer(type, playerName, this->gameMap,
@@ -205,6 +209,11 @@ bool ActiveGame::addBuilding(std::string playerName, uint16_t x, uint16_t y) {
         this->buildingIDCount++;
     }
     return (ret != 0xFFFF);
+}
+
+void ActiveGame::destroyBuilding(std::string playerName, uint16_t id) {
+    lock_t lock(this->m);
+    game.destroyBuilding(playerName, id, this->events);
 }
 
 void ActiveGame::moveUnit(std::string playerName, uint16_t unitID, uint16_t x,

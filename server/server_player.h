@@ -52,7 +52,8 @@ class Player {
     void addUnit(Unit* unit);
     uint16_t addBuilding(uint16_t x, uint16_t y, TerrainMap& terr, uint16_t id);
     void createBuilding(uint8_t type);
-                     
+    void destroyBuilding(uint16_t id, std::list<Command>& events);
+    
     void moveUnit(uint16_t unitID, coor_t coor);
     void updateUnits(std::list<Command>& events);            
     void updateBuildings();

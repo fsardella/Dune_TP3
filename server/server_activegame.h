@@ -62,6 +62,7 @@ class ActiveGame {
     void addUnit(std::string playerName, uint8_t type);
     void createBuilding(std::string playerName, uint8_t type);
     bool addBuilding(std::string playerName, uint16_t x, uint16_t y);
+    void destroyBuilding(std::string playerName, uint16_t id);
     void moveUnit(std::string playerName, uint16_t unitID, uint16_t x,
                   uint16_t y);
     void attackUnit(uint16_t attacker, uint16_t attackedUnit);

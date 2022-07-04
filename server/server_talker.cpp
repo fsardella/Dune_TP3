@@ -208,6 +208,9 @@ void Talker::handleGame(int operation) {
         case ADD_BUILDING:
             bytes = 4;
             break;
+        case DESTROY_BUILDING:
+            bytes = 2;
+            break;
         default:
             return;
     }

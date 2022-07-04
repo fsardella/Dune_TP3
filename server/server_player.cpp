@@ -225,11 +225,8 @@ void Player::updateBuildings() {
     for (auto& building : this->buildings) {
         if (building.second->destroyed())
             continue;
-        uint32_t aux = this->money;
         this->money += building.second->gatherMoney(this->money,
                                                     this->moneyCapacity);
-        if (aux != this->money)
-            std::cout << "GOT PAYED: $" << this->money - aux << "\n"; 
     }
     if (this->buildingBirthing != nullptr)
         this->buildingBirthing->update(this->getConstructionDelta());
@@ -300,6 +297,23 @@ void Player::createBuilding(uint8_t type) {
     if (!chargeMoney(type))
         return;
     this->buildingBirthing = Building::newBuilding(type, this->playerName, c);
+}
+
+void Player::destroyBuilding(uint16_t id, std::list<Command>& events) {
+    if (!this->hasBuilding(id) || id == this->playerID //(no podes destruir la base
+        || this->buildings[id]->destroyed())
+        return;
+    Building* destroyed = this->buildings[id];
+    uint32_t returnedMoney = this->getPriceOfCreation((uint8_t)destroyed->getType()) / 2;
+    if (this->money + returnedMoney
+        >= this->moneyCapacity - destroyed->getMoneyCapacity())
+        this->money = (this->money
+                    < this->moneyCapacity - destroyed->getMoneyCapacity())? 
+                    this->moneyCapacity - destroyed->getMoneyCapacity() :
+                    this->money;
+    else
+        this->money += returnedMoney;
+    destroyed->destroy(events);
 }
 
 uint16_t Player::addBuilding(uint16_t x, uint16_t y, TerrainMap& terr,
