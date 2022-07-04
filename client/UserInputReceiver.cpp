@@ -22,8 +22,7 @@
 #define ATTACK 7
 #define MOVEMENT 8
 #define POSITION_BUILDING 9
-#define CHASE 10
-#define DESTRUCTION 11
+#define DESTRUCTION 10
 
 #define CONSTRUCTION_OFFSET 11
 #define UNIT_LIMIT 10
@@ -108,11 +107,7 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 return;
             }
 
-            int unitId = gameView->isUnit(posX, posY, false);
-            int buildingId = gameView->isBuilding(posX, posY, false);
-
-            if (gameView->isBuildingReady(currentMenuImage - 1) &&
-                unitId == NONE_TYPE && buildingId == NONE_TYPE) {
+            if (gameView->isBuildingReady(currentMenuImage - 1)) {
                 // op 9
                 std::cout << "op 9\n";
                 // quiero posicionar un edificio ya listo
@@ -121,30 +116,6 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 blockingQueue->push(std::move(clientInput));
                 // gameView->setNotReady(currentMenuImage);
                 currentMenuImage = NONE_TYPE;
-                return;
-            }
-
-
-            if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
-                // op 7
-                std::cout << "op 7\n";
-                int attackedType = unitId != NONE_TYPE ? 0 : 1;
-                int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
-                // quiero atacar a un edificio/unidad
-                for (int& touchedId : touchedUnits) {
-                    if (gameView->getType(touchedId) == HARVESTER_TYPE) continue;
-                    std::cout << "mando op 7 con un 0 si ataco a otra unidad " << attackedType << " con el id " << touchedId << " al " << attackedId << std::endl;; 
-                    ClientInput clientInput(ATTACK, attackedType,
-                                            touchedId, attackedId);
-                    blockingQueue->push(std::move(clientInput));
-                    gameView->untouchedUnit(touchedId);
-                }
-                touchedUnits.clear();
-                if (unitId != NONE_TYPE) {
-                    unitId = NONE_TYPE;
-                } else {
-                    buildingId = NONE_TYPE;
-                }
                 return;
             }
         } catch(const ClosedQueueException& e) {
@@ -209,16 +180,25 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         int unitId = gameView->isUnit(posX, posY, false);
         int buildingId = gameView->isBuilding(posX, posY, false);
         if (unitId != NONE_TYPE || buildingId != NONE_TYPE) {
-            // op 10
-            std::cout << "op 10\n";
-            // quiero perseguir a una unidad/edificio
-            int chasedId = (unitId == NONE_TYPE) ? buildingId : unitId;
-            for (int& id : touchedUnits) {
-                ClientInput clientInput(CHASE, id, chasedId);
+            // op 7
+            std::cout << "op 7\n";
+            // quiero atacar a una unidad/edificio
+            int attackedType = unitId != NONE_TYPE ? 0 : 1;
+            int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
+            for (int& touchedId : touchedUnits) {
+                if (gameView->getType(touchedId) == HARVESTER_TYPE) continue;
+                std::cout << "mando op 7 con un 0 si ataco a otra unidad " << attackedType << " con el id " << touchedId << " al " << attackedId << std::endl;; 
+                ClientInput clientInput(ATTACK, attackedType,
+                                        touchedId, attackedId);
                 blockingQueue->push(std::move(clientInput));
-                gameView->untouchedUnit(id);
+                gameView->untouchedUnit(touchedId);
             }
             touchedUnits.clear();
+            if (unitId != NONE_TYPE) {
+                unitId = NONE_TYPE;
+            } else {
+                buildingId = NONE_TYPE;
+            }
             return;
         }
         // me quiero mover a una direccion vacia

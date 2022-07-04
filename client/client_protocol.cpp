@@ -331,14 +331,14 @@ persecusión de unidades a otras (de otro jugador).
 Post-Condiciones: 
 */
 
-void ProtocolClient::sendChasingInfo(int operation, int idChaser,
-                                     int idChased) {
-    this->sendOperation(operation);
-    uint16_t chaser = convert_to_uint16_with_endianess(idChaser);
-    uint16_t chased = convert_to_uint16_with_endianess(idChased);
-    socket.sendall(&chaser, TWO_BYTES);
-    socket.sendall(&chased, TWO_BYTES);
-}
+// void ProtocolClient::sendChasingInfo(int operation, int idChaser,
+//                                      int idChased) {
+//     this->sendOperation(operation);
+//     uint16_t chaser = convert_to_uint16_with_endianess(idChaser);
+//     uint16_t chased = convert_to_uint16_with_endianess(idChased);
+//     socket.sendall(&chaser, TWO_BYTES);
+//     socket.sendall(&chased, TWO_BYTES);
+// }
 
 /*
 Pre-Condiciones: Envia mensaje al servidor para destruir un edificio propio.

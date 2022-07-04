@@ -8,8 +8,7 @@
 #define ATTACK 7
 #define MOVEMENT 8
 #define POSITION_BUILDING 9
-#define CHASE 10
-#define DESTRUCTION 11
+#define DESTRUCTION 10
 
 /*
 Pre-Condiciones: Constructor de Server Dispatcher.
@@ -55,11 +54,6 @@ void ServerDispatcher::run() {
                 break;
             case POSITION_BUILDING:
                 protocolClient->sendBuildingPosition(operation,
-                                clientInput.getParam1(),
-                                clientInput.getParam2());
-                break;
-            case CHASE:
-                protocolClient->sendChasingInfo(operation,
                                 clientInput.getParam1(),
                                 clientInput.getParam2());
                 break;

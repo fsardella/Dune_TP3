@@ -860,9 +860,7 @@ Post-Condiciones: -
 
 void MapView::updateSpecie(int x, int y, int state) {
     int index = SPICE_OFFSET + state - 1;
-    std::cout << "state era " << state <<  "\n";
     if (state == 0) {
-        std::cout << "state era 0\n";
         index = 0;
     }
     if (index == backgroundTiles[y * columns + x].getId()) return;

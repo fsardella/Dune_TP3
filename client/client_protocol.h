@@ -42,7 +42,7 @@ class ProtocolClient {
     void sendAttacknInfo(int operation, int type, int param1, int param2);
     void sendMovementUnit(int operation, int unitId, int x, int y);
     void sendBuildingPosition(int operation, int x, int y);
-    void sendChasingInfo(int operation, int idChaser, int idChased);
+    // void sendChasingInfo(int operation, int idChaser, int idChased);
     void sendBuildingDestruction(int operation, int buildingId);
 
     void recvListOfMaps(std::list<std::string>& list);
