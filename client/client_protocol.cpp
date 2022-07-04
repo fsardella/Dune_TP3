@@ -555,12 +555,19 @@ Post-Condiciones: -
 */
 
 void ProtocolClient::recvRefinementInfo(std::vector<std::tuple<int, int, int>>&
-                                        species) {
+                                        species, std::map<std::tuple<int, int>,
+                                        bool> & spice) {
     int tilesAmount = receiveTwoBytes();
     for (int i = 0; i < tilesAmount; i ++) {
         int x = receiveTwoBytes();
         int y = receiveTwoBytes();
         int state = receiveOneByte();
+        auto found = spice.find(std::make_tuple(x, y));
+        if (found == spice.end()) {
+            spice[std::make_tuple(x, y)] = false;
+        } else {
+            spice[std::make_tuple(x, y)] = true;
+        }
         species.push_back(std::make_tuple(x, y, state));
     }
 }

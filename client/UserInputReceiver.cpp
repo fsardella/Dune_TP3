@@ -10,7 +10,7 @@
 #define SPACING_Y 10
 #define IMAGE_PIX_WIDTH 100
 #define IMAGE_PIX_HEIGHT 75
-#define END_ROWS 695
+#define END_ROWS 620
 #define END_COLS 1300
 #define LAST_ROW 6
 #define ERROR -1
@@ -97,7 +97,8 @@ Post-Condiciones: -
 void UserInputReceiver::handlePosition(int x, int y) {
     int posX = x + gameView->getXOffset() * TILE_SIZE;
     int posY = y + gameView->getYOffset() * TILE_SIZE;
-    if (0 < posX && posX < MENU_OFFSET_X) {
+    std::cout << "toco en el mapa en " << posX << " y " << posY << std::endl;
+    if (0 < posX && posX < MENU_OFFSET_X + gameView->getXOffset() * TILE_SIZE) {
         try {
             int id = gameView->isUnit(posX, posY, true);
             if (currentMenuImage == NONE_TYPE && id != NONE_TYPE) {

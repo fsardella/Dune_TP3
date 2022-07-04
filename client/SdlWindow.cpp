@@ -115,9 +115,18 @@ actualmente se quieren reproducir en el juego y se reproducen.
 Post-Condiciones: -
 */
 
-void SdlWindow::playSound(int soundId, int volume) {
-    sounds.push(soundId, volume);
+void SdlWindow::playSounds() {
     sounds.playSounds();
+}
+
+/*
+Pre-Condiciones: Se pushea en un vector de reproducibles los sonidos que
+actualmente se quieren reproducir en el juego.
+Post-Condiciones: -
+*/
+
+void SdlWindow::push(int soundId, int volume) {
+    sounds.push(soundId, volume);
 }
 
 /*

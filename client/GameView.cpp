@@ -367,6 +367,11 @@ void GameView::playLostSound() {
     map.playLostSound();
 }
 
+void GameView::playSounds() {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    window.playSounds();
+}
+
 /*
 Pre-Condiciones: Destructor del GameView.
 Post-Condiciones: -

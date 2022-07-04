@@ -50,7 +50,13 @@ Post-Condiciones: -
 
 void SoundManager::playSounds() {
     for (size_t i = 0; i < soundsToPlay.size() && i < 8; i++) {
-        Mix_PlayChannel(-1, soundsToPlay[i], 0);
+        if (Mix_Playing(i) != 1) {
+            Mix_PlayChannel(i, soundsToPlay[i], 0);
+        }
+        // Mix_Chunk* chunk = Mix_GetChunk(i);
+        // if (chunk->volume == 80) {
+        //     while (Mix_Playing(i) == 1) continue;
+        // }
     }
 
     if (!musicIsPlaying) {

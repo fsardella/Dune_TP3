@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include "Animation.h"
+#include "Construction.h"
 #include "Camera.h"
 
 class Unit {
@@ -27,6 +28,15 @@ class Unit {
     bool isDead;
     bool isDying;
     bool isTouched;
+    float destinationX;
+    float destinationY;
+    float bulletPaseX;
+    float bulletPaseY;
+    bool reachedDestination;
+    int misilIteration;
+    int previosAnimationId;
+    Unit* attackedUnit;
+    Construction* attackedConstruction;
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
 
@@ -57,6 +67,7 @@ class Unit {
     void getIdentificatorTexture();
 
     void calculateBulletPosition(float& direcX, float& direcY, int animationId);
+    void calculateMisilPosition(float& direcX, float& direcY, int animationId);
     void updateAnimationId(int oldAnimationId, int newAnimationId);
     float getX();
     float getY();
@@ -73,9 +84,15 @@ class Unit {
     int getUnitType();
     void setIsTouched(bool status);
 
+    void setExplosion();
+
     bool isAttacking();
     void startAttacking();
     void updateLife(int currentLife, int totalLife);
+    void setMisilDestinationForUnit(float x, float y, Unit* attackedUnit);
+    void setMisilDestinationForConstruction(float x, float y,
+                                        Construction* attackedConstruction);
+    void calculateSteps();
 
     void update(int delta);
 

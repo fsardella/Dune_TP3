@@ -18,7 +18,8 @@
 #define TILE_PIX_SIZE 32
 #define IMAGE_PIX_WIDTH 100
 #define IMAGE_PIX_HEIGHT 75
-#define VOLUME 80
+#define ATTACK_VOLUME 60
+#define VOICE_VOLUME 80
 #define WIN_SOUND 1
 #define LOST_SOUND 0
 

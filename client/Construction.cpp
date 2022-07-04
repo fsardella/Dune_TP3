@@ -6,6 +6,7 @@
 #define STILL_ANIMATION 0
 #define CREATE_ANIMATION 1
 #define DEAD_ANIMATION 2
+#define EXPLOSION_ANIMATION 3
 #define LIFE_BAR_WIDTH 12
 #define LIFE_BAR_HEIGHT 4
 #define IDENTIFIER_DIMENSION 4
@@ -38,7 +39,8 @@ Construction::Construction(std::map<std::tuple<int, int>,
   propiety(propiety),
   animationId(1),
   lifeId(4),
-  isDead(false) {
+  isDead(false),
+  previosAnimationId(0) {
     int actualSprite = 0;
     std::vector<SdlTexture*> textures;
     for (const auto& [key, value] : animationsRepository) {
@@ -196,10 +198,29 @@ void Construction::update(int delta) {
     if (animationId == STILL_ANIMATION) return;
     animations.at(animationId).update(delta);
     getTexture();
+    if (animationId == EXPLOSION_ANIMATION &&
+        animations.at(animationId).isLastFrame()) {
+        animationId = previosAnimationId;
+        getTexture();
+        previosAnimationId = 0;
+    }
     if (animations.at(animationId).isLastFrame() &&
         animationId == CREATE_ANIMATION) {
         animationId = STILL_ANIMATION;
     }
+}
+
+int Construction::getAnimationId() {
+    return animationId;
+}
+
+void Construction::setExplosion() {
+    std::cout << "me setean una explosion\n";
+    previosAnimationId = animationId;
+    std::cout << "id anterior " << previosAnimationId << std::endl;
+    animationId = EXPLOSION_ANIMATION;
+    animations.at(animationId).reset();
+    getTexture();
 }
 
 /*
@@ -222,6 +243,7 @@ Construction::Construction(Construction &&other)
   animationId(other.animationId),
   lifeId(other.lifeId),
   isDead(other.isDead),
+  previosAnimationId(other.previosAnimationId),
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture)
 {}

@@ -4,7 +4,7 @@ amount: 21
 
 #######TRIKE#######
 
-0_animationAmount: 13
+0_animationAmount: 14
 
 # Noroeste
 0_0:
@@ -86,9 +86,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+0_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######RAIDER#######
 
-1_animationAmount: 13
+1_animationAmount: 14
 
 # Noroeste
 1_0:
@@ -161,9 +167,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+1_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######TANQUE#######
 
-2_animationAmount: 13
+2_animationAmount: 14
 
 # Noroeste
 2_0:
@@ -236,9 +248,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+2_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######COSECHADORA#######
 
-3_animationAmount: 13
+3_animationAmount: 14
 
 # Noroeste
 3_0:
@@ -319,10 +337,16 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+3_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 
 #######DESVIADOR#######
 
-4_animationAmount: 13
+4_animationAmount: 14
 
 # Noroeste
 4_0:
@@ -428,9 +452,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+4_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######DEVASTADOR#######
 
-5_animationAmount: 13
+5_animationAmount: 14
 
 # Noroeste
 5_0:
@@ -506,10 +536,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+5_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
 
 #######SONIC TANK#######
 
-6_animationAmount: 13
+6_animationAmount: 14
 
 # Noroeste
 6_0:
@@ -609,9 +644,15 @@ amount: 21
   - "../client/animations/DestructionUnit4.bmp"
   - "../client/animations/Destruction0.bmp"
 
+# Explosion
+6_13:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######INFANTERIA LIGERA#######
 
-7_animationAmount: 10
+7_animationAmount: 11
 
 # Moviendose al noroeste
 7_0:
@@ -664,9 +705,15 @@ amount: 21
   - "../client/animations/InfanteryDead3.bmp"
   - "../client/animations/InfanteryDead3.bmp"
 
+# Explosion
+7_10:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######INFANTERIA PESADA#######
 
-8_animationAmount: 10
+8_animationAmount: 11
 
 # Moviendose al noroeste
 8_0:
@@ -719,9 +766,15 @@ amount: 21
   - "../client/animations/InfanteryDead3.bmp"
   - "../client/animations/InfanteryDead3.bmp"
 
+# Explosion
+8_10:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######FREMEN#######
 
-9_animationAmount: 10
+9_animationAmount: 11
 
 # Moviendose al noroeste
 9_0:
@@ -774,10 +827,16 @@ amount: 21
   - "../client/animations/InfanteryDead3.bmp"
   - "../client/animations/InfanteryDead3.bmp"
 
+# Explosion
+9_10:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 
 #######SARDUKAR#######
 
-10_animationAmount: 10
+10_animationAmount: 11
 
 # Moviendose al noroeste
 10_0:
@@ -831,11 +890,17 @@ amount: 21
   - "../client/animations/InfanteryDead3.bmp"
   - "../client/animations/InfanteryDead3.bmp"
 
+# Explosion
+10_10:
+  - "../client/animations/ExplosionUnit1.bmp"
+  - "../client/animations/ExplosionUnit2.bmp"
+  - "../client/animations/ExplosionUnit3.bmp"
+
 #######CONSTRUCTIONS#######
 
 #######CENTRO DE CONSTRUCCION#######
 
-11_animationAmount: 3
+11_animationAmount: 4
 
 #Quieto
 11_0:
@@ -855,9 +920,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+11_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######FABRICA LIGERA#######
 
-12_animationAmount: 3
+12_animationAmount: 4
 
 #Quieto
 12_0:
@@ -877,9 +948,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+12_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######FABRICA PESADA#######
 
-13_animationAmount: 3
+13_animationAmount: 4
 
 #Quieto
 13_0:
@@ -899,9 +976,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+13_3:
+  - "../client/animations/ExplosionLarge1.bmp"
+  - "../client/animations/ExplosionLarge1.bmp"
+  - "../client/animations/ExplosionLarge2.bmp"
+
 #######PALACIO#######
 
-14_animationAmount: 3
+14_animationAmount: 4
 
 #Quieto
 14_0:
@@ -921,9 +1004,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+14_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######REFINERIA#######
 
-15_animationAmount: 3
+15_animationAmount: 4
 
 #Quieto
 15_0:
@@ -943,9 +1032,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+15_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######SILO#######
 
-16_animationAmount: 3
+16_animationAmount: 4
 
 #Quieto
 16_0:
@@ -965,9 +1060,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+16_3:
+  - "../client/animations/ExplosionSilo1.bmp"
+  - "../client/animations/ExplosionSilo1.bmp"
+  - "../client/animations/ExplosionSilo2.bmp"
+
 #######TRAMPA#######
 
-17_animationAmount: 3
+17_animationAmount: 4
 
 #Quieto
 17_0:
@@ -987,9 +1088,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+17_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######CUARTEL HARKONNEN#######
 
-18_animationAmount: 3
+18_animationAmount: 4
 
 #Quieto
 18_0:
@@ -1009,9 +1116,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+18_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######CUARTEL ORDOS#######
 
-19_animationAmount: 3
+19_animationAmount: 4
 
 #Quieto
 19_0:
@@ -1031,9 +1144,15 @@ amount: 21
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
 
+#Explosion
+19_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"
+
 #######CUARTEL ATREIDES#######
 
-20_animationAmount: 3
+20_animationAmount: 4
 
 #Quieto
 20_0:
@@ -1052,3 +1171,9 @@ amount: 21
   - "../client/animations/Destruction1.bmp"
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
+
+#Explosion
+20_3:
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium1.bmp"
+  - "../client/animations/ExplosionMedium2.bmp"

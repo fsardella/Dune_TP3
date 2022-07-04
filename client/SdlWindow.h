@@ -40,7 +40,8 @@ class SdlWindow {
                      const SDL_Rect& dst,
                      uint8_t alpha);
 
-    void playSound(int soundId, int volume);
+    void playSounds();
+    void push(int soundId, int volume);
 
     SDL_Point getCenter();
 

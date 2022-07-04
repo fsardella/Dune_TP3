@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Drawer.h"
 
-#define DRAWER_FRAME_DURATION 500
+#define DRAWER_FRAME_DURATION 100
 
 /*
 Pre-Condiciones: Constructor del Drawer.
@@ -25,6 +25,7 @@ void Drawer::run() {
         std::chrono::duration<float, std::milli> elapsed = (end - start);
         int delta = elapsed.count();
         gameView->update(DRAWER_FRAME_DURATION);
+        gameView->playSounds();
         if (DRAWER_FRAME_DURATION > delta) {
             usleep(DRAWER_FRAME_DURATION - delta);
         } else {

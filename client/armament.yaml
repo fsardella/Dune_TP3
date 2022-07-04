@@ -49,6 +49,12 @@ amount: 10
   - "../client/animations/OndasDeSonido1.bmp"
   - "../client/animations/OndasDeSonido2.bmp"
   - "../client/animations/OndasDeSonido3.bmp"
+  - "../client/animations/OndasDeSonido1.bmp"
+  - "../client/animations/OndasDeSonido2.bmp"
+  - "../client/animations/OndasDeSonido3.bmp"
+  - "../client/animations/OndasDeSonido1.bmp"
+  - "../client/animations/OndasDeSonido2.bmp"
+  - "../client/animations/OndasDeSonido3.bmp"
 
 #######INFANTERIA LIGERA#######
 
@@ -71,7 +77,7 @@ amount: 10
 #Animacion de ataque
 9:
   - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/RifleDeAsalto.bmp"
+  - "../client/animations/LanzaMisiles.bmp"
   - "../client/animations/LanzaMisiles.bmp"
 
 #######FREMEN#######
@@ -79,6 +85,5 @@ amount: 10
 #Animacion de ataque
 10:
   - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/RifleDeAsalto.bmp"
   - "../client/animations/LanzaMisiles.bmp"
-
+  - "../client/animations/LanzaMisiles.bmp"

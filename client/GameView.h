@@ -74,6 +74,7 @@ class GameView {
 
     void playWinSound();
     void playLostSound();
+    void playSounds();
 
     ~GameView();
 };

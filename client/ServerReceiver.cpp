@@ -54,7 +54,38 @@ void ServerReceiver::run() {
 
         // gameView->updateSpecie(0, 0, 5);
 
-        // gameView->buildUnit(110, 100, 2, 2, 0, 5, true); // BORRAR
+        // std::this_thread::sleep_for (std::chrono::seconds(3));
+
+        // gameView->buildUnit(110, 100, 16, 9, 0, 8, false); // BORRAR
+        // gameView->buildUnit(200, 150, 17, 7, 0, 3, true); // BORRAR
+
+        // gameView->unitAttack(16, 17, 80, 80);
+        // std::cout << "empieza el segundo\n";
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // std::cout << "termina el segundo\n";
+        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        // gameView->unitAttack(16, 17, 60, 80);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        // gameView->unitAttack(16, 17, 40, 80);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        // gameView->unitAttack(16, 17, 0, 80);
+        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+
+        // std::this_thread::sleep_for (std::chrono::seconds(3));
+        // std::cout << "lo intento creat\n";
+        // gameView->buildConstruction(300, 150, 0, 18, 11, true, 0);
+
+        // gameView->buildingAttack(16, 18, 80, 80);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // gameView->buildingAttack(16, 18, 60, 80);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // gameView->buildingAttack(16, 18, 40, 80);
+        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        // gameView->buildingAttack(16, 18, 0, 80);
+
         // std::this_thread::sleep_for (std::chrono::seconds(3));
         // std::vector<int> deaths;
         // deaths.push_back(0);
@@ -347,11 +378,27 @@ Post-Condiciones: -
 */
 
 void ServerReceiver::receiveRefinementInfo() {
+    bool newGame = false;
+    if (spices.empty()) newGame = true;
     std::vector<std::tuple<int, int, int>> species;
-    protocolClient->recvRefinementInfo(species);
+    protocolClient->recvRefinementInfo(species, spices);
+
     for (std::tuple<int, int, int>& specie : species) {
         gameView->updateSpecie(std::get<0>(specie), std::get<1>(specie),
-                               std::get<2>(specie));
+                                std::get<2>(specie));
+    }
+    std::vector<std::tuple<int, int>> toDelete;
+    for (auto& [key, value] : spices) {
+        if (!spices.at(key) && !newGame) {
+            gameView->updateSpecie(std::get<0>(key), std::get<1>(key),
+                                   0);
+            toDelete.push_back(std::make_tuple(std::get<0>(key), std::get<1>(key)));
+        }
+        spices[key] = false;
+    }
+
+    for (std::tuple<int, int>& deletePos : toDelete) {
+        spices.erase(std::make_tuple(std::get<0>(deletePos), std::get<1>(deletePos)));
     }
 }
 

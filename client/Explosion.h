@@ -1,5 +1,5 @@
-#ifndef __CONSTRUCTION_H__
-#define __CONSTRUCTION_H__
+#ifndef __EXPLOSION_H__
+#define __EXPLOSION_H__
 
 #include "Animation.h"
 #include "Camera.h"
@@ -9,9 +9,7 @@
 
 class Construction {
     std::vector<Animation> animations;
-    std::map<std::tuple<int, int>, SdlTexture>& animationsRepository;
-    std::map<int, SdlTexture>& lifeTextures;
-    SdlTexture* identifierTexture;
+    std::map<std::tuple<int, int>, SdlTexture>& explosionRepository;
     int sizeW;
     int sizeH;
     float posX;
@@ -22,7 +20,6 @@ class Construction {
     int animationId;
     int lifeId;
     bool isDead;
-    int previosAnimationId;
     SdlTexture* texture;
     SdlTexture* currentLifeTexture;
 
@@ -58,9 +55,6 @@ class Construction {
     bool getIsDead();
     void kill();
 
-    void setExplosion();
-    int getAnimationId();
-
     void updateLife(int currentLife, int totalLife);
 
     void update(int delta);
@@ -68,4 +62,4 @@ class Construction {
     ~Construction();
 };
 
-#endif /*__CONSTRUCTION_H__*/
+#endif /*__EXPLOSION_H__*/

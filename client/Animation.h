@@ -4,13 +4,14 @@
 #include "SdlTexture.h"
 #include <map>
 #include <vector>
-#define FRAME_DURATION 3000
+#define FRAME_DURATION 1000
 
 class Animation {
     std::vector<SdlTexture*> frames;
     int currentAnimation;
     int currentTime;
     int animationTime;
+    // int frameDuration;
 
  public:
     explicit Animation(std::vector<SdlTexture*> frames);

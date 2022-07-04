@@ -9,6 +9,9 @@
 #define ATTACK_DIMENSION 6
 #define VEHICLE_DEAD_ANIMATION 12
 #define SOLDIER_DEAD_ANIMATION 9
+#define VEHICLE_EXPLOSION_ANIMATION 13
+#define SOLDIER_EXPLOSION_ANIMATION 10
+#define CONSTRUCTION_DEAD_ANIMATION 2
 #define IDENTIFIER_DIMENSION 4
 #define LIFE_COMPLETE 4
 #define NOROESTE 0
@@ -58,7 +61,16 @@ Unit::Unit(std::map<std::tuple<int, int>,
   isCurrentlyAttacking(false),
   isDead(false),
   isDying(false),
-  isTouched(false) {
+  isTouched(false),
+  destinationX(0),
+  destinationY(0),
+  bulletPaseX(BULLET_MOVEMENT),
+  bulletPaseY(BULLET_MOVEMENT),
+  reachedDestination(false),
+  misilIteration(1),
+  previosAnimationId(0),
+  attackedUnit(nullptr),
+  attackedConstruction(nullptr) {
     int actualSprite = 0;
     std::vector<SdlTexture*> textures;
     for (const auto& [key, value] : animationsRepository) {
@@ -93,58 +105,127 @@ void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
     animationId = newAnimationId;
 }
 
-void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
-        switch (animationId) {
+void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId) {
+    // std::cout << "missil iteration es " << misilIteration << std::endl;
+    switch (animationId) {
         case NOROESTE:
-            direcX = posX  - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+            direcX = posX  -
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY -
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+        case NORTE:
+            direcX = posX;
+            direcY = posY -
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+        case NORESTE:
+            direcX = posX +
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY -
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+        case OESTE:
+            direcX = posX -
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY;
+            break;
+        case STILL:
+            direcX = posX +
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY;
+            break;
+        case ESTE:
+            direcX = posX +
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY;
+            break;
+        case SUROESTE:
+            direcX = posX -
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY +
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+        case SUR:
+            direcX = posX;
+            direcY = posY +
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+        case SURESTE:
+            direcX = posX +
+                     static_cast<float>(static_cast<float>(bulletPaseX) *
+                     static_cast<float>(misilIteration));
+            direcY = posY +
+                     static_cast<float>(static_cast<float>(bulletPaseY) *
+                     static_cast<float>(misilIteration));
+            break;
+    }
+}
+
+void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
+    // std::cout << "animation fram " << attackAnimation.getFrame() << std::endl;
+    switch (animationId) {
+        case NOROESTE:
+            direcX = posX - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
         case NORTE:
             direcX = posX;
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
         case NORESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
         case OESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY;
             break;
         case STILL:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY;
             break;
         case ESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY;
             break;
         case SUROESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
         case SUR:
             direcX = posX;
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
         case SURESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());;
+                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(BULLET_MOVEMENT * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
             break;
-        }
+    }
 }
 
 
@@ -162,7 +243,21 @@ int Unit::render(Camera &camera, float posX, float posY) {
     if (isCurrentlyAttacking) {
         Area srcAttack(0, 0, ATTACK_DIMENSION, ATTACK_DIMENSION);
         float direcX, direcY;
-        calculateBulletPosition(direcX, direcY, animationId);
+        if (((unitType > 3 && unitType < 6) ||
+            (unitType > 7 && unitType < 11))) {
+            calculateMisilPosition(direcX, direcY, animationId);
+            misilIteration ++;
+            // std::cout << "la direccion del misil era " << direcX << " y " << direcY << std::endl;
+            if (direcX == destinationX && direcY == destinationY) {
+                reachedDestination = true;
+                misilIteration = 1;
+                bulletPaseX = BULLET_MOVEMENT;
+                bulletPaseY = BULLET_MOVEMENT;
+            }
+        } else {
+            // std::cout << "me renderizo\n";
+            calculateBulletPosition(direcX, direcY, animationId);
+        }
         camera.renderInSightForUnit(attackAnimation.getTexture(),
                                     srcAttack, direcX, direcY);
     }
@@ -230,12 +325,28 @@ int Unit::getAnimationId() {
     return animationId;
 }
 
+void Unit::setExplosion() {
+    // std::cout << "me setean una explosion\n";
+    previosAnimationId = animationId;
+    // std::cout << "id anterior " << previosAnimationId << std::endl;
+    if (unitType < 7) {  // soy vehiculo
+        animationId = VEHICLE_EXPLOSION_ANIMATION;
+        animations.at(animationId).reset();
+        getTexture();
+    } else {
+        animationId = SOLDIER_EXPLOSION_ANIMATION;
+        animations.at(animationId).reset();
+        getTexture();
+    }
+}
+
 /*
 Pre-Condiciones: Determina el animation id de la unidad.
 Post-Condiciones: -
 */
 
 void Unit::setAnimationId(int newAnimationId) {
+    // std::cout << "antes tenia la " << animationId << std::endl;
     // std::cout << "recibi la animacion " << newAnimationId << " y tengo propiety " << propiety << std::endl; 
     if (unitType < 7 && animationId == STILL) {
         // si era vehiculo y estaba quieto, cualq direc es rotacion
@@ -341,6 +452,7 @@ void Unit::updateLife(int currentLife, int totalLife) {
     getLifeTexture();
     if (currentLife == 0) {
         if (unitType < 7) {
+            // std::cout << "seteo animacion de muerte\n";
             animationId = VEHICLE_DEAD_ANIMATION;
             isDying = true;
         } else {
@@ -374,22 +486,50 @@ void Unit::update(int delta) {
             return;
     }
     if (isCurrentlyAttacking) {
-        if (attackAnimation.isLastFrame()) {
+        if (((unitType > 3 && unitType < 6) ||
+            (unitType > 7 && unitType < 11)) &&
+            reachedDestination) {
+            isCurrentlyAttacking = false;
+            reachedDestination = false;
+            if (attackedUnit != nullptr &&
+                !(attackedUnit->getIsDying()) &&
+                !(attackedUnit->getIsDead())) {
+                attackedUnit->setExplosion();
+                attackedUnit = nullptr;
+            }
+            if (attackedConstruction != nullptr &&
+                !(attackedConstruction->getAnimationId() ==
+                CONSTRUCTION_DEAD_ANIMATION) &&
+                !(attackedConstruction->getIsDead())) {
+                attackedConstruction->setExplosion();
+                attackedConstruction = nullptr;
+            }
+        } else if (attackAnimation.isLastFrame() && !((unitType > 3 && unitType < 6) ||
+            (unitType > 7 && unitType < 11))) {
             isCurrentlyAttacking = false;
         } else {
             attackAnimation.update(delta);
         }
     }
     // quieto para vehiculo (no rotacion ni muerte)
-    if (unitType < 7 && !(animationId >= 9 && animationId < 13)) {
-        // std::cout << "retorne aca\n";
-        return;
-    }
+    if (unitType < 7 && !(animationId >= 9 && animationId < 14)) return;
     // quieto para soldado
     if (unitType > 6 && animationId == STILL) return;
     // std::cout << "lo updateo\n";
     animations.at(animationId).update(delta);
     getTexture();
+    // std::cout << "unit type " << unitType << std::endl;
+    // std::cout << "animationId " << animationId << std::endl;
+    // std::cout << "es el frame " << animations.at(animationId).getFrame() << std::endl;
+    if ((unitType < 7 && animationId == VEHICLE_EXPLOSION_ANIMATION
+        && animations.at(animationId).isLastFrame()) ||
+        (unitType > 6 && animationId == SOLDIER_EXPLOSION_ANIMATION
+        && animations.at(animationId).isLastFrame())) {
+        // std::cout << "ENTRO AL IF\n";
+        animationId = previosAnimationId;
+        getTexture();
+        previosAnimationId = 0;
+    }
     // soy vehiculo estoy en ultimo frame de rotacion
     if (unitType < 7 && animations.at(animationId).isLastFrame()
         && animationId != VEHICLE_DEAD_ANIMATION) {
@@ -401,6 +541,35 @@ void Unit::update(int delta) {
             animationId = 1;
         }
     }
+}
+
+void Unit::calculateSteps() {
+    float xDifference = posX - destinationX;
+    if (xDifference < 0) {
+        xDifference = destinationX - posX;
+    }
+    float yDifference = posY - destinationY;
+    if (yDifference < 0) {
+        yDifference = destinationY - posY;
+    }
+    bulletPaseX = xDifference / float(10);
+    bulletPaseY = yDifference / float(10);
+    // std::cout << "el pase es " << bulletPaseX << " y " << bulletPaseY << std::endl;
+}
+
+void Unit::setMisilDestinationForUnit(float x, float y, Unit* attackedUnit) {
+    destinationX = x;
+    destinationY = y;
+    calculateSteps();
+    this->attackedUnit = attackedUnit;
+}
+
+void Unit::setMisilDestinationForConstruction(float x, float y,
+                                        Construction* attackedConstruction) {
+    destinationX = x;
+    destinationY = y;
+    calculateSteps();
+    this->attackedConstruction = attackedConstruction;
 }
 
 /*
@@ -428,6 +597,10 @@ Unit::Unit(Unit &&other)
   isDead(other.isDead),
   isDying(other.isDying),
   isTouched(other.isTouched),
+  destinationX(0),
+  destinationY(0),
+  attackedUnit(other.attackedUnit),
+  attackedConstruction(other.attackedConstruction),
   texture(other.texture),
   currentLifeTexture(other.currentLifeTexture) {
 }

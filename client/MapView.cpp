@@ -60,8 +60,8 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
   actualEnergy(0),
   worm(std::move(wormEmptyTexturesInitializer()),
        WORM_WIDTH, WORM_HEIGHT, 0, 0) {
-    this->loadFontTitles();
     this->loadTileTranslator();
+    this->loadFontTitles();
     this->loadMenuTranslator();
     this->loadSpritesTranslator();
     this->loadLifeTranslator();
@@ -295,7 +295,7 @@ void MapView::createMap(int height, int width, std::vector<std::vector<
             std::vector<std::string> tileInfo = tileInfoTranslator[map[i][j]];
             auto& backgroundTexture = tileTextureTranslator.at(map[i][j]);
             backgroundTiles.emplace_back(&backgroundTexture, TILE_PIX_SIZE,
-                                         TILE_PIX_SIZE, j, i);
+                                         TILE_PIX_SIZE, j, i, map[i][j]);
         }
     }
 }
@@ -313,7 +313,7 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
 
     if (unitTiles.find(unitId) == unitTiles.end() && propiety) {
         int offset = getSoundOffset();
-        window.playSound(offset + UNIT_CREATED, VOLUME);
+        window.push(offset + UNIT_CREATED, VOICE_VOLUME);
         menuImages[unitType].updateProgress(PROGRESS_COMPLETED);
     }
 
@@ -341,9 +341,16 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
 
     std::vector<SdlTexture*> attackSprites;
     if (unitType != HARVESTER_ID) {
-        for (int i = 0; i < 3; i ++) {
+        if (unitType == 6) {
+            for (int i = 0; i < 9; i ++) {
             attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                                unitType, i))));
+                                                                 unitType, i))));
+            }
+        } else {
+            for (int i = 0; i < 3; i ++) {
+            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
+                                                                 unitType, i))));
+            }
         }
     }
 
@@ -430,6 +437,7 @@ void MapView::createConstruction(int x, int y, int playerId,
     std::cout << "const Type " << constType << std::endl;
     std::cout << "player Id " << playerId << std::endl;
 
+    std::cout << "meto la const id " << constructionId << std::endl;
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
                     std::forward_as_tuple(animationsRepository.at(constType),
@@ -453,7 +461,7 @@ void MapView::updateProgress(int menuId, int progress) {
 
     if (menuId > 10 && progress == PROGRESS_COMPLETED &&
         !menuImages.at(menuId - 1).isBuildingReady()) {
-        window.playSound(offset + BUILDING_CREATED, VOLUME);
+        window.push(offset + BUILDING_CREATED, VOICE_VOLUME);
     }
 
     if (menuId > 10) {
@@ -473,7 +481,7 @@ Post-Condiciones: -
 */
 
 void MapView::touchedUnit(int unitId) {
-    window.playSound(unitTiles.at(unitId).getUnitType(), VOLUME);
+    window.push(unitTiles.at(unitId).getUnitType(), VOICE_VOLUME);
     unitTiles.at(unitId).setIsTouched(true);
 }
 
@@ -513,7 +521,7 @@ void MapView::attackUnitReaction(int attackedId, int currentLife, int totalLife)
     if ((currentLife == WITHOUT_LIFE) &&
         (unitTiles.at(attackedId).getUnitType() > 6
         && unitTiles.at(attackedId).getUnitType() < 11)) {
-        window.playSound(EXPLOSION, VOLUME);
+        window.push(EXPLOSION, ATTACK_VOLUME);
     }
 }
 
@@ -527,7 +535,7 @@ void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalL
     std::cout << "llega con currentLife " << currentLife << std::endl;
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
     if (currentLife == WITHOUT_LIFE) {
-        window.playSound(EXPLOSION, VOLUME);
+        window.push(EXPLOSION, ATTACK_VOLUME);
     }
 }
 
@@ -538,30 +546,31 @@ Post-Condiciones: -
 
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
                          int totalLife) {
-    std::cout << "current life " << currentLife << std::endl;
-    std::cout << "attacker id " << attackerId << std::endl;
     if (attackerId == -1) {
-        std::cout << "entro a este if\n";
         attackUnitReaction(attackedId, currentLife, totalLife);
         return;
     }
-    std::cout << "playeo sonido si me atacan\n";
     if (unitTiles.at(attackedId).getPropiety()) {
-        window.playSound(UNIT_ATTACKED, VOLUME);
+        window.push(UNIT_ATTACKED, VOICE_VOLUME);
     }
 
-    std::cout << "el atacador empieza a atacar\n";
     unitTiles.at(attackerId).startAttacking();
+    int attackerType = unitTiles.at(attackerId).getUnitType();
+    if ((attackerType > 3 && attackerType < 6) || (attackerType > 7 && attackerType < 11)) {
+        float x = unitTiles.at(attackedId).getX();
+        float y = unitTiles.at(attackedId).getY();
+        unitTiles.at(attackerId).setMisilDestinationForUnit(x, y, &(unitTiles.at(attackedId)));
+    }
 
     if ((unitTiles.at(attackerId).getUnitType() == 4) ||
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
-         window.playSound(MISIL_SOUND, VOLUME);
+         window.push(MISIL_SOUND, ATTACK_VOLUME);
     } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
         (unitTiles.at(attackerId).getUnitType() == 7))) {
-        window.playSound(GUN_SOUND, VOLUME);
+        // window.playSound(GUN_SOUND, VOLUME);
     }
-    std::cout << "llamo a la función que debería imprimir\n";
+
     attackUnitReaction(attackedId, currentLife, totalLife);
 }
 
@@ -577,21 +586,31 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         attackBuildingReaction(attackedId, currentLife, totalLife);
         return;
     }
+
     if ((constructionTiles.at(attackedId).getConstType() ==
         CONSTRUCTION_YARD_ID) &&
         (constructionTiles.at(attackedId).getPropiety())) {
         int offset = getSoundOffset();
-        window.playSound(offset + CONSTRUCTION_YARD_ATTACKED, VOLUME);
+        window.push(offset + CONSTRUCTION_YARD_ATTACKED, VOICE_VOLUME);
     }
+
     unitTiles.at(attackerId).startAttacking();
+
+    int attackerType = unitTiles.at(attackerId).getUnitType();
+
+    if ((attackerType > 3 && attackerType < 6) || (attackerType > 7 && attackerType < 11)) {
+        float x = constructionTiles.at(attackedId).getX();
+        float y = constructionTiles.at(attackedId).getY();
+        unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
+    }
 
     if ((unitTiles.at(attackerId).getUnitType() == 4) ||
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
-        window.playSound(MISIL_SOUND, VOLUME);
+        window.push(MISIL_SOUND, ATTACK_VOLUME);
     } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
         (unitTiles.at(attackerId).getUnitType() == 7))) {
-        window.playSound(GUN_SOUND, VOLUME);
+        // window.playSound(GUN_SOUND, VOLUME);
     }
 
     if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
@@ -610,11 +629,13 @@ void MapView::setMoney(int money) {
     if (actualMoney == money) {
         return;
     }
+    std::cout << "nueva money es " << money << std::endl;
     menuTextsTranslator.erase("money");
     std::string text("Money: $" + std::to_string(money));
     menuTextsTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple("money"),
                           std::forward_as_tuple(&window, font, text));
+    menuTexts.erase("money");
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("money"),
                           std::forward_as_tuple(&menuTextsTranslator.at
@@ -630,11 +651,13 @@ Post-Condiciones: -
 
 void MapView::setEnergy(int energy) {
     if (actualEnergy == energy) return;
+    std::cout << "nueva energy es " << energy << std::endl;
     menuTextsTranslator.erase("energy");
-    std::string text("Energy: " + std::to_string(energy) + "%");
+    std::string text("Energy: " + std::to_string(energy));
     menuTextsTranslator.emplace(std::piecewise_construct,
                           std::forward_as_tuple("energy"),
                           std::forward_as_tuple(&window, font, text));
+    menuTexts.erase("energy");
     menuTexts.emplace(std::piecewise_construct,
                           std::forward_as_tuple("energy"),
                           std::forward_as_tuple(&menuTextsTranslator.at
@@ -666,11 +689,10 @@ Post-Condiciones: -
 */
 
 void MapView::render(Camera &cam) {
-    renderMenu(cam);
-
     for (BackGroundTile &tile : backgroundTiles) {
         cam.render(tile);
     }
+    renderMenu(cam);
     if (worm.isAttacking()) {
         worm.render(cam, worm.getX(), worm.getY());
     }
@@ -745,6 +767,7 @@ en caso de que no se haya clickeado ninguna unidad.
 */
 
 int MapView::isUnit(int posX, int posY, bool propiety) {
+    std::cout << "is unit recibe las posiciones " << posX << " y " << posY << std::endl;
     for (auto const& unit : unitTiles) {
         if ((posX >= unitTiles.at(unit.first).getX() * TILE_PIX_SIZE &&
             (posX <= (unitTiles.at(unit.first).getX() * TILE_PIX_SIZE +
@@ -753,7 +776,9 @@ int MapView::isUnit(int posX, int posY, bool propiety) {
             (posY <= (unitTiles.at(unit.first).getY() * TILE_PIX_SIZE +
             unitTiles.at(unit.first).getHeight()))) &&
             unitTiles.at(unit.first).getPropiety() == propiety) {
-            if (unitTiles.at(unit.first).getIsDead() || unitTiles.at(unit.first).getIsDying()) return -1;
+            if (unitTiles.at(unit.first).getIsDead() || unitTiles.at(unit.first).getIsDying()) {
+                return -1;
+            }
             return unit.first;
         }
     }
@@ -834,13 +859,15 @@ Post-Condiciones: -
 */
 
 void MapView::updateSpecie(int x, int y, int state) {
-    // si lo que cris me manda es el numero de tile tipo matriz
     int index = SPICE_OFFSET + state - 1;
-    if (state == 0) index = 0;
-    // int posX = x / 8;
-    // int posY = y / 8;
+    std::cout << "state era " << state <<  "\n";
+    if (state == 0) {
+        std::cout << "state era 0\n";
+        index = 0;
+    }
+    if (index == backgroundTiles[y * columns + x].getId()) return;
     backgroundTiles[y * columns + x].changeTile(&(tileTextureTranslator.at(
-                                                index)), x, y);
+                                                index)), x, y, index);
 }
 
 int MapView::getType(int unitId) {
@@ -854,7 +881,7 @@ Post-Condiciones: -
 
 void MapView::playWinSound() {
     int offset = getSoundOffset();
-    window.playSound(offset + WIN_SOUND, VOLUME);
+    window.push(offset + WIN_SOUND, VOICE_VOLUME);
 }
 
 /*
@@ -864,7 +891,7 @@ Post-Condiciones: -
 
 void MapView::playLostSound() {
     int offset = getSoundOffset();
-    window.playSound(offset + LOST_SOUND, VOLUME);
+    window.push(offset + LOST_SOUND, VOICE_VOLUME);
 }
 
 /*

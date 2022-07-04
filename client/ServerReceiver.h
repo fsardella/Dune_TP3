@@ -14,6 +14,7 @@ class ServerReceiver: public Thread {
     int clientId;
     int& result;
     std::map<int, int> clientHouses;
+    std::map<std::tuple<int, int>, bool> spices;
 
  public:
     ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj,

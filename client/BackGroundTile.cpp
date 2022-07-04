@@ -11,8 +11,9 @@ BackGroundTile::BackGroundTile(SdlTexture* texture,
            int sizeW,
            int sizeH,
            int posX,
-           int posY)
-: Renderizable(texture, sizeW, sizeH, posX, posY) {
+           int posY,
+           int id)
+: Renderizable(texture, sizeW, sizeH, posX, posY), id(id) {
     rescaling = 1;
 }
 
@@ -31,10 +32,11 @@ Pre: Se cambia la textura para una tile del background.
 Post: -
 */
 
-void BackGroundTile::changeTile(SdlTexture* texture, int x, int y) {
+void BackGroundTile::changeTile(SdlTexture* texture, int x, int y, int index) {
     this->texture = texture;
     this->posX = x;
     this->posY = y;
+    this->id = id;
 }
 
 /*
@@ -53,6 +55,10 @@ Post: -
 
 int BackGroundTile::getY() {
     return posY;
+}
+
+int BackGroundTile::getId() {
+    return id;
 }
 
 /*
