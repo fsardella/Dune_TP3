@@ -97,6 +97,36 @@ plasma:
     damage: 8
     bonus: 2
 
+#######              INFANTRY              #######
+
+light_infantry:
+    range: 3
+    speed: 16
+    ctime: 60
+    price: 50
+    life: 50
+    
+heavy_infantry:
+    range: 3
+    speed: 12
+    ctime: 80
+    price: 70
+    life: 80
+    
+fremen:
+    range: 3
+    speed: 20
+    ctime: 120
+    price: 100
+    life: 50
+
+sardaukar:
+    range: 3
+    speed: 12
+    ctime: 120
+    price: 100
+    life: 80
+
 #######              VEHICLES              #######
 trike: 
     range: 4

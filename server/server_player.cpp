@@ -75,13 +75,13 @@ uint32_t Player::getPriceOfCreation(uint8_t type) {
         case SONIC_TANK:
             return c->SONIC_TANK_PRICE;
         case LIGHT_INFANTRY:
-            return 50;
+            return c->LIGHT_INFANTRY_PRICE;
         case HEAVY_INFANTRY:
-            return 70;
+            return c->HEAVY_INFANTRY_PRICE;
         case SARDAUKAR:
-            return 100;
+            return c->SARDAUKAR_PRICE;
         case FREMEN:
-            return 100;
+            return c->FREMEN_PRICE;
         case LIGHT_FACTORY:
             return c->LIGHT_FACTORY_PRICE;
         case HEAVY_FACTORY:
@@ -93,7 +93,6 @@ uint32_t Player::getPriceOfCreation(uint8_t type) {
         case SILO:
             return c->SILO_PRICE;
         case WINDTRAP:
-            std::cout << "price is " << c->AIR_TRAP_PRICE <<std::endl;
             return c->AIR_TRAP_PRICE;
         case BARRACK:
             return c->BARRACK_PRICE;
@@ -119,6 +118,17 @@ uint8_t Player::getUnitFactor(uint8_t type) {
                 factoryMultiplier = 0;
             else
                 factoryMultiplier = (this->cantHeavyFactories + this->cantPalaces) / 2;
+            break;
+        case LIGHT_INFANTRY:
+        case HEAVY_INFANTRY:
+            factoryMultiplier = this->cantBarracks;
+            break;
+        case FREMEN:
+        case SARDAUKAR:
+            if (this->cantBarracks == 0 || this->cantPalaces == 0)
+                factoryMultiplier = 0;
+            else
+                factoryMultiplier = (this->cantBarracks + this->cantPalaces) / 2;
             break;
     }
     return (5 + this->getEnergyPenalization()) * factoryMultiplier;

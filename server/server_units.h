@@ -105,8 +105,40 @@ class Infantry : public Unit {
              uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
     uint16_t getDamageFor(Weapon* weapon);
-    virtual uint8_t getType();
     virtual ~Infantry();
+};
+
+
+class LightInfantry : public Infantry {
+ public:
+    LightInfantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~LightInfantry();
+};
+
+class HeavyInfantry : public Infantry {
+ public:
+    HeavyInfantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~HeavyInfantry();
+};
+
+class Fremen : public Infantry {
+ public:
+    Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Fremen();    
+};
+
+class Sardaukar : public Infantry {
+ public:
+    Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Sardaukar();
 };
 
 class Vehicle : public Unit {
@@ -115,7 +147,6 @@ class Vehicle : public Unit {
             uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
     uint16_t getDamageFor(Weapon* weapon);
-    virtual uint8_t getType() = 0;
     virtual ~Vehicle();
 };
 

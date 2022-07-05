@@ -326,13 +326,68 @@ uint16_t Infantry::getDamageFor(Weapon* weapon) {
     return weapon->getDamageModForInfantry();
 }
 
-uint8_t Infantry::getType() {
-    return 7;
-}
 
 Infantry::~Infantry() {}
 
 
+LightInfantry::LightInfantry(coor_t coor, TerrainMap& terr, uint16_t id,
+                                std::string owner, Config* c):
+                                        Infantry(coor, terr, c->LIGHT_INFANTRY_LIFE, 
+                                                new AssaultRifle(terr,
+                                                c->LIGHT_INFANTRY_RANGE, c),
+                                                id, c->LIGHT_INFANTRY_SPEED, owner) {}
+
+uint8_t LightInfantry::getType() {
+    return LIGHT_INFANTRY;
+}
+
+LightInfantry::~LightInfantry() {}
+
+
+
+
+HeavyInfantry::HeavyInfantry(coor_t coor, TerrainMap& terr, uint16_t id,
+                                std::string owner, Config* c):
+                                        Infantry(coor, terr, c->HEAVY_INFANTRY_LIFE, 
+                                                new RocketLauncher(terr,
+                                                c->HEAVY_INFANTRY_RANGE, c),
+                                                id, c->HEAVY_INFANTRY_SPEED, owner) {}
+
+uint8_t HeavyInfantry::getType() {
+    return HEAVY_INFANTRY;
+}
+
+HeavyInfantry::~HeavyInfantry() {}
+
+
+
+
+Fremen::Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c):        Infantry(coor, terr, c->FREMEN_LIFE, 
+                    /*DOUBLE HANDED*/ new AssaultRifle(terr,
+                                      c->FREMEN_RANGE, c),
+                                      id, c->FREMEN_SPEED, owner) {}
+
+uint8_t Fremen::getType() {
+    return FREMEN;
+}
+    
+Fremen::~Fremen() {}
+
+
+
+Sardaukar::Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c):    Infantry(coor, terr, c->SARDAUKAR_LIFE, 
+            /*DOUBLE HANDED*/     new RocketLauncher(terr,
+                                  c->SARDAUKAR_RANGE, c),
+                                  id, c->SARDAUKAR_SPEED, owner) {}
+          
+
+uint8_t Sardaukar::getType() {
+    return SARDAUKAR;        
+}
+
+Sardaukar::~Sardaukar() {}
 
 int Vehicle::getSpeedWeightForMount() {
     return WALL;

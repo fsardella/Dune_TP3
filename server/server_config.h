@@ -80,6 +80,31 @@ class Config {
     uint16_t PLASMA_DAMAGE;
     uint16_t PLASMA_BONUS;    
 
+    // INFANTRY
+    uint16_t LIGHT_INFANTRY_RANGE;
+    uint16_t LIGHT_INFANTRY_SPEED;
+    uint16_t LIGHT_INFANTRY_CTIME;
+    uint16_t LIGHT_INFANTRY_PRICE;
+    uint16_t LIGHT_INFANTRY_LIFE;
+    
+    uint16_t HEAVY_INFANTRY_RANGE;
+    uint16_t HEAVY_INFANTRY_SPEED;
+    uint16_t HEAVY_INFANTRY_CTIME;
+    uint16_t HEAVY_INFANTRY_PRICE;
+    uint16_t HEAVY_INFANTRY_LIFE;
+
+    uint16_t FREMEN_RANGE;
+    uint16_t FREMEN_SPEED;
+    uint16_t FREMEN_CTIME;
+    uint16_t FREMEN_PRICE;
+    uint16_t FREMEN_LIFE;
+    
+    uint16_t SARDAUKAR_RANGE;
+    uint16_t SARDAUKAR_SPEED;
+    uint16_t SARDAUKAR_CTIME;
+    uint16_t SARDAUKAR_PRICE;
+    uint16_t SARDAUKAR_LIFE;
+
     // VEHICLES
     uint16_t TRIKE_RANGE;
     uint16_t TRIKE_SPEED;

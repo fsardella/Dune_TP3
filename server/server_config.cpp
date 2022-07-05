@@ -77,6 +77,32 @@ Config::Config(std::string YAMLpath) {
     this->PLASMA_DAMAGE             = node["plasma"]["damage"].as<uint16_t>();
     this->PLASMA_BONUS              = node["plasma"]["bonus"].as<uint16_t>();
 
+    // INFANTRY
+    
+    this->LIGHT_INFANTRY_RANGE      = node["light_infantry"]["range"].as<uint16_t>();
+    this->LIGHT_INFANTRY_SPEED      = node["light_infantry"]["speed"].as<uint16_t>();
+    this->LIGHT_INFANTRY_CTIME      = node["light_infantry"]["ctime"].as<uint16_t>();
+    this->LIGHT_INFANTRY_PRICE      = node["light_infantry"]["price"].as<uint16_t>();
+    this->LIGHT_INFANTRY_LIFE       = node["light_infantry"]["life"].as<uint16_t>();
+
+    this->HEAVY_INFANTRY_RANGE      = node["heavy_infantry"]["range"].as<uint16_t>();
+    this->HEAVY_INFANTRY_SPEED      = node["heavy_infantry"]["speed"].as<uint16_t>();
+    this->HEAVY_INFANTRY_CTIME      = node["heavy_infantry"]["ctime"].as<uint16_t>();
+    this->HEAVY_INFANTRY_PRICE      = node["heavy_infantry"]["price"].as<uint16_t>();
+    this->HEAVY_INFANTRY_LIFE       = node["heavy_infantry"]["life"].as<uint16_t>();
+
+    this->FREMEN_RANGE              = node["fremen"]["range"].as<uint16_t>();
+    this->FREMEN_SPEED              = node["fremen"]["speed"].as<uint16_t>();
+    this->FREMEN_CTIME              = node["fremen"]["ctime"].as<uint16_t>();
+    this->FREMEN_PRICE              = node["fremen"]["price"].as<uint16_t>();
+    this->FREMEN_LIFE               = node["fremen"]["life"].as<uint16_t>();
+
+    this->SARDAUKAR_RANGE           = node["sardaukar"]["range"].as<uint16_t>();
+    this->SARDAUKAR_SPEED           = node["sardaukar"]["speed"].as<uint16_t>();
+    this->SARDAUKAR_CTIME           = node["sardaukar"]["ctime"].as<uint16_t>();
+    this->SARDAUKAR_PRICE           = node["sardaukar"]["price"].as<uint16_t>();
+    this->SARDAUKAR_LIFE            = node["sardaukar"]["life"].as<uint16_t>();
+
     // VEHICLES
     this->TRIKE_RANGE               = node["trike"]["range"].as<uint16_t>();
     this->TRIKE_SPEED               = node["trike"]["speed"].as<uint16_t>();

@@ -35,8 +35,20 @@ UnitBuffer::UnitBuffer(uint8_t type, std::string playerName, TerrainMap& terr,
         case SONIC_TANK:
             this->count = c->SONIC_TANK_CTIME;
             break;
+        case LIGHT_INFANTRY:
+            this->count = c->LIGHT_INFANTRY_CTIME;
+            break;
+        case HEAVY_INFANTRY:
+            this->count = c->HEAVY_INFANTRY_CTIME;
+            break;
+        case FREMEN:
+            this->count = c->FREMEN_CTIME;
+            break;
+        case SARDAUKAR:
+            this->count = c->SARDAUKAR_CTIME;
+            break;
         default:
-            this->count = 1000;
+            this->count = 0;
             break;
     }
     this->totalCount = this->count;
@@ -94,6 +106,14 @@ Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
                                   this->events);
         case SONIC_TANK:
             return new SonicTank(coor, this->terr, newID, this->playerName, c);
+        case LIGHT_INFANTRY:
+            return new LightInfantry(coor, this->terr, newID, this->playerName, c);
+        case HEAVY_INFANTRY:
+            return new HeavyInfantry(coor, this->terr, newID, this->playerName, c);
+        case FREMEN:
+            return new Fremen(coor, this->terr, newID, this->playerName, c);
+        case SARDAUKAR:
+            return new Sardaukar(coor, this->terr, newID, this->playerName, c);
         default:
             return nullptr;
     }
