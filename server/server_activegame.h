@@ -14,6 +14,7 @@
 #include "common_command.h"
 #include "server_unitbuffer.h"
 #include "server_config.h"
+#include "server_worm.h"
 
 typedef std::lock_guard<std::mutex> lock_t;
 typedef std::vector<std::vector<int>> sketch_t;
@@ -40,6 +41,8 @@ class ActiveGame {
     std::map<uint16_t, std::string> buildingIDs;
     std::list<UnitBuffer> unitsBuilding;
     std::list<Command> events;
+    Worm adorableLittleWorm; // TODAVIA NO TERMINA TALLER I
+    // TODAVIA PUEDO USAR NOMBRES SIMPATICOS, EZE
     
     bool hasUnit(uint16_t unitID);
     bool hasBuilding(uint16_t buildingID);

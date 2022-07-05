@@ -26,6 +26,7 @@ class Terrain {
     virtual bool hasMenage();
     virtual uint16_t peekMenage();
     virtual uint16_t harvestMenage(uint16_t freeSpace);
+    virtual bool isSand();
     virtual bool isThereARefinery();
     void printDebug();
     virtual int getSpeedWeight(Unit& unit, coor_t coord) = 0;
@@ -39,6 +40,7 @@ class Sand : public Terrain {
     Sand();
     int getSpeedWeight(Unit& unit, coor_t coord);
     //void print(); // DEBUG
+    bool isSand();
     virtual ~Sand();
 };
 

@@ -9,7 +9,7 @@ maps_names: "../server/maps/maps.yaml"
 clock: 100000
 # POSIX: 1s == 1M ticks, 100K ticks -> 1/10 seg
 
-worm: 1200
+worm: 50 #1200
 
 
 #######        BUILDINGS         #######

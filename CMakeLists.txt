@@ -196,6 +196,8 @@ set(SERVER_SOURCES
     server/server_units.h
     server/server_weapons.cpp
     server/server_weapons.h
+    server/server_worm.cpp
+    server/server_worm.h
 )
 
 SET(SDL2PP_WITH_IMAGE YES)

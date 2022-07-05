@@ -30,7 +30,8 @@ enum broadcastOpers {
 
 ActiveGame::ActiveGame(Game game, Config* c): c(c),
                                    buildingIDCount(game.get_required()), 
-                                   game(std::move(game)) {
+                                   game(std::move(game)),
+                                   adorableLittleWorm(Worm(this->gameMap, c->WORM_DELAY)){
     YAML::Node node = YAML::LoadFile(c->MAP_PATHS + this->game.getMapPath() + ".yaml");
     this->gameMapSketch = node["matrix"].as<std::vector<std::vector<int>>>();
     this->gameMap = TerrainMap(this->gameMapSketch);
@@ -170,6 +171,7 @@ void ActiveGame::update() {
     //std::cout << "Updating buildings\n";
     this->game.updateBuildings();
     //std::cout << "Cleaning corpses\n";
+    this->adorableLittleWorm.update(this->events);
     this->game.cleanCorpses(this->unitIDs, this->buildingIDs, this->events);
 }
 
