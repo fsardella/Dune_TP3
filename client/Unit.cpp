@@ -26,6 +26,8 @@
 #define UNIT_OFFSET 0.5
 #define BULLET_MOVEMENT 0.2
 #define MAX_ITERATION 11
+#define DEVASTATOR_ID 5
+#define DEVASTATOR_DYING_DIMENSIONS 32
 
 /*
 Pre-Condiciones: Constructor de Unit.
@@ -297,8 +299,16 @@ int Unit::render(Camera &camera, float posX, float posY) {
     Area srcIdentifier(0, 0, IDENTIFIER_DIMENSION, IDENTIFIER_DIMENSION);
     camera.renderInSightForUnit(identifierTexture, srcIdentifier,
                                 posX + 0.5, posY - 0.2);
-    Area src(0, 0, sizeW, sizeH);
-    return camera.renderInSightForUnit(texture, src, posX, posY);
+
+    if (unitType == DEVASTATOR_ID && isDying) {
+        Area src(0, 0, DEVASTATOR_DYING_DIMENSIONS, DEVASTATOR_DYING_DIMENSIONS);
+        float posBorderX = static_cast<int>(posX);
+        float posBorderY = static_cast<int>(posY);
+        return camera.renderInSightForUnit(texture, src, posBorderX, posBorderY);    
+    } else {
+        Area src(0, 0, sizeW, sizeH);
+        return camera.renderInSightForUnit(texture, src, posX, posY);
+    }
 }
 
 /*

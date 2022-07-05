@@ -57,9 +57,11 @@ void ServerReceiver::run() {
         // std::this_thread::sleep_for (std::chrono::seconds(3));
 
         // // // std::cout << "creo unidades\n";
-        // gameView->buildUnit(110, 100, 16, 4, 0, 8, false); // BORRAR
+        // gameView->buildUnit(110, 100, 16, 5, 0, 8, false); // BORRAR
+        // std::this_thread::sleep_for (std::chrono::seconds(2));
+        // gameView->unitAttack(-1, 16, 0, 80);
+        // gameView->buildUnit(110, 100, 16, 7, 0, 4, false); // BORRAR
         // gameView->buildUnit(150, 200, 17, 7, 0, 3, true); // BORRAR
-        // // std::this_thread::sleep_for (std::chrono::seconds(2));
         // // gameView->wormAttack(200, 150);
         // // gameView->unitAttack(-1, 17, 0, 80);
 
@@ -302,8 +304,10 @@ Post-Condiciones: -
 void ServerReceiver::receiveBuilding() {
     std::tuple<int, int, int, int, int, bool> buildingInfo =
                 protocolClient->recvBuildingInfo(clientId);
-    std::cout << "estoy recibiendo " << std::get<0>(buildingInfo) << " y " << std::get<1>(buildingInfo) << std::endl;
-    std::cout << "era mio " << std::get<5>(buildingInfo) << std::endl;
+    // std::cout << "imprimo casas por jugador " << std::endl;
+    // for (auto& [key, value] : clientHouses) {
+    //     std::cout << "el jugador " << key << " es de la casa " << value << std::endl;
+    // }
     gameView->buildConstruction(std::get<0>(buildingInfo),
                                 std::get<1>(buildingInfo),
                                 std::get<2>(buildingInfo),

@@ -446,8 +446,10 @@ void MapView::createConstruction(int x, int y, int playerId,
         identifier = playerId;
     }
 
+    int convertedType = constType;
+
     if (constType == BARRACK) {
-        constType += house;
+        convertedType += house;
     }
     int width, height;
     getBuildingDimensions(constType, &width, &height);
@@ -456,7 +458,7 @@ void MapView::createConstruction(int x, int y, int playerId,
 
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
-                    std::forward_as_tuple(animationsRepository.at(constType),
+                    std::forward_as_tuple(animationsRepository.at(convertedType),
                                           lifeTextureTranslatorForConstruction,
                                           &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,

@@ -530,11 +530,10 @@ amount: 21
 
 # Muerte
 5_12:
-  - "../client/animations/DestructionUnit1.bmp"
-  - "../client/animations/DestructionUnit2.bmp"
-  - "../client/animations/DestructionUnit3.bmp"
-  - "../client/animations/DestructionUnit4.bmp"
-  - "../client/animations/Destruction0.bmp"
+  - "../client/animations/ExplosionSilo1.bmp"
+  - "../client/animations/ExplosionSilo1.bmp"
+  - "../client/animations/ExplosionSilo2.bmp"
+  - "../client/animations/ExplosionSilo3.bmp"
 
 # Explosion
 5_13:
@@ -1122,24 +1121,24 @@ amount: 21
   - "../client/animations/ExplosionMedium1.bmp"
   - "../client/animations/ExplosionMedium2.bmp"
 
-#######CUARTEL ORDOS#######
+#######CUARTEL ATREIDES#######
 
 19_animationAmount: 4
 
 #Quieto
 19_0:
-  - "../client/animations/CuartelOrdos.bmp"
+  - "../client/animations/CuartelAtreides.bmp"
 
 #Crear
 19_1:
   - "../client/animations/Destruction1.bmp"
-  - "../client/animations/CuartelOrdosDestruido.bmp"
-  - "../client/animations/CuartelOrdos.bmp"
+  - "../client/animations/CuartelAtreidesDestruido.bmp"
+  - "../client/animations/CuartelAtreides.bmp"
 
 #Morir
 19_2:
-  - "../client/animations/CuartelOrdos.bmp"
-  - "../client/animations/CuartelOrdosDestruido.bmp"
+  - "../client/animations/CuartelAtreides.bmp"
+  - "../client/animations/CuartelAtreidesDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
@@ -1150,24 +1149,25 @@ amount: 21
   - "../client/animations/ExplosionMedium1.bmp"
   - "../client/animations/ExplosionMedium2.bmp"
 
-#######CUARTEL ATREIDES#######
+
+#######CUARTEL ordos#######
 
 20_animationAmount: 4
 
 #Quieto
 20_0:
-  - "../client/animations/CuartelAtreides.bmp"
+  - "../client/animations/CuartelOrdos.bmp"
 
 #Crear
 20_1:
   - "../client/animations/Destruction1.bmp"
-  - "../client/animations/CuartelAtreidesDestruido.bmp"
-  - "../client/animations/CuartelAtreides.bmp"
+  - "../client/animations/CuartelOrdosDestruido.bmp"
+  - "../client/animations/CuartelOrdos.bmp"
 
 #Morir
 20_2:
-  - "../client/animations/CuartelAtreides.bmp"
-  - "../client/animations/CuartelAtreidesDestruido.bmp"
+  - "../client/animations/CuartelOrdos.bmp"
+  - "../client/animations/CuartelOrdosDestruido.bmp"
   - "../client/animations/Destruction1.bmp"
   - "../client/animations/Destruction2.bmp"
   - "../client/animations/Destruction3.bmp"
