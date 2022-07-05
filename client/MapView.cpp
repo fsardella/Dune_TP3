@@ -584,9 +584,6 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
          window.push(MISIL_SOUND, ATTACK_VOLUME);
-    } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
-        (unitTiles.at(attackerId).getUnitType() == 7))) {
-        // window.playSound(GUN_SOUND, VOLUME);
     }
 
     attackUnitReaction(attackedId, currentLife, totalLife);
@@ -608,7 +605,6 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         attackBuildingReaction(attackedId, currentLife, totalLife);
         return;
     }
-
     if ((constructionTiles.at(attackedId).getConstType() ==
         CONSTRUCTION_YARD_ID) &&
         (constructionTiles.at(attackedId).getPropiety())) {
@@ -620,13 +616,14 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
 
     int attackerType = unitTiles.at(attackerId).getUnitType();
 
+
     if ((attackerType > 3 && attackerType < 6) || (attackerType > 7 && attackerType < 11)) {
         float x = constructionTiles.at(attackedId).getX();
         float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
     } else if (attackerType == 6) {
-        float x = unitTiles.at(attackedId).getX();
-        float y = unitTiles.at(attackedId).getY();
+        float x = constructionTiles.at(attackedId).getX();
+        float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
@@ -634,9 +631,6 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
         (unitTiles.at(attackerId).getUnitType() < 11))) {
         window.push(MISIL_SOUND, ATTACK_VOLUME);
-    } else if ((unitTiles.at(attackerId).getUnitType() == 0 ||
-        (unitTiles.at(attackerId).getUnitType() == 7))) {
-        // window.playSound(GUN_SOUND, VOLUME);
     }
 
     attackBuildingReaction(attackedId, currentLife, totalLife);
