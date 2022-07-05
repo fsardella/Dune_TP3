@@ -82,11 +82,12 @@ class MapView {
                    std::vector<std::vector<uint8_t>> map);
 
     void attackUnit(int attackerId, int attackedId, int currentLife,
-                    int totalLife);
+                    int totalLife, int attackType);
     void attackBuilding(int attackerId, int attackedId, int currentLife,
-                        int totalLife);
+                        int totalLife, int attackType);
     void attackUnitReaction(int attackedId, int currentLife, int totalLife);
     void attackBuildingReaction(int attackedId, int currentLife, int totalLife);
+    void getAttackTextures(int attackType, std::vector<SdlTexture*>& attackSprites);
 
     void renderMenu(Camera &cam);
     void render(Camera& cam);

@@ -28,6 +28,8 @@
 #define MAX_ITERATION 11
 #define DEVASTATOR_ID 5
 #define DEVASTATOR_DYING_DIMENSIONS 32
+#define MISIL_ATTACK 1
+#define CANION_P_ATTACK 5
 
 /*
 Pre-Condiciones: Constructor de Unit.
@@ -72,6 +74,7 @@ Unit::Unit(std::map<std::tuple<int, int>,
   reachedDestination(false),
   misilIteration(1),
   previosAnimationId(0),
+  currentAttackType(0),
   attackedUnit(nullptr),
   attackedConstruction(nullptr) {
     int actualSprite = 0;
@@ -176,35 +179,6 @@ void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId)
     }
 }
 
-void Unit::calculateSoundWavePosition(float& direcX, float& direcY, int animationId) {
-    switch (animationId) {
-        case NOROESTE:
-            direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseX);
-            direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseY);
-            break;
-        case NORESTE:
-            direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX);
-            direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseY);
-            break;
-        case SUROESTE:
-            direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseX);
-            direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseY);
-            break;
-        case SURESTE:
-            direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX);
-            direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseY);
-            break;
-    }
-}
-
 void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
     switch (animationId) {
         case NOROESTE:
@@ -275,7 +249,9 @@ int Unit::render(Camera &camera, float posX, float posY) {
         Area srcAttack(0, 0, ATTACK_DIMENSION, ATTACK_DIMENSION);
         float direcX, direcY;
         if (((unitType > 3 && unitType < 6) ||
-            (unitType > 7 && unitType < 11))) {
+            (unitType > 7 && unitType < 11)) &&
+            (currentAttackType == MISIL_ATTACK ||
+            currentAttackType == CANION_P_ATTACK)) {
             calculateMisilPosition(direcX, direcY, animationId);
             misilIteration ++;
             if (misilIteration == MAX_ITERATION) {
@@ -364,6 +340,23 @@ Post-Condiciones: Devuelve el animation id de la unidad.
 
 int Unit::getAnimationId() {
     return animationId;
+}
+
+int Unit::getAttackType() {
+    return currentAttackType;
+}
+
+int Unit::getPlayerId() {
+    return playerId;
+}
+
+void Unit::setPlayerId(int newPlayerId, SdlTexture* newIdentifier) {
+    playerId = newPlayerId;
+    identifierTexture = newIdentifier;
+}
+
+void Unit::setPropiety(bool newPropiety) {
+    propiety = newPropiety;
 }
 
 void Unit::setExplosion() {
@@ -524,24 +517,31 @@ void Unit::update(int delta) {
     if (isCurrentlyAttacking) {
         if (((unitType > 3 && unitType < 6) ||
             (unitType > 7 && unitType < 11)) &&
+            (currentAttackType == MISIL_ATTACK ||
+            currentAttackType == CANION_P_ATTACK) &&
             reachedDestination) {
             isCurrentlyAttacking = false;
             reachedDestination = false;
             if (attackedUnit != nullptr &&
                 !(attackedUnit->getIsDying()) &&
-                !(attackedUnit->getIsDead())) {
+                !(attackedUnit->getIsDead()) &&
+                unitType != DEVASTATOR_ID) {
                 attackedUnit->setExplosion();
                 attackedUnit = nullptr;
-            }
-            if (attackedConstruction != nullptr &&
+            } else if (attackedConstruction != nullptr &&
                 !(attackedConstruction->getAnimationId() ==
                 CONSTRUCTION_DEAD_ANIMATION) &&
-                !(attackedConstruction->getIsDead())) {
+                !(attackedConstruction->getIsDead()) &&
+                unitType != DEVASTATOR_ID) {
                 attackedConstruction->setExplosion();
                 attackedConstruction = nullptr;
+            } else {
+                if (attackedConstruction != nullptr) attackedConstruction = nullptr;
+                if (attackedUnit != nullptr) attackedUnit = nullptr;
             }
-        } else if (attackAnimation.isLastFrame() && !((unitType > 3 && unitType < 6) ||
-            (unitType > 7 && unitType < 11))) {
+        } else if (attackAnimation.isLastFrame() &&
+                   currentAttackType != MISIL_ATTACK &&
+                   currentAttackType != CANION_P_ATTACK) {
             isCurrentlyAttacking = false;
         } else {
             attackAnimation.update(delta);
@@ -645,6 +645,15 @@ void Unit::setSoundWaveDestination(float x, float y) {
     }
 }
 
+bool Unit::hasNoAttack() {
+    return this->attackTextures.size() == 0;
+}
+
+void Unit::setAttackType(int attackType, std::vector<SdlTexture*> attack) {
+    currentAttackType = attackType;
+    attackAnimation.setTextures(attack);
+}
+
 /*
 Pre-Condiciones: Constructor de Unit.
 Post-Condiciones: -
@@ -672,6 +681,12 @@ Unit::Unit(Unit &&other)
   isTouched(other.isTouched),
   destinationX(0),
   destinationY(0),
+  bulletPaseX(other.bulletPaseX),
+  bulletPaseY(other.bulletPaseY),
+  reachedDestination(other.reachedDestination),
+  misilIteration(other.misilIteration),
+  previosAnimationId(other.previosAnimationId),
+  currentAttackType(other.currentAttackType),
   attackedUnit(other.attackedUnit),
   attackedConstruction(other.attackedConstruction),
   texture(other.texture),

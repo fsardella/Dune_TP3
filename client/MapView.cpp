@@ -29,6 +29,8 @@
 #define EXPLOSION 11
 #define MISIL_SOUND 13
 #define GUN_SOUND 12
+#define MISIL_ATTACK 1
+#define CANION_P_ATTACK 5
 #define WORM_WIDTH 64
 #define WORM_HEIGHT 64
 #define INITIAL_MONEY 1000
@@ -145,7 +147,6 @@ void MapView::loadMenuTranslator() {
     YAML::Node node = YAML::LoadFile(MENU_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
-        std::cout << i << std::endl;
         if (i == CONSTRUCTION_YARD_ID) continue;
         std::vector<std::string> menuImgInfo = node[i].as<std::vector<
                                                           std::string>>();
@@ -211,8 +212,7 @@ Post-Condiciones: -
 void MapView::loadAttackTranslator() {
     YAML::Node node = YAML::LoadFile(ARMAMENT_PATH);
     int amount = node["amount"].as<int>();
-    for (int i = 0; i <= amount; i++) {
-        if (i == 3) continue;
+    for (int i = 0; i < amount; i++) {
         std::vector<std::string> attackInfo = node[i].as<std::vector<
                                                          std::string>>();
         for (size_t j = 0; j < attackInfo.size(); j++) {
@@ -339,10 +339,19 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
     if (unitTiles.find(unitId) != unitTiles.end() &&
         unitTiles.at(unitId).getAnimationId() == animationId &&
         unitTiles.at(unitId).getX() == posX &&
-        unitTiles.at(unitId).getY() == posY) {
+        unitTiles.at(unitId).getY() == posY &&
+        unitTiles.at(unitId).getPlayerId() == playerId &&
+        unitTiles.at(unitId).getPropiety() == propiety) {
             return;
     }
     if (unitTiles.find(unitId) != unitTiles.end()) {
+        if (unitTiles.at(unitId).getPlayerId() != playerId) {
+            unitTiles.at(unitId).setPlayerId(playerId,
+                                        &(identifierTranslator.at(playerId)));
+        }
+        if (unitTiles.at(unitId).getPropiety() != propiety) {
+            unitTiles.at(unitId).setPropiety(propiety);
+        }
         if (unitTiles.at(unitId).getAnimationId() != animationId) {
             unitTiles.at(unitId).setAnimationId(animationId);
         }
@@ -354,19 +363,6 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
     }
 
     std::vector<SdlTexture*> attackSprites;
-    if (unitType != HARVESTER_ID) {
-        if (unitType == 6) {
-            for (int i = 0; i < 9; i ++) {
-            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                                 unitType, i))));
-            }
-        } else {
-            for (int i = 0; i < 3; i ++) {
-            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                                 unitType, i))));
-            }
-        }
-    }
 
     unitTiles.emplace(std::piecewise_construct,
                        std::forward_as_tuple(unitId),
@@ -555,13 +551,27 @@ void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalL
     }
 }
 
+void MapView::getAttackTextures(int attackType, std::vector<SdlTexture*>& attackSprites) {
+    if (attackType == 4) {
+        for (int i = 0; i < 9; i ++) {
+            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
+                                                                attackType, i))));
+        }
+    } else {
+        for (int i = 0; i < 3; i ++) {
+            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
+                                                                attackType, i))));
+        }
+    }
+}
+
 /*
 Pre-Condiciones: Maneja el ataque a una unidad. 
 Post-Condiciones: -
 */
 
 void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
-                         int totalLife) {
+                         int totalLife, int attackType) {
     if (attackerId == -1) {
         attackUnitReaction(attackedId, currentLife, totalLife);
         return;
@@ -570,9 +580,20 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         window.push(UNIT_ATTACKED, VOICE_VOLUME);
     }
 
+    std::cout << "no tenia ataque es " << unitTiles.at(attackerId).hasNoAttack() << std::endl;
+
+    if (unitTiles.at(attackerId).getAttackType() != attackType ||
+        unitTiles.at(attackerId).hasNoAttack()) {
+        std::vector<SdlTexture*> attackSprites;
+        this->getAttackTextures(attackType, attackSprites);
+        unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
+    }
+
     unitTiles.at(attackerId).startAttacking();
     int attackerType = unitTiles.at(attackerId).getUnitType();
-    if ((attackerType > 3 && attackerType < 6) || (attackerType > 7 && attackerType < 11)) {
+    if (((attackerType > 3 && attackerType < 6) ||
+        (attackerType > 7 && attackerType < 11)) &&
+        (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
         float x = unitTiles.at(attackedId).getX();
         float y = unitTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForUnit(x, y, &(unitTiles.at(attackedId)));
@@ -582,9 +603,10 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
-    if ((unitTiles.at(attackerId).getUnitType() == 4) ||
+    if (((unitTiles.at(attackerId).getUnitType() == 4) ||
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
-        (unitTiles.at(attackerId).getUnitType() < 11))) {
+        (unitTiles.at(attackerId).getUnitType() < 11))) &&
+         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
          window.push(MISIL_SOUND, ATTACK_VOLUME);
     }
 
@@ -597,7 +619,7 @@ Post-Condiciones: -
 */
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
-                             int totalLife) {
+                             int totalLife, int attackType) {
     std::cout << "edificio atacado\n";
     if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
         updateUnblockedUnits(constructionTiles.at(attackedId).getConstType(),
@@ -607,6 +629,7 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         attackBuildingReaction(attackedId, currentLife, totalLife);
         return;
     }
+
     if ((constructionTiles.at(attackedId).getConstType() ==
         CONSTRUCTION_YARD_ID) &&
         (constructionTiles.at(attackedId).getPropiety())) {
@@ -614,12 +637,21 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         window.push(offset + CONSTRUCTION_YARD_ATTACKED, VOICE_VOLUME);
     }
 
+    if (unitTiles.at(attackerId).getAttackType() != attackType ||
+        unitTiles.at(attackerId).hasNoAttack()) {
+        std::vector<SdlTexture*> attackSprites;
+        this->getAttackTextures(attackType, attackSprites);
+        unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
+    }
+
     unitTiles.at(attackerId).startAttacking();
 
     int attackerType = unitTiles.at(attackerId).getUnitType();
 
 
-    if ((attackerType > 3 && attackerType < 6) || (attackerType > 7 && attackerType < 11)) {
+    if (((attackerType > 3 && attackerType < 6) ||
+        (attackerType > 7 && attackerType < 11)) &&
+        (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
         float x = constructionTiles.at(attackedId).getX();
         float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
@@ -629,9 +661,10 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
-    if ((unitTiles.at(attackerId).getUnitType() == 4) ||
+    if (((unitTiles.at(attackerId).getUnitType() == 4) ||
         ((unitTiles.at(attackerId).getUnitType() > 7) &&
-        (unitTiles.at(attackerId).getUnitType() < 11))) {
+        (unitTiles.at(attackerId).getUnitType() < 11))) &&
+         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
         window.push(MISIL_SOUND, ATTACK_VOLUME);
     }
 

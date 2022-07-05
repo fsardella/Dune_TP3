@@ -58,26 +58,28 @@ void ServerReceiver::run() {
 
         // // // std::cout << "creo unidades\n";
         // gameView->buildUnit(110, 100, 16, 5, 0, 8, false); // BORRAR
-        // std::this_thread::sleep_for (std::chrono::seconds(2));
         // gameView->unitAttack(-1, 16, 0, 80);
-        // gameView->buildUnit(110, 100, 16, 7, 0, 4, false); // BORRAR
-        // gameView->buildUnit(150, 200, 17, 7, 0, 3, true); // BORRAR
+        // gameView->buildUnit(110, 100, 16, 9, 0, 8, false); // BORRAR
+        // gameView->buildUnit(150, 200, 17, 0, 0, 3, true); // BORRAR
+        // std::this_thread::sleep_for (std::chrono::seconds(2));
+        // gameView->buildUnit(150, 200, 17, 0, 1, 3, false); // BORRAR
+
         // // gameView->wormAttack(200, 150);
         // // gameView->unitAttack(-1, 17, 0, 80);
 
         // std::cout << "termino de crear unidades\n";
-        // gameView->unitAttack(16, 17, 80, 80);
+        // gameView->unitAttack(16, 17, 80, 80, 0);
         // std::cout << "empieza el segundo\n";
         // std::this_thread::sleep_for (std::chrono::seconds(1));
         // std::cout << "termina el segundo\n";
         // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 60, 80);
+        // gameView->unitAttack(16, 17, 60, 80, 1);
         // std::this_thread::sleep_for (std::chrono::seconds(1));
         // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 40, 80);
+        // gameView->unitAttack(16, 17, 40, 80, 0);
         // std::this_thread::sleep_for (std::chrono::seconds(1));
         // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 0, 80);
+        // gameView->unitAttack(16, 17, 0, 80, 1);
         // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
         // std::this_thread::sleep_for (std::chrono::seconds(1));
 
@@ -323,12 +325,13 @@ Post-Condiciones: -
 */
 
 void ServerReceiver::receiveUnitAttack() {
-    std::tuple<int, int, int, int> attackInfo =
+    std::tuple<int, int, int, int, int> attackInfo =
             protocolClient->receiveAttackInfo();
     gameView->unitAttack(std::get<0>(attackInfo),
                          std::get<1>(attackInfo),
                          std::get<2>(attackInfo),
-                         std::get<3>(attackInfo));
+                         std::get<3>(attackInfo),
+                         std::get<4>(attackInfo));
 }
 
 /*
@@ -337,12 +340,13 @@ Post-Condiciones: -
 */
 
 void ServerReceiver::receiveBuildingAttack() {
-    std::tuple<int, int, int, int> attackInfo =
+    std::tuple<int, int, int, int, int> attackInfo =
             protocolClient->receiveAttackInfo();
     gameView->buildingAttack(std::get<0>(attackInfo),
                              std::get<1>(attackInfo),
                              std::get<2>(attackInfo),
-                             std::get<3>(attackInfo));
+                             std::get<3>(attackInfo),
+                             std::get<4>(attackInfo));
 }
 
 /*

@@ -35,6 +35,7 @@ class Unit {
     bool reachedDestination;
     int misilIteration;
     int previosAnimationId;
+    int currentAttackType;
     Unit* attackedUnit;
     Construction* attackedConstruction;
     SdlTexture* texture;
@@ -68,12 +69,15 @@ class Unit {
 
     void calculateBulletPosition(float& direcX, float& direcY, int animationId);
     void calculateMisilPosition(float& direcX, float& direcY, int animationId);
-    void calculateSoundWavePosition(float& direcX, float& direcY, int animationId);
     void updateAnimationId(int oldAnimationId, int newAnimationId);
     float getX();
     float getY();
     int getWidth();
     int getHeight();
+
+    int getPlayerId();
+    void setPlayerId(int newPlayerId, SdlTexture* newIdentifier);
+    void setPropiety(bool newPropiety);
 
     bool getPropiety();
     int getAnimationId();
@@ -87,6 +91,10 @@ class Unit {
 
     void setExplosion();
 
+    int getAttackType();
+    bool hasNoAttack();
+    void setAttackType(int attackType, std::vector<SdlTexture*> attack);
+
     bool isAttacking();
     void startAttacking();
     void updateLife(int currentLife, int totalLife);
@@ -97,6 +105,8 @@ class Unit {
     void calculateSteps();
 
     void update(int delta);
+
+    void swap(int playerId);
 
     ~Unit();
 };

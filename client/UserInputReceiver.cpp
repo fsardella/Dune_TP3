@@ -80,18 +80,7 @@ void UserInputReceiver::deleteTouchedUnit(int id) {
     for (size_t i = 0; i < touchedUnits.size(); i ++) {
         if (touchedUnits.at(i) == id) index = i;
     }
-    std::cout << std::endl;
-    std::cout << "prim\n";
-    for (int& i : touchedUnits) {
-        std::cout << i << std::endl;
-    }
-    std::cout << std::endl;
-    std::cout << "sec\n";
     touchedUnits.erase(touchedUnits.begin() + index);
-    for (int& i : touchedUnits) {
-        std::cout << i << std::endl;
-    }
-    std::cout << std::endl;
 }
 
 /*

@@ -85,9 +85,9 @@ Post-Condiciones: -
 */
 
 void GameView::unitAttack(int attackerId, int attackedId, int currentLife,
-                          int totalLife) {
+                          int totalLife, int attackType) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.attackUnit(attackerId, attackedId, currentLife, totalLife);
+    map.attackUnit(attackerId, attackedId, currentLife, totalLife, attackType);
 }
 
 /*
@@ -96,9 +96,9 @@ Post-Condiciones: -
 */
 
 void GameView::buildingAttack(int attackerId, int attackedId, int currentLife,
-                              int totalLife) {
+                              int totalLife, int attackType) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.attackBuilding(attackerId, attackedId, currentLife, totalLife);
+    map.attackBuilding(attackerId, attackedId, currentLife, totalLife, attackType);
 }
 
 /*

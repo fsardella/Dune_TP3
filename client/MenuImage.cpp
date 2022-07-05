@@ -154,14 +154,10 @@ que eligió el jugador y el tipo de edificio creado.
 */
 
 void MenuImage::updateUnblocking(int buildingType, int house) {
-    std::cout << "recibo edificio de tipo " << buildingType << " con casa " << house << std::endl;
-    std::cout << "soy de tipo " << type << std::endl;
     if (!checkHouse(house)) {
-        std::cout << "no era mi casa" << std::endl;
         return;
     }
     updateBuildings(buildingType);
-    std::cout << "updateo edificio" << std::endl;
     if (checkUnblockPosibility(buildingType)) {
         blocked = false;
     }

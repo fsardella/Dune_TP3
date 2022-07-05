@@ -46,9 +46,9 @@ class GameView {
     void moveRight();
 
     void unitAttack(int attackerId, int attackedId, int currentLife,
-                    int totalLife);
+                    int totalLife, int attackType);
     void buildingAttack(int attackerId, int attackedId, int currentLife,
-                        int totalLife);
+                        int totalLife, int attackType);
 
     int getXOffset();
     int getYOffset();

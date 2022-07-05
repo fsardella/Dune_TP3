@@ -1,8 +1,8 @@
-amount: 10
+amount: 6
 
 #######FORMAS DE ATAQUE DE LAS UNITS#######
 
-#######TRIKE#######
+#######RIFLE DE ASALTO#######
 
 #Animacion de ataque
 0:
@@ -10,80 +10,48 @@ amount: 10
   - "../client/animations/RifleDeAsalto.bmp"
   - "../client/animations/RifleDeAsalto.bmp"
 
-#######RAIDER#######
+#######LANZA MISILES#######
 
 #Animacion de ataque
 1:
+  - "../client/animations/LanzaMisiles.bmp"
+  - "../client/animations/LanzaMisiles.bmp"
+  - "../client/animations/LanzaMisiles.bmp"
+
+#######CANION 2MM#######
+
+#Animacion de ataque
+2:
   - "../client/animations/Canion2mm1.bmp"
   - "../client/animations/Canion2mm2.bmp"
   - "../client/animations/Canion2mm3.bmp"
 
-#######TANK#######
+#######CANION#######
 
 #Animacion de ataque
-2:
+3:
   - "../client/animations/Canion1.bmp"
   - "../client/animations/Canion2.bmp"
   - "../client/animations/Canion3.bmp"
 
-#######DESVIADOR#######
+#######ONDA DE SONIDO#######
 
 #Animacion de ataque
 4:
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
+  - "../client/animations/OndasDeSonido1.bmp"
+  - "../client/animations/OndasDeSonido2.bmp"
+  - "../client/animations/OndasDeSonido3.bmp"
+  - "../client/animations/OndasDeSonido1.bmp"
+  - "../client/animations/OndasDeSonido2.bmp"
+  - "../client/animations/OndasDeSonido3.bmp"
+  - "../client/animations/OndasDeSonido1.bmp"
+  - "../client/animations/OndasDeSonido2.bmp"
+  - "../client/animations/OndasDeSonido3.bmp"
 
-#######DEVASTADOR#######
+#######CANION DE PLASMA#######
 
 #Animacion de ataque
 5:
   - "../client/animations/CanionDePlasma1.bmp"
   - "../client/animations/CanionDePlasma2.bmp"
   - "../client/animations/CanionDePlasma3.bmp"
-
-#######SONIC TANK#######
-
-#Animacion de ataque
-6:
-  - "../client/animations/OndasDeSonido1.bmp"
-  - "../client/animations/OndasDeSonido2.bmp"
-  - "../client/animations/OndasDeSonido3.bmp"
-  - "../client/animations/OndasDeSonido1.bmp"
-  - "../client/animations/OndasDeSonido2.bmp"
-  - "../client/animations/OndasDeSonido3.bmp"
-  - "../client/animations/OndasDeSonido1.bmp"
-  - "../client/animations/OndasDeSonido2.bmp"
-  - "../client/animations/OndasDeSonido3.bmp"
-
-#######INFANTERIA LIGERA#######
-
-#Animacion de ataque
-7:
-  - "../client/animations/RifleDeAsalto.bmp"
-  - "../client/animations/RifleDeAsalto.bmp"
-  - "../client/animations/RifleDeAsalto.bmp"
-
-#######INFANTERIA PESADA#######
-
-#Animacion de ataque
-8:
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-
-#######SARDUKAR#######
-
-#Animacion de ataque
-9:
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-
-#######FREMEN#######
-
-#Animacion de ataque
-10:
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"
-  - "../client/animations/LanzaMisiles.bmp"

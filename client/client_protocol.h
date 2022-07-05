@@ -57,7 +57,7 @@ class ProtocolClient {
                   std::tuple<int, int, int, int, int, bool>>& units,
                   const int& clientId, int& money, int& energy);
     std::tuple<int, int, int, int, int, bool> recvBuildingInfo(int clientId);
-    std::tuple<int, int, int, int> receiveAttackInfo();
+    std::tuple<int, int, int, int, int> receiveAttackInfo();
     void recvUnitsProgress(std::vector<std::tuple<int, int>>& unitsProgress,
                            int clientId);
     void recvBuildingProgress(std::vector<int>& buildingsProgress);

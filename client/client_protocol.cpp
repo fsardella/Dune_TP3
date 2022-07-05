@@ -470,12 +470,13 @@ Pre-Condiciones: Recibe mensaje del servidor con la información de un ataque.
 Post-Condiciones: -
 */
 
-std::tuple<int, int, int, int> ProtocolClient::receiveAttackInfo() {
+std::tuple<int, int, int, int, int> ProtocolClient::receiveAttackInfo() {
     int attackerId = receiveTwoBytes();
     int attackedId = receiveTwoBytes();
     int currentLife = receiveTwoBytes();
     int totalLife = receiveTwoBytes();
-    return std::make_tuple(attackerId, attackedId, currentLife, totalLife);
+    int attackType = receiveOneByte();
+    return std::make_tuple(attackerId, attackedId, currentLife, totalLife, attackType);
 }
 
 /*
