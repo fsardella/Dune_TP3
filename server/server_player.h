@@ -38,7 +38,7 @@ class Player {
     bool hasUnit(uint16_t unitID);
     bool hasBuilding(uint16_t buildingID);
     uint16_t getConstructionDelta();
-    uint16_t getEnergyPenalization();
+    int16_t getEnergyPenalization();
  public:
     Player(const int& house, const std::string& playerName, coor_t baseCoords,
            Config* c);

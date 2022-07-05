@@ -101,7 +101,7 @@ uint32_t Player::getPriceOfCreation(uint8_t type) {
 }
 
 uint8_t Player::getUnitFactor(uint8_t type) {
-    uint8_t factoryMultiplier = 1;
+    float factoryMultiplier = 1;
     switch (type) {
         case TRIKE:
         case RAIDER:
@@ -228,7 +228,7 @@ void Player::updateUnits(std::list<Command>& events) {
     } 
 }
 
-uint16_t Player::getEnergyPenalization() {
+int16_t Player::getEnergyPenalization() {
     if (this->energy >= 0)
         return 0;
     if (this->energy < -2500)

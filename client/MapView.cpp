@@ -478,6 +478,7 @@ Post-Condiciones: -
 */
 
 void MapView::updateProgress(int menuId, int progress) {
+    std::cout << "soy de tipo " << menuId << " y mi progress es " << progress << std::endl;
     int offset = getSoundOffset();
 
     if (menuId > 10 && progress == PROGRESS_COMPLETED &&
