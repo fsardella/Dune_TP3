@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 #include <list>
+#include <utility>
+#include <tuple>
 #include "server_config.h"
 #include "server_terrain_map.h"
 
@@ -32,20 +34,20 @@ class Weapon {
 
 
     uint16_t manhattanDistance(coor_t dest, coor_t other);
-    uint16_t getDamageModifier(Unit* objective);
-    uint16_t getDamageModifier(Building* objective);
     uint16_t calculateDamage(Unit* objective);
     uint16_t calculateDamage(Building* objective);
  public:
     Weapon(uint16_t damage, uint16_t rechargeTime, uint16_t type,
            TerrainMap& terr, uint16_t range);
-    uint16_t getType();
-    void update();
-    bool attack(Unit* objective);
-    bool attack(Building* objective);
+    virtual uint16_t getType();
+    virtual void update();
+    virtual bool attack(Unit* objective);
+    virtual bool attack(Building* objective);
     Unit* scout(Unit* self);
-    void startAttack();
-    void stopAttack();
+    virtual void startAttack();
+    virtual void stopAttack();
+    uint16_t getDamageModifier(Unit* objective);
+    uint16_t getDamageModifier(Building* objective);
     virtual uint16_t getDamageModForVehicle();
     virtual uint16_t getDamageModForInfantry();
     virtual uint16_t getDamageModForBuilding();
@@ -98,6 +100,21 @@ class PlasmaCannon: public Weapon {
     uint16_t getDamageModForVehicle();
     uint16_t getDamageModForBuilding();
     virtual ~PlasmaCannon();
+};
+
+
+class TwoHanded : public Weapon { // Solo hereda de weapon por los punteros
+    std::pair<Weapon*, Weapon*> weapons;
+    bool usedFirst = true;
+ public:
+    TwoHanded(TerrainMap& ter, uint16_t range, Config* c);
+    uint16_t getType();
+    void update();
+    bool attack(Unit* objective);
+    bool attack(Building* objective);
+    void startAttack();
+    void stopAttack();
+    ~TwoHanded();
 };
 
 #include "server_units.h"

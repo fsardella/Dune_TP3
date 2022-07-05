@@ -370,7 +370,7 @@ HeavyInfantry::~HeavyInfantry() {}
 
 Fremen::Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):        Infantry(coor, terr, c->FREMEN_LIFE, 
-                    /*DOUBLE HANDED*/ new AssaultRifle(terr,
+                    /*DOUBLE HANDED*/ new TwoHanded(terr,
                                       c->FREMEN_RANGE, c),
                                       id, c->FREMEN_SPEED, owner) {}
 
@@ -384,7 +384,7 @@ Fremen::~Fremen() {}
 
 Sardaukar::Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):    Infantry(coor, terr, c->SARDAUKAR_LIFE, 
-            /*DOUBLE HANDED*/     new RocketLauncher(terr,
+            /*DOUBLE HANDED*/     new TwoHanded(terr,
                                   c->SARDAUKAR_RANGE, c),
                                   id, c->SARDAUKAR_SPEED, owner) {}
           

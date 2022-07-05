@@ -156,6 +156,16 @@ coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
                 if (!building->isHeavyFactory() && !building->isPalace())
                     continue;
                 break;
+            case LIGHT_INFANTRY:
+            case HEAVY_INFANTRY:
+                if (!building->isBarrack())
+                    continue;
+                break;
+            case FREMEN:
+            case SARDAUKAR:
+                if (!building->isBarrack() && !building->isPalace())
+                    continue;
+                break;
         }
         coor_t buildingPos = building->getPosition();
         uint16_t i = buildingPos.first + building->getSize().first * CHUNKSIZE + 1;

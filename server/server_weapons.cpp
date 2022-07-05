@@ -1,6 +1,7 @@
 #include "server_weapons.h"
 #include <iostream>
 
+
 Weapon::Weapon(uint16_t damage, uint16_t rechargeTime, uint16_t type,
                TerrainMap& terr, uint16_t range):
                rechargeTime(rechargeTime), cooldown(rechargeTime),
@@ -225,3 +226,61 @@ uint16_t PlasmaCannon::getDamageModForBuilding() {
 }
 
 PlasmaCannon::~PlasmaCannon() {}
+
+
+
+
+TwoHanded::TwoHanded(TerrainMap& ter, uint16_t range, Config* c):
+                                        Weapon(0, 0, 0xFF, ter, range), 
+                                        weapons(std::pair<Weapon*, Weapon*>(
+                                        new AssaultRifle(ter, range, c),
+                                        new RocketLauncher(ter, range, c)
+                                        )){}
+void TwoHanded::update() {
+    this->weapons.first->update();
+    this->weapons.second->update();
+}
+
+uint16_t TwoHanded::getType() {
+    return (this->usedFirst)? this->weapons.first->getType() :
+                              this->weapons.second->getType();
+}
+
+bool TwoHanded::attack(Unit* objective) {
+    this->weapons.first->stopAttack();
+    this->weapons.second->stopAttack();
+    this->usedFirst = (this->weapons.first->getDamageModifier(objective)
+                    > 0); // Porque el Rocket Launcher no tiene bonificaciones
+    Weapon* chosen = (this->usedFirst)? this->weapons.first : 
+                                        this->weapons.second;
+    chosen->startAttack();
+    return chosen->attack(objective);
+}
+
+bool TwoHanded::attack(Building* objective) {
+    this->weapons.first->stopAttack();
+    this->weapons.second->stopAttack();
+    this->usedFirst = (this->weapons.first->getDamageModifier(objective)
+                    > 0); // Porque el Rocket Launcher no tiene bonificaciones
+    Weapon* chosen = (this->usedFirst)? this->weapons.first : 
+                                        this->weapons.second;
+    chosen->startAttack();
+    return chosen->attack(objective);
+}
+
+void TwoHanded::startAttack() {
+    if (this->usedFirst)
+        this->weapons.first->startAttack();
+    else 
+        this->weapons.second->startAttack();
+}
+
+void TwoHanded::stopAttack() {
+    this->weapons.first->stopAttack();
+    this->weapons.second->stopAttack();
+}
+
+TwoHanded::~TwoHanded() {
+    delete this->weapons.first;
+    delete this->weapons.second;
+}
