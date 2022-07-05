@@ -30,6 +30,8 @@ class ProtocolServer {
     void sendCommand(Command command);
     Command recvCommand(int size); // Idea: size en mensajes para que sea automatico
     void send_map_row(std::vector<int>& row); 
+    
+    void close();
 	~ProtocolServer();
 };
 

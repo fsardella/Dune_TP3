@@ -251,6 +251,10 @@ void Talker::run() {
     }
 }
 
+void Talker::close() {
+    this->protocol.close();
+}
+
 /*
 Pre-Condiciones: -
 Post-Condiciones: Destructor del hablador de Clientes.

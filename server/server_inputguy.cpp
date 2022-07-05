@@ -1,8 +1,10 @@
 #include "server_inputguy.h"
 
-InputGuy::InputGuy(Listener& listeningThread, BlockingQueue<Game>& readyGames):
+InputGuy::InputGuy(Listener& listeningThread, BlockingQueue<Game>& readyGames,
+                   talkerMap_t& userThreads):
                                               listeningThread(listeningThread),
-                                              readyGames(readyGames) {}
+                                              readyGames(readyGames),
+                                              userThreads(userThreads) {}
 
 void InputGuy::run() {    
     std::string input;
@@ -11,6 +13,9 @@ void InputGuy::run() {
 	}
     this->listeningThread.stopListening();
     this->readyGames.close();
+    for (auto& t : this->userThreads) {
+        t.second->close();
+    }
 }
 
 InputGuy::~InputGuy() {
