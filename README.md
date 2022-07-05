@@ -1,7 +1,7 @@
 # Dune 2000
 -----------------------------------------------------------------------
 
-### Trabajo práctico final - Taller de programación I [75.42/95.08] - FIUBA
+### Trabajo Práctico final - Taller de programación I [75.42/95.08] - FIUBA
 
 ### Grupo: 2
 
@@ -64,10 +64,11 @@ Aclaraciones:
 
 Luego de la instalación, se crearán los siguientes ejecutables:
 
-- `./server ../server/config.yaml: para ejecutar el servidor
+- `./server ../server/config.yaml`: para ejecutar el servidor
 - `./client_interface`: para ejecutar el cliente
 - `./editor_interface`: para ejecutar el editor
 
+Nota: el PORT (puerto) para que los clientes se puedan conectar al servidor se puede modificar desde el archivo config.yaml ubicado en la carpeta Dune_TP3/server/config.yaml. El PORT que se encuentra en el archivo actualmente es el 8080.
 
 ## Modo de uso
 
@@ -102,7 +103,7 @@ Una vez completado cualquiera de los dos caminos, se deberá aguardar hasta que 
 
 Cuando todos los jugadores esten listos la partida comenzará.
 
-## Logica del juego
+## Lógica del juego
 ------------------------------------------------------------------------------------
 
 El objetivo del juego es destruir a todos los adversarios y quedarse con el control del planeta Arrakis conocido como Dune.
@@ -120,7 +121,7 @@ Las unidades son las únicas capaces de atacar, lo pueden hacer hacia una constr
 
 El jugador cuenta con dinero y energía que se irán modificando según las operaciones que el mismo lleve a cabo.
 
-#### Construccion
+#### Construcción
 
 Para llevar a cabo una construcción, se deberá seleccionar la imagen de la unidad o edificio que se requiera en el menú de la derecha. En el mismo hay unidades bloqueadas que no podrán ser construídas. Algunas de ellas se podrán desbloquear con la construcción de edificios específicos. Cuando se selecciona algún elemento del menu el mismo comenzará a contruirse.
 
@@ -144,7 +145,7 @@ Las unidades podrán ser trasladadas a un área especifica del mapa. Para ello s
 
 ![](gifs/attack.gif)
 
-#### Refineria
+#### Refinería
 
 La especia Melange o simplemente la especia es la sustancia que controla al universo. Crece en la arena de Arrakis y es recolectada por las cosechadoras.
 
@@ -185,7 +186,7 @@ Si se opta por la opción de crear, se deberá ingresar un nombre, un largo, un 
 
 En cambio, si se selecciona la opción de editar, se mostrará una lista con los mapas disponibles de los cuales se puede elegir uno.
 
-![](gifs/EditorEditMap.png) #falta
+![](gifs/EditorEditMap.png)
 
 Luego de validar los datos se proseguirá con la edición de un mapa nuevo.
 
@@ -205,123 +206,8 @@ El mapa permite el desplazamiento por el mismo para poder modificarlo en toda su
 
 En caso de querer eliminar un elemento ya insertado en el mapa se debe seleccionar la opcion "Delete". Cuando la opción está seleccionada cualquier elemento será eliminado hasta llegar a la base.
 
-![](gifs/EditorExit1.gif)
+![](gifs/EditorExit.gif)
 
 Finalmente, en caso de querer guardar el mapa se deberá seleccionar el botón "Save". El resultado del mismo será satisfactorio solo si la cantidad de centros de construcción creados es igual a la cantidad de jugadores requeridos.
 
 ![](gifs/MapReadyNoOk.gif)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Instrucciones para ejecución
-
- - Clonar repositorio utilizando
-    ```bash
-    git clone carpeta_para_code
-    ```
- - Ir a la carpeta **/build**
- - Realizar
-    ```bash
-    cmake path_hasta_build
-    make
-    ```
- - Para ejecutar server:
-    ```bash
-    ./server PORT 
-    ```
- - Para ejecutar client:
-     ```bash
-    ./client_interface
-    ```
- - Para ejecutar editor:
-     ```bash
-    ./client_editor
-    ```
-
-# Aclaraciones 
-
-Se debe ejecutar primero el Server y luego el Client. 
-
-# Dependencias
-  - make
-  - build-essential
-  - qt5-default
-  - yaml-cpp https://github.com/jbeder/yaml-cpp
-  - libsdl2-dev
-  - libsdl2-image-dev
-  - libsdl2-gfx-dev
-  - libsdl2-ttf-dev
-
-# Alcance de la Entrega
-
-## Lo que se tiene
-
-#### Servidor
- - Esquema completo de hilos
- - Manejo de Lobby de partidas
- - Protocolo de comunicación funcional, pero no del todo escalable
- - Juego hardcodeado para dos jugadores (pero soporte para N jugadores)
- - Juego iniciado: recepción de posiciones para agregado de unidades a un mapa de juego
- - Broadcast de posiciones de unidades
- - Lógica básica de posiciones de A* (sin acceso a la hora de jugar)
- - Monitores para secciones críticas
- - Manejo de Multijugadores (aceptar múltiples clientes a la vez)
-
-#### Cliente
- - Menú/Lobby -> HAY QUE CERRAR VENTANA DE "WAITING WINDOW" PARA PODER SEGUIR CON EL JUEGO
- - Esquema completo de hilos
- - Display básico del mapa y del overlay
- - Scrolling
- - Soporte básico de animaciones
-
-#### Editor
- - Funcionamiento general
-
-## Lo que estamos haciendo
-#### Servidor
-  - Movimiento de unidades _en partida_
-  - Mejor protocolo con ID para cada unidad (para su trackeo)
-  - Lógica de combate básica
-  - Capacidad de "perder" (Base que puede ser atacada)
-  - Broadcast de unidades destruídas
-
-#### Cliente
-  - Animaciones de movimiento, muerte, ataque
-  - Pantalla de victoria/derrota
-  - Mejora del overlay (para crear unidades)
-
-## Lo que falta
-
-#### General
- - Un cmake más limpio, aprovechando clases que puedan ser compartidas
-
-#### Servidor
-  - Apertura de YAML y lógica de traducción para los mapas.
-  - Clase **Configuracion** (que vivirá en la clase Server. Será de sólo lectura y será recibida por referencia según corresponda). Se inicializa junto al servidor, abriendo desde un YAML de configuración.
-  - Diferentes tipos de vehículos, unidades, armas.
-  - Construcciones
-  - Cosecha
-  - Energía
-  - Gusanos
-
-#### Cliente
-  - Mayor cantidad de animaciones.
-  - Unidades, construcciones.
-  - Soporte de Audio (voces, sonidos, música)
-
-#### Editor
-  - Mejoras de quality of life a la hora de armar un mapa.
-
