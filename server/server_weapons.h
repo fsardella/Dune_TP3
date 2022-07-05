@@ -11,6 +11,15 @@ class Building;
 
 #define CHUNKSIZE 8
 
+enum weaponTypes {
+    ASSAULT_RIFLE = 0,
+    CANNON,
+    ROCKET_LAUNCHER,
+    SOUND_WAVES,
+    TTCANNON,
+    PLASMA
+};
+
 class Weapon {
     uint16_t rechargeTime;
     uint16_t cooldown;
@@ -23,6 +32,8 @@ class Weapon {
 
 
     uint16_t manhattanDistance(coor_t dest, coor_t other);
+    uint16_t getDamageModifier(Unit* objective);
+    uint16_t getDamageModifier(Building* objective);
     uint16_t calculateDamage(Unit* objective);
     uint16_t calculateDamage(Building* objective);
  public:
@@ -35,6 +46,9 @@ class Weapon {
     Unit* scout(Unit* self);
     void startAttack();
     void stopAttack();
+    virtual uint16_t getDamageModForVehicle();
+    virtual uint16_t getDamageModForInfantry();
+    virtual uint16_t getDamageModForBuilding();
     bool isInRange(Unit* self, Unit* objective);
     bool isInRange(Unit* self, Building* objective);
     virtual ~Weapon();
@@ -43,8 +57,47 @@ class Weapon {
 class AssaultRifle: public Weapon {
     uint16_t bonus;
  public:
-    AssaultRifle(TerrainMap& terr, uint16_t range, Config* c);
+    AssaultRifle(TerrainMap& ter, uint16_t range, Config* c);
+    uint16_t getDamageModForInfantry();
     virtual ~AssaultRifle();
+};
+
+class Cannon: public Weapon {
+ public:
+    Cannon(TerrainMap& ter, uint16_t range, Config* c);
+    virtual ~Cannon();
+};
+
+class RocketLauncher: public Weapon {
+ public:
+    RocketLauncher(TerrainMap& ter, uint16_t range, Config* c);
+    virtual ~RocketLauncher();
+};
+
+class SoundWaves: public Weapon {
+    uint16_t bonus;
+ public:
+    SoundWaves(TerrainMap& ter, uint16_t range, Config* c);
+    uint16_t getDamageModForInfantry();
+    virtual ~SoundWaves();
+};
+
+class TTCannon: public Weapon {
+    uint16_t bonus;
+ public:
+    TTCannon(TerrainMap& ter, uint16_t range, Config* c);
+    uint16_t getDamageModForVehicle();
+    uint16_t getDamageModForBuilding();
+    virtual ~TTCannon();
+};
+
+class PlasmaCannon: public Weapon {
+    uint16_t bonus;
+ public:
+    PlasmaCannon(TerrainMap& ter, uint16_t range, Config* c);
+    uint16_t getDamageModForVehicle();
+    uint16_t getDamageModForBuilding();
+    virtual ~PlasmaCannon();
 };
 
 #include "server_units.h"

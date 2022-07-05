@@ -11,20 +11,38 @@ uint16_t Weapon::getType() {
     return this->type;
 }
 
-#define MODIFIER 0
+uint16_t Weapon::getDamageModifier(Unit* objective) {
+    return 0;
+}
+
+
+uint16_t Weapon::getDamageModifier(Building* objective) {
+    return 0;    
+}
+
 
 uint16_t Weapon::calculateDamage(Unit* objective) {
     uint16_t totalDamage = 0;
     for (; this->shotsFired > 0; this->shotsFired--)
-        totalDamage += this->baseDamage + MODIFIER;
+        totalDamage += this->baseDamage + this->getDamageModifier(objective);
     return totalDamage;
 }
 
 uint16_t Weapon::calculateDamage(Building* objective) {
     uint16_t totalDamage = 0;
     for (; this->shotsFired > 0; this->shotsFired--)
-        totalDamage += this->baseDamage + MODIFIER;
+        totalDamage += this->baseDamage + this->getDamageModifier(objective);
     return totalDamage;
+}
+
+uint16_t Weapon::getDamageModForVehicle() {
+    return 0;
+}
+uint16_t Weapon::getDamageModForInfantry() {
+    return 0;
+}
+uint16_t Weapon::getDamageModForBuilding() {
+    return 0;
 }
 
 void Weapon::update() {
@@ -117,17 +135,93 @@ void Weapon::stopAttack() {
     this->attacking = false;
 }
 
-
-
 Weapon::~Weapon() {}
+
+
 
 
 AssaultRifle::AssaultRifle(TerrainMap& ter, uint16_t range, Config* c):
                                 Weapon(c->ASSAULT_RIFLE_DAMAGE,
-                                c->ASSAULT_RIFLE_COOLDOWN, 0,
+                                c->ASSAULT_RIFLE_COOLDOWN, ASSAULT_RIFLE,
                                 ter, range),
                                 bonus(c->ASSAULT_RIFLE_BONUS) {}
 
-
+uint16_t AssaultRifle::getDamageModForInfantry() {
+    return this->bonus;
+}
 
 AssaultRifle::~AssaultRifle() {}
+
+
+
+
+
+Cannon::Cannon(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->CANNON_DAMAGE,
+                                c->CANNON_COOLDOWN, CANNON,
+                                ter, range) {}
+
+Cannon::~Cannon() {}
+
+
+
+
+RocketLauncher::RocketLauncher(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->ROCKET_LAUNCHER_DAMAGE,
+                                c->ROCKET_LAUNCHER_COOLDOWN, ROCKET_LAUNCHER,
+                                ter, range) {}
+
+
+RocketLauncher::~RocketLauncher() {}
+
+
+
+
+SoundWaves::SoundWaves(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->SOUND_WAVES_DAMAGE,
+                                c->SOUND_WAVES_COOLDOWN, SOUND_WAVES,
+                                ter, range),
+                                bonus(c->SOUND_WAVES_BONUS) {}
+
+uint16_t SoundWaves::getDamageModForInfantry() {
+    return this->bonus;
+}
+
+SoundWaves::~SoundWaves() {}
+
+
+
+
+TTCannon::TTCannon(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->TTCANNON_DAMAGE,
+                                c->TTCANNON_COOLDOWN, TTCANNON,
+                                ter, range),
+                                bonus(c->TTCANNON_BONUS) {}
+
+uint16_t TTCannon::getDamageModForVehicle() {
+    return this->bonus;
+}
+
+uint16_t TTCannon::getDamageModForBuilding() {
+    return this->bonus;
+}
+
+TTCannon::~TTCannon() {}
+
+
+
+PlasmaCannon::PlasmaCannon(TerrainMap& ter, uint16_t range, Config* c):
+                                Weapon(c->PLASMA_DAMAGE,
+                                c->PLASMA_COOLDOWN, PLASMA,
+                                ter, range),
+                                bonus(c->PLASMA_BONUS) {}
+
+uint16_t PlasmaCannon::getDamageModForVehicle() {
+    return this->bonus;
+}
+
+uint16_t PlasmaCannon::getDamageModForBuilding() {
+    return this->bonus;
+}
+
+PlasmaCannon::~PlasmaCannon() {}
