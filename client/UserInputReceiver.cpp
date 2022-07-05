@@ -126,7 +126,6 @@ void UserInputReceiver::handlePosition(int x, int y) {
                 // quiero posicionar un edificio ya listo
                 ClientInput clientInput(POSITION_BUILDING, posX / 4, posY / 4);
                 blockingQueue->push(std::move(clientInput));
-                // gameView->setNotReady(currentMenuImage);
                 std::cout << currentMenuImage << std::endl;
                 gameView->touchedMenuImage(currentMenuImage, false);
                 currentMenuImage = NONE_TYPE;
@@ -168,7 +167,6 @@ void UserInputReceiver::handlePosition(int x, int y) {
         int buildingType = currentMenuImage + 1;
         if (gameView->isBuildingReady(buildingType - 1)) {
             currentMenuImage ++;
-            std::cout << currentMenuImage << std::endl;
             gameView->touchedMenuImage(currentMenuImage, true);
             return;
         }
@@ -204,6 +202,10 @@ void UserInputReceiver::handleRightClick(int x, int y) {
             int attackedType = unitId != NONE_TYPE ? 0 : 1;
             int attackedId = unitId != NONE_TYPE ? unitId : buildingId;
             for (int& touchedId : touchedUnits) {
+                if (!gameView->getUnitPropiety(touchedId)) {
+                    std::cout << "no era mia\n";
+                    continue;
+                }
                 if (gameView->getType(touchedId) == HARVESTER_TYPE) continue;
                 std::cout << "mando op 7 con un 0 si ataco a otra unidad " << attackedType << " con el id " << touchedId << " al " << attackedId << std::endl;; 
                 ClientInput clientInput(ATTACK, attackedType,
@@ -223,6 +225,10 @@ void UserInputReceiver::handleRightClick(int x, int y) {
         // op 8
         std::cout << "op 8\n";
         for (int& id : touchedUnits) {
+            if (!gameView->getUnitPropiety(id)) {
+                std::cout << "no era mia\n";
+                continue;
+            }
             std::cout << "entro\n";
             ClientInput clientInput(MOVEMENT, id, posX / 4, posY / 4);
             blockingQueue->push(std::move(clientInput));
@@ -235,7 +241,6 @@ void UserInputReceiver::handleRightClick(int x, int y) {
     std::cout << "op 11\n";
     // quiero destruir un edificio
     int buildingId = gameView->isBuilding(posX, posY, true);
-    std::cout << buildingId << std::endl;
     if (buildingId != NONE_TYPE) {
         ClientInput clientInput(DESTRUCTION, buildingId);
         blockingQueue->push(std::move(clientInput));

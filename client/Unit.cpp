@@ -357,6 +357,9 @@ void Unit::setPlayerId(int newPlayerId, SdlTexture* newIdentifier) {
 
 void Unit::setPropiety(bool newPropiety) {
     propiety = newPropiety;
+    if (!propiety && isTouched) {
+        isTouched = false;
+    }
 }
 
 void Unit::setExplosion() {

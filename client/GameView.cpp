@@ -362,6 +362,10 @@ void GameView::touchedMenuImage(int currentMenuImage, bool state) {
     map.touchedMenuImage(currentMenuImage, state);
 }
 
+int GameView::getUnitPropiety(int touchedId) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    return map.getUnitPropiety(touchedId);
+}
 
 /*
 Pre-Condiciones: Reproduce música en caso de que el jugador gane.

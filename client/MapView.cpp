@@ -947,6 +947,10 @@ void MapView::touchedMenuImage(int currentMenuImage, bool state) {
     menuImages.at(currentMenuImage).setTouched(state);
 }
 
+int MapView::getUnitPropiety(int touchedId) {
+    return unitTiles.at(touchedId).getPropiety();
+}
+
 /*
 Pre-Condiciones: Reproduce música en caso de que el jugador gane.
 Post-Condiciones: -
