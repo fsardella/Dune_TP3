@@ -93,6 +93,7 @@ void ActiveGame::updateUnitsBuffer() {
                                              this->gameMap);
             if (validDir == coor_t(0,0)) {
                 std::cout << "invalid dir\n";
+                it++;
                 continue;
             }
             this->game.addUnit(it->getPlayerName(),
