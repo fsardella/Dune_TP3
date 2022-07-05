@@ -393,9 +393,9 @@ mostrarse en el menu.
 Post-Condiciones: -
 */
 
-void MapView::updateUnblockedUnits(int constType) {
+void MapView::updateUnblockedUnits(int constType, int house) {
     for (MenuImage &image : menuImages) {
-        image.updateBlocking(constType);
+        image.updateBlocking(constType, house);
     }
 }
 
@@ -448,13 +448,15 @@ void MapView::createConstruction(int x, int y, int playerId,
     int width, height;
     getBuildingDimensions(constType, &width, &height);
 
+    std::cout << "creo building con id " << constructionId << " de type " << constType << std::endl;
+
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
                     std::forward_as_tuple(animationsRepository.at(constType),
                                           lifeTextureTranslatorForConstruction,
                                           &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,
-                                          constType, playerId, propiety));
+                                          constType, playerId, propiety, house));
     if (propiety) {
         updateBlockedUnits(constType, house);
     }
@@ -590,6 +592,10 @@ Post-Condiciones: -
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
                              int totalLife) {
     std::cout << "edificio atacado\n";
+    if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
+        updateUnblockedUnits(constructionTiles.at(attackedId).getConstType(),
+                             constructionTiles.at(attackedId).getHouse());
+    }
     if (attackerId == -1) {
         attackBuildingReaction(attackedId, currentLife, totalLife);
         return;
@@ -621,9 +627,6 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         // window.playSound(GUN_SOUND, VOLUME);
     }
 
-    if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
-        updateUnblockedUnits(constructionTiles.at(attackedId).getConstType());
-    }
     attackBuildingReaction(attackedId, currentLife, totalLife);
 }
 
@@ -755,18 +758,18 @@ en caso de que no se haya clickeado ningún edificio.
 
 int MapView::isBuilding(int posX, int posY, bool propiety) {
     for (auto const& building : constructionTiles) {
-        if ((posX >= constructionTiles.at(building.first).getX() *
-             TILE_PIX_SIZE &&
+        if (((posX >= constructionTiles.at(building.first).getX() *
+             TILE_PIX_SIZE) &&
             (posX <= (constructionTiles.at(building.first).getX() *
              TILE_PIX_SIZE +
             constructionTiles.at(building.first).getWidth()))) &&
-            (posY >= constructionTiles.at(building.first).getY() *
-             TILE_PIX_SIZE &&
+            ((posY >= constructionTiles.at(building.first).getY() *
+             TILE_PIX_SIZE) &&
             (posY <= (constructionTiles.at(building.first).getY() *
              TILE_PIX_SIZE +
             constructionTiles.at(building.first).getHeight()))) &&
             constructionTiles.at(building.first).getPropiety() == propiety) {
-                if (constructionTiles.at(building.first).getIsDead()) return -1;
+                if (constructionTiles.at(building.first).getIsDead()) continue;
                 return building.first;
         }
     }
@@ -789,7 +792,7 @@ int MapView::isUnit(int posX, int posY, bool propiety) {
             unitTiles.at(unit.first).getHeight()))) &&
             unitTiles.at(unit.first).getPropiety() == propiety) {
             if (unitTiles.at(unit.first).getIsDead() || unitTiles.at(unit.first).getIsDying()) {
-                return -1;
+                continue;
             }
             return unit.first;
         }

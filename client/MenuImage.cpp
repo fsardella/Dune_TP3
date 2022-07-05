@@ -2,6 +2,8 @@
 #include "Camera.h"
 #include <utility>
 
+#include <iostream>
+
 #define BARRACK 18
 #define LIGHT_FACTORY 12
 #define HEAVY_FACTORY 13
@@ -167,12 +169,16 @@ Post-Condiciones: Se chequea el bloqueo de la unidad según
 el tipo de edificio destruido. 
 */
 
-void MenuImage::updateBlocking(int buildingType) {
+void MenuImage::updateBlocking(int buildingType, int house) {
+    if (!checkHouse(house)) return;
     if (buildingType == BARRACK) barracks -= 1;
     if (buildingType == HEAVY_FACTORY) heavyFactorys -= 1;
     if (buildingType == PALACE) palaces -= 1;
     if (buildingType == LIGHT_FACTORY) lightFactorys -= 1;
     if (type < CONSTRUCTIONS_OFFSET) {
+        if (isUnderConstruction && !checkUnblockPosibility(buildingType)) {
+            isUnderConstruction = false;
+        }
         blocked = !checkUnblockPosibility(buildingType);
     }
 }
@@ -192,6 +198,7 @@ Post-Condiciones: -
 */
 
 void MenuImage::updateProgress(int progress) {
+    if (blocked) return;
     if (!isUnderConstruction) {
         isUnderConstruction = true;
     }

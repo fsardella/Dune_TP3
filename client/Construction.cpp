@@ -26,7 +26,8 @@ Construction::Construction(std::map<std::tuple<int, int>,
                            float posY,
                            int constType,
                            int playerId,
-                           bool propiety)
+                           bool propiety,
+                           int house)
 : animationsRepository(newAnimationsRepository),
   lifeTextures(lifeTextures),
   identifierTexture(identifierTexture),
@@ -34,6 +35,7 @@ Construction::Construction(std::map<std::tuple<int, int>,
   sizeH(sizeH),
   posX(posX),
   posY(posY),
+  house(house),
   constType(constType),
   playerId(playerId),
   propiety(propiety),
@@ -91,6 +93,10 @@ Post-Condiciones: -
 
 float Construction::getY() {
     return posY;
+}
+
+int Construction::getHouse() {
+    return house;
 }
 
 /*

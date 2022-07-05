@@ -97,7 +97,7 @@ class MapView {
 
     bool isBlocked(int currentUnit);
     void updateBlockedUnits(int constType, int house);
-    void updateUnblockedUnits(int constType);
+    void updateUnblockedUnits(int constType, int house);
 
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);

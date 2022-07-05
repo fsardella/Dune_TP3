@@ -246,6 +246,7 @@ void UserInputReceiver::handleRightClick(int x, int y) {
     std::cout << "op 11\n";
     // quiero destruir un edificio
     int buildingId = gameView->isBuilding(posX, posY, true);
+    std::cout << buildingId << std::endl;
     if (buildingId != NONE_TYPE) {
         ClientInput clientInput(DESTRUCTION, buildingId);
         blockingQueue->push(std::move(clientInput));

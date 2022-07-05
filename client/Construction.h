@@ -16,6 +16,7 @@ class Construction {
     int sizeH;
     float posX;
     float posY;
+    int house;
     int constType;
     int playerId;
     bool propiety;
@@ -37,7 +38,8 @@ class Construction {
                  float posY,
                  int constType,
                  int playerId,
-                 bool propiety);
+                 bool propiety,
+                 int house);
 
     int render(Camera &camera, int posX, int posY);
 
@@ -51,6 +53,7 @@ class Construction {
     void getLifeTexture();
     float getX();
     float getY();
+    int getHouse();
     int getConstType();
     bool getPropiety();
     int getWidth();
