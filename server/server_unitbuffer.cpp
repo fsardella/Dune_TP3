@@ -17,8 +17,23 @@ UnitBuffer::UnitBuffer(uint8_t type, std::string playerName, TerrainMap& terr,
         case TRIKE:
             this->count = c->TRIKE_CTIME;
             break;
+        case RAIDER:
+            this->count = c->RAIDER_CTIME;
+            break;
+        case TANK:
+            this->count = c->TANK_CTIME;
+            break;
         case HARVESTER:
             this->count = c->HARVESTER_CTIME;
+            break;
+        case DEVIATOR:
+            this->count = c->DEVIATOR_CTIME;
+            break;
+        case DEVASTATOR:
+            this->count = c->DEVASTATOR_CTIME;
+            break;
+        case SONIC_TANK:
+            this->count = c->SONIC_TANK_CTIME;
             break;
         default:
             this->count = 1000;
@@ -66,8 +81,19 @@ Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
     switch (this->type) {
         case TRIKE:
             return new Trike(coor, this->terr, newID, this->playerName, c);
+        case RAIDER:
+            return new Raider(coor, this->terr, newID, this->playerName, c);
+        case TANK:
+            return new Tank(coor, this->terr, newID, this->playerName, c);
         case HARVESTER:
             return new Harvester(coor, this->terr, newID, this->playerName, c);
+        case DEVIATOR:
+            return new Deviator(coor, this->terr, newID, this->playerName, c);
+        case DEVASTATOR:
+            return new Devastator(coor, this->terr, newID, this->playerName, c, 
+                                  this->events);
+        case SONIC_TANK:
+            return new SonicTank(coor, this->terr, newID, this->playerName, c);
         default:
             return nullptr;
     }

@@ -127,6 +127,22 @@ class Trike : public Vehicle {
     virtual ~Trike();
 };
 
+class Raider : public Vehicle {
+ public:
+    Raider(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Raider();
+};
+
+class Tank : public Vehicle {
+ public:
+    Tank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Tank();
+};
+
 class Harvester : public Vehicle {
     std::map<uint16_t, Building*>* buildings = nullptr;
     coor_t actHarvestDest;
@@ -158,6 +174,31 @@ class Harvester : public Vehicle {
     void die();
     virtual ~Harvester();
     
+};
+
+class Deviator : public Vehicle {
+ public:
+    Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~Deviator();
+};
+
+class Devastator : public Vehicle {
+    std::list<Command>& explotionBroadcaster;
+ public:
+    Devastator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c, std::list<Command>& events);
+    uint8_t getType();
+    virtual ~Devastator();
+};
+
+class SonicTank : public Vehicle {
+ public:
+    SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c);
+    uint8_t getType();
+    virtual ~SonicTank();
 };
 
 #endif

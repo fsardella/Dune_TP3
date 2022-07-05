@@ -105,10 +105,20 @@ uint8_t Player::getUnitFactor(uint8_t type) {
     uint8_t factoryMultiplier = 1;
     switch (type) {
         case TRIKE:
+        case RAIDER:
             factoryMultiplier = this->cantLightFactories;
             break;
+        case TANK:
         case HARVESTER:
             factoryMultiplier = this->cantHeavyFactories;
+            break;
+        case DEVIATOR:
+        case DEVASTATOR:
+        case SONIC_TANK:
+            if (this->cantHeavyFactories == 0 || this->cantPalaces == 0)
+                factoryMultiplier = 0;
+            else
+                factoryMultiplier = (this->cantHeavyFactories + this->cantPalaces) / 2;
             break;
     }
     return (5 + this->getEnergyPenalization()) * factoryMultiplier;
@@ -121,28 +131,30 @@ coor_t Player::getUnitDir(uint8_t type, TerrainMap& terr) {
         Building* building = iterat.second;
         switch (type) {
             case TRIKE:
-                std::cout << "case trike\n";
+            case RAIDER:
                 if (!building->isLightFactory())
                     continue;
                 break;
+            case TANK:
             case HARVESTER:
                 if (!building->isHeavyFactory())
                     continue;
                 break;
+            case DEVIATOR:
+            case DEVASTATOR:
+            case SONIC_TANK:
+                if (!building->isHeavyFactory() && !building->isPalace())
+                    continue;
+                break;
         }
-        std::cout << "sigo con la iteración\n";
         coor_t buildingPos = building->getPosition();
-        std::cout << buildingPos.first << " y " << buildingPos.second << std::endl;
         uint16_t i = buildingPos.first + building->getSize().first * CHUNKSIZE + 1;
-        std::cout << i << std::endl;
         for (uint16_t j = buildingPos.second;
              j < buildingPos.second + building->getSize().second * CHUNKSIZE;
              j++) {
             coor_t act(i, j);
-            std::cout << "i " << i << " j " << j << std::endl;
             if (terr.isOccupied(act) || terr.isBlocked(act))
                 continue;
-            std::cout << "cambio rect\n";
             ret = act;
             ended = true;
             break;
@@ -275,7 +287,6 @@ bool Player::isBlockInRange(coor_t blockCoord) {
 }
 
 bool Player::isBuildingInRange(Building* toBuild, uint16_t x, uint16_t y) {
-    std::cout << "X ERA " << x << " y Y " << y << std::endl;
     coor_t toBuildBlock(y / CHUNKSIZE,
                         x / CHUNKSIZE);
     coor_t toBuildSize = toBuild->getSize();
@@ -285,12 +296,10 @@ bool Player::isBuildingInRange(Building* toBuild, uint16_t x, uint16_t y) {
         for (uint16_t j = toBuildBlock.second;
              j < toBuildBlock.second + toBuildSize.second;
              j++) {
-            if (this->isBlockInRange(coor_t(i, j))) {
-                std::cout << "1: return true\n";
-                return true; }
+            if (this->isBlockInRange(coor_t(i, j)))
+                return true;
         }            
     }
-    std::cout << "1: return false\n";
     return false;
 }
 

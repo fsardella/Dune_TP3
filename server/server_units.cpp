@@ -362,6 +362,33 @@ Trike::~Trike() {}
 
 
 
+
+Raider::Raider(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+                Config* c): Vehicle(coor, terr, c->RAIDER_LIFE, 
+                                    new TTCannon(terr,
+                                        c->RAIDER_RANGE, c),
+                                    id, c->RAIDER_SPEED, owner) {}
+uint8_t Raider::getType() {
+    return RAIDER;
+}
+
+Raider::~Raider() {}
+
+
+
+Tank::Tank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c) : Vehicle(coor, terr, c->TANK_LIFE, 
+                                    new Cannon(terr,
+                                        c->TANK_RANGE, c),
+                                    id, c->TANK_SPEED, owner) {}
+          
+uint8_t Tank::getType() {
+    return TANK;
+}
+
+Tank::~Tank() {}
+
+
 Harvester::Harvester(coor_t coor, TerrainMap& terr, uint16_t id,
                      std::string owner, Config* c): 
                                           Vehicle(coor, terr, c->HARVESTER_LIFE,
@@ -554,3 +581,52 @@ void Harvester::addPointerToBuildings(std::map<uint16_t, Building*>* buildings) 
 }
 
 Harvester::~Harvester() {}
+
+
+
+
+Deviator::Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c) : Vehicle(coor, terr, c->DEVIATOR_LIFE, 
+  /*new DeviatorLauncher*/     new RocketLauncher(terr,
+                                    c->DEVIATOR_RANGE, c),
+                               id, c->DEVIATOR_SPEED, owner) {}
+
+uint8_t Deviator::getType() {
+    return DEVIATOR;
+}
+
+Deviator::~Deviator() {}
+
+
+
+Devastator::Devastator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c, std::list<Command>& events):
+                            Vehicle(coor, terr, c->DEVASTATOR_LIFE, 
+                                    new PlasmaCannon(terr,
+                                    c->DEVASTATOR_RANGE, c),
+                                    id, c->DEVASTATOR_SPEED, owner),
+                                    explotionBroadcaster(events) {}
+
+uint8_t Devastator::getType() {
+    return DEVASTATOR;
+}
+
+Devastator::~Devastator() {}
+
+
+
+SonicTank::SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
+          Config* c) :  Vehicle(coor, terr, c->SONIC_TANK_LIFE, 
+                                new SoundWaves(terr,
+                                c->SONIC_TANK_RANGE, c),
+                                id, c->SONIC_TANK_SPEED, owner) {}
+
+
+uint8_t SonicTank::getType() {
+    return SONIC_TANK;
+}
+
+
+SonicTank::~SonicTank() {}
+
+
