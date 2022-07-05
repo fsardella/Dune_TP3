@@ -159,6 +159,7 @@ void Building::destroy(std::list<Command>& events) {
         dead.add16bitsMessage(this->buildingID);
         dead.add16bitsMessage(0);
         dead.add16bitsMessage(this->totalLife);
+        dead.add8bitsMessage(0xFF);
         events.push_back(dead);
     }
     this->actualLife = 0;

@@ -56,6 +56,8 @@ coor_t Unit::getPosition() {
 }
 
 uint8_t Unit::getDir() {
+    if (this->state == IDLE)
+        return 4; // El IDLE del astar
     return this->moveAlgorithm.getDir();
 }
 
@@ -146,6 +148,7 @@ void Unit::kill(std::list<Command>& events) {
         dead.add16bitsMessage(this->id);
         dead.add16bitsMessage(0);
         dead.add16bitsMessage(this->totalLife);
+        dead.add8bitsMessage(0xFF);
         events.push_back(dead);
     }
     this->actualLife = 0;
@@ -198,6 +201,7 @@ void Unit::processAttackUnit(std::list<Command>& events) {
             attack.add16bitsMessage(this->unitObjv->getID());
             attack.add16bitsMessage(this->unitObjv->getActualLife());
             attack.add16bitsMessage(this->unitObjv->getTotalLife());
+            attack.add8bitsMessage(this->weapon->getType());
             events.push_back(attack);
     }
     } else {
@@ -229,6 +233,7 @@ void Unit::processAttackBuilding(std::list<Command>& events) {
             attack.add16bitsMessage(this->buildingObjv->getID());
             attack.add16bitsMessage(this->buildingObjv->getActualLife());
             attack.add16bitsMessage(this->buildingObjv->getTotalLife());
+            attack.add8bitsMessage(this->weapon->getType());
             events.push_back(attack);
         }
     } else {
@@ -251,6 +256,7 @@ void Unit::processIdle(std::list<Command>& events) {
         attack.add16bitsMessage(tempObjv->getID());
         attack.add16bitsMessage(tempObjv->getActualLife());
         attack.add16bitsMessage(tempObjv->getTotalLife());
+        attack.add8bitsMessage(this->weapon->getType());
         events.push_back(attack);
     }
 }
@@ -681,6 +687,7 @@ void Devastator::die() {
         expl.add16bitsMessage(rip->getID());
         expl.add16bitsMessage(rip->getActualLife());
         expl.add16bitsMessage(rip->getTotalLife());
+        expl.add8bitsMessage(0xFF);
         this->explosionBroadcaster.push_back(expl);
     }
     Vehicle::die();

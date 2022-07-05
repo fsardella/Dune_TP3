@@ -61,6 +61,8 @@ bool AStar::processMove(coor_t dest) {
         this->terr.swapContent(this->actPos, ret);
         this->setDir(this->actPos, ret);
         this->actPos = ret;
+        if (this->actPos == this->actDest)
+            this->dir = IDLE;
         return true;
     } else if (this->movs.empty() && !this->chunks.empty()) { 
         this->execSubAlgorithm();
@@ -75,6 +77,7 @@ bool AStar::processMove(coor_t dest) {
         if (!this->chunks.empty())
             return this->processMove(this->actDest);
     }
+    this->dir = IDLE;
     return false;
 }
 
