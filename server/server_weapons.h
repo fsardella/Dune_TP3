@@ -13,10 +13,10 @@ class Building;
 
 enum weaponTypes {
     ASSAULT_RIFLE = 0,
-    CANNON,
     ROCKET_LAUNCHER,
-    SOUND_WAVES,
     TTCANNON,
+    CANNON,
+    SOUND_WAVES,
     PLASMA
 };
 
