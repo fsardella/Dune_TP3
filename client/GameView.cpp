@@ -37,6 +37,7 @@ Post-Condiciones: -
 void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId,
                          int animationId, bool property) {
     // std::lock_guard<std::mutex> lock(gameViewMutex);  // BORRAR
+    std::cout << "recibi unit Type " << unitType << " con animation " << animationId << std::endl; 
     map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
