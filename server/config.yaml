@@ -11,7 +11,7 @@ clock: 100000
 
 worm: 300
 
-initial_money: 40000
+initial_money: 4000
 
 #######        BUILDINGS         #######
 
@@ -19,7 +19,7 @@ base:
     life: 3000
 
 air_trap: 
-    energy: 5000
+    energy: 500
     price: 800
     life: 500
     ctime: 100

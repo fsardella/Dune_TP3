@@ -1,5 +1,26 @@
 #include "server_weapons.h"
 #include <iostream>
+#include <cmath>
+#include <set>
+
+#ifndef BROADCASTOPERS
+#define BROADCASTOPERS
+enum broadcastOpers {
+    SUCCESS = 0,
+    FAILURE,
+    UNIT_BROADCAST,
+    BUILDING_BUILT,
+    UNIT_ATTACKED,
+    BUILDING_ATTACKED,
+    LOST_GAME,
+    WON_GAME,
+    UNIT_WIP,
+    BUILDING_WIP,
+    WORM,
+    MENAGE
+};
+#endif
+
 
 
 Weapon::Weapon(uint16_t damage, uint16_t rechargeTime, uint16_t type,
@@ -178,15 +199,115 @@ RocketLauncher::~RocketLauncher() {}
 
 
 
-SoundWaves::SoundWaves(TerrainMap& ter, uint16_t range, Config* c):
+SoundWaves::SoundWaves(TerrainMap& ter, uint16_t range, Config* c/*, 
+                        std::list<Command>& damageBroadcaster, Unit* self*/):
                                 Weapon(c->SOUND_WAVES_DAMAGE,
                                 c->SOUND_WAVES_COOLDOWN, SOUND_WAVES,
                                 ter, range),
-                                bonus(c->SOUND_WAVES_BONUS) {}
+                                bonus(c->SOUND_WAVES_BONUS)//,
+                                //damageBroadcaster(damageBroadcaster),
+                                //self(self) 
+                                {}
 
 uint16_t SoundWaves::getDamageModForInfantry() {
     return this->bonus;
 }
+
+//void SoundWaves::areaAttack(Unit* objective) {
+    //coor_t ownPos = this->self->getPosition();
+    //coor_t objPos = objective->getPosition();
+    //int vectorY = (int)objPos.first - (int)ownPos.first;
+    //int vectorX = (int)objPos.second - (int)ownPos.second;
+    //std::set<coor_t> attackedPos;
+    //std::set<Unit*> attackedGuys;
+    //uint16_t distance = abs(vectorY) + abs(vectorX);
+    //double factor = sqrt(vectorY * vectorY + 
+                         //vectorX * vectorX); 
+    //double versorY = vectorY / factor;
+    //double versorX = vectorX / factor;
+    //for (double i = 0; i < distance; i++) {
+        //double actY = versorY * i;
+        //double actX = versorX * i;
+        //for (int j = -2; j <= 2; j++) {
+            //for (int k = -2; k < 2; k++)
+                //attackedPos.insert(coor_t(ownPos.first + actY + j,
+                                         //ownPos.second + actX + k));
+        //}
+    //}
+    //for (Unit* u : attackedGuys) {
+        //if (u->getID() == this->self->getID() || u->getID() == objective->getID()) 
+            //continue;
+        //u->damage(this->calculateDamage(u));
+        //Command dam;
+        //dam.add8bitsMessage(UNIT_ATTACKED);
+        //dam.add16bitsMessage(0xFFFF);
+        //dam.add16bitsMessage(u->getID());
+        //dam.add16bitsMessage(u->getActualLife());
+        //dam.add16bitsMessage(u->getTotalLife());
+        //dam.add8bitsMessage(0xFF);
+        //this->damageBroadcaster.push_back(dam);
+    //}
+//}
+
+
+// TENERLO REPETIDO ACA ES ASQUEROSO PERO SE ENTREGA EN 5 HORAS
+//void SoundWaves::areaAttack(Building* objective) {
+    //coor_t ownPos = this->self->getPosition();
+    //coor_t objPos = objective->getPosition();
+    //int vectorY = (int)objPos.first - (int)ownPos.first;
+    //int vectorX = (int)objPos.second - (int)ownPos.second;
+    //std::set<coor_t> attackedPos;
+    //std::set<Unit*> attackedGuys;
+    //uint16_t distance = abs(vectorY) + abs(vectorX);
+    //double factor = sqrt(vectorY * vectorY + 
+                         //vectorX * vectorX); 
+    //double versorY = vectorY / factor;
+    //double versorX = vectorX / factor;
+    //for (double i = 0; i < distance; i++) {
+        //double actY = versorY * i;
+        //double actX = versorX * i;
+        //for (int j = -2; j <= 2; j++) {
+            //for (int k = -2; k < 2; k++)
+                //attackedPos.insert(coor_t(ownPos.first + actY + j,
+                                         //ownPos.second + actX + k));
+        //}
+    //}
+    //for (coor_t coord : attackedPos) {
+        //Unit* act = this->terr.getUnit(coord);
+        //if (act != nullptr)
+            //attackedGuys.insert(act);
+    //}
+    //for (Unit* u : attackedGuys) {
+        //if (u->getID() == this->self->getID()) 
+            //continue;
+        //u->damage(this->calculateDamage(u));
+        //Command dam;
+        //dam.add8bitsMessage(UNIT_ATTACKED);
+        //dam.add16bitsMessage(0xFFFF);
+        //dam.add16bitsMessage(u->getID());
+        //dam.add16bitsMessage(u->getActualLife());
+        //dam.add16bitsMessage(u->getTotalLife());
+        //dam.add8bitsMessage(0xFF);
+        //this->damageBroadcaster.push_back(dam);
+    //}
+//}
+
+
+
+//bool SoundWaves::attack(Unit* objective) {
+    //bool ret = Weapon::attack(objective);
+    //if (ret)
+        //this->areaAttack(objective);
+    //return ret;
+//}
+
+//bool SoundWaves::attack(Building* objective) {
+    //bool ret = Weapon::attack(objective);
+    //if (ret)
+        //this->areaAttack(objective);
+    //return ret;
+//}
+
 
 SoundWaves::~SoundWaves() {}
 

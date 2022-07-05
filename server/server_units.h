@@ -230,7 +230,7 @@ class Devastator : public Vehicle {
 class SonicTank : public Vehicle {
  public:
     SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c);
+          Config* c, std::list<Command>& events);
     uint8_t getType();
     virtual ~SonicTank();
 };

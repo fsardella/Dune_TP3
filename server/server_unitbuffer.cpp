@@ -105,7 +105,8 @@ Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
             return new Devastator(coor, this->terr, newID, this->playerName, c, 
                                   this->events);
         case SONIC_TANK:
-            return new SonicTank(coor, this->terr, newID, this->playerName, c);
+            return new SonicTank(coor, this->terr, newID, this->playerName, c,
+                                 this->events);
         case LIGHT_INFANTRY:
             return new LightInfantry(coor, this->terr, newID, this->playerName, c);
         case HEAVY_INFANTRY:

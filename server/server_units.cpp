@@ -164,12 +164,10 @@ void Unit::processMove() {
         bool ret = this->moveAlgorithm.processMove(this->actDest);
         if (ret) {
             if (this->actDest == this->moveAlgorithm.getPosition()) {
-                std::cout << "ENDED MOVE!";
                 this->state = IDLE;
                 break;
             }
         } else {
-            std::cout << "COULDNT FIND PATH\n";
             this->actDest = this->moveAlgorithm.getPosition();
             this->state = IDLE;
             break;
@@ -370,7 +368,7 @@ HeavyInfantry::~HeavyInfantry() {}
 
 Fremen::Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):        Infantry(coor, terr, c->FREMEN_LIFE, 
-                    /*DOUBLE HANDED*/ new TwoHanded(terr,
+                                      new TwoHanded(terr,
                                       c->FREMEN_RANGE, c),
                                       id, c->FREMEN_SPEED, owner) {}
 
@@ -384,7 +382,7 @@ Fremen::~Fremen() {}
 
 Sardaukar::Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):    Infantry(coor, terr, c->SARDAUKAR_LIFE, 
-            /*DOUBLE HANDED*/     new TwoHanded(terr,
+                                  new TwoHanded(terr,
                                   c->SARDAUKAR_RANGE, c),
                                   id, c->SARDAUKAR_SPEED, owner) {}
           
@@ -698,9 +696,10 @@ Devastator::~Devastator() {}
 
 
 SonicTank::SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c) :  Vehicle(coor, terr, c->SONIC_TANK_LIFE, 
+          Config* c, std::list<Command>& events): 
+                                Vehicle(coor, terr, c->SONIC_TANK_LIFE, 
                                 new SoundWaves(terr,
-                                c->SONIC_TANK_RANGE, c),
+                                c->SONIC_TANK_RANGE, c/*, events, this*/),
                                 id, c->SONIC_TANK_SPEED, owner) {}
 
 

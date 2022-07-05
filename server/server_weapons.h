@@ -7,6 +7,7 @@
 #include <tuple>
 #include "server_config.h"
 #include "server_terrain_map.h"
+#include "common_command.h"
 
 class Unit;
 class Building;
@@ -28,12 +29,13 @@ class Weapon {
     uint16_t baseDamage;
     uint16_t type;
     uint16_t range;
-    TerrainMap& terr;
     uint8_t shotsFired = 0;
     bool attacking = false;
 
 
     uint16_t manhattanDistance(coor_t dest, coor_t other);
+ protected:
+    TerrainMap& terr;
     uint16_t calculateDamage(Unit* objective);
     uint16_t calculateDamage(Building* objective);
  public:
@@ -78,8 +80,16 @@ class RocketLauncher: public Weapon {
 
 class SoundWaves: public Weapon {
     uint16_t bonus;
+    //std::list<Command>& damageBroadcaster;
+    //Unit* self;
+    
+    //void areaAttack(Unit* objective);
+    //void areaAttack(Building* objective);
  public:
-    SoundWaves(TerrainMap& ter, uint16_t range, Config* c);
+    SoundWaves(TerrainMap& ter, uint16_t range, Config* c/*,
+               std::list<Command>& damageBroadcaster, Unit* self*/);
+    //bool attack(Unit* objective);
+    //bool attack(Building* objective);
     uint16_t getDamageModForInfantry();
     virtual ~SoundWaves();
 };
