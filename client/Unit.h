@@ -96,7 +96,7 @@ class Unit {
     void setAttackType(int attackType, std::vector<SdlTexture*> attack);
 
     bool isAttacking();
-    void startAttacking();
+    void startAttacking(float x, float y);
     void updateLife(int currentLife, int totalLife);
     void setMisilDestinationForUnit(float x, float y, Unit* attackedUnit);
     void setMisilDestinationForConstruction(float x, float y,

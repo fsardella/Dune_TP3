@@ -333,7 +333,14 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
 
     if (unitTiles.find(unitId) != unitTiles.end() &&
         unitTiles.at(unitId).getIsDying()) {
-            return;
+        return;
+    }
+
+    if (unitTiles.find(unitId) != unitTiles.end() &&
+        unitTiles.at(unitId).isAttacking() &&
+        unitTiles.at(unitId).getPlayerId() == playerId &&
+        unitTiles.at(unitId).getPropiety() == propiety) {
+        return;
     }
 
     if (unitTiles.find(unitId) != unitTiles.end() &&
@@ -342,7 +349,7 @@ void MapView::createUnit(int x, int y, int unitId, int unitType, int playerId,
         unitTiles.at(unitId).getY() == posY &&
         unitTiles.at(unitId).getPlayerId() == playerId &&
         unitTiles.at(unitId).getPropiety() == propiety) {
-            return;
+        return;
     }
     if (unitTiles.find(unitId) != unitTiles.end()) {
         if (unitTiles.at(unitId).getPlayerId() != playerId) {
@@ -589,17 +596,16 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
     }
 
-    unitTiles.at(attackerId).startAttacking();
+
+    float x = unitTiles.at(attackedId).getX();
+    float y = unitTiles.at(attackedId).getY();
+    unitTiles.at(attackerId).startAttacking(x, y);
     int attackerType = unitTiles.at(attackerId).getUnitType();
     if (((attackerType > 3 && attackerType < 6) ||
         (attackerType > 7 && attackerType < 11)) &&
         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
-        float x = unitTiles.at(attackedId).getX();
-        float y = unitTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForUnit(x, y, &(unitTiles.at(attackedId)));
     } else if (attackerType == 6) {
-        float x = unitTiles.at(attackedId).getX();
-        float y = unitTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
@@ -644,7 +650,10 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
     }
 
-    unitTiles.at(attackerId).startAttacking();
+
+    float x = constructionTiles.at(attackedId).getX();
+    float y = constructionTiles.at(attackedId).getY();
+    unitTiles.at(attackerId).startAttacking(x, y);
 
     int attackerType = unitTiles.at(attackerId).getUnitType();
 
@@ -652,12 +661,8 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
     if (((attackerType > 3 && attackerType < 6) ||
         (attackerType > 7 && attackerType < 11)) &&
         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
-        float x = constructionTiles.at(attackedId).getX();
-        float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
     } else if (attackerType == 6) {
-        float x = constructionTiles.at(attackedId).getX();
-        float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 

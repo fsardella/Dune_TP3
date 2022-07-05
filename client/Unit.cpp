@@ -471,9 +471,55 @@ Pre-Condiciones: Setea a la unidad en ataque.
 Post-Condiciones: -
 */
 
-void Unit::startAttacking() {
+void Unit::startAttacking(float x, float y) {
     isCurrentlyAttacking = true;
     attackAnimation.reset();
+    float diferenciaX = posX - x;
+    float diferenciaY = posY - y;
+    if (diferenciaX == 0) {
+        if (diferenciaY > 0) {
+            animationId = 1;
+            getTexture();
+            return;
+        } else {
+            animationId = 7;
+            getTexture();
+            return;
+        }
+    }
+    if (diferenciaY == 0) {
+        if (diferenciaX > 0) {
+            animationId = 3;
+            getTexture();
+            return;
+        } else {
+            animationId = 5;
+            getTexture();
+            return;
+        }
+    }
+    if (diferenciaX > 0) {
+        if (diferenciaY > 0) {
+            animationId = 0;
+            getTexture();
+            return;
+        } else {
+            animationId = 6;
+            getTexture();
+            return;
+        }
+    }
+    if (diferenciaX < 0) {
+        if (diferenciaY > 0) {
+            animationId = 2;
+            getTexture();
+            return;
+        } else {
+            animationId = 8;
+            getTexture();
+            return;
+        }
+    }
 }
 
 /*
