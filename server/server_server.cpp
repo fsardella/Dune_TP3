@@ -19,7 +19,8 @@ Server::Server(Config* c): c(c),
                            listener(c->PORT.c_str(), &gameSet,
                                     this->talkers, c),
                            inputGuy(this->listener,
-                                    this->playableGames) {
+                                    this->playableGames,
+                                    this->talkers) {
 	this->listener.start();
 }
 

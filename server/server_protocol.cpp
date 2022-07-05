@@ -209,3 +209,7 @@ void ProtocolServer::sendString(const std::string& data) {
     this->socket.sendall(&newSize, 2);
     this->socket.sendall(&data[0], size);
 }
+
+void ProtocolServer::close() {
+    this->socket.closeSkt();
+}

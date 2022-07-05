@@ -55,7 +55,9 @@ class Talker: public Thread {
                       sketch_t gameMap, std::list<PlayerData> players,
                       BlockingQueue<Command>& sendingQueue);
 	explicit Talker(Socket&& socket, GameSet* game_set, Config* c);
-	void run() override;
+	
+    void close();
+    void run() override;
 	~Talker() override;
 };
 
