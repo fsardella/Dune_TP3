@@ -25,6 +25,7 @@
 #define SURESTE 8
 #define UNIT_OFFSET 0.5
 #define BULLET_MOVEMENT 0.2
+#define MAX_ITERATION 11
 
 /*
 Pre-Condiciones: Constructor de Unit.
@@ -275,7 +276,7 @@ int Unit::render(Camera &camera, float posX, float posY) {
             (unitType > 7 && unitType < 11))) {
             calculateMisilPosition(direcX, direcY, animationId);
             misilIteration ++;
-            if (direcX == destinationX && direcY == destinationY) {
+            if (misilIteration == MAX_ITERATION) {
                 reachedDestination = true;
                 misilIteration = 1;
                 bulletPaseX = BULLET_MOVEMENT;

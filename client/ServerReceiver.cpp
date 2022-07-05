@@ -54,30 +54,30 @@ void ServerReceiver::run() {
 
         // gameView->updateSpecie(0, 0, 5);
 
-        // std::this_thread::sleep_for (std::chrono::seconds(3));
+        std::this_thread::sleep_for (std::chrono::seconds(3));
 
         // // std::cout << "creo unidades\n";
-        // gameView->buildUnit(110, 100, 16, 6, 0, 8, false); // BORRAR
-        // gameView->buildUnit(150, 200, 17, 7, 0, 3, true); // BORRAR
+        gameView->buildUnit(110, 100, 16, 4, 0, 8, false); // BORRAR
+        gameView->buildUnit(150, 200, 17, 7, 0, 3, true); // BORRAR
         // std::this_thread::sleep_for (std::chrono::seconds(2));
         // gameView->wormAttack(200, 150);
         // gameView->unitAttack(-1, 17, 0, 80);
 
-        // std::cout << "termino de crear unidades\n";
-        // gameView->unitAttack(16, 17, 80, 80);
-        // std::cout << "empieza el segundo\n";
-        // std::this_thread::sleep_for (std::chrono::seconds(1));
-        // std::cout << "termina el segundo\n";
-        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 60, 80);
-        // std::this_thread::sleep_for (std::chrono::seconds(1));
-        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 40, 80);
-        // std::this_thread::sleep_for (std::chrono::seconds(1));
-        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // gameView->unitAttack(16, 17, 0, 80);
-        // // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
-        // std::this_thread::sleep_for (std::chrono::seconds(1));
+        std::cout << "termino de crear unidades\n";
+        gameView->unitAttack(16, 17, 80, 80);
+        std::cout << "empieza el segundo\n";
+        std::this_thread::sleep_for (std::chrono::seconds(1));
+        std::cout << "termina el segundo\n";
+        // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        gameView->unitAttack(16, 17, 60, 80);
+        std::this_thread::sleep_for (std::chrono::seconds(1));
+        // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        gameView->unitAttack(16, 17, 40, 80);
+        std::this_thread::sleep_for (std::chrono::seconds(1));
+        // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        gameView->unitAttack(16, 17, 0, 80);
+        // gameView->buildUnit(200, 150, 17, 0, 0, 3, false);
+        std::this_thread::sleep_for (std::chrono::seconds(1));
 
         // std::this_thread::sleep_for (std::chrono::seconds(3));
         // std::cout << "lo intento creat\n";
