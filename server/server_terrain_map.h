@@ -33,6 +33,8 @@ class TerrainMap {
     void addUnit(coor_t coor, Unit* unit);
     void build(coor_t coor, Building* building);
     bool hasMenage(coor_t coor);
+    bool isSand(coor_t coor);
+    
     uint16_t harvestMenage(coor_t coor, uint16_t freeSpace);
     bool isThereARefinery(coor_t coor);
     void eraseBuildingFromMap(coor_t coor, coor_t size);

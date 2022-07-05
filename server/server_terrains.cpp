@@ -38,6 +38,10 @@ bool Terrain::hasMenage() {
     return false;
 }
 
+bool Terrain::isSand() {
+    return false;
+}
+
 Unit* Terrain::getOccupant(coor_t coord) {
     if (!this->isOccupied(coord))
         return nullptr;
@@ -68,9 +72,16 @@ bool Terrain::isOccupied(coor_t coord) {
 
 
 Sand::Sand(): Terrain() {}
+
+bool Sand::isSand() {
+    return true;
+}
+
 int Sand::getSpeedWeight(Unit& unit, coor_t coord) {
     return unit.getSpeedWeightForSand();
 }
+
+
 Sand::~Sand() {}
 
 //debug

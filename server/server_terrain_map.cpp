@@ -89,6 +89,12 @@ bool TerrainMap::hasMenage(coor_t coor) {
     return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->hasMenage();
 }
 
+bool TerrainMap::isSand(coor_t coor) {
+    if (!this->isInsideMap(coor))
+        return 0;
+    return this->terr[coor.first / CHUNKSIZE][coor.second / CHUNKSIZE]->isSand();
+}
+
 uint16_t TerrainMap::harvestMenage(coor_t coor, uint16_t freeSpace) {
     if (!this->isInsideMap(coor))
         return 0;
