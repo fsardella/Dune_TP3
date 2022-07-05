@@ -118,6 +118,8 @@ class MapView {
     void touchedMenuImage(int currentMenuImage, bool state);
     int getUnitPropiety(int touchedId);
 
+    void stopConstruction(int type);
+
     void update(int delta);
 
     int getSoundOffset();

@@ -74,6 +74,8 @@ class GameView {
     void touchedMenuImage(int currentMenuImage, bool state);
     int getUnitPropiety(int touchedId);
 
+    void stopConstruction(int type);
+
     void playWinSound();
     void playLostSound();
     void playSounds();

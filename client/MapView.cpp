@@ -6,8 +6,6 @@
 
 #include <iostream>
 
-// #define CONSTRUCTION_OFFSET 11
-// antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
 #define HEAVY_FACTORY 13
@@ -478,7 +476,6 @@ Post-Condiciones: -
 */
 
 void MapView::updateProgress(int menuId, int progress) {
-    std::cout << "soy de tipo " << menuId << " y mi progress es " << progress << std::endl;
     int offset = getSoundOffset();
 
     if (menuId > 10 && progress == PROGRESS_COMPLETED &&
@@ -953,8 +950,24 @@ void MapView::touchedMenuImage(int currentMenuImage, bool state) {
     menuImages.at(currentMenuImage).setTouched(state);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la propiedad de una unidad.
+*/
+
 int MapView::getUnitPropiety(int touchedId) {
     return unitTiles.at(touchedId).getPropiety();
+}
+
+/*
+Pre-Condiciones: Detiene la construccion de una unidad.
+Post-Condiciones: -
+*/
+
+void MapView::stopConstruction(int type) {
+    if (menuImages.at(type).isCurrentlyUnderConstruction()) {
+        menuImages.at(type).updateProgress(100);
+    }
 }
 
 /*

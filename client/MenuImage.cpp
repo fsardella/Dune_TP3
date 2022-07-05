@@ -41,6 +41,11 @@ MenuImage::MenuImage(SdlTexture* texture,
     rescaling = 1;
 }
 
+/*
+Pre-Condiciones: Renderiza la imagen del menu.
+Post-Condiciones: -
+*/
+
 void MenuImage::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
     camera.renderInSightForMenu(texture, src, posX, posY);
@@ -183,9 +188,19 @@ void MenuImage::updateBlocking(int buildingType, int house) {
     }
 }
 
+/*
+Pre-Condiciones: Bloquea la imagen del menu.
+Post-Condiciones: -
+*/
+
 void MenuImage::block() {
     blocked = true;
 }
+
+/*
+Pre-Condiciones: Desbloquea la imagen del menu.
+Post-Condiciones: -
+*/
 
 void MenuImage::unblock() {
     blocked = false;

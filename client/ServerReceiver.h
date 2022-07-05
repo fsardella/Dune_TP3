@@ -15,6 +15,7 @@ class ServerReceiver: public Thread {
     int& result;
     std::map<int, int> clientHouses;
     std::map<std::tuple<int, int>, bool> spices;
+    std::vector<int> unitsUnderConstruction;
 
  public:
     ServerReceiver(ProtocolClient* protocol, GameView* gameViewObj,
@@ -26,6 +27,8 @@ class ServerReceiver: public Thread {
     void receiveBuilding();
     void receiveUnitAttack();
     void receiveBuildingAttack();
+    bool checkIsStillUnderConstruction(int previousUnit,
+                            std::vector<std::tuple<int, int>> unitProgress);
     void receiveUnitProgress();
     void receiveBuildingProgress();
     void receiveWormInfo();

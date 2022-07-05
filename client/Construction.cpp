@@ -78,8 +78,8 @@ int Construction::render(Camera &camera, int posX, int posY) {
 }
 
 /*
-Pre-Condiciones: Se obtiene la posicion x de un edificio.
-Post-Condiciones: -
+Pre-Condiciones: -
+Post-Condiciones: Se obtiene la posicion x de un edificio.
 */
 
 float Construction::getX() {
@@ -87,22 +87,27 @@ float Construction::getX() {
 }
 
 /*
-Pre-Condiciones: Se obtiene la posicion y de un edificio.
-Post-Condiciones: -
+Pre-Condiciones: -
+Post-Condiciones: Se obtiene la posicion y de un edificio.
 */
 
 float Construction::getY() {
     return posY;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Se obtiene la casa de un edificio.
+*/
+
 int Construction::getHouse() {
     return house;
 }
 
 /*
-Pre-Condiciones: Devuelve true si el edificio es propiedad del
+Pre-Condiciones: -
+Post-Condiciones: Devuelve true si el edificio es propiedad del
 jugador o false si no.
-Post-Condiciones: -
 */
 
 bool Construction::getPropiety() {
@@ -216,14 +221,22 @@ void Construction::update(int delta) {
     }
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el id de la animación actual.
+*/
+
 int Construction::getAnimationId() {
     return animationId;
 }
 
+/*
+Pre-Condiciones: Setea una explosión en el edificio.
+Post-Condiciones: -
+*/
+
 void Construction::setExplosion() {
-    std::cout << "me setean una explosion\n";
     previosAnimationId = animationId;
-    std::cout << "id anterior " << previosAnimationId << std::endl;
     animationId = EXPLOSION_ANIMATION;
     animations.at(animationId).reset();
     getTexture();

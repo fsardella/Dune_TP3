@@ -7,6 +7,12 @@
 #define BLACK 0
 #define ALPHA 0
 
+/*
+Pre-Condiciones: Constructor de la clase SdlTexture a partir de un
+path a una imagen y un puntero a una ventana.
+Post-Condiciones: -
+*/
+
 SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 : window(window),
   texture(nullptr) {
@@ -23,6 +29,13 @@ SdlTexture::SdlTexture(const std::string& filename, SdlWindow* window)
 
     SDL_FreeSurface(tmp);
 }
+
+/*
+Pre-Condiciones: Constructor de la clase SdlTexture a partir de un
+path a una imagen, un puntero a una ventana y un color en formato
+RGB para filtrar de la imagen.
+Post-Condiciones: -
+*/
 
 SdlTexture::SdlTexture(const std::string &filename,
                        SdlWindow* window, int r, int g, int b)
@@ -42,6 +55,13 @@ SdlTexture::SdlTexture(const std::string &filename,
 
     SDL_FreeSurface(tmp);
 }
+
+/*
+Pre-Condiciones: Constructor de la clase SdlTexture a partir de un
+path a una imagen, un puntero a una ventana, un modo y
+un alpha de opacidad.
+Post-Condiciones: -
+*/
 
 SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window,
                        SDL_BlendMode blending, uint8_t alpha)
@@ -63,6 +83,12 @@ SdlTexture::SdlTexture(const std::string &filename, SdlWindow* window,
     SDL_FreeSurface(tmp);
 }
 
+/*
+Pre-Condiciones: Constructor de la clase SdlTexture a partir de un
+puntero a una ventana, una font de letra y un texto.
+Post-Condiciones: -
+*/
+
 SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
 : window(window),
   texture(nullptr) {
@@ -81,17 +107,32 @@ SdlTexture::SdlTexture(SdlWindow* window, TTF_Font* font, std::string text)
     SDL_FreeSurface(surface);
 }
 
+/*
+Pre-Condiciones: Renderiza la textura en la ventana.
+Post-Condiciones: -
+*/
+
 int SdlTexture::render(const Area& src, const Area& dest) const {
     const SDL_Rect srcRect = src.buildRectangle();
     const SDL_Rect destRect = dest.buildRectangle();
     return window->handleRender(texture, srcRect, destRect);
 }
 
+/*
+Pre-Condiciones: Destructor de la clase SdlTexture.
+Post-Condiciones: -
+*/
+
 SdlTexture::~SdlTexture() {
     if (this->texture != nullptr) {
         SDL_DestroyTexture(this->texture);
     }
 }
+
+/*
+Pre-Condiciones: Constructor por movimiento de la clase SdlTexture.
+Post-Condiciones: -
+*/
 
 SdlTexture::SdlTexture(SdlTexture&& other) :
     window(other.window),

@@ -111,8 +111,12 @@ void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
     animationId = newAnimationId;
 }
 
+/*
+Pre-Condiciones: Calcula la posicion del misil para renderizar.
+Post-Condiciones: -
+*/
+
 void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId) {
-    // std::cout << "missil iteration es " << misilIteration << std::endl;
     switch (animationId) {
         case NOROESTE:
             direcX = posX  -
@@ -178,6 +182,11 @@ void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId)
             break;
     }
 }
+
+/*
+Pre-Condiciones: Calcula la posicion de la bala para renderizar.
+Post-Condiciones: -
+*/
 
 void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
     switch (animationId) {
@@ -342,18 +351,40 @@ int Unit::getAnimationId() {
     return animationId;
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el tipo de ataque.
+*/
+
 int Unit::getAttackType() {
     return currentAttackType;
 }
+
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve el id del jugador.
+*/
 
 int Unit::getPlayerId() {
     return playerId;
 }
 
+/*
+Pre-Condiciones: Modifica el id del jugador y setea una nueva textura
+identificadora.
+Post-Condiciones: -
+*/
+
 void Unit::setPlayerId(int newPlayerId, SdlTexture* newIdentifier) {
     playerId = newPlayerId;
     identifierTexture = newIdentifier;
 }
+
+/*
+Pre-Condiciones: Setea la propiedad de la unidad a partir del parámetro
+recibido.
+Post-Condiciones: -
+*/
 
 void Unit::setPropiety(bool newPropiety) {
     propiety = newPropiety;
@@ -362,10 +393,13 @@ void Unit::setPropiety(bool newPropiety) {
     }
 }
 
+/*
+Pre-Condiciones: Setea una explosión en la unidad.
+Post-Condiciones: -
+*/
+
 void Unit::setExplosion() {
-    // std::cout << "me setean una explosion\n";
     previosAnimationId = animationId;
-    // std::cout << "id anterior " << previosAnimationId << std::endl;
     if (unitType < 7) {  // soy vehiculo
         animationId = VEHICLE_EXPLOSION_ANIMATION;
         animations.at(animationId).reset();
@@ -542,6 +576,12 @@ void Unit::updateLife(int currentLife, int totalLife) {
     }
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve verdadero is la unidad esta muriendo (en animación
+de muerte), o falso en caso contrario.
+*/
+
 bool Unit::getIsDying() {
     return isDying;
 }
@@ -638,8 +678,8 @@ void Unit::calculateSteps() {
     if (yDifference < 0) {
         yDifference = destinationY - posY;
     }
-    bulletPaseX = xDifference / float(10);
-    bulletPaseY = yDifference / float(10);
+    bulletPaseX = xDifference / float(MAX_ITERATION - 1);
+    bulletPaseY = yDifference / float(MAX_ITERATION - 1);
 }
 
 /*
@@ -694,9 +734,21 @@ void Unit::setSoundWaveDestination(float x, float y) {
     }
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve verdadero is la unidad no tenía seteada una animación
+de ataque, o falso en caso contrario.
+*/
+
 bool Unit::hasNoAttack() {
     return this->attackTextures.size() == 0;
 }
+
+/*
+Pre-Condiciones: Setea un tipo de ataque y modifica la animación para que lo
+represente.
+Post-Condiciones: -
+*/
 
 void Unit::setAttackType(int attackType, std::vector<SdlTexture*> attack) {
     currentAttackType = attackType;

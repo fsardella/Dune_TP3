@@ -361,9 +361,24 @@ void GameView::touchedMenuImage(int currentMenuImage, bool state) {
     map.touchedMenuImage(currentMenuImage, state);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la propiedad de una unidad.
+*/
+
 int GameView::getUnitPropiety(int touchedId) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.getUnitPropiety(touchedId);
+}
+
+/*
+Pre-Condiciones: Detiene la construcción de una unidad.
+Post-Condiciones: -
+*/
+
+void GameView::stopConstruction(int type) {
+    std::lock_guard<std::mutex> lock(gameViewMutex);
+    return map.stopConstruction(type);
 }
 
 /*
