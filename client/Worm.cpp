@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+#define OFFSET_X 16
+#define OFFSET_Y 16
+
 /*
 Pre-Condiciones: Constructor de gusano de arena.
 Post-Condiciones: -
@@ -28,8 +31,11 @@ Post-Condiciones: -
 
 int Worm::render(Camera &camera, float posX, float posY) {
     Area src(0, 0, sizeW, sizeH);
-    int i = camera.renderInSightForUnit(texture, src, posX, posY);
-    return i;
+    float offsetX = static_cast<float>(OFFSET_X) / static_cast<float>(TILE_PIX_SIZE);
+    float offsetY = static_cast<float>(OFFSET_Y) / static_cast<float>(TILE_PIX_SIZE);
+    float positionX = posX + offsetX;
+    float positionY = posY + offsetY;
+    return camera.renderInSightForUnit(texture, src, positionX, positionY);
 }
 
 /*

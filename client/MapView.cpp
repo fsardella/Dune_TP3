@@ -29,8 +29,8 @@
 #define EXPLOSION 11
 #define MISIL_SOUND 13
 #define GUN_SOUND 12
-#define WORM_WIDTH 32
-#define WORM_HEIGHT 32
+#define WORM_WIDTH 64
+#define WORM_HEIGHT 64
 #define INITIAL_MONEY 1000
 #define INITIAL_ENERGY 100
 #define SPICE_OFFSET 22
@@ -710,7 +710,10 @@ void MapView::render(Camera &cam) {
     }
     renderMenu(cam);
     if (worm.isAttacking()) {
-        worm.render(cam, worm.getX(), worm.getY());
+        int surpasses = worm.render(cam, worm.getX(), worm.getY());
+        if (surpasses) {
+            renderMenu(cam);
+        }
     }
     for (auto const& unit : unitTiles) {
         if (unitTiles.at(unit.first).getIsDead()) continue;
@@ -859,6 +862,8 @@ Post-Condiciones: -
 */
 
 void MapView::wormAttack(int x, int y) {
+    x = x - (x % TILE_PIX_SIZE);
+    y = y - (y % TILE_PIX_SIZE);
     float posX = static_cast<float>(x) / static_cast<float>(TILE_PIX_SIZE);
     float posY = static_cast<float>(y) / static_cast<float>(TILE_PIX_SIZE);
     worm.setNewPosition(posX, posY);
