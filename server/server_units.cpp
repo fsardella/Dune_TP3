@@ -322,6 +322,10 @@ int Infantry::getSpeedWeightForMount() {
     return SAND;
 }
 
+uint16_t Infantry::getDamageFor(Weapon* weapon) {
+    return weapon->getDamageModForInfantry();
+}
+
 uint8_t Infantry::getType() {
     return 7;
 }
@@ -332,6 +336,10 @@ Infantry::~Infantry() {}
 
 int Vehicle::getSpeedWeightForMount() {
     return WALL;
+}
+
+uint16_t Vehicle::getDamageFor(Weapon* weapon) {
+    return weapon->getDamageModForVehicle();
 }
 
 Vehicle::~Vehicle() {}

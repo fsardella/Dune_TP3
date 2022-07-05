@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 #include <list>
-#include "server_buildings.h"
 #include "server_config.h"
+#include "server_terrain_map.h"
 
 class Unit;
 class Building;
@@ -101,5 +101,6 @@ class PlasmaCannon: public Weapon {
 };
 
 #include "server_units.h"
+#include "server_buildings.h"
 
 #endif

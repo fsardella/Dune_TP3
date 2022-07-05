@@ -121,6 +121,11 @@ void Building::eraseFromMap() {
     this->terrain->eraseBuildingFromMap(this->position, this->size);
 }
 
+
+uint16_t Building::getDamageFor(Weapon* weapon) {
+    return weapon->getDamageModForBuilding();
+}
+
 void Building::attack(uint16_t damage) {
     if (this->actualLife <= damage) {
         if (!this->destroyed())

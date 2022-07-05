@@ -7,6 +7,7 @@
 #include "server_terrain_map.h"
 #include "common_command.h"
 #include "server_config.h"
+#include "server_weapons.h"
 
 typedef std::pair<uint16_t, uint16_t> coor_t;
 
@@ -23,6 +24,8 @@ enum buildingTypes {
     BARRACK
 };
 #endif
+
+class Weapon;
 
 class Building {
     coor_t size;
@@ -55,6 +58,8 @@ class Building {
     
     void update(uint16_t constructionTime);
     uint8_t getCompletion();
+    
+    uint16_t getDamageFor(Weapon* weapon);
     
     bool canBuild(TerrainMap& terr, coor_t position);
     uint16_t getID();

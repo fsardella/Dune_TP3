@@ -12,12 +12,12 @@ uint16_t Weapon::getType() {
 }
 
 uint16_t Weapon::getDamageModifier(Unit* objective) {
-    return 0;
+    return objective->getDamageFor(this);
 }
 
 
 uint16_t Weapon::getDamageModifier(Building* objective) {
-    return 0;    
+    return objective->getDamageFor(this);    
 }
 
 

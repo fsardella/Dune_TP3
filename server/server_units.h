@@ -87,6 +87,7 @@ class Unit {
     void attack(Unit* attacked);
     void attack(Building* attacked);
     void damage(uint16_t dam);
+    virtual uint16_t getDamageFor(Weapon* weapon) = 0;
     bool isDead();
     virtual void die();
     void kill(std::list<Command>& events);
@@ -103,6 +104,7 @@ class Infantry : public Unit {
     Infantry(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon,
              uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
+    uint16_t getDamageFor(Weapon* weapon);
     virtual uint8_t getType();
     virtual ~Infantry();
 };
@@ -112,6 +114,7 @@ class Vehicle : public Unit {
     Vehicle(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon, 
             uint16_t id, uint16_t speed, std::string owner);
     int getSpeedWeightForMount();
+    uint16_t getDamageFor(Weapon* weapon);
     virtual uint8_t getType() = 0;
     virtual ~Vehicle();
 };
