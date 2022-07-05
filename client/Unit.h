@@ -68,6 +68,7 @@ class Unit {
 
     void calculateBulletPosition(float& direcX, float& direcY, int animationId);
     void calculateMisilPosition(float& direcX, float& direcY, int animationId);
+    void calculateSoundWavePosition(float& direcX, float& direcY, int animationId);
     void updateAnimationId(int oldAnimationId, int newAnimationId);
     float getX();
     float getY();
@@ -92,6 +93,7 @@ class Unit {
     void setMisilDestinationForUnit(float x, float y, Unit* attackedUnit);
     void setMisilDestinationForConstruction(float x, float y,
                                         Construction* attackedConstruction);
+    void setSoundWaveDestination(float x, float y);
     void calculateSteps();
 
     void update(int delta);

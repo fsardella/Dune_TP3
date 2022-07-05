@@ -173,8 +173,36 @@ void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId)
     }
 }
 
+void Unit::calculateSoundWavePosition(float& direcX, float& direcY, int animationId) {
+    switch (animationId) {
+        case NOROESTE:
+            direcX = posX - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(bulletPaseX);
+            direcY = posY - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(bulletPaseY);
+            break;
+        case NORESTE:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(bulletPaseX);
+            direcY = posY - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(bulletPaseY);
+            break;
+        case SUROESTE:
+            direcX = posX - static_cast<float>(UNIT_OFFSET) -
+                     static_cast<float>(bulletPaseX);
+            direcY = posY + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(bulletPaseY);
+            break;
+        case SURESTE:
+            direcX = posX + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(bulletPaseX);
+            direcY = posY + static_cast<float>(UNIT_OFFSET) +
+                     static_cast<float>(bulletPaseY);
+            break;
+    }
+}
+
 void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
-    // std::cout << "animation fram " << attackAnimation.getFrame() << std::endl;
     switch (animationId) {
         case NOROESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
@@ -247,7 +275,6 @@ int Unit::render(Camera &camera, float posX, float posY) {
             (unitType > 7 && unitType < 11))) {
             calculateMisilPosition(direcX, direcY, animationId);
             misilIteration ++;
-            // std::cout << "la direccion del misil era " << direcX << " y " << direcY << std::endl;
             if (direcX == destinationX && direcY == destinationY) {
                 reachedDestination = true;
                 misilIteration = 1;
@@ -255,8 +282,11 @@ int Unit::render(Camera &camera, float posX, float posY) {
                 bulletPaseY = BULLET_MOVEMENT;
             }
         } else {
-            // std::cout << "me renderizo\n";
             calculateBulletPosition(direcX, direcY, animationId);
+            if (attackAnimation.isLastFrame()) {
+                bulletPaseX = BULLET_MOVEMENT;
+                bulletPaseY = BULLET_MOVEMENT;
+            }
         }
         camera.renderInSightForUnit(attackAnimation.getTexture(),
                                     srcAttack, direcX, direcY);
@@ -346,8 +376,6 @@ Post-Condiciones: -
 */
 
 void Unit::setAnimationId(int newAnimationId) {
-    // std::cout << "antes tenia la " << animationId << std::endl;
-    // std::cout << "recibi la animacion " << newAnimationId << " y tengo propiety " << propiety << std::endl; 
     if (unitType < 7 && animationId == STILL) {
         // si era vehiculo y estaba quieto, cualq direc es rotacion
         updateAnimationId(animationId, newAnimationId);
@@ -409,7 +437,6 @@ Post-Condiciones: -
 */
 
 void Unit::setIsTouched(bool status) {
-    std::cout << "deja de estar tocado\n";
     isTouched = status;
 }
 
@@ -453,7 +480,6 @@ void Unit::updateLife(int currentLife, int totalLife) {
     getLifeTexture();
     if (currentLife == 0) {
         if (unitType < 7) {
-            // std::cout << "seteo animacion de muerte\n";
             animationId = VEHICLE_DEAD_ANIMATION;
             isDying = true;
         } else {
@@ -474,10 +500,8 @@ Post-Condiciones: -
 
 void Unit::update(int delta) {
     if (isDead) return;
-    // std::cout << "tengo el la propiety " << propiety << " y tengo la animacion " << animationId << std::endl;
     if (unitType < 7 && animationId == VEHICLE_DEAD_ANIMATION
         && animations.at(animationId).isLastFrame()) {
-            // std::cout << "termino de mostrar la animacion\n";
             isDead = true;
             return;
     }
@@ -516,17 +540,12 @@ void Unit::update(int delta) {
     if (unitType < 7 && !(animationId >= 9 && animationId < 14)) return;
     // quieto para soldado
     if (unitType > 6 && animationId == STILL) return;
-    // std::cout << "lo updateo\n";
     animations.at(animationId).update(delta);
     getTexture();
-    // std::cout << "unit type " << unitType << std::endl;
-    // std::cout << "animationId " << animationId << std::endl;
-    // std::cout << "es el frame " << animations.at(animationId).getFrame() << std::endl;
     if ((unitType < 7 && animationId == VEHICLE_EXPLOSION_ANIMATION
         && animations.at(animationId).isLastFrame()) ||
         (unitType > 6 && animationId == SOLDIER_EXPLOSION_ANIMATION
         && animations.at(animationId).isLastFrame())) {
-        // std::cout << "ENTRO AL IF\n";
         animationId = previosAnimationId;
         getTexture();
         previosAnimationId = 0;
@@ -544,6 +563,12 @@ void Unit::update(int delta) {
     }
 }
 
+/*
+Pre-Condiciones: Calcula la longitud de los saltos necesarios para llegar al
+destino en 10 saltos.
+Post-Condiciones: -
+*/
+
 void Unit::calculateSteps() {
     float xDifference = posX - destinationX;
     if (xDifference < 0) {
@@ -555,8 +580,13 @@ void Unit::calculateSteps() {
     }
     bulletPaseX = xDifference / float(10);
     bulletPaseY = yDifference / float(10);
-    // std::cout << "el pase es " << bulletPaseX << " y " << bulletPaseY << std::endl;
 }
+
+/*
+Pre-Condiciones: Setea la posicion de destino del misil cuando se ataca una
+unidad.
+Post-Condiciones: -
+*/
 
 void Unit::setMisilDestinationForUnit(float x, float y, Unit* attackedUnit) {
     destinationX = x;
@@ -565,12 +595,43 @@ void Unit::setMisilDestinationForUnit(float x, float y, Unit* attackedUnit) {
     this->attackedUnit = attackedUnit;
 }
 
+/*
+Pre-Condiciones: Setea la posicion de destino del misil cuando se ataca un
+edificio.
+Post-Condiciones: -
+*/
+
 void Unit::setMisilDestinationForConstruction(float x, float y,
                                         Construction* attackedConstruction) {
     destinationX = x;
     destinationY = y;
     calculateSteps();
     this->attackedConstruction = attackedConstruction;
+}
+
+/*
+Pre-Condiciones: Calula el paso de una onda sonica para que mantega
+el ratio entre x e y.
+Post-Condiciones: -
+*/
+
+void Unit::setSoundWaveDestination(float x, float y) {
+    if (animationId == NORTE || animationId == SUR || animationId == ESTE ||
+        animationId == OESTE || animationId == STILL) return;
+    float xDifference = posX - x;
+    if (xDifference < 0) {
+        xDifference = x - posX;
+    }
+    float yDifference = posY - y;
+    if (yDifference < 0) {
+        yDifference = y - posY;
+    }
+    float ratio = (xDifference) / (yDifference);
+    if (ratio > 1) {
+        bulletPaseY /= ratio;
+    } else {
+        bulletPaseX *= ratio;
+    }
 }
 
 /*

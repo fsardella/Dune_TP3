@@ -57,8 +57,8 @@ void ServerReceiver::run() {
         // std::this_thread::sleep_for (std::chrono::seconds(3));
 
         // // std::cout << "creo unidades\n";
-        // gameView->buildUnit(110, 100, 16, 6, 0, 5, false); // BORRAR
-        // gameView->buildUnit(200, 100, 17, 7, 0, 3, true); // BORRAR
+        // gameView->buildUnit(110, 100, 16, 6, 0, 8, false); // BORRAR
+        // gameView->buildUnit(150, 200, 17, 7, 0, 3, true); // BORRAR
         // std::this_thread::sleep_for (std::chrono::seconds(2));
         // gameView->wormAttack(200, 150);
         // gameView->unitAttack(-1, 17, 0, 80);

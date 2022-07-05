@@ -570,6 +570,10 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         float x = unitTiles.at(attackedId).getX();
         float y = unitTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForUnit(x, y, &(unitTiles.at(attackedId)));
+    } else if (attackerType == 6) {
+        float x = unitTiles.at(attackedId).getX();
+        float y = unitTiles.at(attackedId).getY();
+        unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
     if ((unitTiles.at(attackerId).getUnitType() == 4) ||
@@ -616,6 +620,10 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         float x = constructionTiles.at(attackedId).getX();
         float y = constructionTiles.at(attackedId).getY();
         unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
+    } else if (attackerType == 6) {
+        float x = unitTiles.at(attackedId).getX();
+        float y = unitTiles.at(attackedId).getY();
+        unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
 
     if ((unitTiles.at(attackerId).getUnitType() == 4) ||
