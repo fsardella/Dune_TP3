@@ -158,7 +158,7 @@ tank:
 
 deviator:
     range: 5
-    speed: 12
+    speed: 100
     ctime: 240
     price: 400
     life: 300

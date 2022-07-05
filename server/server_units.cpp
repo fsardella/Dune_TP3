@@ -69,6 +69,9 @@ std::string Unit::getOwner() {
     return this->owner;
 }
 
+void Unit::swapOwner(std::string newOwner) {
+    this->owner = newOwner;
+}
 
 uint16_t Unit::getActualLife() {
     return this->actualLife;
@@ -477,7 +480,8 @@ void Harvester::setDest(coor_t newDest) {
 
 bool Harvester::checkRefineryIntegrity() {
     coor_t newDest;
-    if (this->ref == nullptr || this->ref->destroyed()) {
+    if (this->ref == nullptr || this->ref->destroyed() ||
+        this->ref->getOwner() != this->getOwner()) {
         if (this->ref != nullptr) {
             this->ref->stopWatching();
             this->ref = nullptr;
@@ -645,10 +649,13 @@ Harvester::~Harvester() {}
 
 
 Deviator::Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c) : Vehicle(coor, terr, c->DEVIATOR_LIFE, 
-  /*new DeviatorLauncher*/     new RocketLauncher(terr,
-                                    c->DEVIATOR_RANGE, c),
+          Config* c, std::list<std::pair<uint16_t, std::string>>& swappedUnits):
+                            Vehicle(coor, terr, c->DEVIATOR_LIFE, 
+                                    new DeviatorLauncher(terr,
+                                        c->DEVIATOR_RANGE, c, owner, 
+                                        swappedUnits),
                                id, c->DEVIATOR_SPEED, owner) {}
+
 
 uint8_t Deviator::getType() {
     return DEVIATOR;

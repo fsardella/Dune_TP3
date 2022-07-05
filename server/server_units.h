@@ -75,6 +75,7 @@ class Unit {
     coor_t getPosition();
     uint16_t getID();
     std::string getOwner();
+    void swapOwner(std::string newOwner);
     virtual void update(std::list<Command>& events);
     virtual void setDest(coor_t newDest);
     uint8_t getDir();
@@ -210,7 +211,7 @@ class Harvester : public Vehicle {
 class Deviator : public Vehicle {
  public:
     Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c);
+          Config* c, std::list<std::pair<uint16_t, std::string>>& swappedUnits);
     uint8_t getType();
     virtual ~Deviator();
 };

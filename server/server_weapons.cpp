@@ -405,3 +405,26 @@ TwoHanded::~TwoHanded() {
     delete this->weapons.first;
     delete this->weapons.second;
 }
+
+
+DeviatorLauncher::DeviatorLauncher(TerrainMap& ter, uint16_t range, Config* c,
+                std::string owner, std::list<std::pair<uint16_t, std::string>>& swappedUnits):
+                                Weapon(c->ROCKET_LAUNCHER_DAMAGE,
+                                c->ROCKET_LAUNCHER_COOLDOWN, ROCKET_LAUNCHER,
+                                ter, range),
+                                swappedUnits(swappedUnits),
+                                owner(owner) {}
+
+bool DeviatorLauncher::attack(Unit* objective) {
+    bool ret = Weapon::attack(objective);
+    if (ret) {
+        this->swappedUnits.push_back(
+        std::pair<uint16_t, std::string>(objective->getID(),
+                                         this->owner));
+        objective->swapOwner(this->owner);
+    }
+    return ret;
+}
+
+DeviatorLauncher::~DeviatorLauncher() {}
+

@@ -163,16 +163,24 @@ broadcast_t ActiveGame::getBroadcast() {
 }
 
 
+void ActiveGame::swapUnits() {
+    for (auto& swapped : this->swappedUnits) {
+        if (!this->hasUnit(swapped.first))
+            continue;
+        this->game.swapUnits(this->unitIDs[swapped.first],
+                             swapped.second,
+                             swapped.first);
+        this->unitIDs[swapped.first] = swapped.second;
+    }
+}
+
 void ActiveGame::update() {
     lock_t lock(this->m);
-    //std::cout << "Updating units buffer\n";
     this->updateUnitsBuffer();
-    //std::cout << "Updating units\n";
     this->game.updateUnits(this->events);
-    //std::cout << "Updating buildings\n";
     this->game.updateBuildings();
-    //std::cout << "Cleaning corpses\n";
     this->adorableLittleWorm.update(this->events);
+    this->swapUnits();
     this->game.cleanCorpses(this->unitIDs, this->buildingIDs, this->events);
 }
 
@@ -186,7 +194,7 @@ void ActiveGame::addUnit(std::string playerName, uint8_t type) {
     if (ret)
         this->unitsBuilding.push_back(UnitBuffer(type, playerName, this->gameMap,
                                              this->game.getPlayerID(playerName), 
-                                             c, this->events));
+                                             c, this->events, this->swappedUnits));
 }
 
 void ActiveGame::createBuilding(std::string playerName, uint8_t type) {

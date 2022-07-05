@@ -41,6 +41,7 @@ class ActiveGame {
     std::map<uint16_t, std::string> buildingIDs;
     std::list<UnitBuffer> unitsBuilding;
     std::list<Command> events;
+    std::list<std::pair<uint16_t, std::string>> swappedUnits;
     Worm adorableLittleWorm; // TODAVIA NO TERMINA TALLER I
     // TODAVIA PUEDO USAR NOMBRES SIMPATICOS, EZE
     
@@ -54,6 +55,7 @@ class ActiveGame {
     std::list<Command> receiveEvents();
     std::list<UnitBuffer> receiveUnitBuffer();
     std::list<Command> receiveBuildingsBuilding();
+    void swapUnits();
     std::list<std::pair<coor_t, uint16_t>> getMenageData();
  public:
     ActiveGame(Game game, Config* c);

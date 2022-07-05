@@ -127,6 +127,16 @@ class TwoHanded : public Weapon { // Solo hereda de weapon por los punteros
     ~TwoHanded();
 };
 
+class DeviatorLauncher: public Weapon {
+    std::list<std::pair<uint16_t, std::string>>& swappedUnits;
+    std::string owner;
+ public:
+    DeviatorLauncher(TerrainMap& ter, uint16_t range, Config* c, std::string owner,
+                std::list<std::pair<uint16_t, std::string>>& swappedUnits);
+    bool attack(Unit* objective);
+    virtual ~DeviatorLauncher();
+};
+
 #include "server_units.h"
 #include "server_buildings.h"
 
