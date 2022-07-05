@@ -6,13 +6,15 @@
 
 
 UnitBuffer::UnitBuffer(uint8_t type, std::string playerName, TerrainMap& terr,
-                       uint8_t playerID, Config* c, std::list<Command>& events):
+                       uint8_t playerID, Config* c, std::list<Command>& events,
+                    std::list<std::pair<uint16_t, std::string>>& swappedUnits):
                                           c(c),
                                           type(type),
                                           playerName(playerName),
                                           playerID(playerID),
                                           terr(terr),
-                                          events(events) {
+                                          events(events),
+                                          swappedUnits(swappedUnits) {
     switch (type) {
         case TRIKE:
             this->count = c->TRIKE_CTIME;
@@ -100,12 +102,14 @@ Unit* UnitBuffer::getResult(coor_t coor, uint16_t newID) {
         case HARVESTER:
             return new Harvester(coor, this->terr, newID, this->playerName, c);
         case DEVIATOR:
-            return new Deviator(coor, this->terr, newID, this->playerName, c);
+            return new Deviator(coor, this->terr, newID, this->playerName, c,
+                                this->swappedUnits);
         case DEVASTATOR:
             return new Devastator(coor, this->terr, newID, this->playerName, c, 
                                   this->events);
         case SONIC_TANK:
-            return new SonicTank(coor, this->terr, newID, this->playerName, c);
+            return new SonicTank(coor, this->terr, newID, this->playerName, c,
+                                 this->events);
         case LIGHT_INFANTRY:
             return new LightInfantry(coor, this->terr, newID, this->playerName, c);
         case HEAVY_INFANTRY:

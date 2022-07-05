@@ -69,6 +69,9 @@ std::string Unit::getOwner() {
     return this->owner;
 }
 
+void Unit::swapOwner(std::string newOwner) {
+    this->owner = newOwner;
+}
 
 uint16_t Unit::getActualLife() {
     return this->actualLife;
@@ -164,12 +167,10 @@ void Unit::processMove() {
         bool ret = this->moveAlgorithm.processMove(this->actDest);
         if (ret) {
             if (this->actDest == this->moveAlgorithm.getPosition()) {
-                std::cout << "ENDED MOVE!";
                 this->state = IDLE;
                 break;
             }
         } else {
-            std::cout << "COULDNT FIND PATH\n";
             this->actDest = this->moveAlgorithm.getPosition();
             this->state = IDLE;
             break;
@@ -370,7 +371,7 @@ HeavyInfantry::~HeavyInfantry() {}
 
 Fremen::Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):        Infantry(coor, terr, c->FREMEN_LIFE, 
-                    /*DOUBLE HANDED*/ new TwoHanded(terr,
+                                      new TwoHanded(terr,
                                       c->FREMEN_RANGE, c),
                                       id, c->FREMEN_SPEED, owner) {}
 
@@ -384,7 +385,7 @@ Fremen::~Fremen() {}
 
 Sardaukar::Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c):    Infantry(coor, terr, c->SARDAUKAR_LIFE, 
-            /*DOUBLE HANDED*/     new TwoHanded(terr,
+                                  new TwoHanded(terr,
                                   c->SARDAUKAR_RANGE, c),
                                   id, c->SARDAUKAR_SPEED, owner) {}
           
@@ -479,7 +480,8 @@ void Harvester::setDest(coor_t newDest) {
 
 bool Harvester::checkRefineryIntegrity() {
     coor_t newDest;
-    if (this->ref == nullptr || this->ref->destroyed()) {
+    if (this->ref == nullptr || this->ref->destroyed() ||
+        this->ref->getOwner() != this->getOwner()) {
         if (this->ref != nullptr) {
             this->ref->stopWatching();
             this->ref = nullptr;
@@ -647,10 +649,13 @@ Harvester::~Harvester() {}
 
 
 Deviator::Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c) : Vehicle(coor, terr, c->DEVIATOR_LIFE, 
-  /*new DeviatorLauncher*/     new RocketLauncher(terr,
-                                    c->DEVIATOR_RANGE, c),
+          Config* c, std::list<std::pair<uint16_t, std::string>>& swappedUnits):
+                            Vehicle(coor, terr, c->DEVIATOR_LIFE, 
+                                    new DeviatorLauncher(terr,
+                                        c->DEVIATOR_RANGE, c, owner, 
+                                        swappedUnits),
                                id, c->DEVIATOR_SPEED, owner) {}
+
 
 uint8_t Deviator::getType() {
     return DEVIATOR;
@@ -698,9 +703,10 @@ Devastator::~Devastator() {}
 
 
 SonicTank::SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
-          Config* c) :  Vehicle(coor, terr, c->SONIC_TANK_LIFE, 
+          Config* c, std::list<Command>& events): 
+                                Vehicle(coor, terr, c->SONIC_TANK_LIFE, 
                                 new SoundWaves(terr,
-                                c->SONIC_TANK_RANGE, c),
+                                c->SONIC_TANK_RANGE, c/*, events, this*/),
                                 id, c->SONIC_TANK_SPEED, owner) {}
 
 

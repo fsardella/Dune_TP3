@@ -48,6 +48,7 @@ class Player {
     coor_t getUnitDir(uint8_t type, TerrainMap& terr);
     
     Unit* getUnit(uint16_t unitID);
+    Unit* swapLoseUnit(uint16_t unitID);
     Building* getBuilding(uint16_t buildingID);
     
     bool chargeMoney(uint8_t type);

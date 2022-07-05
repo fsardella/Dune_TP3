@@ -191,6 +191,13 @@ Unit* Player::getUnit(uint16_t unitID) {
     return this->units[unitID];
 }
 
+Unit* Player::swapLoseUnit(uint16_t unitID) {
+    Unit* res = this->getUnit(unitID);
+    if (res != nullptr)
+        this->units.erase(unitID);
+    return res;
+}
+
 Building* Player::getBuilding(uint16_t buildingID) { 
     if (buildingID == this->playerID)
         return &this->base;

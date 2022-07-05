@@ -56,6 +56,8 @@ class Game {
     void destroyBuilding(std::string playerName, uint16_t id,
                          std::list<Command>& events);
     void updateUnits(std::list<Command>& events);
+    void swapUnits(std::string previousOwner,
+                   std::string newOwner, uint16_t id);
     void updateBuildings();
     void cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
                       std::map<uint16_t, std::string>& buildingIDs,

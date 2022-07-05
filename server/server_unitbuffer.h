@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string>
 #include <list>
+#include <tuple>
 #include "common_command.h"
 #include "server_units.h"
 #include "server_config.h"
@@ -20,11 +21,13 @@ class UnitBuffer {
     coor_t coor;
     TerrainMap& terr;
     std::list<Command>& events; // Para la explosion del Destructor
+    std::list<std::pair<uint16_t, std::string>>& swappedUnits; // Para el Deviator
 
  public:
     UnitBuffer(uint8_t type, std::string playerName,
                TerrainMap& terr, uint8_t playerID, Config* c,
-               std::list<Command>& events);
+               std::list<Command>& events,
+               std::list<std::pair<uint16_t, std::string>>& swappedUnits);
     bool willItEnd(uint16_t seconds);
     void process(uint16_t seconds);
     uint8_t getType();

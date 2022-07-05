@@ -156,6 +156,17 @@ bool Game::addUnit(std::string playerName, Unit* unit) {
     return true;
 }
 
+void Game::swapUnits(std::string previousOwner, std::string newOwner,
+                     uint16_t id) {
+    if (!this->isPlaying(newOwner) || !this->isPlaying(previousOwner) 
+        || this->participants[newOwner].hasLost() || newOwner == previousOwner)
+        return;
+    Unit* swapped = this->participants[previousOwner].swapLoseUnit(id);
+    if (swapped == nullptr)
+        return;
+    this->participants[newOwner].addUnit(swapped);
+}
+
 void Game::createBuilding(std::string playerName, uint8_t type) {
     if (!this->isPlaying(playerName) 
         || this->participants[playerName].hasLost())
