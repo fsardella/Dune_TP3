@@ -29,7 +29,7 @@ enum broadcastOpers {
 
 
 
-Game::Game(): required(0) {}
+Game::Game(): c(nullptr), required(0) {}
 
 /*
 Pre-Condiciones: -

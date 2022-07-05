@@ -59,7 +59,6 @@ class GameView {
     bool isBlocked(int currentUnit);
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
-    void setNotReady(int currentBuilding);
     void wormAttack(int x, int y);
     void updateSpecie(int x, int y, int state);
 

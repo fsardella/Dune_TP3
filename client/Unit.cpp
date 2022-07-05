@@ -1,8 +1,6 @@
 #include "Unit.h"
 #include <utility>
 
-#include <iostream>
-
 #define LIFE_BAR_WIDTH 12
 #define LIFE_BAR_HEIGHT 4
 #define FRAME_DIMENSION 25
@@ -106,9 +104,10 @@ void Unit::updateAnimationId(int oldAnimationId, int newAnimationId) {
         if (newAnimationId == SUR) animationId = 9;
         if (newAnimationId == OESTE) animationId = 10;
         if (newAnimationId == NORTE) animationId = 11;
+    } else {
+        // era noroeste, noreste, suroeste, sur
+        animationId = newAnimationId;
     }
-    // era noroeste, noreste, suroeste, sur
-    animationId = newAnimationId;
 }
 
 /*
@@ -116,7 +115,8 @@ Pre-Condiciones: Calcula la posicion del misil para renderizar.
 Post-Condiciones: -
 */
 
-void Unit::calculateMisilPosition(float& direcX, float& direcY, int animationId) {
+void Unit::calculateMisilPosition(float& direcX, float& direcY,
+                                  int animationId) {
     switch (animationId) {
         case NOROESTE:
             direcX = posX  -
@@ -188,56 +188,70 @@ Pre-Condiciones: Calcula la posicion de la bala para renderizar.
 Post-Condiciones: -
 */
 
-void Unit::calculateBulletPosition(float& direcX, float& direcY, int animationId) {
+void Unit::calculateBulletPosition(float& direcX, float& direcY,
+                                   int animationId) {
     switch (animationId) {
         case NOROESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
         case NORTE:
             direcX = posX;
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
         case NORESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
         case OESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY;
             break;
         case STILL:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY;
             break;
         case ESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY;
             break;
         case SUROESTE:
             direcX = posX - static_cast<float>(UNIT_OFFSET) -
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
         case SUR:
             direcX = posX;
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
         case SURESTE:
             direcX = posX + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseX * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseX *
+                                        attackAnimation.getFrame());
             direcY = posY + static_cast<float>(UNIT_OFFSET) +
-                     static_cast<float>(bulletPaseY * attackAnimation.getFrame());
+                     static_cast<float>(bulletPaseY *
+                                        attackAnimation.getFrame());
             break;
     }
 }
@@ -262,7 +276,7 @@ int Unit::render(Camera &camera, float posX, float posY) {
             (currentAttackType == MISIL_ATTACK ||
             currentAttackType == CANION_P_ATTACK)) {
             calculateMisilPosition(direcX, direcY, animationId);
-            misilIteration ++;
+            misilIteration++;
             if (misilIteration == MAX_ITERATION) {
                 reachedDestination = true;
                 misilIteration = 1;
@@ -286,10 +300,12 @@ int Unit::render(Camera &camera, float posX, float posY) {
                                 posX + 0.5, posY - 0.2);
 
     if (unitType == DEVASTATOR_ID && isDying) {
-        Area src(0, 0, DEVASTATOR_DYING_DIMENSIONS, DEVASTATOR_DYING_DIMENSIONS);
+        Area src(0, 0, DEVASTATOR_DYING_DIMENSIONS,
+                 DEVASTATOR_DYING_DIMENSIONS);
         float posBorderX = static_cast<int>(posX);
         float posBorderY = static_cast<int>(posY);
-        return camera.renderInSightForUnit(texture, src, posBorderX, posBorderY);    
+        return camera.renderInSightForUnit(texture, src, posBorderX,
+                                           posBorderY);
     } else {
         Area src(0, 0, sizeW, sizeH);
         return camera.renderInSightForUnit(texture, src, posX, posY);
@@ -625,8 +641,8 @@ void Unit::update(int delta) {
                 attackedConstruction->setExplosion();
                 attackedConstruction = nullptr;
             } else {
-                if (attackedConstruction != nullptr) attackedConstruction = nullptr;
-                if (attackedUnit != nullptr) attackedUnit = nullptr;
+                attackedConstruction = nullptr;
+                attackedUnit = nullptr;
             }
         } else if (attackAnimation.isLastFrame() &&
                    currentAttackType != MISIL_ATTACK &&
@@ -678,8 +694,8 @@ void Unit::calculateSteps() {
     if (yDifference < 0) {
         yDifference = destinationY - posY;
     }
-    bulletPaseX = xDifference / float(MAX_ITERATION - 1);
-    bulletPaseY = yDifference / float(MAX_ITERATION - 1);
+    bulletPaseX = xDifference / static_cast<float>(MAX_ITERATION - 1);
+    bulletPaseY = yDifference / static_cast<float>(MAX_ITERATION - 1);
 }
 
 /*

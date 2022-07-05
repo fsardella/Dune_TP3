@@ -1,6 +1,5 @@
 #include "Camera.h"
-
-#include <iostream>
+#include <string>
 
 #define WINDOW_WIDTH 1300
 #define WINDOW_HEIGHT 700
@@ -43,7 +42,8 @@ Camera::Camera(SdlWindow& window)
   menuShadowTexture(SHADOW_PATH, &window, SDL_BLENDMODE_BLEND, OPACITY),
   readyTexture(READY_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
   frameTexture(FRAME_PATH, &window, WHITE_COLOR, WHITE_COLOR, WHITE_COLOR),
-  constFrameTexture(CONST_FRAME_PATH, &window, BLACK_COLOR, BLACK_COLOR, BLACK_COLOR) {
+  constFrameTexture(CONST_FRAME_PATH, &window, BLACK_COLOR, BLACK_COLOR,
+  BLACK_COLOR) {
     this->loadHouseTextures();
 }
 
@@ -54,7 +54,8 @@ Post: -
 
 void Camera::loadHouseTextures() {
     for (int i = 0; i < 3; i ++) {
-        std::string path("../client/menuImgs/house" + std::to_string(i) + ".bmp");
+        std::string path("../client/menuImgs/house" + std::to_string(i) +
+                         ".bmp");
         housesTextures.emplace(std::piecewise_construct,
                                std::forward_as_tuple(i),
                                std::forward_as_tuple(path, &window,
@@ -98,8 +99,8 @@ Pre: Renderizador de unidades para la camara.
 Post: -
 */
 
-int Camera::renderInSightForUnit(SdlTexture* texture, const Area& src, float posX,
-                                 float posY) {
+int Camera::renderInSightForUnit(SdlTexture* texture, const Area& src,
+                                 float posX, float posY) {
     auto rect = src.buildRectangle();
     if (!isUnitVisible(posX, posY, rect.w, rect.h)) {
         return SUCCESS;

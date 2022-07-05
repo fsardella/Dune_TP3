@@ -1,8 +1,6 @@
 #include "waitingWindow.h"
 #include "ui_waitingWindow.h"
 
-#include <iostream>
-
 #define PATH_WAITING "../client/client_interface/images/waitingScreen.jpg"
 #define START_GAME_SIGNAL 5
 /*

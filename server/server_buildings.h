@@ -36,8 +36,8 @@ class Building {
     uint16_t actualTime = 0;
     int32_t energy;
     int watchers = 0;
-    TerrainMap* terrain;
     std::string owner;
+    TerrainMap* terrain;
     
     void eraseFromMap();
  protected:
@@ -87,7 +87,7 @@ class Base: public Building {
  public:
     Base(coor_t position, std::string owner, Config* c);
     Base(); // TE ODIO STD:: POR QUE NECESITAS PORQUERIAS VACIAS
-    uint16_t getType();
+    uint16_t getType() override;
     virtual ~Base();
 };
 
@@ -95,24 +95,24 @@ class LightFactory : public Building {
  public:
     LightFactory(std::string owner, Config* c);
     bool isLightFactory() override;
-    uint16_t getType();
+    uint16_t getType() override;
     virtual ~LightFactory();
 };
 
 class HeavyFactory : public Building {
  public:
     HeavyFactory(std::string owner, Config* c);
-    bool isHeavyFactory();
+    bool isHeavyFactory() override;
     int32_t getEnergy();
-    uint16_t getType();
+    uint16_t getType() override;
     virtual ~HeavyFactory();
 };
 
 class Palace : public Building {
  public:
     Palace(std::string owner, Config* c);
-    bool isPalace();
-    uint16_t getType();
+    bool isPalace() override;
+    uint16_t getType() override;
     virtual ~Palace();
 };
 
@@ -121,11 +121,12 @@ class Refinery : public Building {
     uint32_t money = 0;
  public:
     Refinery(std::string owner, Config* c);
-    bool isRefinery();
-    uint32_t gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity);
-    uint32_t getMoneyCapacity();
-    void rechargeMoney(uint32_t menage);
-    uint16_t getType();
+    bool isRefinery() override;
+    uint32_t gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity)
+            override;
+    uint32_t getMoneyCapacity() override;
+    void rechargeMoney(uint32_t menage) override;
+    uint16_t getType() override;
     virtual ~Refinery();
 };
 
@@ -133,23 +134,23 @@ class Silo : public Building {
     uint32_t moneyCap;
  public:
     Silo(std::string owner, Config* c);
-    uint32_t getMoneyCapacity();
-    uint16_t getType();
+    uint32_t getMoneyCapacity() override;
+    uint16_t getType() override;
     virtual ~Silo();
 };
 
 class WindTrap : public Building {
  public:
     WindTrap(std::string owner, Config* c);
-    uint16_t getType();
+    uint16_t getType() override;
     virtual ~WindTrap();
 };
 
 class Barrack : public Building {
   public:
     Barrack(std::string owner, Config* c);
-    bool isBarrack();
-    uint16_t getType();
+    bool isBarrack() override;
+    uint16_t getType() override;
     virtual ~Barrack();
 };
 

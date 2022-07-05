@@ -2,7 +2,6 @@
 #include "Area.h"
 #include <stdlib.h>
 #include <string>
-#include <iostream>
 
 #define BLACK 0
 #define ALPHA 0

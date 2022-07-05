@@ -106,8 +106,6 @@ class Unit {
 
     void update(int delta);
 
-    void swap(int playerId);
-
     ~Unit();
 };
 

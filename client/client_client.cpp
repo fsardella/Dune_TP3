@@ -202,9 +202,9 @@ Pre-Condiciones: Se envía la operación para listar mapas.
 Post-Condiciones: -
 */
 
-void Client::sendListMapsOperation() {
-    // protocol.sendListMapsOperation(LIST_MAPS);
-}
+// void Client::sendListMapsOperation() {
+//     protocol.sendListMapsOperation(LIST_MAPS);
+// }
 
 /*
 Pre-Condiciones: Se recibe la lista de mapas.

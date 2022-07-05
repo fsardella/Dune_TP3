@@ -5,8 +5,6 @@
 #include <thread>
 #include <chrono>
 #include <utility>
-#include <vector>
-#include <tuple>
 
 #define SUCCESSFULL_OPERATION 0
 #define FAILED_OPERATION 1
@@ -46,9 +44,7 @@ Post-Condiciones: -
 void ServerReceiver::run() {
     try {
         this->receiveBackground();
-        std::cout << "termine de recibir el backgroung\n";
         this->buildConstructionYards();
-        std::cout << "termine de recibir las units\n";
         // gameView->setEnergy(0);  // iria energy
         // gameView->setMoney(0);  // iria money
 
@@ -230,7 +226,6 @@ void ServerReceiver::gameLoop() {
     while (gameView->isRunning()) {
         protocolClient->receiveTwoBytes();
         int operation = protocolClient->recvOperationNumber();
-        // std::cout << "operacion " << operation << std::endl;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
             // no utilizado evitando message responce
@@ -253,13 +248,13 @@ void ServerReceiver::gameLoop() {
         case GAME_LOST:
             result = 0;
             gameView->playLostSound();
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case GAME_WON:
             result = 1;
             gameView->playWinSound();
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case UNIT_UNDER_CONSTRUCTION:
@@ -420,13 +415,15 @@ void ServerReceiver::receiveRefinementInfo() {
         if (!spices.at(key) && !newGame) {
             gameView->updateSpecie(std::get<0>(key), std::get<1>(key),
                                    0);
-            toDelete.push_back(std::make_tuple(std::get<0>(key), std::get<1>(key)));
+            toDelete.push_back(std::make_tuple(std::get<0>(key),
+                                               std::get<1>(key)));
         }
         spices[key] = false;
     }
 
     for (std::tuple<int, int>& deletePos : toDelete) {
-        spices.erase(std::make_tuple(std::get<0>(deletePos), std::get<1>(deletePos)));
+        spices.erase(std::make_tuple(std::get<0>(deletePos),
+                                     std::get<1>(deletePos)));
     }
 }
 

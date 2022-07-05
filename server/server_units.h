@@ -104,8 +104,8 @@ class Infantry : public Unit {
  public:
     Infantry(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon,
              uint16_t id, uint16_t speed, std::string owner);
-    int getSpeedWeightForMount();
-    uint16_t getDamageFor(Weapon* weapon);
+    int getSpeedWeightForMount() override;
+    uint16_t getDamageFor(Weapon* weapon) override;
     virtual ~Infantry();
 };
 
@@ -114,7 +114,7 @@ class LightInfantry : public Infantry {
  public:
     LightInfantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~LightInfantry();
 };
 
@@ -122,7 +122,7 @@ class HeavyInfantry : public Infantry {
  public:
     HeavyInfantry(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~HeavyInfantry();
 };
 
@@ -130,7 +130,7 @@ class Fremen : public Infantry {
  public:
     Fremen(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Fremen();    
 };
 
@@ -138,7 +138,7 @@ class Sardaukar : public Infantry {
  public:
     Sardaukar(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Sardaukar();
 };
 
@@ -146,8 +146,8 @@ class Vehicle : public Unit {
  public:
     Vehicle(coor_t coor, TerrainMap& terr, uint16_t life, Weapon* weapon, 
             uint16_t id, uint16_t speed, std::string owner);
-    int getSpeedWeightForMount();
-    uint16_t getDamageFor(Weapon* weapon);
+    int getSpeedWeightForMount() override;
+    uint16_t getDamageFor(Weapon* weapon) override;
     virtual ~Vehicle();
 };
 
@@ -155,7 +155,7 @@ class Trike : public Vehicle {
  public:
     Trike(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Trike();
 };
 
@@ -163,7 +163,7 @@ class Raider : public Vehicle {
  public:
     Raider(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Raider();
 };
 
@@ -171,7 +171,7 @@ class Tank : public Vehicle {
  public:
     Tank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Tank();
 };
 
@@ -198,12 +198,13 @@ class Harvester : public Vehicle {
  public:
     Harvester(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
               Config* c);
-    uint8_t getType();
-    bool isHarvester();
-    void setDest(coor_t newDest);
-    void update(std::list<Command>& events);
-    void addPointerToBuildings(std::map<uint16_t, Building*>* buildings);
-    void die();
+    uint8_t getType() override;
+    bool isHarvester() override;
+    void setDest(coor_t newDest) override;
+    void update(std::list<Command>& events) override;
+    void addPointerToBuildings(std::map<uint16_t, Building*>* buildings)
+        override;
+    void die() override;
     virtual ~Harvester();
     
 };
@@ -212,7 +213,7 @@ class Deviator : public Vehicle {
  public:
     Deviator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c, std::list<std::pair<uint16_t, std::string>>& swappedUnits);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~Deviator();
 };
 
@@ -223,8 +224,8 @@ class Devastator : public Vehicle {
  public:
     Devastator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c, std::list<Command>& events);
-    uint8_t getType();
-    void die();
+    uint8_t getType() override;
+    void die() override;
     virtual ~Devastator();
 };
 
@@ -232,9 +233,8 @@ class SonicTank : public Vehicle {
  public:
     SonicTank(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c, std::list<Command>& events);
-    uint8_t getType();
+    uint8_t getType() override;
     virtual ~SonicTank();
 };
 
 #endif
-

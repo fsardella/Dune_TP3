@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <utility>
 
-#include <iostream>
-
 #define CONST_YARD_ID 11
 
 /*
@@ -35,7 +33,7 @@ Post-Condiciones: -
 */
 
 void GameView::buildUnit(int x, int y, int unitId, int unitType, int playerId,
-                         int animationId, bool property) { 
+                         int animationId, bool property) {
     map.createUnit(x, y, unitId, unitType, playerId, animationId, property);
 }
 
@@ -46,7 +44,7 @@ Post-Condiciones: -
 
 void GameView::buildUnits(std::map<int, std::tuple<int, int, int, int, int,
                           bool>> units) {
-    std::lock_guard<std::mutex> lock(gameViewMutex); // PONER
+    std::lock_guard<std::mutex> lock(gameViewMutex);  // PONER
     for (const auto& [key, value] : units) {
         buildUnit(std::get<0>(value), std::get<1>(value),
                   key, std::get<2>(value), std::get<3>(value),
@@ -97,7 +95,8 @@ Post-Condiciones: -
 void GameView::buildingAttack(int attackerId, int attackedId, int currentLife,
                               int totalLife, int attackType) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.attackBuilding(attackerId, attackedId, currentLife, totalLife, attackType);
+    map.attackBuilding(attackerId, attackedId, currentLife, totalLife,
+                       attackType);
 }
 
 /*
@@ -288,16 +287,6 @@ ser posicionado.
 bool GameView::isBuildingReady(int currentBuilding) {
     std::lock_guard<std::mutex> lock(gameViewMutex);
     return map.isBuildingReady(currentBuilding);
-}
-
-/*
-Pre-Condiciones: Setea que el edificio no esta construido todavia. 
-Post-Condiciones: -
-*/
-
-void GameView::setNotReady(int currentBuilding) {
-    std::lock_guard<std::mutex> lock(gameViewMutex);
-    map.setNotReady(currentBuilding);
 }
 
 /*

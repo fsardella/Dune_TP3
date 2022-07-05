@@ -2,8 +2,6 @@
 #include "Camera.h"
 #include <utility>
 
-#include <iostream>
-
 #define BARRACK 18
 #define LIGHT_FACTORY 12
 #define HEAVY_FACTORY 13

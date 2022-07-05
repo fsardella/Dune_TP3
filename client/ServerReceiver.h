@@ -3,6 +3,8 @@
 
 #include <map>
 #include <string>
+#include <vector>
+#include <tuple>
 #include "GameView.h"
 #include "../common/thread.h"
 #include "client_protocol.h"

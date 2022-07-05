@@ -1,8 +1,6 @@
 #include "Construction.h"
 #include <utility>
 
-#include <iostream>
-
 #define STILL_ANIMATION 0
 #define CREATE_ANIMATION 1
 #define DEAD_ANIMATION 2
@@ -169,15 +167,6 @@ bool Construction::getIsDead() {
 }
 
 /*
-Pre-Condiciones: Setea al edificio como destruido. 
-Post-Condiciones: -
-*/
-
-void Construction::kill() {
-    isDead = true;
-}
-
-/*
 Pre-Condiciones: Actualiza la vida del edificio y con ella 
 la textura para la barra de vida. En caso de que la vida sea 0, se va a 
 setear la animación de destruccion. 
@@ -256,6 +245,7 @@ Construction::Construction(Construction &&other)
   sizeH(other.sizeH),
   posX(other.posX),
   posY(other.posY),
+  house(other.house),
   constType(other.constType),
   playerId(other.playerId),
   propiety(other.propiety),

@@ -9,11 +9,10 @@
 #include <cstring>
 #include <utility>
 
-#include <iostream>
-
 #define ONE_BYTE 1
 #define TWO_BYTES 2
 #define FOUR_BYTES 4
+#define SERVER_PIX_CONVERSION 4 
 
 /*
 Pre-Condiciones: -
@@ -390,7 +389,7 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int,
                         std::string& clientName, int& clientId) {
     std::map<int, int> clientHouses;
     int playersAmount = receiveOneByte();
-    std::cout << "players amount " << playersAmount << std::endl;
+
     for (int i = 0; i < playersAmount; i ++) {
         bool property = false;
         int nameSize = receiveTwoBytes();
@@ -405,7 +404,9 @@ std::map<int, int> ProtocolClient::recvConstYards(std::map<int,
             property = true;
         }
         clientHouses[i] = house;
-        constYards[i] = std::make_tuple(x * 4, y * 4, i, house, property);
+        constYards[i] = std::make_tuple(x * SERVER_PIX_CONVERSION,
+                                        y * SERVER_PIX_CONVERSION, i,
+                                        house, property);
         playerHouses[i] = house;
     }
     return clientHouses;
@@ -436,8 +437,8 @@ void ProtocolClient::recvUnits(std::map<int,
         if (clientId == playerId) propiety = true;
 
         for (int j = 0; j < unitsAmount; j ++) {
-            int x = receiveTwoBytes() * 4;
-            int y = receiveTwoBytes() * 4;
+            int x = receiveTwoBytes() * SERVER_PIX_CONVERSION;
+            int y = receiveTwoBytes() * SERVER_PIX_CONVERSION;
             int type = receiveOneByte();
             int direction = receiveOneByte();
             int unitId = receiveTwoBytes();
@@ -462,7 +463,10 @@ std::tuple<int, int, int, int, int, bool> ProtocolClient::recvBuildingInfo(
     int y = receiveTwoBytes();
     bool property = false;
     if (playerId == clientId) property = true;
-    return std::make_tuple(x * 4, y * 4, playerId, buildingId, buildingType, property);
+    return std::make_tuple(x * SERVER_PIX_CONVERSION,
+                           y * SERVER_PIX_CONVERSION, playerId,
+                           buildingId, buildingType,
+                           property);
 }
 
 /*
@@ -476,7 +480,8 @@ std::tuple<int, int, int, int, int> ProtocolClient::receiveAttackInfo() {
     int currentLife = receiveTwoBytes();
     int totalLife = receiveTwoBytes();
     int attackType = receiveOneByte();
-    return std::make_tuple(attackerId, attackedId, currentLife, totalLife, attackType);
+    return std::make_tuple(attackerId, attackedId, currentLife, totalLife,
+                           attackType);
 }
 
 /*
@@ -549,8 +554,8 @@ Post-Condiciones: -
 */
 
 void ProtocolClient::recvWormAttack(int& x, int& y) {
-    x = receiveTwoBytes() * 4;
-    y = receiveTwoBytes() * 4;
+    x = receiveTwoBytes() * SERVER_PIX_CONVERSION;
+    y = receiveTwoBytes() * SERVER_PIX_CONVERSION;
 }
 
 /*
@@ -575,14 +580,4 @@ void ProtocolClient::recvRefinementInfo(std::vector<std::tuple<int, int, int>>&
         }
         species.push_back(std::make_tuple(x, y, state));
     }
-}
-
-/*
-Pre-Condiciones: Recibe mensaje del servidor para destruir un edificio
-propio. 
-Post-Condiciones: -
-*/
-
-int ProtocolClient::receiveDestroyedBuilding() {
-    return receiveTwoBytes();
 }

@@ -87,7 +87,8 @@ class MapView {
                         int totalLife, int attackType);
     void attackUnitReaction(int attackedId, int currentLife, int totalLife);
     void attackBuildingReaction(int attackedId, int currentLife, int totalLife);
-    void getAttackTextures(int attackType, std::vector<SdlTexture*>& attackSprites);
+    void getAttackTextures(int attackType,
+                           std::vector<SdlTexture*>& attackSprites);
 
     void renderMenu(Camera &cam);
     void render(Camera& cam);
@@ -102,7 +103,6 @@ class MapView {
 
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
-    void setNotReady(int currentBuilding); // eliminar
     void updateUnready(int constructionId, int property);
 
     void wormAttack(int x, int y);

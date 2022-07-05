@@ -152,7 +152,7 @@ class Config {
     uint16_t HARVESTER_HARVESTTIME;
     uint16_t HARVESTER_RECHARGETIME;
     
-    Config(std::string YAMLpath);
+    explicit Config(std::string YAMLpath);
     Config() {} // NOT INTENDED TO USE
     ~Config();
 };     
