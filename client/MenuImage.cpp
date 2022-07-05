@@ -2,8 +2,6 @@
 #include "Camera.h"
 #include <utility>
 
-#include <iostream>
-
 #define BARRACK 18
 #define LIGHT_FACTORY 12
 #define HEAVY_FACTORY 13
@@ -40,6 +38,11 @@ MenuImage::MenuImage(SdlTexture* texture,
     if (type < CONSTRUCTIONS_OFFSET) blocked = true;
     rescaling = 1;
 }
+
+/*
+Pre-Condiciones: Renderiza la imagen del menu.
+Post-Condiciones: -
+*/
 
 void MenuImage::render(Camera &camera) {
     Area src(0, 0, sizeW, sizeH);
@@ -183,9 +186,19 @@ void MenuImage::updateBlocking(int buildingType, int house) {
     }
 }
 
+/*
+Pre-Condiciones: Bloquea la imagen del menu.
+Post-Condiciones: -
+*/
+
 void MenuImage::block() {
     blocked = true;
 }
+
+/*
+Pre-Condiciones: Desbloquea la imagen del menu.
+Post-Condiciones: -
+*/
 
 void MenuImage::unblock() {
     blocked = false;

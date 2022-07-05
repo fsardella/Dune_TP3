@@ -59,7 +59,6 @@ class GameView {
     bool isBlocked(int currentUnit);
     bool isUnderConstruction(int current);
     bool isBuildingReady(int currentBuilding);
-    void setNotReady(int currentBuilding);
     void wormAttack(int x, int y);
     void updateSpecie(int x, int y, int state);
 
@@ -73,6 +72,8 @@ class GameView {
     int getType(int unitId);
     void touchedMenuImage(int currentMenuImage, bool state);
     int getUnitPropiety(int touchedId);
+
+    void stopConstruction(int type);
 
     void playWinSound();
     void playLostSound();

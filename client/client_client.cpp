@@ -124,15 +124,10 @@ void Client::client_run() {
     UserInputReceiver inputReceiver(&gameViewObj, &blockingQueue);
     inputReceiver.start();
 
-    std::cout << "espero al input\n";
     inputReceiver.join();
-    std::cout << "espero al dispatcher\n";
     serverDispatcher.join();
-    std::cout << "espero al drawer\n";
     drawer.join();
-    std::cout << "espero al receiver\n";
     receiver.join();
-    std::cout << "ya lo espere al receiver\n";
 
     gameResult = result;
 }
@@ -207,9 +202,9 @@ Pre-Condiciones: Se envía la operación para listar mapas.
 Post-Condiciones: -
 */
 
-void Client::sendListMapsOperation() {
-    // protocol.sendListMapsOperation(LIST_MAPS);
-}
+// void Client::sendListMapsOperation() {
+//     protocol.sendListMapsOperation(LIST_MAPS);
+// }
 
 /*
 Pre-Condiciones: Se recibe la lista de mapas.

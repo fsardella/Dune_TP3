@@ -54,7 +54,7 @@ class Client {
     void sendCreateGameInfo();
     void sendJoinGameOperation();
     void sendListGamesOperation();
-    void sendListMapsOperation();
+    // void sendListMapsOperation();
     void recvListOfMaps(std::list <std::string>& list);
     void recvListOfGames(std::list <std::string>& list);
     int recvStartGame();

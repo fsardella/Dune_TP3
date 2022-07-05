@@ -29,7 +29,8 @@ Building::Building(coor_t size, uint16_t totalLife, uint16_t buildingTime,
                    totalLife(totalLife),
                    buildingTime(buildingTime),
                    energy(energy),
-                   owner(owner) {}
+                   owner(owner),
+                   terrain(nullptr) {}
 
 coor_t Building::getPosition() {
     return this->position;

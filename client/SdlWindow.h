@@ -15,7 +15,7 @@ class SdlWindow {
     SDL_Renderer* rendererPtr;
     SoundManager sounds;
 
-    public:
+ public:
     SdlWindow(int width, int height, bool fullScreen, std::string title);
 
     SdlWindow(const SdlWindow& other) = delete;

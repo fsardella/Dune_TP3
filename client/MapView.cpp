@@ -4,10 +4,6 @@
 #include <yaml-cpp/node/parse.h>
 #include <utility>
 
-#include <iostream>
-
-// #define CONSTRUCTION_OFFSET 11
-// antes esto estaba en el at de buildConstruction va?
 #define UNIT_PIX_SIZE 12
 #define BARRACK 18
 #define HEAVY_FACTORY 13
@@ -67,7 +63,6 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
        WORM_WIDTH, WORM_HEIGHT, 0, 0) {
     this->loadTileTranslator();
     this->loadFontTitles();
-    std::cout << "voy a llamar a yaml translator\n";
     this->loadMenuTranslator();
     this->loadSpritesTranslator();
     this->loadLifeTranslator();
@@ -257,7 +252,8 @@ void MapView::createMenu() {
                 auto image = menuTextureTranslator.find(houseNumberClient +
                                                         BARRACK_OFFSET);
                 menuImages.emplace_back(&image->second, IMAGE_PIX_WIDTH,
-                                        IMAGE_PIX_HEIGHT, 2, row - 1, BARRACK_OFFSET,
+                                        IMAGE_PIX_HEIGHT, 2, row - 1,
+                                        BARRACK_OFFSET,
                                         menuInfoHouses.at(houseNumberClient
                                         + BARRACK_OFFSET));
                 continue;
@@ -457,15 +453,15 @@ void MapView::createConstruction(int x, int y, int playerId,
     int width, height;
     getBuildingDimensions(constType, &width, &height);
 
-    std::cout << "creo building con id " << constructionId << " de type " << constType << std::endl;
-
     constructionTiles.emplace(std::piecewise_construct,
                     std::forward_as_tuple(constructionId),
-                    std::forward_as_tuple(animationsRepository.at(convertedType),
+                    std::forward_as_tuple(animationsRepository.at(
+                                          convertedType),
                                           lifeTextureTranslatorForConstruction,
                                           &(identifierTranslator.at(playerId)),
                                           width, height, posX, posY,
-                                          constType, playerId, propiety, house));
+                                          constType, playerId, propiety,
+                                          house));
     if (propiety) {
         updateBlockedUnits(constType, house);
     }
@@ -478,7 +474,6 @@ Post-Condiciones: -
 */
 
 void MapView::updateProgress(int menuId, int progress) {
-    std::cout << "soy de tipo " << menuId << " y mi progress es " << progress << std::endl;
     int offset = getSoundOffset();
 
     if (menuId > 10 && progress == PROGRESS_COMPLETED &&
@@ -538,7 +533,8 @@ Pre-Condiciones: Establece como debería reaccionar la unidad atacada.
 Post-Condiciones: -
 */
 
-void MapView::attackUnitReaction(int attackedId, int currentLife, int totalLife) {
+void MapView::attackUnitReaction(int attackedId, int currentLife,
+                                 int totalLife) {
     unitTiles.at(attackedId).updateLife(currentLife, totalLife);
     if ((currentLife == WITHOUT_LIFE) &&
         (unitTiles.at(attackedId).getUnitType() > 6
@@ -552,23 +548,27 @@ Pre-Condiciones: Establece como debería reaccionar el edificio atacado.
 Post-Condiciones: -
 */
 
-void MapView::attackBuildingReaction(int attackedId, int currentLife, int totalLife) {
+void MapView::attackBuildingReaction(int attackedId, int currentLife,
+                                     int totalLife) {
     constructionTiles.at(attackedId).updateLife(currentLife, totalLife);
     if (currentLife == WITHOUT_LIFE) {
         window.push(EXPLOSION, ATTACK_VOLUME);
     }
 }
 
-void MapView::getAttackTextures(int attackType, std::vector<SdlTexture*>& attackSprites) {
+void MapView::getAttackTextures(int attackType,
+                                std::vector<SdlTexture*>& attackSprites) {
     if (attackType == 4) {
         for (int i = 0; i < 9; i ++) {
-            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                                attackType, i))));
+            attackSprites.push_back(&(attackTextureTranslator.at(
+                                                            std::make_tuple(
+                                                            attackType, i))));
         }
     } else {
         for (int i = 0; i < 3; i ++) {
-            attackSprites.push_back(&(attackTextureTranslator.at(std::make_tuple(
-                                                                attackType, i))));
+            attackSprites.push_back(&(attackTextureTranslator.at(
+                                                            std::make_tuple(
+                                                            attackType, i))));
         }
     }
 }
@@ -588,13 +588,12 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
         window.push(UNIT_ATTACKED, VOICE_VOLUME);
     }
 
-    std::cout << "no tenia ataque es " << unitTiles.at(attackerId).hasNoAttack() << std::endl;
-
     if (unitTiles.at(attackerId).getAttackType() != attackType ||
         unitTiles.at(attackerId).hasNoAttack()) {
         std::vector<SdlTexture*> attackSprites;
         this->getAttackTextures(attackType, attackSprites);
-        unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
+        unitTiles.at(attackerId).setAttackType(attackType,
+                                               std::move(attackSprites));
     }
 
 
@@ -605,7 +604,8 @@ void MapView::attackUnit(int attackerId, int attackedId, int currentLife,
     if (((attackerType > 3 && attackerType < 6) ||
         (attackerType > 7 && attackerType < 11)) &&
         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
-        unitTiles.at(attackerId).setMisilDestinationForUnit(x, y, &(unitTiles.at(attackedId)));
+        unitTiles.at(attackerId).setMisilDestinationForUnit(x, y,
+                                                &(unitTiles.at(attackedId)));
     } else if (attackerType == 6) {
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
@@ -627,7 +627,6 @@ Post-Condiciones: -
 
 void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
                              int totalLife, int attackType) {
-    std::cout << "edificio atacado\n";
     if (currentLife == 0 && constructionTiles.at(attackedId).getPropiety()) {
         updateUnblockedUnits(constructionTiles.at(attackedId).getConstType(),
                              constructionTiles.at(attackedId).getHouse());
@@ -648,7 +647,8 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
         unitTiles.at(attackerId).hasNoAttack()) {
         std::vector<SdlTexture*> attackSprites;
         this->getAttackTextures(attackType, attackSprites);
-        unitTiles.at(attackerId).setAttackType(attackType, std::move(attackSprites));
+        unitTiles.at(attackerId).setAttackType(attackType,
+                                               std::move(attackSprites));
     }
 
 
@@ -662,7 +662,8 @@ void MapView::attackBuilding(int attackerId, int attackedId, int currentLife,
     if (((attackerType > 3 && attackerType < 6) ||
         (attackerType > 7 && attackerType < 11)) &&
         (attackType == MISIL_ATTACK || attackType == CANION_P_ATTACK)) {
-        unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y, &(constructionTiles.at(attackedId)));
+        unitTiles.at(attackerId).setMisilDestinationForConstruction(x, y,
+                                        &(constructionTiles.at(attackedId)));
     } else if (attackerType == 6) {
         unitTiles.at(attackerId).setSoundWaveDestination(x, y);
     }
@@ -687,7 +688,6 @@ void MapView::setMoney(int money) {
     if (actualMoney == money) {
         return;
     }
-    std::cout << "nueva money es " << money << std::endl;
     menuTextsTranslator.erase("money");
     std::string text("Money: $" + std::to_string(money));
     menuTextsTranslator.emplace(std::piecewise_construct,
@@ -709,7 +709,6 @@ Post-Condiciones: -
 
 void MapView::setEnergy(int energy) {
     if (actualEnergy == energy) return;
-    std::cout << "nueva energy es " << energy << std::endl;
     menuTextsTranslator.erase("energy");
     std::string text("Energy: " + std::to_string(energy));
     menuTextsTranslator.emplace(std::piecewise_construct,
@@ -841,7 +840,8 @@ int MapView::isUnit(int posX, int posY, bool propiety) {
             (posY <= (unitTiles.at(unit.first).getY() * TILE_PIX_SIZE +
             unitTiles.at(unit.first).getHeight()))) &&
             unitTiles.at(unit.first).getPropiety() == propiety) {
-            if (unitTiles.at(unit.first).getIsDead() || unitTiles.at(unit.first).getIsDying()) {
+            if (unitTiles.at(unit.first).getIsDead() ||
+                unitTiles.at(unit.first).getIsDying()) {
                 continue;
             }
             return unit.first;
@@ -876,15 +876,6 @@ Post-Condiciones: Devuelve true si esta listo o false si no.
 
 bool MapView::isBuildingReady(int currentBuilding) {
     return menuImages[currentBuilding].isBuildingReady();
-}
-
-/*
-Pre-Condiciones: Setea que el edificio no esta construido todavia. 
-Post-Condiciones: -
-*/
-
-void MapView::setNotReady(int currentBuilding) {
-    menuImages[currentBuilding].setNotReady();
 }
 
 /*
@@ -953,8 +944,24 @@ void MapView::touchedMenuImage(int currentMenuImage, bool state) {
     menuImages.at(currentMenuImage).setTouched(state);
 }
 
+/*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve la propiedad de una unidad.
+*/
+
 int MapView::getUnitPropiety(int touchedId) {
     return unitTiles.at(touchedId).getPropiety();
+}
+
+/*
+Pre-Condiciones: Detiene la construccion de una unidad.
+Post-Condiciones: -
+*/
+
+void MapView::stopConstruction(int type) {
+    if (menuImages.at(type).isCurrentlyUnderConstruction()) {
+        menuImages.at(type).updateProgress(100);
+    }
 }
 
 /*

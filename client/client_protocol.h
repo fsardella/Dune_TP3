@@ -67,7 +67,6 @@ class ProtocolClient {
     void recvWormAttack(int& x, int& y);
     void recvRefinementInfo(std::vector<std::tuple<int, int, int>>& species,
                             std::map<std::tuple<int, int>, bool> & spice);
-    int receiveDestroyedBuilding();
 
     ~ProtocolClient();
 };

@@ -22,7 +22,7 @@ class TerrainMap {
 
  public:
     TerrainMap();
-    TerrainMap(sketch_t mapSketch);
+    explicit TerrainMap(sketch_t mapSketch);
     void print(coor_t org, coor_t dest); // debug
     void printDebug();
     coor_t getDims();

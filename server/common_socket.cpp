@@ -1,21 +1,21 @@
+#include "common_socket.h"
+#include "common_resolver.h"
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <stdexcept>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
-
-#include "common_socket.h"
-#include "common_resolver.h"
+#include <stdexcept>
 
 #define ERROR 1
 
-Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(true) {
+Socket::Socket(const char *hostname, const char *servicename) :
+    skt(-1), closed(true) {
     Resolver resolver(hostname, servicename, false);
     int s;
     int skt = -1;
@@ -29,7 +29,7 @@ Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(
             ::close(skt);
 
         /* Creamos el socket definiendo la familia (deberia ser AF_INET IPv4),
-           el tipo de socket (deberia ser SOCK_STREAM TCP) y el protocolo (0) */
+           el tipo de socket (deberia ser SOCK_STREAM TCP) y el protocolo (0)*/
         skt = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
         if (skt == -1) {
             continue;
@@ -56,7 +56,7 @@ Socket::Socket(const char *hostname, const char *servicename) : skt(-1), closed(
     throw std::runtime_error("Socket connection failed");
 }
 
-Socket::Socket(const char *servicename) : skt(-1), closed(true) { //constructor para el servicio
+Socket::Socket(const char *servicename) : skt(-1), closed(true) {
     Resolver resolver(nullptr, servicename, true);
 
     int s = 0;
@@ -133,7 +133,8 @@ Socket::Socket(const char *servicename) : skt(-1), closed(true) { //constructor 
     throw std::runtime_error("socket setup failed");
 }
 /*
- * Constructor que inicializa el socket pasandole directamente el file descriptor.
+ * Constructor que inicializa el socket pasandole directamente el file
+ * descriptor.
  *
  * No queremos que el codigo del usuario este manipulando el file descriptor,
  * queremos q interactue con él *solo* a traves de Socket.
@@ -163,7 +164,7 @@ int Socket::sendsome(const void *data, unsigned int sz) {
     int s = send(this->skt, (char*)data, sz, MSG_NOSIGNAL);
     if (s <= 0) {
         // Puede o no ser un error (vease el comentario en recvsome())
-        
+
         // Este es un caso especial: cuando enviamos algo pero en el medio
         // se detecta un cierre del socket no se sabe bien cuanto se logro
         // enviar (y fue recibido por el peer) y cuanto se perdio.
@@ -252,7 +253,7 @@ void Socket::closeSkt() {
 }
 
 Socket::~Socket() {
-    if (not this->closed) {
+    if (!this->closed) {
         ::shutdown(this->skt, 2);
         ::close(this->skt);
     }
@@ -287,7 +288,7 @@ Socket& Socket::operator=(Socket&& other) {
     // somos un objeto ya construido.
     // Antes de tomar el ownershipt del otro socket debemos
     // liberar nuestro propio recurso.
-    if (not this->closed) {
+    if (!this->closed) {
         ::shutdown(this->skt, 2);
         ::close(this->skt);
     }

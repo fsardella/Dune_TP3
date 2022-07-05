@@ -36,12 +36,12 @@ void BackGroundTile::changeTile(SdlTexture* texture, int x, int y, int index) {
     this->texture = texture;
     this->posX = x;
     this->posY = y;
-    this->id = id;
+    this->id = index;
 }
 
 /*
-Pre: Se obtiene la posición x de una tile del background.
-Post: -
+Pre: -
+Post: Se obtiene la posición x de una tile del background.
 */
 
 int BackGroundTile::getX() {
@@ -49,13 +49,18 @@ int BackGroundTile::getX() {
 }
 
 /*
-Pre: Se obtiene la posición y de una tile del background.
-Post: -
+Pre: -
+Post: Se obtiene la posición y de una tile del background.
 */
 
 int BackGroundTile::getY() {
     return posY;
 }
+
+/*
+Pre: -
+Post: Devuelve el id de la tile.
+*/
 
 int BackGroundTile::getId() {
     return id;
@@ -68,7 +73,8 @@ Post: -
 
 BackGroundTile::BackGroundTile(BackGroundTile &&other)
 : Renderizable(std::move(other)),
-  rescaling(other.rescaling) {
+  rescaling(other.rescaling),
+  id(other.id) {
 }
 
 /*

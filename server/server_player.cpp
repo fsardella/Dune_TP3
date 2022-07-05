@@ -14,7 +14,8 @@ Player::Player(const int& house, const std::string& playerName,
 
 #define CHUNKSIZE 8
 
-Player::Player(): playerName(""),
+Player::Player(): c(nullptr),
+                 playerName(""),
                  house(-1) {}
 
 

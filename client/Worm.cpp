@@ -1,8 +1,6 @@
 #include "Worm.h"
 #include <utility>
 
-#include <iostream>
-
 #define OFFSET_X 16
 #define OFFSET_Y 16
 
@@ -21,7 +19,8 @@ Worm::Worm(std::vector<SdlTexture*> emptyTextures,
   sizeH(sizeH),
   posX(posX),
   posY(posY),
-  isCurrentlyAttacking(false) {
+  isCurrentlyAttacking(false),
+  texture(nullptr) {
 }
 
 /*
@@ -31,8 +30,10 @@ Post-Condiciones: -
 
 int Worm::render(Camera &camera, float posX, float posY) {
     Area src(0, 0, sizeW, sizeH);
-    float offsetX = static_cast<float>(OFFSET_X) / static_cast<float>(TILE_PIX_SIZE);
-    float offsetY = static_cast<float>(OFFSET_Y) / static_cast<float>(TILE_PIX_SIZE);
+    float offsetX = static_cast<float>(OFFSET_X) /
+                    static_cast<float>(TILE_PIX_SIZE);
+    float offsetY = static_cast<float>(OFFSET_Y) /
+                    static_cast<float>(TILE_PIX_SIZE);
     float positionX = posX + offsetX;
     float positionY = posY + offsetY;
     return camera.renderInSightForUnit(texture, src, positionX, positionY);

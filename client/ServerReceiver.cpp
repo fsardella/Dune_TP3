@@ -5,8 +5,6 @@
 #include <thread>
 #include <chrono>
 #include <utility>
-#include <vector>
-#include <tuple>
 
 #define SUCCESSFULL_OPERATION 0
 #define FAILED_OPERATION 1
@@ -46,9 +44,7 @@ Post-Condiciones: -
 void ServerReceiver::run() {
     try {
         this->receiveBackground();
-        std::cout << "termine de recibir el backgroung\n";
         this->buildConstructionYards();
-        std::cout << "termine de recibir las units\n";
         // gameView->setEnergy(0);  // iria energy
         // gameView->setMoney(0);  // iria money
 
@@ -227,13 +223,9 @@ Post-Condiciones: -
 */
 
 void ServerReceiver::gameLoop() {
-    // std::this_thread::sleep_for (std::chrono::seconds(3));
-    // std::cout << "entro al loop de server receiver\n";
     while (gameView->isRunning()) {
         protocolClient->receiveTwoBytes();
         int operation = protocolClient->recvOperationNumber();
-        // std::cout << "operacion " << operation << std::endl;
-        // int operation = GAME_LOST;
         switch (operation) {
         case SUCCESSFULL_OPERATION:
             // no utilizado evitando message responce
@@ -248,23 +240,21 @@ void ServerReceiver::gameLoop() {
             this->receiveBuilding();
             break;
         case UNIT_ATTACKED:
-            std::cout << "recibo operacion de unidad bajo ataque\n";
             this->receiveUnitAttack();
             break;
         case BUILDING_ATTACKED:
-            std::cout << "recibo operacion de construccion bajo ataque\n";
             this->receiveBuildingAttack();
             break;
         case GAME_LOST:
             result = 0;
             gameView->playLostSound();
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case GAME_WON:
             result = 1;
             gameView->playWinSound();
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             gameView->shutdown();
             break;
         case UNIT_UNDER_CONSTRUCTION:
@@ -306,10 +296,6 @@ Post-Condiciones: -
 void ServerReceiver::receiveBuilding() {
     std::tuple<int, int, int, int, int, bool> buildingInfo =
                 protocolClient->recvBuildingInfo(clientId);
-    // std::cout << "imprimo casas por jugador " << std::endl;
-    // for (auto& [key, value] : clientHouses) {
-    //     std::cout << "el jugador " << key << " es de la casa " << value << std::endl;
-    // }
     gameView->buildConstruction(std::get<0>(buildingInfo),
                                 std::get<1>(buildingInfo),
                                 std::get<2>(buildingInfo),
@@ -350,6 +336,20 @@ void ServerReceiver::receiveBuildingAttack() {
 }
 
 /*
+Pre-Condiciones: -
+Post-Condiciones: Devuelve verdadero si la unidad en construcción que antes
+estaba en construcción ahora también lo está, falso en caso contrario.
+*/
+
+bool ServerReceiver::checkIsStillUnderConstruction(int previousUnit,
+                            std::vector<std::tuple<int, int>> unitProgress) {
+    for (std::tuple<int, int>& unit : unitProgress) {
+        if (std::get<0>(unit) == previousUnit) return true;
+    }
+    return false;
+}
+
+/*
 Pre-Condiciones: Recibe el progreso de la unidad en entrenamiento.
 Post-Condiciones: -
 */
@@ -359,6 +359,16 @@ void ServerReceiver::receiveUnitProgress() {
     protocolClient->recvUnitsProgress(unitProgress, clientId);
     for (std::tuple<int, int>& unit : unitProgress) {
         gameView->updateProgress(std::get<0>(unit), std::get<1>(unit));
+    }
+    for (int& previousUnit : unitsUnderConstruction) {
+        if (checkIsStillUnderConstruction(previousUnit, unitProgress)) {
+            continue;
+        }
+        gameView->stopConstruction(previousUnit);
+    }
+    unitsUnderConstruction.clear();
+    for (std::tuple<int, int>& unit : unitProgress) {
+        unitsUnderConstruction.push_back(std::get<0>(unit));
     }
 }
 
@@ -405,13 +415,15 @@ void ServerReceiver::receiveRefinementInfo() {
         if (!spices.at(key) && !newGame) {
             gameView->updateSpecie(std::get<0>(key), std::get<1>(key),
                                    0);
-            toDelete.push_back(std::make_tuple(std::get<0>(key), std::get<1>(key)));
+            toDelete.push_back(std::make_tuple(std::get<0>(key),
+                                               std::get<1>(key)));
         }
         spices[key] = false;
     }
 
     for (std::tuple<int, int>& deletePos : toDelete) {
-        spices.erase(std::make_tuple(std::get<0>(deletePos), std::get<1>(deletePos)));
+        spices.erase(std::make_tuple(std::get<0>(deletePos),
+                                     std::get<1>(deletePos)));
     }
 }
 

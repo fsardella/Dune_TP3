@@ -1,10 +1,9 @@
 #ifndef __SERVER_COMMAND_H__
 #define __SERVER_COMMAND_H__
 
-#include <string>
-
-#include <vector>
 #include <stdint.h>
+#include <string>
+#include <vector>
 
 class Command {
     std::vector<uint8_t> command;

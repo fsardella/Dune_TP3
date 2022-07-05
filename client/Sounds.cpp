@@ -7,13 +7,16 @@
 #define EXTENTION ".wav"
 #define MAX_EFFECTS 29
 #define VOLUME 50
+#define MAX_PLAYING 8
 
 /*
 Pre-Condiciones: Constructor de Sound Manager.
 Post-Condiciones: -
 */
 
-SoundManager::SoundManager(): musicIsPlaying(false) {
+SoundManager::SoundManager()
+: music(nullptr),
+  musicIsPlaying(false) {
 }
 
 /*
@@ -49,14 +52,10 @@ Post-Condiciones: -
 */
 
 void SoundManager::playSounds() {
-    for (size_t i = 0; i < soundsToPlay.size() && i < 8; i++) {
+    for (size_t i = 0; i < soundsToPlay.size() && i < MAX_PLAYING; i++) {
         if (Mix_Playing(i) != 1) {
             Mix_PlayChannel(i, soundsToPlay[i], 0);
         }
-        // Mix_Chunk* chunk = Mix_GetChunk(i);
-        // if (chunk->volume == 80) {
-        //     while (Mix_Playing(i) == 1) continue;
-        // }
     }
 
     if (!musicIsPlaying) {

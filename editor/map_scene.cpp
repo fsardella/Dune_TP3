@@ -1,6 +1,5 @@
 #include "map_scene.h"
 #include <math.h>
-#include <iostream>
 
 #define SPACING 32
 #define CONST_YARD_ID 95
@@ -213,10 +212,10 @@ void MapScene::handleDrawing(QPointF eventPos, MapItem* item) {
             return;
         }
     }
-    if (item) {
-        this->removeItem(item);
-        delete item;
-    }
+
+    this->removeItem(item);
+    delete item;
+
     map->modifyMapAt(y, x, currentId);
 
     this->addItem(newItem);

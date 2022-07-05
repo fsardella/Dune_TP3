@@ -12,7 +12,7 @@ class Resolver {
     struct addrinfo *result;
     struct addrinfo *next_;
 
-    public:
+ public:
     /* Inicializa la estructura y resuelve el dado nombre del host y servicio.
      * Si passive es True, la resolucion se hace pensando que se quiere
      * inicializar un socket pasivo, de otro modo sera para un socket activo.

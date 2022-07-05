@@ -1,8 +1,6 @@
 #include "Animation.h"
 #include <utility>
 
-#include <iostream>
-
 /*
 Pre: Constructor de la clase animación.
 Post: Todos los atributos están inicializados. 

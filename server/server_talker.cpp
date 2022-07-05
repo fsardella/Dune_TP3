@@ -162,7 +162,7 @@ void Talker::handleLobby(int operation) {
         case CREAR:
             this->list_maps();
             bytes = protocol.recieve_msg_bytes();
-            std::string game_name = protocol.recieve_msg_game_name(bytes);
+            game_name = protocol.recieve_msg_game_name(bytes);
             bytes = protocol.recieve_msg_bytes();
             std::string yamlPath = protocol.recieve_msg_game_name(bytes);
             house = protocol.recieve_msg_house();

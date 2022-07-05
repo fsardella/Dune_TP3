@@ -25,7 +25,7 @@ class GameSet {
 	bool game_complete(const std::string& game_name);
     //Game& get_game(const std::string& game_name);
  public:
-	GameSet(BlockingQueue<Game>& readyGames);
+	explicit GameSet(BlockingQueue<Game>& readyGames);
 	int add_game(int house, int required, const std::string& game_name,
                  const std::string& playerName, const std::string& mapPath,
                  Config* c);

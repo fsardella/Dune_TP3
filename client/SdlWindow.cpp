@@ -1,8 +1,6 @@
 #include "SdlWindow.h"
 #include <SDL2/SDL_ttf.h>
 
-#include <iostream>
-
 #define MENUOFFSET 50
 #define SPACINGX 20
 #define SPACINGY 20

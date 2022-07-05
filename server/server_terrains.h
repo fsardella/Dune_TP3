@@ -38,9 +38,9 @@ class Terrain {
 class Sand : public Terrain {
  public:
     Sand();
-    int getSpeedWeight(Unit& unit, coor_t coord);
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
     //void print(); // DEBUG
-    bool isSand();
+    bool isSand() override;
     virtual ~Sand();
 };
 
@@ -48,53 +48,51 @@ class Rock : public Terrain {
     Building* building = nullptr;
  public:
     Rock();
-    void build(Building* newBuilding);
-    bool canBuild();
-    bool isBlocked();
-    bool isThereARefinery();
-    void eraseBuilding();
-    Building* getBuilding();
-    int getSpeedWeight(Unit& unit, coor_t coord);
+    void build(Building* newBuilding) override;
+    bool canBuild() override;
+    bool isBlocked() override;
+    bool isThereARefinery() override;
+    void eraseBuilding() override;
+    Building* getBuilding() override;
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
     virtual ~Rock();
 };
 
 class Spice : public Terrain {
     uint16_t quantity;
  public:
-    Spice(uint16_t quantity);
-    uint16_t peekMenage();
-    uint16_t harvestMenage(uint16_t freeSpace);
-    bool hasMenage();
-    int getSpeedWeight(Unit& unit, coor_t coord);
+    explicit Spice(uint16_t quantity);
+    uint16_t peekMenage() override;
+    uint16_t harvestMenage(uint16_t freeSpace) override;
+    bool hasMenage() override;
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
     virtual ~Spice();
 };
 
 class Dune : public Terrain {
  public:
     Dune();
-    int getSpeedWeight(Unit& unit, coor_t coord);
-    float getSpeedMod();
-    void print();  // DEBUG
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
+    float getSpeedMod() override;
+    void print() override;  // DEBUG
     virtual ~Dune();
 };
 
 class Mount : public Terrain {
  public:
     Mount();
-    int getSpeedWeight(Unit& unit, coor_t coord);
-    void print();  // DEBUG
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
+    void print() override;  // DEBUG
     virtual ~Mount();
 };
 
 class Cliff : public Terrain {
  public:
     Cliff();
-    int getSpeedWeight(Unit& unit, coor_t coord);
-    bool isBlocked();
-    void print();  // DEBUG
+    int getSpeedWeight(Unit& unit, coor_t coord) override;
+    bool isBlocked() override;
+    void print() override;  // DEBUG
     virtual ~Cliff();
 };
 
 #endif
-
-

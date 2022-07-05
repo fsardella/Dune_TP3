@@ -62,7 +62,7 @@ class AssaultRifle: public Weapon {
     uint16_t bonus;
  public:
     AssaultRifle(TerrainMap& ter, uint16_t range, Config* c);
-    uint16_t getDamageModForInfantry();
+    uint16_t getDamageModForInfantry() override;
     virtual ~AssaultRifle();
 };
 
@@ -90,7 +90,7 @@ class SoundWaves: public Weapon {
                std::list<Command>& damageBroadcaster, Unit* self*/);
     //bool attack(Unit* objective);
     //bool attack(Building* objective);
-    uint16_t getDamageModForInfantry();
+    uint16_t getDamageModForInfantry() override;
     virtual ~SoundWaves();
 };
 
@@ -98,8 +98,8 @@ class TTCannon: public Weapon {
     uint16_t bonus;
  public:
     TTCannon(TerrainMap& ter, uint16_t range, Config* c);
-    uint16_t getDamageModForVehicle();
-    uint16_t getDamageModForBuilding();
+    uint16_t getDamageModForVehicle() override;
+    uint16_t getDamageModForBuilding() override;
     virtual ~TTCannon();
 };
 
@@ -107,8 +107,8 @@ class PlasmaCannon: public Weapon {
     uint16_t bonus;
  public:
     PlasmaCannon(TerrainMap& ter, uint16_t range, Config* c);
-    uint16_t getDamageModForVehicle();
-    uint16_t getDamageModForBuilding();
+    uint16_t getDamageModForVehicle() override;
+    uint16_t getDamageModForBuilding() override;
     virtual ~PlasmaCannon();
 };
 
@@ -118,12 +118,12 @@ class TwoHanded : public Weapon { // Solo hereda de weapon por los punteros
     bool usedFirst = true;
  public:
     TwoHanded(TerrainMap& ter, uint16_t range, Config* c);
-    uint16_t getType();
-    void update();
-    bool attack(Unit* objective);
-    bool attack(Building* objective);
-    void startAttack();
-    void stopAttack();
+    uint16_t getType() override;
+    void update() override;
+    bool attack(Unit* objective) override;
+    bool attack(Building* objective) override;
+    void startAttack() override;
+    void stopAttack() override;
     ~TwoHanded();
 };
 
@@ -133,7 +133,7 @@ class DeviatorLauncher: public Weapon {
  public:
     DeviatorLauncher(TerrainMap& ter, uint16_t range, Config* c, std::string owner,
                 std::list<std::pair<uint16_t, std::string>>& swappedUnits);
-    bool attack(Unit* objective);
+    bool attack(Unit* objective) override;
     virtual ~DeviatorLauncher();
 };
 

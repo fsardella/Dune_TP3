@@ -24,7 +24,7 @@ class BlockingQueue{
     void push(T element);
     T pop();
     ~BlockingQueue();
-    
+
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;
 

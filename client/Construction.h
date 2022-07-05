@@ -59,7 +59,6 @@ class Construction {
     int getWidth();
     int getHeight();
     bool getIsDead();
-    void kill();
 
     void setExplosion();
     int getAnimationId();
