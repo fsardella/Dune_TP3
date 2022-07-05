@@ -141,6 +141,7 @@ class Config {
     uint16_t DEVASTATOR_CTIME;
     uint16_t DEVASTATOR_PRICE;
     uint16_t DEVASTATOR_LIFE;
+    uint16_t DEVASTATOR_EXPLOSION;
 
     uint16_t HARVESTER_RANGE;
     uint16_t HARVESTER_SPEED;

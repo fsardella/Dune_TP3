@@ -11,7 +11,7 @@ clock: 100000
 
 worm: 300
 
-initial_money: 4000
+initial_money: 40000
 
 #######        BUILDINGS         #######
 
@@ -19,7 +19,7 @@ base:
     life: 3000
 
 air_trap: 
-    energy: 500
+    energy: 5000
     price: 800
     life: 500
     ctime: 100
@@ -169,6 +169,7 @@ devastator:
     ctime: 300
     price: 400
     life: 400
+    explosion: 100
 
 
 harvester:

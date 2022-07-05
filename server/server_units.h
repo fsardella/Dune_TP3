@@ -216,11 +216,14 @@ class Deviator : public Vehicle {
 };
 
 class Devastator : public Vehicle {
-    std::list<Command>& explotionBroadcaster;
+    uint16_t explosionDamage;
+    TerrainMap& terr;
+    std::list<Command>& explosionBroadcaster;
  public:
     Devastator(coor_t coor, TerrainMap& terr, uint16_t id, std::string owner,
           Config* c, std::list<Command>& events);
     uint8_t getType();
+    void die();
     virtual ~Devastator();
 };
 

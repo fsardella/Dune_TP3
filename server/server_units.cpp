@@ -660,10 +660,30 @@ Devastator::Devastator(coor_t coor, TerrainMap& terr, uint16_t id, std::string o
                                     new PlasmaCannon(terr,
                                     c->DEVASTATOR_RANGE, c),
                                     id, c->DEVASTATOR_SPEED, owner),
-                                    explotionBroadcaster(events) {}
+                                    explosionDamage(c->DEVASTATOR_EXPLOSION),
+                                    terr(terr),
+                                    explosionBroadcaster(events) {}
 
 uint8_t Devastator::getType() {
     return DEVASTATOR;
+}
+
+
+void Devastator::die() {
+    std::list<Unit*> exploded = this->terr.getAllUnits(this->getPosition());
+    for (Unit* rip : exploded) {
+        if (rip->getID() == this->getID())
+            continue;
+        rip->damage(this->explosionDamage);
+        Command expl;
+        expl.add8bitsMessage(UNIT_ATTACKED);
+        expl.add16bitsMessage(0xFFFF);
+        expl.add16bitsMessage(rip->getID());
+        expl.add16bitsMessage(rip->getActualLife());
+        expl.add16bitsMessage(rip->getTotalLife());
+        this->explosionBroadcaster.push_back(expl);
+    }
+    Vehicle::die();
 }
 
 Devastator::~Devastator() {}

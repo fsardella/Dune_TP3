@@ -139,6 +139,7 @@ Config::Config(std::string YAMLpath) {
     this->DEVASTATOR_CTIME          = node["devastator"]["ctime"].as<uint16_t>();
     this->DEVASTATOR_PRICE          = node["devastator"]["price"].as<uint16_t>();
     this->DEVASTATOR_LIFE           = node["devastator"]["life"].as<uint16_t>();
+    this->DEVASTATOR_EXPLOSION      = node["devastator"]["explosion"].as<uint16_t>();
 
     this->HARVESTER_RANGE           = node["harvester"]["range"].as<uint16_t>();
     this->HARVESTER_SPEED           = node["harvester"]["speed"].as<uint16_t>();
