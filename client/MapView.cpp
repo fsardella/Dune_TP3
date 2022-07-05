@@ -65,6 +65,7 @@ MapView::MapView(SdlWindow& window, int houseNumberClient)
        WORM_WIDTH, WORM_HEIGHT, 0, 0) {
     this->loadTileTranslator();
     this->loadFontTitles();
+    std::cout << "voy a llamar a yaml translator\n";
     this->loadMenuTranslator();
     this->loadSpritesTranslator();
     this->loadLifeTranslator();
@@ -144,12 +145,15 @@ void MapView::loadMenuTranslator() {
     YAML::Node node = YAML::LoadFile(MENU_PATH);
     int amount = node["amount"].as<int>();
     for (int i = 0; i <= amount; i++) {
+        std::cout << i << std::endl;
         if (i == CONSTRUCTION_YARD_ID) continue;
         std::vector<std::string> menuImgInfo = node[i].as<std::vector<
                                                           std::string>>();
         std::string key(std::to_string(i) + "_houses");
         std::vector<int> menuImgHouses = node[key].as<std::vector<int>>();
+
         menuInfoHouses.insert(std::pair{i, std::move(menuImgHouses)});
+
         menuTextureTranslator.emplace(std::piecewise_construct,
                                       std::forward_as_tuple(i),
                                       std::forward_as_tuple(menuImgInfo[1],

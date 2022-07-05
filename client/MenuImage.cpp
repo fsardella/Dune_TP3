@@ -110,7 +110,7 @@ parámetro. Devuelve true si se puede desbloquear o false si no.
 
 bool MenuImage::checkUnblockPosibility(int buildingType) {
     if (type < 2 && lightFactorys != 0) return true;
-    if (type > 2 && type < 4 && heavyFactorys != 0) return true;
+    if (type >= 2 && type < 4 && heavyFactorys != 0) return true;
     if (type > 3 && type < 7 && heavyFactorys != 0 && palaces != 0)
         return true;
     if (type > 3 && type < 7 && palaces != 0 && heavyFactorys != 0)
@@ -156,7 +156,9 @@ que eligió el jugador y el tipo de edificio creado.
 */
 
 void MenuImage::updateUnblocking(int buildingType, int house) {
-    if (!checkHouse(house)) return;
+    if (!checkHouse(house)) {
+        return;
+    }
     updateBuildings(buildingType);
     if (checkUnblockPosibility(buildingType)) {
         blocked = false;
