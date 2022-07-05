@@ -16,21 +16,21 @@ Broadcaster::Broadcaster(ActiveGame& game, queueMap_t& queues,
 Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units,
                        std::map<uint8_t, std::pair<uint32_t, int32_t>>& pData) {
     Command comm;
-    comm.add8BytesMessage(UNIT_BROADCAST);
+    comm.add8bitsMessage(UNIT_BROADCAST);
     comm.setType(UNIT_BROADCAST);
     int totalQuantity = units.size();
-    comm.add16BytesMessage((uint16_t)totalQuantity);
+    comm.add16bitsMessage((uint16_t)totalQuantity);
     for (auto& playerUnits : units) {
-        comm.add8BytesMessage(playerUnits.first);
-        comm.add32BytesMessage((uint32_t) pData[playerUnits.first].second);
-        comm.add32BytesMessage(pData[playerUnits.first].first);
-        comm.add16BytesMessage(playerUnits.second.size());
+        comm.add8bitsMessage(playerUnits.first);
+        comm.add32bitsMessage((uint32_t) pData[playerUnits.first].second);
+        comm.add32bitsMessage(pData[playerUnits.first].first);
+        comm.add16bitsMessage(playerUnits.second.size());
         for (UnitData& unit : playerUnits.second) {
-            comm.add16BytesMessage(unit.pos.second);
-            comm.add16BytesMessage(unit.pos.first);
-            comm.add8BytesMessage(unit.type);
-            comm.add8BytesMessage(unit.dir);
-            comm.add16BytesMessage(unit.id);
+            comm.add16bitsMessage(unit.pos.second);
+            comm.add16bitsMessage(unit.pos.first);
+            comm.add8bitsMessage(unit.type);
+            comm.add8bitsMessage(unit.dir);
+            comm.add16bitsMessage(unit.id);
         } 
     }
     return comm;
@@ -39,26 +39,26 @@ Command Broadcaster::getUnits(std::map<uint8_t, std::list<UnitData>>& units,
 
 Command Broadcaster::getUnitsBuilding(std::list<UnitBuffer>& unitsBuilding) {
     Command comm;
-    comm.add8BytesMessage(UNIT_WIP);
+    comm.add8bitsMessage(UNIT_WIP);
     comm.setType(UNIT_WIP);
-    comm.add16BytesMessage(unitsBuilding.size());
+    comm.add16bitsMessage(unitsBuilding.size());
     for (UnitBuffer& u : unitsBuilding) {
-        comm.add8BytesMessage(u.getPlayerID());
-        comm.add8BytesMessage(u.getType());
-        comm.add8BytesMessage(u.getTimeToEnd());
+        comm.add8bitsMessage(u.getPlayerID());
+        comm.add8bitsMessage(u.getType());
+        comm.add8bitsMessage(u.getTimeToEnd());
     }
     return comm;   
 }
 
 Command Broadcaster::getMenageBroadcast(std::list<std::pair<coor_t, uint16_t>> menageData) {
     Command comm;
-    comm.add8BytesMessage(MENAGE);
+    comm.add8bitsMessage(MENAGE);
     comm.setType(MENAGE);
-    comm.add16BytesMessage(menageData.size());
+    comm.add16bitsMessage(menageData.size());
     for (auto& m : menageData) {
-        comm.add16BytesMessage(m.first.second);
-        comm.add16BytesMessage(m.first.first);
-        comm.add8BytesMessage((m.second == 0)? 0: m.second / 160 + 1);
+        comm.add16bitsMessage(m.first.second);
+        comm.add16bitsMessage(m.first.first);
+        comm.add8bitsMessage((m.second == 0)? 0: m.second / 160 + 1);
     }
     return comm;
 }

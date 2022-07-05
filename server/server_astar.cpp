@@ -45,7 +45,6 @@ float AStar::getSpeedMod() {
 
 bool AStar::processMove(coor_t dest) {
     if (this->actPos == dest || this->terr.isBlocked(dest)) {
-        std::cout << "I FOUND MY WAY\n";
         this->dir = IDLE;
         return true;
     } else if (!this->movs.empty() && this->actDest == dest) {

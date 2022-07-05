@@ -132,11 +132,11 @@ std::list<Command> ActiveGame::receiveBuildingsBuilding() {
     this->game.getBuildingsBuilding(result);
     for (auto& c : result) {
         Command comm;
-        comm.add8BytesMessage(BUILDING_WIP);
+        comm.add8bitsMessage(BUILDING_WIP);
         comm.setType(BUILDING_WIP);
         comm.changeSender(this->buildingIDs[c.first]);
-        comm.add8BytesMessage(c.second.first);
-        comm.add8BytesMessage(c.second.second);
+        comm.add8bitsMessage(c.second.first);
+        comm.add8bitsMessage(c.second.second);
         ret.push_back(comm);
     }
     return ret;
@@ -200,13 +200,13 @@ bool ActiveGame::addBuilding(std::string playerName, uint16_t x, uint16_t y) {
                                       this->gameMap, this->buildingIDCount);
     if (ret != 0xFFFF) {
         Command newEvent;
-        newEvent.add8BytesMessage(BUILDING_BUILT);
+        newEvent.add8bitsMessage(BUILDING_BUILT);
         newEvent.setType(BUILDING_BUILT);
-        newEvent.add8BytesMessage(this->game.getPlayerID(playerName));
-        newEvent.add16BytesMessage(this->buildingIDCount);
-        newEvent.add8BytesMessage(ret);
-        newEvent.add16BytesMessage(x);
-        newEvent.add16BytesMessage(y);
+        newEvent.add8bitsMessage(this->game.getPlayerID(playerName));
+        newEvent.add16bitsMessage(this->buildingIDCount);
+        newEvent.add8bitsMessage(ret);
+        newEvent.add16bitsMessage(x);
+        newEvent.add16bitsMessage(y);
         this->events.push_back(newEvent);
         this->buildingIDs[this->buildingIDCount] = playerName;
         this->buildingIDCount++;

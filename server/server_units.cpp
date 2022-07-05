@@ -141,11 +141,11 @@ void Unit::kill(std::list<Command>& events) {
     if (!this->isDead()) {
         this->die();
         Command dead;
-        dead.add8BytesMessage(UNIT_ATTACKED);
-        dead.add16BytesMessage(0xFFFF);
-        dead.add16BytesMessage(this->id);
-        dead.add16BytesMessage(0);
-        dead.add16BytesMessage(this->totalLife);
+        dead.add8bitsMessage(UNIT_ATTACKED);
+        dead.add16bitsMessage(0xFFFF);
+        dead.add16bitsMessage(this->id);
+        dead.add16bitsMessage(0);
+        dead.add16bitsMessage(this->totalLife);
         events.push_back(dead);
     }
     this->actualLife = 0;
@@ -192,12 +192,12 @@ void Unit::processAttackUnit(std::list<Command>& events) {
         this->weapon->startAttack();
         if (this->weapon->attack(this->unitObjv)) {
             Command attack;
-            attack.add8BytesMessage(UNIT_ATTACKED);
+            attack.add8bitsMessage(UNIT_ATTACKED);
             attack.setType(UNIT_ATTACKED);
-            attack.add16BytesMessage(this->id);
-            attack.add16BytesMessage(this->unitObjv->getID());
-            attack.add16BytesMessage(this->unitObjv->getActualLife());
-            attack.add16BytesMessage(this->unitObjv->getTotalLife());
+            attack.add16bitsMessage(this->id);
+            attack.add16bitsMessage(this->unitObjv->getID());
+            attack.add16bitsMessage(this->unitObjv->getActualLife());
+            attack.add16bitsMessage(this->unitObjv->getTotalLife());
             events.push_back(attack);
     }
     } else {
@@ -223,12 +223,12 @@ void Unit::processAttackBuilding(std::list<Command>& events) {
         this->weapon->startAttack();
         if (this->weapon->attack(this->buildingObjv)) {
             Command attack;
-            attack.add8BytesMessage(BUILDING_ATTACKED);
+            attack.add8bitsMessage(BUILDING_ATTACKED);
             attack.setType(BUILDING_ATTACKED);
-            attack.add16BytesMessage(this->id);
-            attack.add16BytesMessage(this->buildingObjv->getID());
-            attack.add16BytesMessage(this->buildingObjv->getActualLife());
-            attack.add16BytesMessage(this->buildingObjv->getTotalLife());
+            attack.add16bitsMessage(this->id);
+            attack.add16bitsMessage(this->buildingObjv->getID());
+            attack.add16bitsMessage(this->buildingObjv->getActualLife());
+            attack.add16bitsMessage(this->buildingObjv->getTotalLife());
             events.push_back(attack);
         }
     } else {
@@ -245,12 +245,12 @@ void Unit::processIdle(std::list<Command>& events) {
     this->weapon->startAttack();
     if (this->weapon->attack(tempObjv)) {
         Command attack;
-        attack.add8BytesMessage(UNIT_ATTACKED);
+        attack.add8bitsMessage(UNIT_ATTACKED);
         attack.setType(UNIT_ATTACKED);
-        attack.add16BytesMessage(this->id);
-        attack.add16BytesMessage(tempObjv->getID());
-        attack.add16BytesMessage(tempObjv->getActualLife());
-        attack.add16BytesMessage(tempObjv->getTotalLife());
+        attack.add16bitsMessage(this->id);
+        attack.add16bitsMessage(tempObjv->getID());
+        attack.add16bitsMessage(tempObjv->getActualLife());
+        attack.add16bitsMessage(tempObjv->getTotalLife());
         events.push_back(attack);
     }
 }

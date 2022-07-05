@@ -11,6 +11,7 @@ clock: 100000
 
 worm: 300
 
+initial_money: 4000 
 
 #######        BUILDINGS         #######
 

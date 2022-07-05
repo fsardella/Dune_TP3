@@ -55,6 +55,8 @@ class Building {
     virtual bool isLightFactory();
     virtual bool isHeavyFactory();
     virtual bool isRefinery();
+    virtual bool isPalace();
+    virtual bool isBarrack();
     
     void update(uint16_t constructionTime);
     uint8_t getCompletion();
@@ -93,7 +95,6 @@ class LightFactory : public Building {
  public:
     LightFactory(std::string owner, Config* c);
     bool isLightFactory() override;
-    int32_t getEnergy();
     uint16_t getType();
     virtual ~LightFactory();
 };
@@ -107,6 +108,14 @@ class HeavyFactory : public Building {
     virtual ~HeavyFactory();
 };
 
+class Palace : public Building {
+ public:
+    Palace(std::string owner, Config* c);
+    bool isPalace();
+    uint16_t getType();
+    virtual ~Palace();
+};
+
 class Refinery : public Building {
     uint32_t moneyCap;
     uint32_t money = 0;
@@ -116,17 +125,32 @@ class Refinery : public Building {
     uint32_t gatherMoney(uint32_t actualMoney, uint32_t moneyCapacity);
     uint32_t getMoneyCapacity();
     void rechargeMoney(uint32_t menage);
-    int32_t getEnergy();
     uint16_t getType();
     virtual ~Refinery();
+};
+
+class Silo : public Building {
+    uint32_t moneyCap;
+ public:
+    Silo(std::string owner, Config* c);
+    uint32_t getMoneyCapacity();
+    uint16_t getType();
+    virtual ~Silo();
 };
 
 class WindTrap : public Building {
  public:
     WindTrap(std::string owner, Config* c);
-    int32_t getEnergy();
     uint16_t getType();
     virtual ~WindTrap();
+};
+
+class Barrack : public Building {
+  public:
+    Barrack(std::string owner, Config* c);
+    bool isBarrack();
+    uint16_t getType();
+    virtual ~Barrack();
 };
 
 #endif

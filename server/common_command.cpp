@@ -7,29 +7,29 @@
 Command::Command(): actTop(0), sender("HOST"), type(0xFF) {}
 
 
-void Command::add8BytesMessage(const uint8_t message) {
+void Command::add8bitsMessage(const uint8_t message) {
     this->command.push_back(message);
 }
 
-void Command::add16BytesMessage(const uint16_t message) {
+void Command::add16bitsMessage(const uint16_t message) {
     uint16_t newMessage = htons(message);
     uint8_t* auxPoint = (uint8_t*)&newMessage;
-    this->add8BytesMessage(auxPoint[0]);
-    this->add8BytesMessage(auxPoint[1]);
+    this->add8bitsMessage(auxPoint[0]);
+    this->add8bitsMessage(auxPoint[1]);
 }
 
-void Command::add32BytesMessage(const uint32_t message) {
+void Command::add32bitsMessage(const uint32_t message) {
     uint32_t newMessage = htonl(message);
     uint8_t* auxPoint = (uint8_t*)&newMessage;
-    this->add8BytesMessage(auxPoint[0]);
-    this->add8BytesMessage(auxPoint[1]);
-    this->add8BytesMessage(auxPoint[2]);
-    this->add8BytesMessage(auxPoint[3]);
+    this->add8bitsMessage(auxPoint[0]);
+    this->add8bitsMessage(auxPoint[1]);
+    this->add8bitsMessage(auxPoint[2]);
+    this->add8bitsMessage(auxPoint[3]);
 }
 
 void Command::addString(const std::string& sent) {
     for (size_t i = 0; i < sent.size(); i++)
-        this->add8BytesMessage((uint8_t)sent[i]);
+        this->add8bitsMessage((uint8_t)sent[i]);
 }
 
 
@@ -69,7 +69,7 @@ bool Command::isEmpty() {
     return this->command.size() <= this->actTop;
 }
 
-uint8_t Command::pop8BytesMessage() {
+uint8_t Command::pop8bitsMessage() {
     if (this->isEmpty())
         throw std::runtime_error("Tried to pop empty Command");
     uint8_t ret = this->command[this->actTop];
@@ -78,24 +78,24 @@ uint8_t Command::pop8BytesMessage() {
 }
 
 
-uint16_t Command::pop16BytesMessage(){
+uint16_t Command::pop16bitsMessage(){
     if (this->isEmpty())
         throw std::runtime_error("Tried to pop empty Command");
     uint8_t bytes[2];
-    bytes[0] = this->pop8BytesMessage();
-    bytes[1] = this->pop8BytesMessage();
+    bytes[0] = this->pop8bitsMessage();
+    bytes[1] = this->pop8bitsMessage();
     uint16_t* auxPoint = (uint16_t*)&bytes[0];
     return ntohs(*auxPoint);
 }
 
-uint32_t Command::pop32BytesMessage() {
+uint32_t Command::pop32bitsMessage() {
     if (this->isEmpty())
         throw std::runtime_error("Tried to pop empty Command");
     uint8_t bytes[4];
-    bytes[0] = this->pop8BytesMessage();
-    bytes[1] = this->pop8BytesMessage();
-    bytes[2] = this->pop8BytesMessage();
-    bytes[3] = this->pop8BytesMessage();
+    bytes[0] = this->pop8bitsMessage();
+    bytes[1] = this->pop8bitsMessage();
+    bytes[2] = this->pop8bitsMessage();
+    bytes[3] = this->pop8bitsMessage();
     uint16_t* auxPoint = (uint16_t*)&bytes[0];
     return ntohl(*auxPoint);
 }
@@ -105,7 +105,7 @@ std::string Command::popString(const size_t lenght) {
     std::string ret;
     ret.resize(lenght);
     for (size_t i = 0; i < lenght; i++) {
-        ret[i] = (char)this->pop8BytesMessage();
+        ret[i] = (char)this->pop8bitsMessage();
     } 
     return ret;
 }

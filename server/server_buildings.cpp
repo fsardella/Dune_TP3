@@ -61,10 +61,16 @@ Building* Building::newBuilding(uint8_t type, std::string owner, Config* c) {
             return new LightFactory(owner, c);
         case HEAVY_FACTORY:
             return new HeavyFactory(owner, c);
+        case PALACE:
+            return new Palace(owner, c);
         case REFINERY:
             return new Refinery(owner, c);
+        case SILO:
+            return new Silo(owner, c);
         case WINDTRAP:
             return new WindTrap(owner, c);
+        case BARRACK:
+            return new Barrack(owner, c);
         default:
             return nullptr;
     }
@@ -79,6 +85,14 @@ bool Building::isHeavyFactory() {
 }
 
 bool Building::isRefinery() {
+    return false;
+}
+
+bool Building::isPalace() {
+    return false;
+}
+
+bool Building::isBarrack() {
     return false;
 }
 
@@ -140,11 +154,11 @@ void Building::destroy(std::list<Command>& events) {
     if (!this->destroyed()) {
         this->eraseFromMap();
         Command dead;
-        dead.add8BytesMessage(BUILDING_ATTACKED);
-        dead.add16BytesMessage(0xFFFF);
-        dead.add16BytesMessage(this->buildingID);
-        dead.add16BytesMessage(0);
-        dead.add16BytesMessage(this->totalLife);
+        dead.add8bitsMessage(BUILDING_ATTACKED);
+        dead.add16bitsMessage(0xFFFF);
+        dead.add16bitsMessage(this->buildingID);
+        dead.add16bitsMessage(0);
+        dead.add16bitsMessage(this->totalLife);
         events.push_back(dead);
     }
     this->actualLife = 0;
@@ -177,6 +191,8 @@ Building::~Building() {}
 
 
 
+
+
 Base::Base(coor_t position, std::string owner, Config* c):
         Building(coor_t(3, 3), c->BASE_LIFE, 0, 0, owner) {
     this->position = position;
@@ -190,6 +206,9 @@ uint16_t Base::getType() {
 }
 
 Base::~Base() {}
+
+
+
 
 
 LightFactory::LightFactory(std::string owner, Config* c):
@@ -207,6 +226,10 @@ uint16_t LightFactory::getType() {
 
 LightFactory::~LightFactory() {}
 
+
+
+
+
 HeavyFactory::HeavyFactory(std::string owner, Config* c):
                 Building(coor_t(4, 4), c->HEAVY_FACTORY_LIFE,
                 c->HEAVY_FACTORY_CTIME, c->HEAVY_FACTORY_ENERGY, owner) {} 
@@ -221,6 +244,23 @@ uint16_t HeavyFactory::getType() {
 
 
 HeavyFactory::~HeavyFactory() {}
+
+
+
+Palace::Palace(std::string owner, Config* c):
+                            Building(coor_t(3, 3), c->PALACE_LIFE,
+                            c->PALACE_CTIME, c->PALACE_ENERGY, owner) {} 
+
+bool Palace::isPalace() {
+    return true;
+}
+
+uint16_t Palace::getType() {
+    return PALACE;
+}
+
+Palace::~Palace() {}
+
 
 
 
@@ -262,6 +302,26 @@ uint32_t Refinery::getMoneyCapacity() {
 Refinery::~Refinery() {}
 
 
+
+Silo::Silo(std::string owner, Config* c):
+                        Building(coor_t(1, 1), c->SILO_LIFE,
+                        c->SILO_CTIME, c->SILO_ENERGY, owner),
+                        moneyCap(c->SILO_CAPACITY) {}
+
+uint16_t Silo::getType() {
+    return SILO;
+}
+
+uint32_t Silo::getMoneyCapacity() {
+    return this->moneyCap;
+}
+
+
+Silo::~Silo() {}
+
+
+
+
 WindTrap::WindTrap(std::string owner, Config* c):
                         Building(coor_t(3, 3), c->AIR_TRAP_LIFE,
                         c->AIR_TRAP_CTIME, c->AIR_TRAP_ENERGY, owner) {}
@@ -272,3 +332,21 @@ uint16_t WindTrap::getType() {
 }
 
 WindTrap::~WindTrap() {}
+
+
+
+Barrack::Barrack(std::string owner, Config* c): 
+                            Building(coor_t(3, 2), c->BARRACK_LIFE,
+                            c->BARRACK_CTIME, c->BARRACK_ENERGY, owner) {} 
+
+
+
+bool Barrack::isBarrack() {
+    return true;
+}
+
+uint16_t Barrack::getType() {
+    return BARRACK;
+}
+
+Barrack::~Barrack() {}

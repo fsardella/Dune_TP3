@@ -13,7 +13,8 @@ class Config {
     std::string MAP_NAMES_PATH;
     int CLOCK_DELTA;
 
-
+    uint32_t INITIAL_MONEY;
+    
     uint32_t WORM_DELAY;
 
     // BUILDINGS

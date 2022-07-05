@@ -78,18 +78,18 @@ bool GameHandler::endedRun() {
 }
 
 void GameHandler::addNewUnit(Command comm) {
-    uint8_t type = comm.pop8BytesMessage();
+    uint8_t type = comm.pop8bitsMessage();
     this->game.addUnit(comm.getSender(), type);
 }
 
 void GameHandler::createNewBuilding(Command comm) {
-    uint8_t type = comm.pop8BytesMessage();
+    uint8_t type = comm.pop8bitsMessage();
     this->game.createBuilding(comm.getSender(), type);  
 }
 
 void GameHandler::addNewBuilding(Command comm) {
-    uint16_t x = comm.pop16BytesMessage();
-    uint16_t y = comm.pop16BytesMessage();
+    uint16_t x = comm.pop16bitsMessage();
+    uint16_t y = comm.pop16bitsMessage();
     bool result = this->game.addBuilding(comm.getSender(), x, y);
     if (!result)
         this->notifyError(comm);
@@ -98,7 +98,7 @@ void GameHandler::addNewBuilding(Command comm) {
 }
 
 void GameHandler::destroyBuilding(Command comm) {
-    uint16_t id = comm.pop16BytesMessage();
+    uint16_t id = comm.pop16bitsMessage();
     this->game.destroyBuilding(comm.getSender(), id);
 }
 
@@ -106,9 +106,9 @@ void GameHandler::destroyBuilding(Command comm) {
 #define ATTACK_BUILDING 1
 
 void GameHandler::processAttack(Command comm) {
-    uint8_t type = comm.pop8BytesMessage();
-    uint16_t attacker = comm.pop16BytesMessage();
-    uint16_t attacked = comm.pop16BytesMessage();
+    uint8_t type = comm.pop8bitsMessage();
+    uint16_t attacker = comm.pop16bitsMessage();
+    uint16_t attacked = comm.pop16bitsMessage();
     switch (type) {
         case ATTACK_UNIT:
             this->game.attackUnit(attacker, attacked);
@@ -120,9 +120,9 @@ void GameHandler::processAttack(Command comm) {
 }
 
 void GameHandler::moveUnit(Command comm) {
-    uint16_t unitID = comm.pop16BytesMessage();
-    uint16_t x = comm.pop16BytesMessage();
-    uint16_t y = comm.pop16BytesMessage();
+    uint16_t unitID = comm.pop16bitsMessage();
+    uint16_t x = comm.pop16bitsMessage();
+    uint16_t y = comm.pop16bitsMessage();
     this->game.moveUnit(comm.getSender(), unitID, x, y);
     
 }
@@ -135,7 +135,7 @@ void GameHandler::moveUnit(Command comm) {
 void GameHandler::notifyError(Command comm) {
     Command errorCom;
     errorCom.setType(FAILURE);
-    errorCom.add8BytesMessage(FAILURE);
+    errorCom.add8bitsMessage(FAILURE);
     errorCom.changeSender(comm.getSender());
     this->playersQueue[errorCom.getSender()].push(errorCom);
 }
@@ -143,7 +143,7 @@ void GameHandler::notifyError(Command comm) {
 void GameHandler::notifySuccess(Command comm) {
     Command succCom;
     succCom.setType(SUCCESS);
-    succCom.add8BytesMessage(SUCCESS);
+    succCom.add8bitsMessage(SUCCESS);
     succCom.changeSender(comm.getSender());
     this->playersQueue[succCom.getSender()].push(succCom);
 }

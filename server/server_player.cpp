@@ -7,9 +7,8 @@ Player::Player(const int& house, const std::string& playerName,
                                    c(c), 
                                    playerName(playerName),
                                    house(house),
-                                   base(Base(baseCoords, playerName, c)){
-
-}
+                                   base(Base(baseCoords, playerName, c)),
+                                   money(c->INITIAL_MONEY) {}
 
 
 
@@ -212,6 +211,8 @@ uint16_t Player::getConstructionDelta() {
 void Player::updateBuildings() {
     this->cantHeavyFactories = 0;
     this->cantLightFactories = 0;
+    this->cantPalaces = 0;
+    this->cantBarracks = 0;
     this->energy = 0;
     this->moneyCapacity = 0;
     for (auto& building : this->buildings) {
@@ -219,6 +220,8 @@ void Player::updateBuildings() {
             continue;
         this->cantLightFactories += (int)building.second->isLightFactory();
         this->cantHeavyFactories += (int)building.second->isHeavyFactory();
+        this->cantPalaces += (int)building.second->isPalace();
+        this->cantBarracks += (int)building.second->isBarrack();
         this->energy += building.second->getEnergy();
         this->moneyCapacity += building.second->getMoneyCapacity();
     } 

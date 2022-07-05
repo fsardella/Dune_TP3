@@ -8,6 +8,7 @@ Config::Config(std::string YAMLpath) {
     this->MAP_NAMES_PATH = node["maps_names"].as<std::string>();
     this->CLOCK_DELTA = node["clock"].as<int>();
 
+    this->INITIAL_MONEY = node["initial_money"].as<uint32_t>();
 
     this->WORM_DELAY = node["worm"].as<uint32_t>();
 

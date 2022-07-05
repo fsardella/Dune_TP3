@@ -12,10 +12,10 @@ void Worm::surface(std::list<Command>& events) {
         coor_t coor(rand() % dims.first, rand() % dims.second);
         if (this->terr.isSand(coor)) {
             Command comm;
-            comm.add8BytesMessage(WORM);
+            comm.add8bitsMessage(WORM);
             comm.setType(WORM);
-            comm.add16BytesMessage(coor.second);
-            comm.add16BytesMessage(coor.first);
+            comm.add16bitsMessage(coor.second);
+            comm.add16bitsMessage(coor.first);
             events.push_back(comm);
             this->eatPeople(events, coor);
             break;

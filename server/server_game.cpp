@@ -257,7 +257,7 @@ void Game::cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
         Command win;
         win.changeSender(p->first);
         win.setType(WON_GAME);
-        win.add8BytesMessage(WON_GAME);
+        win.add8bitsMessage(WON_GAME);
         this->decidedWinner = true;
         events.push_back(win);
         return;
@@ -267,7 +267,7 @@ void Game::cleanCorpses(std::map<uint16_t, std::string>& unitIDs,
             Command lost;
             lost.changeSender(p->first);
             lost.setType(LOST_GAME);
-            lost.add8BytesMessage(LOST_GAME);
+            lost.add8bitsMessage(LOST_GAME);
             events.push_back(lost);
             p = this->participants.erase(p);
         } else {

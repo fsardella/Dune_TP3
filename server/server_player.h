@@ -23,9 +23,11 @@ class Player {
     Building* buildingBirthing = nullptr;
     uint16_t cantLightFactories = 0;
     uint16_t cantHeavyFactories = 0;
+    uint16_t cantPalaces = 0;
+    uint16_t cantBarracks = 0;
     int32_t energy = 0;
     uint32_t moneyCapacity = 0;
-    uint32_t money = 4000; // 4000 de dinero inicial... sino no se puede jugar jajsajdj
+    uint32_t money;
     std::map<uint16_t, Building*> buildings;
     bool alreadyLost = false;
 
